@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 // Components
 import SideBar from './SideBar';
+import RelevanceMatch from './RelevanceMatch'
 
 const Container = styled.div`
   width: 100vw;
@@ -26,6 +27,7 @@ class DashBoard extends Component {
     return (
       <Container>
           <SideBar/>
+          <RelevanceMatch/>
       </Container>
    );}
   }

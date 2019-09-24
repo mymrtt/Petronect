@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 // IMG
-import Logo from '../Assets/img/LogoPNE.png';
-import Icon from '../Assets/img/iconTest.png';
-
+import LogoImg from '../Assets/img/LogoPNE.png';
+import RelevanceImg from '../Assets/icon/icon_menu-Relevancia.svg';
+import PotentialImg from '../Assets/icon/icon_menu-analise.svg';
+import HistoricImg from '../Assets/icon/icon_menu-historico.svg';
+import ManagementImg from '../Assets/icon/icon_menu-gestão.svg';
+import DocumentsImg from '../Assets/icon/icon_menu-geracaoDoc.svg';
+import TaxImg from '../Assets/icon/icon_menu-justificativa.svg';
+import ClarificationImg from '../Assets/icon/icon_menu-hitorico.svg';
+import NotificationImg from '../Assets/icon/icon_menu-notificação.svg';
+import FilterImg from '../Assets/icon/icon_menu.svg';
 
 const Container = styled.div`
   width: 20vw;
@@ -51,20 +58,29 @@ const MenuList = styled.ul`
   flex-direction: column;
 `;
 
+const IconSideBar = styled.img`
+  padding-right: 1rem;
+`;
+
 const MenuItem = styled.li`
   height: 36px;
   display: flex;
   align-items: center;
   list-style: none;
   font-size: .875rem;
-  color: #116ea0;
+  color: #116EA0;
   font-weight: 900;
   padding-left: 1rem;
-  &:hover {
-    background-color: #116EA015;
-    color: #116ea0;
-    border-radius: 18px 0 0 18px;
-  }
+  background-color: #116EA015;
+  color: #116ea0;
+  border-radius: 18px 0 0 18px;
+  cursor: pointer;
+`;
+
+const MenuItemHidden = styled(MenuItem)`
+  color: #404040;
+  opacity: 0.25;
+  cursor: default;
 `;
 
 const BoxFilter = styled.div`
@@ -72,6 +88,7 @@ const BoxFilter = styled.div`
   width: 80%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const FilterText = styled.p`
@@ -103,6 +120,10 @@ const BoxInfo = styled.div`
   justify-content: space-between;
 `;
 
+const InfoImg = styled.img`
+  padding-right: .5rem;
+`;
+
 const InfoItem = styled.p`
   color: #000;
   font-size: .875rem;
@@ -121,46 +142,60 @@ const Button = styled.button`
   background: #dbe9f1;
   border-radius: 10px;
   border-style: none; 
+  cursor: pointer;
 `;
 
 class SideBar extends Component { 
   constructor(props){
     super(props);
     this.state = {
-      // list : [
-      //   { 
-      //     icon: {Icon},
-      //     text: 'Match Relevância',
-      //   },
-      //   {
-      //     icon: {Icon},
-      //     text: 'Match Relevância',
-      //   },
-      //   {
-      //     icon: {Icon},
-      //     text: 'Match Relevância',
-      //   },
-      //   {
-      //     icon: {Icon},
-      //     text: 'Match Relevância',
-      //   },
-      //   {
-      //     icon: {Icon},
-      //     text: 'Match Relevância',
-      //   },
-      // ]
-    // };
+      selectItem : [
+        { 
+          iconSelected: <IconSideBar src={RelevanceImg}/>,
+          textSelected: 'Match Relevância',
+        },
+      ],
+      hiddenItem : [
+        {
+          iconHidden: <IconSideBar src={PotentialImg}/>,
+          textHidden: 'Análise de Potencial',
+        },
+        {
+          iconHidden: <IconSideBar src={HistoricImg}/>,
+          textHidden: 'Histórico de oportunidades',
+        },
+        {
+          iconHidden: <IconSideBar src={ManagementImg}/>,
+          textHidden: 'Gestão interna',
+        },
+        {
+          iconHidden: <IconSideBar src={DocumentsImg}/>,
+          textHidden: 'Geração de documentos',
+        },
+        {
+          iconHidden: <IconSideBar src={TaxImg}/>,
+          textHidden: 'Justificativa de impostos',
+        },
+        {
+          iconHidden: <IconSideBar src={ClarificationImg}/>,
+          textHidden: 'Histórico de esclarecimentos',
+        },
+        {
+          iconHidden: <IconSideBar src={NotificationImg}/>,
+          textHidden: 'Notificação de resultados',
+        },
+      ]
  
-    list : [
-      'Match Relevância',
-      'Análise Potencial', 
-      'Histórico de oportunidade', 
-      'Gestão interna',
-      'Geração de documentos',
-      'justificativa de impostos',
-      'Histórico de esclarecimentos',
-      'Notificação de Resultados',
-    ]
+    // list : [
+    //   'Match Relevância',
+    //   'Análise Potencial', 
+    //   'Histórico de oportunidade', 
+    //   'Gestão interna',
+    //   'Geração de documentos',
+    //   'justificativa de impostos',
+    //   'Histórico de esclarecimentos',
+    //   'Notificação de Resultados',
+    // ]
   }
 
 
@@ -183,17 +218,32 @@ class SideBar extends Component {
       <Container>
         <NavBar>
           <BoxLogo>
-            <ImgLogo src={Logo} alt="Logo" />
+            <ImgLogo src={LogoImg} alt="Logo" />
           </BoxLogo>
           <BoxMenu>
             <MenuList>
-            {(this.state.list || []).map(item => (
-            <MenuItem key={item}>{item}</MenuItem>
+
+            {(this.state.selectItem || []).map(item => (
+            <MenuItem 
+            key={item}
+            >
+            {item.iconSelected}{item.textSelected}
+            </MenuItem>
              ))}
+
+             {(this.state.hiddenItem || []).map(item => (
+            <MenuItemHidden 
+            key={item}
+            >
+            {item.iconHidden}{item.textHidden }
+            </MenuItemHidden>
+            ))}
+             
             </MenuList>
           </BoxMenu>
         </NavBar> 
         <BoxFilter>
+          <InfoImg src={FilterImg}/>
           <FilterText>Filtros e notificações</FilterText>
         </BoxFilter>         
         <WrapperInfo>
