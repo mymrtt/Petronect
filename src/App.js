@@ -2,22 +2,23 @@ import React, { Component } from 'react';
 // import styled from 'styled-components';
 
 // Components
-import DashBoard  from './Component/DashBoard';
+import DashBoard from './Component/Login/LoginFull';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-    }
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+		};
+	}
 
-  render() {
-    return (
-    <>
-      <DashBoard/>
-    </>     
-    );
-  }
+	// eslint-disable-next-line class-methods-use-this
+	render() {
+		return (
+			<>
+				<DashBoard />
+			</>
+		);
+	}
 }
 
 export default App;
