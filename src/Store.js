@@ -9,7 +9,7 @@ import {
 import thunkMiddleware from 'redux-thunk';
 
 // Reducers
-import list from './modules/Search-Modules';
+import list from './dataflow/modules/Search-Modules';
 
 const reducers = combineReducers({
   list: list,

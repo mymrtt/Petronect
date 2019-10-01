@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import styled from 'styled-components';
 
-import axios from 'axios';
-
-import { addItem } from '../modules/Search-Modules';
+import { addItem, putFavorite } from '../dataflow/modules/Search-Modules';
 
 import start from '../Assets/icon/estrela.svg';
-import startHover from '../Assets/icon/estrela-branca.svg';
+import startHover from '../Assets/icon/estrela-cinza.svg';
 
-const mapDispatchToProps = (dispatch) =>{
-	return {
-		addItem: (payload) =>{
-			dispatch(addItem(payload))
-		}
-	}
-}
+const mapDispatchToProps = (dispatch) => ({
+	addItem: (payload) => {
+		dispatch(addItem(payload));
+	},
+	putFavorite: (payload) => {
+		dispatch(putFavorite(payload));
+	},
+});
 
-const mapStateToProps = (state) =>{
-	return {
-		search: state.search
-	}
-}
+const mapStateToProps = (state) => ({
+	search: state.search,
+});
 
 
 const Container = styled.div`
@@ -37,7 +35,7 @@ const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;   
+`;
 
 const WrapperHead = styled.div`
   width: 95%;
@@ -45,7 +43,7 @@ const WrapperHead = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`; 
+`;
 
 const BoxHeader = styled.span`
   display: flex;
@@ -109,7 +107,7 @@ const WrapperTable = styled.div`
   background: #fff;
 `;
 
-const  Table  = styled.table`
+const Table = styled.table`
   background: #fff;
   width: 97%;
   border-radius: 5px;
@@ -118,14 +116,14 @@ const  Table  = styled.table`
   }
 `;
 
-const  HeaderRow  = styled.tr`
+const HeaderRow = styled.tr`
   width: 90vw;
   height: 32px; 
   border-radius: 4px;
   color: #8C8C8C;
 `;
 
-const  TableRow  = styled.tr`
+const TableRow = styled.tr`
   width: 90vw;
   height: 32px; 
   border-radius: 4px;
@@ -136,15 +134,15 @@ const  TableRow  = styled.tr`
   }
 `;
 
-const  TableHeader  = styled.th`
-  width: ${props => props.boxWidth ? "50px" : "auto"};
+const TableHeader = styled.th`
+  width: ${(props) => (props.boxWidth ? '50px' : 'auto')};
   padding-left: 1rem;
   text-align: left;
   font-size: .875rem;
   font-weight: 500;
 `;
 
-const  TableBody  = styled.td`
+const TableBody = styled.td`
   padding-left: 1rem;
   text-align: left;
   font-size: .875rem;
@@ -152,200 +150,178 @@ const  TableBody  = styled.td`
   font-weight: 500;
 `;
 
-
-
-
+const apiOpportunities = {
+	baseUrl: 'http://petronect-app-core-api-dev-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api/opportunities',
+};
 
 class RelevanceMatch extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      search: [],
-      selectItem : [
-        {
-          favorites: <img src={start}/>,
-          fit: 'Test1',
-          category: 'Test2',
-          id: 'Test3',
-          titleDescription: 'Test4',
-          deadline: 'Test5',
-        },
-      ],
-      favorites : false
-    }
-    //  const searchItems = this.state.search.map((search) =>
-    //   <TableHeader>{this.state.search}</TableHeader>
-    // )
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			search: '',
+			data: [],
+			searchString: [],
+			opportunities: [],
+			selectItem: [
+				{
+					favorites: <img src={this.favorite ? start : startHover} onClick = {this.handleFavorite}/>,
+					fit: 'Test1',
+					category: 'Test2',
+					id: 'Test3',
+					titleDescription: 'Test4',
+					deadLine: 'Test5',
+				},
+			],
+			hoverFavorites: false,
+			favorite: false,
+		};
+		//  const searchItems = this.state.search.map((search) =>
+		//   <TableHeader>{this.state.search}</TableHeader>
+		// )
+	}
 
-  componentDidMount() {
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
-      .then(res => {
-        const search = res.data;
-        this.setState({ search });
-      })
-      .catch(error => this.setState({ error }));
-  }
+	componentWillMount() {
+		this.getData();
+	}
+
+	getData = () => { // fazer um get na API e buscar a palavra chave
+		axios.get('')
+			.then((responseData) => {
+				// const opportunities = res.data;
+				console.log('chegouuuu', responseData.data);
+				this.setState({ data: responseData, searchString: responseData });
+			})
+			.catch((error) => this.setState({ error }));
+	}
 
   hoverFavorites = (e) => {
-    this.setState({
-        favorites: !this.state.favorites,
-    })
-  console.log("mudou", this.state.favorites)
-}
-
-handleChange = (event) => {
-  event.preventDefault();
-  this.setState({ search: event.target.value })
-}
-
-handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
-      event.preventDefault();
-      this.props.addItem(this.state.search);
-      console.log('enter press here! ')
-    }
+  	this.setState({
+  		hoverFavorites: !this.state.hoverFavorites,
+  	});
+  	console.log('hoverFavorites', this.state.hoverFavorites);
   }
 
+  handleInputChange = (event) => {
+  	event.preventDefault();
+  	this.setState({
+  		search: event.target.value,
+  	});
+  }
+
+  handleKeyPress = (event) => {
+  	if (event.key === 'Enter') {
+  		event.preventDefault();
+  		this.props.addItem(this.state.search);
+  		console.log('enter press here! ');
+  	}
+  }
+
+  handleFavorite = (e) => {
+  	this.setState({
+  		favorite: !this.state.favorite,
+  	});
+  	this.props.putFavorite(this.state.favorite);
+  	console.log('handleFavorite', this.state.favorite);
+  }
 
   render() {
-    return (
-      <Container>
-        <Content>
-          <WrapperHead>
-            <BoxHeader>
-              <HeaderText>Oportunidades selecionadas</HeaderText>
-            </BoxHeader>
-            <WrapperForm>
-              <Form onSubmit={this.handleKeyPress}>
-                <Label>
+  	return (
+  		<Container>
+  			<Content>
+  				<WrapperHead>
+  					<BoxHeader>
+  						<HeaderText>Oportunidades selecionadas</HeaderText>
+  					</BoxHeader>
+  					<WrapperForm>
+  						<Form onSubmit={this.handleKeyPress}>
+  							<Label>
                 Pesquisar
-                  <InputHead placeholder="Digite aqui para pesquisar"
-                  onChange={this.handleChange}
-                  onKeyPress={this.handleKeyPress}
-                  ></InputHead>
-                </Label>
-                <Button 
-                type="button"
-                value="1" 
-                onClick = {this.hoverFavorites}
-                style={{backgroundColor:this.state.favorites ? "#F9BE38" : "#F7F7F7",
-                  color:this.state.favorites ? "#fff" : "#404040"}
-                }
-                >                
-                <img src={this.state.favorites ? startHover : start}/>
+  								<InputHead placeholder="Digite aqui para pesquisar"
+  									onChange={this.handleInputChange}
+  									onKeyPress={this.handleKeyPress}
+  								></InputHead>
+  							</Label>
+  							<Button
+  								type="button"
+  								value="1"
+  								onClick = {this.hoverFavorites}
+  								style={{
+  									backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
+  									color: this.state.hoverFavorites ? '#fff' : '#404040',
+  								}
+  								}
+  							>
+  								<img src={this.state.hoverFavorites ? startHover : start}/>
                 Favoritos</Button>
-              </Form>
-            </WrapperForm>
-          </WrapperHead>
-        </Content>
-        <WrapperTable>
-          <Table>
-            <HeaderRow>
-              <TableHeader boxWidth><img src={start}/></TableHeader>
-              <TableHeader boxWidth>Fit</TableHeader>
-              <TableHeader>Categoria</TableHeader>
-              <TableHeader>Id</TableHeader>
-              <TableHeader>Título e descrição</TableHeader>
-              <TableHeader>Prazo</TableHeader>
-            </HeaderRow>
-            <TableRow>
+  						</Form>
+  					</WrapperForm>
+  				</WrapperHead>
+  			</Content>
+  			<WrapperTable>
+  				<Table>
+  					<HeaderRow>
+  						<TableHeader boxWidth><img src={start}/></TableHeader>
+  						<TableHeader boxWidth>Fit</TableHeader>
+  						<TableHeader>Categoria</TableHeader>
+  						<TableHeader>Id</TableHeader>
+  						<TableHeader>Título e descrição</TableHeader>
+  						<TableHeader>Prazo</TableHeader>
+  					</HeaderRow>
+  					<TableRow>
 
-              {(this.state.selectItem || []).map(item => (
-              <TableBody 
-              key={item}
-              >
-              {item.favorites}
-              </TableBody>
-              ))}   
+  						{(this.state.selectItem || []).map((item) => (
+  							<TableBody
+  								key={item}
+  							>
+  								{item.favorites}
+  							</TableBody>
+  						))}
 
-              {(this.state.selectItem || []).map(item => (
-              <TableBody 
-              key={item}
-              >
-              {item.fit}
-              </TableBody>
-              ))} 
+  						{(this.state.selectItem || []).map((item) => (
+  							<TableBody
+  								key={item}
+  							>
+  								{item.fit}
+  							</TableBody>
+  						))}
 
-              {(this.state.selectItem || []).map(item => (
-              <TableBody 
-              key={item}
-              >
-              {item.category}
-              </TableBody>
-              ))} 
+  						{(this.state.selectItem || []).map((item) => (
+  							<TableBody
+  								key={item}
+  							>
+  								{item.category}
+  							</TableBody>
+  						))}
 
-              {(this.state.selectItem || []).map(item => (
-              <TableBody 
-              key={item}
-              >
-              {item.id}
-              </TableBody>
-              ))} 
+  						{(this.state.selectItem || []).map((item) => (
+  							<TableBody
+  								key={item}
+  							>
+  								{item.id}
+  							</TableBody>
+  						))}
 
-              {(this.state.selectItem || []).map(item => (
-              <TableBody 
-              key={item}
-              >
-              {item.titleDescription}
-              </TableBody>
-              ))} 
+  						{(this.state.selectItem || []).map((item) => (
+  							<TableBody
+  								key={item}
+  							>
+  								{item.titleDescription}
+  							</TableBody>
+  						))}
 
-              {(this.state.selectItem || []).map(item => (
-              <TableBody 
-              key={item}
-              >
-              {item.deadline}
-              </TableBody>
-              ))} 
-            </TableRow>
-            <TableRow>
-              <TableBody>6</TableBody>
-              <TableBody>6</TableBody>
-              <TableBody>7</TableBody>
-              <TableBody>8</TableBody>
-              <TableBody>9</TableBody>
-              <TableBody>10</TableBody>
-            </TableRow>
-            <TableRow>
-              <TableBody>6</TableBody>
-              <TableBody>6</TableBody>
-              <TableBody>7</TableBody>
-              <TableBody>8</TableBody>
-              <TableBody>9</TableBody>
-              <TableBody>10</TableBody>
-            </TableRow>
-            <TableRow>
-              <TableBody>6</TableBody>
-              <TableBody>6</TableBody>
-              <TableBody>7</TableBody>
-              <TableBody>8</TableBody>
-              <TableBody>9</TableBody>
-              <TableBody>10</TableBody>
-            </TableRow>
-            <TableRow>
-              <TableBody>6</TableBody>
-              <TableBody>6</TableBody>
-              <TableBody>7</TableBody>
-              <TableBody>8</TableBody>
-              <TableBody>9</TableBody>
-              <TableBody>10</TableBody>
-            </TableRow>
-            <TableRow>
-              <TableBody>6</TableBody>
-              <TableBody>6</TableBody>
-              <TableBody>7</TableBody>
-              <TableBody>8</TableBody>
-              <TableBody>9</TableBody>
-              <TableBody>10</TableBody>
-            </TableRow>
-          </Table>
-        </WrapperTable>
-      </Container>
-    );
+  						{(this.state.selectItem || []).map((item) => (
+  							<TableBody
+  								key={item}
+  							>
+  								{item.deadline}
+  							</TableBody>
+  						))}
+  					</TableRow>
+  				</Table>
+  			</WrapperTable>
+  		</Container>
+  	);
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (RelevanceMatch);
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(RelevanceMatch);

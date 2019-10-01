@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 // Components
 import DashBoard  from './Component/DashBoard';
+// import Login  from './Component/Login';
 
 class App extends Component {
   constructor(props){
@@ -15,6 +16,8 @@ class App extends Component {
     return (
     <>
       <DashBoard/>
+      {/* <Login/> */}
+
     </>     
     );
   }
