@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // Images
@@ -6,6 +7,19 @@ import logo from '../../assets/img/LogoPNE.png';
 import showPassword from '../../assets/icon/login-show-password.svg';
 import hidePassword from '../../assets/icon/login-hide-password.svg';
 import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
+
+// Redux
+import { loginUserThunk } from '../../dataflow/thunks/login-thunk';
+
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	loginUserThunk: (info) => {
+		dispatch(loginUserThunk(info));
+	},
+});
 
 // Styled
 const Container = styled.div`
@@ -94,7 +108,7 @@ const AltBox = styled.span`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 40%;
+	width: 52.5%;
 	margin-top: 3rem;
 `;
 
@@ -110,7 +124,7 @@ const LoginBox = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 50vw;
+	width: 60%;
 	height: 90vh;
 	border-radius: 0 0 6px 6px;
 `;
@@ -135,36 +149,33 @@ class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inputType: true,
+			showPassword: true,
 		};
-	}
-
-	handleChange = (ev, type) => {
-		ev.stopPropagation();
-		// console.log(`${type}, ${ev.target.value}`);
 	}
 
 	showPassword = () => {
 		this.setState((prevState) => ({
-			inputType: !prevState.inputType,
+			showPassword: !prevState.showPassword,
 		}));
 	}
 
 	handleSubmit = (ev) => {
 		ev.preventDefault();
-		ev.stopPropagation();
-		console.log(ev.target);
+		this.props.loginUserThunk({
+			username: this.loginEmailRef.value.toLowerCase(),
+			password: this.loginPasswordRef.value,
+		});
 	}
 
 	render() {
 		return (
 			<Container>
-				<InputContainer>
+				<InputContainer onSubmit={this.handleSubmit}>
 					<Logo src={logo}/>
 					<InputBox>
 						<Label>E-mail</Label>
 						<Input
-							innerRef={(node) => { this.inputEmail = node; }}
+							ref={(node) => { this.loginEmailRef = node; }}
 							required
 							autoFocus
 							type='email'
@@ -174,20 +185,18 @@ class Login extends Component {
 					<InputBox last>
 						<Label>Senha</Label>
 						<Input
-							innerRef={(node) => { this.inputPassword = node; }}
-							type={this.state.inputType ? 'password' : 'text'}
+							ref={(node) => { this.loginPasswordRef = node; }}
+							type={this.state.showPassword ? 'password' : 'text'}
 							required
 							placeholder={'Digite sua senha'}
 						/>
 						<IconInputPassword
 							loginScreen
-							src={this.state.inputType ? showPassword : hidePassword}
+							src={this.state.showPassword ? showPassword : hidePassword}
 							onClick={this.showPassword}
 						/>
 					</InputBox>
-					<Button
-						onSubmit={this.handleSubmit}
-					>
+					<Button>
 						Entrar
 					</Button>
 					<AltBox>
@@ -209,4 +218,4 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
