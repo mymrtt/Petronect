@@ -10,8 +10,8 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Styled
 const Container = styled.div`
 	display: flex;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 5vw;
 `;
@@ -21,7 +21,7 @@ const InputContainer = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 40vw;
+	width: 40%;
 	height: 90vh;
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
@@ -36,6 +36,7 @@ const InputBox = styled.span`
 	display: flex;
 	flex-direction: ${(props) => (props.alt ? 'row' : 'column')};
 	justify-content: ${(props) => props.alt && 'space-between'};
+	width: 55%;
 	margin-top: ${(props) => props.last && '.5rem'};
 `;
 
@@ -47,15 +48,18 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-	width: 20vw;
+	width: 100%;
 	height: 3rem;
 	padding: 1rem;
 	font-size: 1rem;
 	background: #FAFAFA 0% 0% no-repeat padding-box;
 	border: 1px solid #7FBA4C;
 	border-radius: 4px;
+	outline: none;
 
 	::placeholder {
+		font: Light 16px Open Sans;
+		letter-spacing: 0;
 		color: #959595;
 	}
 `;
@@ -70,7 +74,7 @@ const IconInputPassword = styled.img`
 `;
 
 const Button = styled.button`
-	width: 20vw;
+	width: 55%;
 	height: 3rem;
 	margin-top: 1rem;
 	background: #115680 0% 0% no-repeat padding-box;
@@ -80,7 +84,7 @@ const Button = styled.button`
 	outline: none;
 
 	text-align: center;
-	font: 500 1rem Eurostile, sans serif;
+	font: 500 1rem eurostile, sans serif;
 	letter-spacing: 0;
 	color: #FAFAFA;
 `;
@@ -95,9 +99,7 @@ const AltBox = styled.span`
 `;
 
 const Link = styled.p`
-	align
-	text-align: ${(props) => (props.color ? 'left' : 'center')} ;
-	font: Regular 16px Eurostile, sans serif;
+	font: Regular 16px eurostile, sans serif;
 	letter-spacing: 0;
 	color: ${(props) => props.color || '#505050'} ;
 	text-decoration: ${(props) => (props.color ? 'underline' : 'none')} ;
@@ -162,18 +164,20 @@ class Login extends Component {
 					<InputBox>
 						<Label>E-mail</Label>
 						<Input
+							innerRef={(node) => { this.inputEmail = node; }}
+							type='email'
 							required
+							autoFocus
 							placeholder={'Digite sua senha e-mail'}
-							onChange={(ev) => this.handleChange(ev, 'email')}
 						/>
 					</InputBox>
 					<InputBox last>
 						<Label>Senha</Label>
 						<Input
+							innerRef={(node) => { this.inputPassword = node; }}
 							required
 							type={this.state.inputType ? 'password' : 'text'}
 							placeholder={'Digite sua senha'}
-							onChange={(ev) => this.handleChange(ev, 'password')}
 						/>
 						<IconInputPassword
 							loginScreen
@@ -182,7 +186,7 @@ class Login extends Component {
 						/>
 					</InputBox>
 					<Button
-						onClick={this.handleSubmit}
+						onSubmit={this.handleSubmit}
 					>
 						Entrar
 					</Button>
