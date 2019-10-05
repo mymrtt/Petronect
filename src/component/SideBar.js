@@ -151,37 +151,37 @@ class SideBar extends Component {
 		this.state = {
 			selectItem: [
 				{
-					iconSelected: <IconSideBar src={RelevanceImg}/>,
+					iconSelected: <IconSideBar src={RelevanceImg} />,
 					textSelected: 'Match Relevância',
 				},
 			],
 			hiddenItem: [
 				{
-					iconHidden: <IconSideBar src={PotentialImg}/>,
+					iconHidden: PotentialImg,
 					textHidden: 'Análise de Potencial',
 				},
 				{
-					iconHidden: <IconSideBar src={HistoricImg}/>,
+					iconHidden: HistoricImg,
 					textHidden: 'Histórico de oportunidades',
 				},
 				{
-					iconHidden: <IconSideBar src={ManagementImg}/>,
+					iconHidden: ManagementImg,
 					textHidden: 'Gestão interna',
 				},
 				{
-					iconHidden: <IconSideBar src={DocumentsImg}/>,
+					iconHidden: DocumentsImg,
 					textHidden: 'Geração de documentos',
 				},
 				{
-					iconHidden: <IconSideBar src={TaxImg}/>,
+					iconHidden: TaxImg,
 					textHidden: 'Justificativa de impostos',
 				},
 				{
-					iconHidden: <IconSideBar src={ClarificationImg}/>,
+					iconHidden: ClarificationImg,
 					textHidden: 'Histórico de esclarecimentos',
 				},
 				{
-					iconHidden: <IconSideBar src={NotificationImg}/>,
+					iconHidden: NotificationImg,
 					textHidden: 'Notificação de resultados',
 				},
 			],
@@ -197,7 +197,6 @@ class SideBar extends Component {
 			//   'Notificação de Resultados',
 			// ]
 		};
-
 
 		// renderMenu = () => {
 		//   const { list } = this.state;
@@ -235,7 +234,8 @@ class SideBar extends Component {
 								<MenuItemHidden
 									key={item}
 								>
-									{item.iconHidden}{item.textHidden }
+									<IconSideBar src={item.iconHidden} />
+									{item.textHidden}
 								</MenuItemHidden>
 							))}
 
@@ -243,7 +243,7 @@ class SideBar extends Component {
 					</BoxMenu>
 				</NavBar>
 				<BoxFilter>
-					<InfoImg src={FilterImg}/>
+					<InfoImg src={FilterImg} />
 					<FilterText>Filtros e notificações</FilterText>
 				</BoxFilter>
 				<WrapperInfo>

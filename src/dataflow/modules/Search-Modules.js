@@ -1,46 +1,37 @@
 const ADD_ITEM = 'search/search/ADD_ITEM';
 const PUT_FAVORITE = 'favorite/favorite/PUT_FAVORITE';
-const BIDDING_LIST = 'biddingList/biddingList/BIDDING_LIST';
+const OPPORTUNITIES = 'opportunities/opportunities/OPPORTUNITIES';
 
 const initialState = {
 	search: [],
 	favorite: [],
-	biddingList: [],
+	opportunities: [],
 };
 
 export default function (state = initialState, action) {
 	switch (action.type) {
 	case ADD_ITEM:
-		return {
-			...state,
-			search: state.search.concat([action.payload]),
-		};
+		return { ...state, search: state.search.concat([action.info]) };
 	case PUT_FAVORITE:
-		return {
-			...state,
-			favorite: state.favorite.concat([action.payload]),
-		};
-	case BIDDING_LIST:
-		return {
-			...state,
-			favorite: state.favorite.concat([action.payload]),
-		};
+		return { ...state, favorite: state.favorite.concat([action.info]) };
+	case OPPORTUNITIES:
+		return { ...state, opportunities: state.opportunities.concat([action.info]) };
 	default:
 		return state;
 	}
 }
 
-export const addItem = (payload) => ({
+export const addItem = (info) => ({
 	type: ADD_ITEM,
-	payload,
+	info,
 });
 
-export const putFavorite = (payload) => ({
+export const putFavorite = (info) => ({
 	type: PUT_FAVORITE,
-	payload,
+	info,
 });
 
-export const biddingList = (payload) => ({
-	type: BIDDING_LIST,
-	payload,
+export const opportunities = (info) => ({
+	type: OPPORTUNITIES,
+	info,
 });
