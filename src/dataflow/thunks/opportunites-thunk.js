@@ -1,46 +1,29 @@
-// import axios from 'axios';
+import axios from 'axios';
 
-// import {
-// 	saveOrgUsers,
-// 	updateUserAvatar,
-// 	saveInvitedUsers,
-// } from '../modules/account-module';
-
-// import {
-// 	updateUserProfileMiddleware,
-// } from '../middlewares/petronect-oppportunites-api';
+import { getAllOpportunitesMiddleware } from '../middlewares/opportunites-middlewares-api';
 
 // const thumbnailBase = `${process.env.REACT_APP_UPLOAD_THUMBNAIL}`;
 
-// export const convertUsers = info => (
-// 	(dispatch) => {
-// 		const users = {};
+export const getAllOpportunitiesThunk = () => (
+	async (dispatch) => {
+		try {
+			const response = await getAllOpportunitesMiddleware();
 
-// 		info.response.data.data.forEach((user) => {
-// 			users[user.user_id] = {
-// 			};
-// 		});
+			const data = {};
 
+			response.forEach((item) => {
+				data[item.item_id] = {
+					opportunityId: item.opportunityId,
 
-// 		dispatch(saveOrgUsers(users));
-// 	}
-// );
+				};
+			});
 
-// export const convertInviteds = info => (
-// 	(dispatch) => {
-// 		const inviteds = {};
+			console.log(response.data);
+		} catch (err) {
+		}
+	}
+);
 
-// 		info.response.data.data.forEach((invited) => {
-// 			inviteds[invited.email] = {
-// 				orgId: invited.organization_id,
-// 				email: invited.email,
-// 				role: 'user',
-// 				isInvited: true,
-// 			};
-// 		});
-// 		dispatch(saveInvitedUsers(inviteds));
-// 	}
-// );
 
 // export const uploadAvatar = info => (
 // 	axios.put(
@@ -53,23 +36,4 @@
 // 			},
 // 		},
 // 	)
-// );
-
-// export const uploadUserAvatarThunk = info => (
-// 	async (dispatch) => {
-// 		try {
-// 			await uploadAvatar(info);
-
-// 			const data = {
-// 				userId: info.userId,
-// 				avatar: `${process.env.REACT_APP_GET_THUMBNAIL}/users/${info.ratio.width}x${info.ratio.height}/${info.logo.name}`,
-// 			};
-
-// 			dispatch(updateUserProfileMiddleware(data));
-// 		} catch (err) {
-// 			dispatch(updateUserAvatar({
-// 				isError: true,
-// 			}));
-// 		}
-// 	}
 // );

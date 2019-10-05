@@ -1,12 +1,21 @@
-import React, { Component } from 'react';
+/* eslint-disable no-mixed-spaces-and-tabs */
+
+// Libs
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 
+// Modules
 import { addItem, putFavorite } from '../dataflow/modules/Search-Modules';
+import { getAllOpportunitiesThunk } from '../dataflow/thunks/opportunites-thunk.js';
 
+// Images
 import start from '../Assets/icon/estrela.svg';
 import startHover from '../Assets/icon/estrela-cinza.svg';
+
+// Components
+import DetailsOportunities from "./DetailsOportunities";
 
 const mapDispatchToProps = (dispatch) => ({
 	addItem: (payload) => {
@@ -14,6 +23,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	putFavorite: (payload) => {
 		dispatch(putFavorite(payload));
+	},
+	getAllOpportunitiesThunk: (info) => {
+		dispatch(getAllOpportunitiesThunk(info));
 	},
 });
 
@@ -128,6 +140,7 @@ const TableRow = styled.tr`
   height: 32px; 
   border-radius: 4px;
   color: #8C8C8C;
+	cursor: pointer;
   &:hover {
     transition: all .2s ease; 
     color: #404040;
@@ -150,9 +163,9 @@ const TableBody = styled.td`
   font-weight: 500;
 `;
 
-const apiOpportunities = {
-	baseUrl: 'http://petronect-app-core-api-dev-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api/opportunities',
-};
+// const apiOpportunities = {
+// 	baseUrl: 'http://petronect-app-core-api-dev-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api/opportunities',
+// };
 
 class RelevanceMatch extends Component {
 	constructor(props) {
@@ -164,31 +177,32 @@ class RelevanceMatch extends Component {
 			opportunities: [],
 			selectItem: [
 				{
-					favorites: <img src={this.favorite ? start : startHover} onClick = {this.handleFavorite}/>,
+					favorites: <img src={this.favorite ? start : startHover} onClick={this.handleFavorite} />,
 					fit: 'Test1',
 					category: 'Test2',
 					id: 'Test3',
 					titleDescription: 'Test4',
-					deadLine: 'Test5',
+					deadLineInitial: '18/06/19 - ',
+					deadLineLastOne: '28/08/19',
 				},
 			],
 			hoverFavorites: false,
 			favorite: false,
+			isOportunitesModal: false,
 		};
-		//  const searchItems = this.state.search.map((search) =>
-		//   <TableHeader>{this.state.search}</TableHeader>
-		// )
 	}
 
-	componentWillMount() {
-		this.getData();
+	componentDidMount() {
+		this.props.getAllOpportunitiesThunk(this.state.opportunities);
+		console.log('oioioi');
 	}
+
 
 	getData = () => { // fazer um get na API e buscar a palavra chave
 		axios.get('')
 			.then((responseData) => {
 				// const opportunities = res.data;
-				console.log('chegouuuu', responseData.data);
+				// console.log('chegouuuu', responseData.data);
 				this.setState({ data: responseData, searchString: responseData });
 			})
 			.catch((error) => this.setState({ error }));
@@ -224,7 +238,17 @@ class RelevanceMatch extends Component {
   	console.log('handleFavorite', this.state.favorite);
   }
 
-  render() {
+	handleModalOportunities = () => {
+		const { isOportunitesModal } = this.state;
+		this.setState({ isOportunitesModal: !isOportunitesModal });
+	}
+
+	renderModalOportunities = () => (
+		<DetailsOportunities handleModalOportunities={this.handleModalOportunities} />
+	)
+
+	render() {
+		const { isOportunitesModal } = this.state;
   	return (
   		<Container>
   			<Content>
@@ -267,61 +291,28 @@ class RelevanceMatch extends Component {
   						<TableHeader>Título e descrição</TableHeader>
   						<TableHeader>Prazo</TableHeader>
   					</HeaderRow>
-  					<TableRow>
 
-  						{(this.state.selectItem || []).map((item) => (
-  							<TableBody
-  								key={item}
-  							>
-  								{item.favorites}
+  					{(this.state.selectItem || []).map((item) => (
+  						<TableRow key={item} onClick={this.handleModalOportunities}>
+  							<TableBody>{item.favorites}</TableBody>
+  							<TableBody>{item.fit}</TableBody>
+  							<TableBody>{item.category}</TableBody>
+  							<TableBody>{item.id}</TableBody>
+  							<TableBody>{item.titleDescription}</TableBody>
+  							<TableBody>
+  								{item.deadLineInitial}
+  								{item.deadLineLastOne}
   							</TableBody>
-  						))}
-
-  						{(this.state.selectItem || []).map((item) => (
-  							<TableBody
-  								key={item}
-  							>
-  								{item.fit}
-  							</TableBody>
-  						))}
-
-  						{(this.state.selectItem || []).map((item) => (
-  							<TableBody
-  								key={item}
-  							>
-  								{item.category}
-  							</TableBody>
-  						))}
-
-  						{(this.state.selectItem || []).map((item) => (
-  							<TableBody
-  								key={item}
-  							>
-  								{item.id}
-  							</TableBody>
-  						))}
-
-  						{(this.state.selectItem || []).map((item) => (
-  							<TableBody
-  								key={item}
-  							>
-  								{item.titleDescription}
-  							</TableBody>
-  						))}
-
-  						{(this.state.selectItem || []).map((item) => (
-  							<TableBody
-  								key={item}
-  							>
-  								{item.deadline}
-  							</TableBody>
-  						))}
-  					</TableRow>
+  						</TableRow>
+  					))}
   				</Table>
   			</WrapperTable>
+				<Fragment>
+					{ isOportunitesModal && this.renderModalOportunities() }
+				</Fragment>
   		</Container>
   	);
-  }
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RelevanceMatch);

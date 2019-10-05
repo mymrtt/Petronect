@@ -41,7 +41,7 @@ const BoxLogo = styled.figure`
 
 const ImgLogo = styled.img`
   width: 145px;
-`;
+`; 
 
 const BoxMenu = styled.div`
   width: 100%;
@@ -145,122 +145,121 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-class SideBar extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			selectItem: [
-				{
-					iconSelected: <IconSideBar src={RelevanceImg}/>,
-					textSelected: 'Match Relevância',
-				},
-			],
-			hiddenItem: [
-				{
-					iconHidden: <IconSideBar src={PotentialImg}/>,
-					textHidden: 'Análise de Potencial',
-				},
-				{
-					iconHidden: <IconSideBar src={HistoricImg}/>,
-					textHidden: 'Histórico de oportunidades',
-				},
-				{
-					iconHidden: <IconSideBar src={ManagementImg}/>,
-					textHidden: 'Gestão interna',
-				},
-				{
-					iconHidden: <IconSideBar src={DocumentsImg}/>,
-					textHidden: 'Geração de documentos',
-				},
-				{
-					iconHidden: <IconSideBar src={TaxImg}/>,
-					textHidden: 'Justificativa de impostos',
-				},
-				{
-					iconHidden: <IconSideBar src={ClarificationImg}/>,
-					textHidden: 'Histórico de esclarecimentos',
-				},
-				{
-					iconHidden: <IconSideBar src={NotificationImg}/>,
-					textHidden: 'Notificação de resultados',
-				},
-			],
+class SideBar extends Component { 
+  constructor(props){
+    super(props);
+    this.state = {
+      selectItem : [
+        { 
+          iconSelected: <IconSideBar src={RelevanceImg}/>,
+          textSelected: 'Match Relevância',
+        },
+      ],
+      hiddenItem : [
+        {
+          iconHidden: <IconSideBar src={PotentialImg}/>,
+          textHidden: 'Análise de Potencial',
+        },
+        {
+          iconHidden: <IconSideBar src={HistoricImg}/>,
+          textHidden: 'Histórico de oportunidades',
+        },
+        {
+          iconHidden: <IconSideBar src={ManagementImg}/>,
+          textHidden: 'Gestão interna',
+        },
+        {
+          iconHidden: <IconSideBar src={DocumentsImg}/>,
+          textHidden: 'Geração de documentos',
+        },
+        {
+          iconHidden: <IconSideBar src={TaxImg}/>,
+          textHidden: 'Justificativa de impostos',
+        },
+        {
+          iconHidden: <IconSideBar src={ClarificationImg}/>,
+          textHidden: 'Histórico de esclarecimentos',
+        },
+        {
+          iconHidden: <IconSideBar src={NotificationImg}/>,
+          textHidden: 'Notificação de resultados',
+        },
+      ]
+ 
+    // list : [
+    //   'Match Relevância',
+    //   'Análise Potencial', 
+    //   'Histórico de oportunidade', 
+    //   'Gestão interna',
+    //   'Geração de documentos',
+    //   'justificativa de impostos',
+    //   'Histórico de esclarecimentos',
+    //   'Notificação de Resultados',
+    // ]
+  }
 
-			// list : [
-			//   'Match Relevância',
-			//   'Análise Potencial',
-			//   'Histórico de oportunidade',
-			//   'Gestão interna',
-			//   'Geração de documentos',
-			//   'justificativa de impostos',
-			//   'Histórico de esclarecimentos',
-			//   'Notificação de Resultados',
-			// ]
-		};
 
 
-		// renderMenu = () => {
-		//   const { list } = this.state;
+  // renderMenu = () => { 
+  //   const { list } = this.state;
 
-		//   return (<div>
-		//   list.map((item, i) => {
-		//     <li key={i}>
-		//       {item.icon}
-		//       {item.text}
-		//     </li>
-		//   });
-		//   </div>)
-		// }
-	}
+  //   return (<div> 
+  //   list.map((item, i) => {
+  //     <li key={i}>
+  //       {item.icon}
+  //       {item.text}
+  //     </li>
+  //   });     
+  //   </div>) 
+  // }
+  }
+  render() {
+    return (
+      <Container>
+        <NavBar>
+          <BoxLogo>
+            <ImgLogo src={LogoImg} alt="Logo" />
+          </BoxLogo>
+          <BoxMenu>
+            <MenuList>
 
-	render() {
-		return (
-			<Container>
-				<NavBar>
-					<BoxLogo>
-						<ImgLogo src={LogoImg} alt="Logo" />
-					</BoxLogo>
-					<BoxMenu>
-						<MenuList>
+            {(this.state.selectItem || []).map(item => (
+            <MenuItem 
+            key={item}
+            >
+            {item.iconSelected}{item.textSelected}
+            </MenuItem>
+             ))}
 
-							{(this.state.selectItem || []).map((item) => (
-								<MenuItem
-									key={item}
-								>
-									{item.iconSelected}{item.textSelected}
-								</MenuItem>
-							))}
-
-							{(this.state.hiddenItem || []).map((item) => (
-								<MenuItemHidden
-									key={item}
-								>
-									{item.iconHidden}{item.textHidden }
-								</MenuItemHidden>
-							))}
-
-						</MenuList>
-					</BoxMenu>
-				</NavBar>
-				<BoxFilter>
-					<InfoImg src={FilterImg}/>
-					<FilterText>Filtros e notificações</FilterText>
-				</BoxFilter>
-				<WrapperInfo>
-					<Contentinfo>
-						<BoxInfo>
-							<InfoItem>Snowball Solutions</InfoItem>
-							<Representative>Pedro Gualandi</Representative>
-						</BoxInfo>
-						<span>
-							<Button>Sair</Button>
-						</span>
-					</Contentinfo>
-				</WrapperInfo>
-			</Container>
-		); 
-	}
-}
+             {(this.state.hiddenItem || []).map(item => (
+            <MenuItemHidden 
+            key={item}
+            >
+            {item.iconHidden}{item.textHidden }
+            </MenuItemHidden>
+            ))}
+             
+            </MenuList>
+          </BoxMenu>
+        </NavBar> 
+        <BoxFilter>
+          <InfoImg src={FilterImg}/>
+          <FilterText>Filtros e notificações</FilterText>
+        </BoxFilter>         
+        <WrapperInfo>
+          <Contentinfo>
+            <BoxInfo>
+              <InfoItem>Snowball Solutions</InfoItem>
+              <Representative>Pedro Gualandi</Representative>
+            </BoxInfo>
+            <span>
+              <Button>Sair</Button>
+            </span>
+          </Contentinfo>
+        </WrapperInfo>
+      </Container>
+   )}
+  }
 
 
 export default SideBar;
