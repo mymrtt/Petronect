@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+
 import App from './App';
 import './index.css';
 import confugureStore from './store';
@@ -9,7 +10,7 @@ const store = confugureStore({});
 
 ReactDOM.render((
 	<Provider store={store}>
-		<App />
+		<App/>
 	</Provider>
 ), document.getElementById('root'));
 
