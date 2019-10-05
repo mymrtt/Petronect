@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 // Images
 import start from '../assets/icon/estrela.svg';
-import shareIcon from '../Assets/icon/compartilhar.svg';
-import attachIcon from '../Assets/icon/anexar.svg';
-import doubtIcon from '../Assets/icon/duvida.svg';
+import shareIcon from '../assets/icon/compartilhar.svg';
+import attachIcon from '../assets/icon/anexar.svg';
+import doubtIcon from '../assets/icon/duvida.svg';
 
 const Overlay = styled.div`
 	position: absolute;

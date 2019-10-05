@@ -99,7 +99,7 @@ const AltBox = styled.span`
 `;
 
 const Link = styled.p`
-	font: Regular 16px eurostile, sans serif;
+	font: 400 18px Eurostile, sans serif;
 	letter-spacing: 0;
 	color: ${(props) => props.color || '#505050'} ;
 	text-decoration: ${(props) => (props.color ? 'underline' : 'none')} ;
@@ -125,7 +125,7 @@ const TextBox = styled.span`
 
 const Text = styled.p`
 	margin: 3rem 0;
-	font: Bold 18px eurostile, sans serif;
+	font: 700 18px eurostile, sans serif;
 	letter-spacing: 0.18px;
 	line-height: 2.5rem;
 	color: #FFFFFF;
@@ -165,9 +165,9 @@ class Login extends Component {
 						<Label>E-mail</Label>
 						<Input
 							innerRef={(node) => { this.inputEmail = node; }}
-							type='email'
 							required
 							autoFocus
+							type='email'
 							placeholder={'Digite sua senha e-mail'}
 						/>
 					</InputBox>
@@ -175,8 +175,8 @@ class Login extends Component {
 						<Label>Senha</Label>
 						<Input
 							innerRef={(node) => { this.inputPassword = node; }}
-							required
 							type={this.state.inputType ? 'password' : 'text'}
+							required
 							placeholder={'Digite sua senha'}
 						/>
 						<IconInputPassword
