@@ -27,7 +27,6 @@ const Container = styled.div`
 	width: 100%;
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
-	// padding: 0 5vw;
 	padding: 0 4rem;
 	@media (max-width: 768px) {
 		padding-bottom: 4rem;
