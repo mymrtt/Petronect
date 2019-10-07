@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
-// import styled from 'styled-components';
 
 // Components
-import DashBoard  from './Component/DashBoard';
+import DashBoard from './component/DashBoard';
+import Login from './component/Login/Login';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-    }
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			screen: 'login',
+		};
+	}
 
-  render() {
-    return (
-    <>
-      <DashBoard/>
-    </>     
-    );
-  }
+	render() {
+		switch (this.state.screen) {
+		case 'login':
+			return (<Login/>);
+		case 'dashboard':
+		default:
+			return (<DashBoard/>);
+		}
+	}
 }
 
 export default App;
