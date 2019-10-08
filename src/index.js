@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import './index.css';
-
-import confugureStore from './Store';
+import confugureStore from './store';
 
 const store = confugureStore({});
 
