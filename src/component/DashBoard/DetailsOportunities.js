@@ -8,6 +8,7 @@ import shareIcon from '../../assets/icon/compartilhar.svg';
 import attachIcon from '../../assets/icon/anexar.svg';
 import doubtIcon from '../../assets/icon/duvida.svg';
 
+
 const Overlay = styled.div`
 	position: absolute;
 	top: 0;
