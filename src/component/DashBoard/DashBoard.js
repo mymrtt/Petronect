@@ -21,7 +21,6 @@ class DashBoard extends Component {
 		this.state = {};
 	}
 
-
 	// eslint-disable-next-line class-methods-use-this
 	render() {
 		return (

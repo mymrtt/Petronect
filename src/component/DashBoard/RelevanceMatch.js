@@ -249,7 +249,6 @@ class RelevanceMatch extends Component {
 		const { isShowFavorites } = this.state;
 
 		this.setState({ isShowFavorites: !isShowFavorites })
-
 	}
 
 	render() {

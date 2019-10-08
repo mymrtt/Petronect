@@ -29,3 +29,17 @@ export const getAllOpportunitiesThunk = () => (
 		}
 	}
 );
+
+
+// export const uploadAvatar = info => (
+// 	axios.put(
+// 		`${thumbnailBase}?key=users/${info.logo.name}`,
+// 		info.logo.preview,
+// 		{
+// 			headers: {
+// 				'Content-Type': `${info.logo.type}`,
+// 				Authorization: info.token,
+// 			},
+// 		},
+// 	)
+// );
