@@ -246,13 +246,13 @@ class Login extends Component {
 
 	handleSubmit = (ev) => {
 		ev.preventDefault();
-		// this.props.loginUserThunk({
-		// 	username: this.loginEmailRef.value.toLowerCase(),
-		// 	password: this.loginPasswordRef.value,
-		// });
-		this.setState({
-			error: true,
+		this.props.loginUserThunk({
+			email: this.loginEmailRef.value.toLowerCase(),
+			password: this.loginPasswordRef.value,
 		});
+		// this.setState({
+		// 	error: true,
+		// });
 	}
 
 	renderError = () => {
