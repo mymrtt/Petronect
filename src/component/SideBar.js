@@ -15,7 +15,7 @@ import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 
 const Container = styled.div`
-  width: 20vw;
+  width: 300px;
   height: 95vh;
   display: flex;
   flex-direction: column;
