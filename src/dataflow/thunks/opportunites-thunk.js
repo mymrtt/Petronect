@@ -12,7 +12,13 @@ export const getAllOpportunitiesThunk = () => (
 
 			response.forEach((item) => {
 				data[item.item_id] = {
-					opportunityId: item.opportunityId,
+					id: 'Test8',
+					favorite: false,
+					fit: 'Test8',
+					category: 'Test8',
+					titleDescription: 'Test8',
+					deadLineInitial: '18/06/19',
+					deadLineLastOne: '28/08/19',
 
 				};
 			});

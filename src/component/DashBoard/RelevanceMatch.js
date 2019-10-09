@@ -5,33 +5,36 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
+import { values } from 'lodash';
 
 // Modules
-import { addItem, putFavorite } from '../dataflow/modules/Search-Modules';
-import { getAllOpportunitiesThunk } from '../dataflow/thunks/opportunites-thunk.js';
+import { addItem, putFavorite } from '../../dataflow/modules/Oportunities-Modules';
+import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
 
-import start from '../assets/icon/estrela.svg';
-import startHover from '../assets/icon/estrela-cinza.svg';
+// Images
+import shareIcon from '../../assets/icon/lupa.svg'
+import start from '../../assets/icon/estrela.svg';
+import startHover from '../../assets/icon/estrela-cinza.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
 
+const mapStateToProps = (state) => ({
+	search: state.oportunities.search,
+	oportunities: state.oportunities.oportunities,
+});
+
 const mapDispatchToProps = (dispatch) => ({
-	addItem: (payload) => {
-		dispatch(addItem(payload));
+	addItem: (info) => {
+		dispatch(addItem(info));
 	},
-	putFavorite: (payload) => {
-		dispatch(putFavorite(payload));
+	putFavorite: (info) => {
+		dispatch(putFavorite(info));
 	},
 	getAllOpportunitiesThunk: (info) => {
 		dispatch(getAllOpportunitiesThunk(info));
 	},
 });
-
-const mapStateToProps = (state) => ({
-	search: state.search,
-});
-
 
 const Container = styled.div`
   width: 75vw;
@@ -79,28 +82,44 @@ const Form = styled.div`
   justify-content: space-between;
 `;
 
-const Label = styled.label`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const BoxInput = styled.div`
+	display: flex;
+	align-items: center
+`;
+
+const TitleInput = styled.p`
   color: #116EA0;
   font-size: 0.875rem;
   font-weight: bold;
-  padding-right: 2rem;
 `;
 
-const InputHead = styled.input`
+const LabelBox = styled.label`
   width: 251px;
   height: 32px;
   margin-left: .5rem;
   padding-left: 1rem;
   border-radius: 16px;
   border: solid #116EA0 .5px;
+  display: flex;
+  align-items: center;
+`;
+
+const InputHead = styled.input`
+	width: 80%;
+	height: 95%;
+  border:none;
+	outline: none;
+`;
+
+const ImgShare = styled.img`
+	padding-left: .85rem;
+	cursor: pointer;
 `;
 
 const Button = styled.button`
   width: 103px;
   height: 32px;
+	margin-left: 1rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -108,6 +127,8 @@ const Button = styled.button`
   border-radius: 16px;
   color: {this.state.favorites ? "red" : "blue"};
   font-size: .875rem;
+	cursor: pointer;
+	outline: none;
 `;
 
 const WrapperTable = styled.div`
@@ -158,13 +179,8 @@ const TableBody = styled.td`
   padding-left: 1rem;
   text-align: left;
   font-size: .875rem;
-  color: #8C8C8C;
   font-weight: 500;
 `;
-
-// const apiOpportunities = {
-// 	baseUrl: 'http://petronect-app-core-api-dev-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api/opportunities',
-// };
 
 class RelevanceMatch extends Component {
 	constructor(props) {
@@ -173,38 +189,13 @@ class RelevanceMatch extends Component {
 			search: '',
 			data: [],
 			searchString: [],
-			opportunities: [],
-			selectItem: [
-				{
-					favorites: <img src={this.favorite ? start : startHover} onClick={this.handleFavorite} />,
-					fit: 'Test1',
-					category: 'Test2',
-					id: 'Test3',
-					titleDescription: 'Test4',
-					deadLineInitial: '18/06/19 - ',
-					deadLineLastOne: '28/08/19',
-				},
-			],
 			hoverFavorites: false,
-			favorite: false,
 			isOportunitesModal: false,
 		};
 	}
 
 	componentDidMount() {
 		this.props.getAllOpportunitiesThunk(this.state.opportunities);
-		console.log('oioioi');
-	}
-
-
-	getData = () => { // fazer um get na API e buscar a palavra chave
-		axios.get('')
-			.then((responseData) => {
-				// const opportunities = res.data;
-				// console.log('chegouuuu', responseData.data);
-				this.setState({ data: responseData, searchString: responseData });
-			})
-			.catch((error) => this.setState({ error }));
 	}
 
 	hoverFavorites = () => {
@@ -229,12 +220,10 @@ class RelevanceMatch extends Component {
 		}
 	}
 
-	handleFavorite = () => {
-		this.setState({
-			favorite: !this.state.favorite,
-		});
-		this.props.putFavorite(this.state.favorite);
-		console.log('handleFavorite', this.state.favorite);
+	handleFavorite = (event, id) => {
+		event.stopPropagation();
+		this.props.putFavorite(id);
+		console.log('handleFavorite', id);
 	}
 
 	handleModalOportunities = () => {
@@ -257,13 +246,16 @@ class RelevanceMatch extends Component {
   					</BoxHeader>
   					<WrapperForm>
   						<Form onSubmit={this.handleKeyPress}>
-  							<Label>
-                Pesquisar
-  								<InputHead placeholder="Digite aqui para pesquisar"
-  									onChange={this.handleInputChange}
-  									onKeyPress={this.handleKeyPress}
-  								></InputHead>
-  							</Label>
+								<BoxInput>
+									<TitleInput>Pesquisar</TitleInput>
+									<LabelBox>
+										<InputHead placeholder="Digite aqui para pesquisar"
+											onChange={this.handleInputChange}
+											onKeyPress={this.handleKeyPress}
+										></InputHead>
+										<ImgShare src={shareIcon}/>
+									</LabelBox>
+								</BoxInput>
   							<Button
   								type="button"
   								value="1"
@@ -291,9 +283,11 @@ class RelevanceMatch extends Component {
   						<TableHeader>Prazo</TableHeader>
   					</HeaderRow>
 
-  					{(this.state.selectItem || []).map((item) => (
+  					{values(this.props.oportunities).map((item) => (
   						<TableRow key={item} onClick={this.handleModalOportunities}>
-  							<TableBody>{item.favorites}</TableBody>
+  							<TableBody onClick={(event) => { this.handleFavorite(event, item.id); }}>
+									<img src={item.favorite ? start : startHover}/>
+								</TableBody>
   							<TableBody>{item.fit}</TableBody>
   							<TableBody>{item.category}</TableBody>
   							<TableBody>{item.id}</TableBody>
@@ -303,7 +297,24 @@ class RelevanceMatch extends Component {
   								{item.deadLineLastOne}
   							</TableBody>
   						</TableRow>
-  					))}
+						))}
+						<Fragment>
+							{values(this.props.oportunities).filter(item => item.favorite === true).map((item) => (
+								<TableRow key={item} onClick={this.handleModalOportunities}>
+									<TableBody onClick={(event) => { this.handleFavorite(event, item.id); }}>
+										<img src={item.favorite ? start : startHover}/>
+									</TableBody>
+									<TableBody>{item.fit}</TableBody>
+									<TableBody>{item.category}</TableBody>
+									<TableBody>{item.id}</TableBody>
+									<TableBody>{item.titleDescription}</TableBody>
+									<TableBody>
+										{item.deadLineInitial}
+										{item.deadLineLastOne}
+									</TableBody>
+								</TableRow>
+							))}
+						</Fragment>
   				</Table>
   			</WrapperTable>
 				<Fragment>

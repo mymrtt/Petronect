@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // IMG
 import LogoImg from '../assets/img/LogoPNE.png';
 import RelevanceImg from '../assets/icon/icon_menu-Relevancia.svg';
+import FilterImg from '../assets/icon/icon_menu.svg';
 import PotentialImg from '../assets/icon/icon_menu-analise.svg';
 import HistoricImg from '../assets/icon/icon_menu-historico.svg';
 import ManagementImg from '../assets/icon/icon_menu-gestão.svg';
@@ -11,7 +13,6 @@ import DocumentsImg from '../assets/icon/icon_menu-geracaoDoc.svg';
 import TaxImg from '../assets/icon/icon_menu-justificativa.svg';
 import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
-import FilterImg from '../assets/icon/icon_menu.svg';
 
 const Container = styled.div`
   width: 20vw;
@@ -62,7 +63,7 @@ const IconSideBar = styled.img`
   padding-right: 1rem;
 `;
 
-const MenuItem = styled.li`
+const MenuItem = styled(Link)`
   height: 36px;
   display: flex;
   align-items: center;
@@ -71,16 +72,11 @@ const MenuItem = styled.li`
   color: #116EA0;
   font-weight: 900;
   padding-left: 1rem;
-  background-color: #116EA015;
+  background-color: ${(props) => (props.selected ? '#116EA015' : 'transparent')};
   color: #116ea0;
   border-radius: 18px 0 0 18px;
-  cursor: pointer;
-`;
-
-const MenuItemHidden = styled(MenuItem)`
-  color: #404040;
-  opacity: 0.25;
-  cursor: default;
+  cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
+	opacity: ${(props) => (props.disable ? '0.3' : '1')};
 `;
 
 const BoxFilter = styled.div`
@@ -143,73 +139,71 @@ const Button = styled.button`
   border-radius: 10px;
   border-style: none; 
   cursor: pointer;
+	outline: none;
 `;
 
 class SideBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectItem: [
+			selectedItem: 'Match Relevância',
+			sidebarList: [
 				{
-					iconSelected: <IconSideBar src={RelevanceImg} />,
-					textSelected: 'Match Relevância',
+					disable: false,
+					iconSelected: RelevanceImg,
+					text: 'Match Relevância',
+					route: '/dashboard',
+				},
+				{
+					disable: false,
+					iconSelected: FilterImg,
+					text: 'Filtros e notificações',
+					route: '/filters and notifications',
+				},
+				{
+					disable: true,
+					iconSelected: PotentialImg,
+					text: 'Análise de Potencial',
+					route: '/potential analysis',
+				},
+				{
+					disable: true,
+					iconSelected: HistoricImg,
+					text: 'Histórico de oportunidades',
+					route: '/historical opportunities',
+				},
+				{
+					disable: true,
+					iconSelected: ManagementImg,
+					text: 'Gestão interna',
+					route: '/internal management',
+				},
+				{
+					disable: true,
+					iconSelected: DocumentsImg,
+					text: 'Geração de documentos',
+					route: '/document generation',
+				},
+				{
+					disable: true,
+					iconSelected: TaxImg,
+					text: 'Justificativa de impostos',
+					route: '/tax justification',
+				},
+				{
+					disable: true,
+					iconSelected: ClarificationImg,
+					text: 'Histórico de esclarecimentos',
+					route: '/clarification history',
+				},
+				{
+					disable: true,
+					iconSelected: NotificationImg,
+					text: 'Notificação de resultados',
+					route: '/notification of results',
 				},
 			],
-			hiddenItem: [
-				{
-					iconHidden: PotentialImg,
-					textHidden: 'Análise de Potencial',
-				},
-				{
-					iconHidden: HistoricImg,
-					textHidden: 'Histórico de oportunidades',
-				},
-				{
-					iconHidden: ManagementImg,
-					textHidden: 'Gestão interna',
-				},
-				{
-					iconHidden: DocumentsImg,
-					textHidden: 'Geração de documentos',
-				},
-				{
-					iconHidden: TaxImg,
-					textHidden: 'Justificativa de impostos',
-				},
-				{
-					iconHidden: ClarificationImg,
-					textHidden: 'Histórico de esclarecimentos',
-				},
-				{
-					iconHidden: NotificationImg,
-					textHidden: 'Notificação de resultados',
-				},
-			],
-
-			// list : [
-			//   'Match Relevância',
-			//   'Análise Potencial',
-			//   'Histórico de oportunidade',
-			//   'Gestão interna',
-			//   'Geração de documentos',
-			//   'justificativa de impostos',
-			//   'Histórico de esclarecimentos',
-			//   'Notificação de Resultados',
-			// ]
 		};
-
-		// renderMenu = () => {
-		//   const { list } = this.state;
-
-		//   return (<div>
-		//   list.map((item, i) => {
-		//     <li key={i}>
-		//       {item.icon}
-		//       {item.text}
-		//     </li>
-		//   });
-		//   </div>)
-		// }
 	}
 
 	render() {
@@ -222,23 +216,17 @@ class SideBar extends Component {
 					<BoxMenu>
 						<MenuList>
 
-							{(this.state.selectItem || []).map((item) => (
+							{this.state.sidebarList.map((item) => (
 								<MenuItem
 									key={item}
+									disable={item.disable}
+									selected={item.text === this.state.selectedItem}
+									to={item.route}
 								>
-									{item.iconSelected}{item.textSelected}
+									<IconSideBar src={item.iconSelected} />
+									{item.text}
 								</MenuItem>
 							))}
-
-							{(this.state.hiddenItem || []).map((item) => (
-								<MenuItemHidden
-									key={item}
-								>
-									<IconSideBar src={item.iconHidden} />
-									{item.textHidden}
-								</MenuItemHidden>
-							))}
-
 						</MenuList>
 					</BoxMenu>
 				</NavBar>
