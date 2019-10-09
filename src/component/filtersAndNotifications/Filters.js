@@ -28,10 +28,33 @@ const AddFilterImage = styled.img`
 `;
 
 const WrapperTexts = styled.div`
+	display: ${(props) => props.suggestions && 'flex'};
+	align-items: ${(props) => props.suggestions && 'center'};
+	margin: ${(props) => props.suggestions && '.80rem .5rem;'};
 `;
 
-const Text = styled.p`
-	// color: #fff;
+const Title = styled.h2`
+	color: ${(props) => (props.modalTitle ? '#115680' : '#000')};
+	font-size: 1rem;
+`;
+
+const SuggestionsTags = styled.span`
+	margin-right: 1rem;
+	padding: .2rem .4rem;
+	border-radius: 10px;
+	background-color: #aadf0040;
+`;
+
+const SuggestionsText = styled.p`
+	margin-right: ${(props) => props.suggestionsTitle && '1rem'};
+	font-size: ${(props) => (props.suggestionsTitle ? '.75rem' : '.80rem')};
+	color: ${(props) => (props.suggestionsTitle ? '#8C8C8C' : '#404040')};
+`;
+
+const AddFilterTitle = styled.p`
+	margin: .2rem;
+	color: #fff;
+	font-size: ${(props) => (props.subAddTitle ? '.85rem' : '1rem')};
 `;
 
 const Overlay = styled.div`
@@ -47,7 +70,9 @@ const Overlay = styled.div`
 `;
 
 const FilterModal = styled.div`
-	width: 42rem;
+	padding: 0 1.5rem;
+	padding-bottom: 1.5rem;
+	width: 35rem;
 	border: .5px solid #115680;
 	border-radius: 8px;
 	background: #fff;
@@ -55,6 +80,7 @@ const FilterModal = styled.div`
 
 const Header = styled.div`
 	position: relative;
+	margin: 0 0 .80rem .5rem;
 	padding-top: 1.2rem;
 	width: 100%;
 	display: flex;
@@ -63,16 +89,17 @@ const Header = styled.div`
 
 const CloseContainer = styled.div`
 	position: absolute;
-	right: .65rem;
+	// right: .65rem;
+	left: 31.5rem;
 	bottom: 1.5rem;
 	width: 30px;
 	height: 30px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 0.5px solid #E6E6E6;
+	border: 0.5px solid #115680;
 	border-radius: 50%;
-	background-color: #DBE9F1;
+	background-color: #fff;
 `;
 
 const CloseButton = styled.button`
@@ -86,35 +113,12 @@ const CloseButton = styled.button`
 	cursor: pointer;
 `;
 
-const Content = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	// width: 55%;
-	// height: 90vh;
-	background: #FFF;
-	border-radius: 0 0 6px 6px;
-	@media (max-width: 768px) {
-		width: 85%;
-		height: 80vh;
-		border-radius: 6px;
-	}
-	@media (max-width: 450px) {
-		width: 100%;
-		height: 80vh;
-		display: flex;
-    justify-content: space-evenly;
-		border-radius: 6px;
-	}
-`;
-
 const InputBox = styled.span`
 	position: relative;
 	display: flex;
 	flex-direction: ${(props) => (props.alt ? 'row' : 'column')};
 	justify-content: ${(props) => props.alt && 'space-between'};
-	width: 55%;
+	width: 100%;
 	margin-top: ${(props) => props.last && '.5rem'};
 	@media (max-width: 768px) {
 		width: 60%;
@@ -134,7 +138,7 @@ const Label = styled.label`
 const Input = styled.input`
 	width: 100%;
 	height: 3rem;
-	padding: 1rem;
+	padding: .5rem;
 	font-size: 1rem;
 	background: #FAFAFA 0% 0% no-repeat padding-box;
 	border: 1px solid #7FBA4C;
@@ -148,12 +152,61 @@ const Input = styled.input`
 	}
 `;
 
+const Button = styled.button`
+	padding: 1rem;
+	width: 100%;
+	height: 3rem;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	background-color: #116EA0;
+	cursor: pointer;
+`;
+
+const WrapperTagsColor = styled.div`
+
+`;
+
+const ContainerTagsColor = styled.div`
+	margin: .8rem 0;
+	height: 4rem;
+	display: flex;
+	justify-content: space-between;
+`;
+
+const TagColor = styled.div`
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: ${(props) => props.backgroundColor}
+`;
+
 class Filters extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			isModalOpen: false,
+			colors: [
+				'#DE8F33',
+				'#D65B85',
+				'#52BA44',
+				'#01B0B7',
+				'#8A5BD6',
+				'#D7E65D',
+				'#D53B40',
+			],
 		};
+	}
+
+	renderColorOption = () => {
+		const { colors } = this.state;
+
+		return colors.map((color) => (
+			<TagColor
+				key={color}
+				backgroundColor={color}
+			/>
+		));
 	}
 
 	handleFilterModal = () => {
@@ -168,45 +221,42 @@ class Filters extends Component {
 		<Overlay>
 			<FilterModal>
 				<Header>
-					<Text>Adicionar Filtro</Text>
+					<Title modalTitle>Adicionar Filtro</Title>
 					<CloseContainer onClick={this.handleClose}>
 						<CloseButton>X</CloseButton>
 					</CloseContainer>
 				</Header>
-				<Content>
-					<InputBox>
-						<Label>Escolha um nome</Label>
-						<Input
-							ref={(node) => { this.loginEmailRef = node; }}
-							required
-							autoFocus
-							type='email'
-							placeholder={'Digite seu texto aqui'}
-						/>
-					</InputBox>
-					<InputBox last>
-						<Label>Digite as tags relacionadas</Label>
-						<Input
-							ref={(node) => { this.loginPasswordRef = node; }}
-							type={this.state.showPassword ? 'password' : 'text'}
-							required
-							placeholder={'Digite seu texto aqui'}
-						/>
-					</InputBox>
-					<div>
-						<Text>Sugestões:</Text>
-						<Text>montagem</Text>
-						<Text>Instrumental</Text>
-						<Text>elétrica</Text>
-					</div>
-					<div>
-						<Label>Escolha uma cor</Label>
-						<div>
-							{/* cores para o filtro */}
-						</div>
-						<button>Adicionar Filtro</button>
-					</div>
-				</Content>
+				<InputBox>
+					<Label>Escolha um nome</Label>
+					<Input
+						placeholder={'Digite seu texto aqui'}
+					/>
+				</InputBox>
+				<InputBox last>
+					<Label>Digite as tags relacionadas</Label>
+					<Input
+						placeholder={'Digite seu texto aqui'}
+					/>
+				</InputBox>
+				<WrapperTexts suggestions>
+					<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
+					<SuggestionsTags>
+						<SuggestionsText suggestionsTags>montagem</SuggestionsText>
+					</SuggestionsTags>
+					<SuggestionsTags>
+						<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
+					</SuggestionsTags>
+					<SuggestionsTags>
+						<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
+					</SuggestionsTags>
+				</WrapperTexts>
+				<WrapperTagsColor>
+					<Label>Escolha uma cor</Label>
+					<ContainerTagsColor>
+						{ this.renderColorOption() }
+					</ContainerTagsColor>
+					<Button>Adicionar Filtro</Button>
+				</WrapperTagsColor>
 			</FilterModal>
 		</Overlay>
 	)
@@ -219,8 +269,8 @@ class Filters extends Component {
 				<AddFilter onClick={this.handleFilterModal}>
 					<AddFilterImage src={filter} />
 					<WrapperTexts>
-						<Text>Adicionar filtro</Text>
-						<Text>Selecione palavras chave para apurar contratos relevantes</Text>
+						<AddFilterTitle>Adicionar filtro</AddFilterTitle>
+						<AddFilterTitle subAddTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
 					</WrapperTexts>
 				</AddFilter>
 				{ isModalOpen && this.renderFilterModal() }

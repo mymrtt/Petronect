@@ -16,11 +16,6 @@ const Container = styled.div`
 `;
 
 class IndexFilters extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
-
 	// eslint-disable-next-line class-methods-use-this
 	render() {
 		return (
