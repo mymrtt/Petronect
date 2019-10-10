@@ -191,6 +191,7 @@ class RelevanceMatch extends Component {
 			searchString: [],
 			hoverFavorites: false,
 			isOportunitesModal: false,
+			isShowFavorites: false,
 		};
 	}
 
@@ -235,8 +236,23 @@ class RelevanceMatch extends Component {
 		<DetailsOportunities handleModalOportunities={this.handleModalOportunities} />
 	)
 
+	showFavorites = () => {
+		const { oportunities } = this.props;
+
+		const filterFaves = values(oportunities).filter((item) => item.favorite);
+
+		this.setState({ filterFaves });
+		console.log('oioio', filterFaves)
+	}
+
+	renderShowFavorites = () => {
+		const { isShowFavorites } = this.state;
+
+		this.setState({ isShowFavorites: !isShowFavorites })
+	}
+
 	render() {
-		const { isOportunitesModal } = this.state;
+		const { isOportunitesModal, isShowFavorites } = this.state;
   	return (
   		<Container>
   			<Content>
@@ -259,7 +275,7 @@ class RelevanceMatch extends Component {
   							<Button
   								type="button"
   								value="1"
-  								onClick = {this.hoverFavorites}
+  								onClick = {this.showFavorites}
   								style={{
   									backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
   									color: this.state.hoverFavorites ? '#fff' : '#404040',
@@ -316,6 +332,7 @@ class RelevanceMatch extends Component {
 							))}
 						</Fragment>
   				</Table>
+					{isShowFavorites && this.showFavorites()}
   			</WrapperTable>
 				<Fragment>
 					{ isOportunitesModal && this.renderModalOportunities() }

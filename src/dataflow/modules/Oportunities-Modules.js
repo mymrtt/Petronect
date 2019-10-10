@@ -3,7 +3,7 @@ const PUT_FAVORITE = 'favorite/favorite/PUT_FAVORITE';
 
 const initialState = {
 	search: [],
-	favorite: [],
+	favoriteList: [],
 	oportunities: {
 		Test1: {
 			id: 'Test1',
