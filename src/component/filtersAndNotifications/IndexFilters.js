@@ -1,5 +1,5 @@
 // Libs
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // Components
@@ -15,17 +15,11 @@ const Container = styled.div`
 	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 `;
 
-class IndexFilters extends Component {
-	// eslint-disable-next-line class-methods-use-this
-	render() {
-		return (
-			<Container>
-				<SideBar />
-				<Filters />
-			</Container>
-		);
-	}
-}
-
+const IndexFilters = () => (
+	<Container>
+		<SideBar />
+		<Filters />
+	</Container>
+);
 
 export default IndexFilters;
