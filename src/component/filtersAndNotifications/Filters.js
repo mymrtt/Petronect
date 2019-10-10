@@ -4,11 +4,19 @@ import styled from 'styled-components';
 
 // Images
 import filter from '../../assets/icon/filtrar.svg';
+import magnifying from '../../assets/icon/lupa.svg';
+
+// Components
+import NotificationsBar from './NotificationsBar';
 
 const Container = styled.div`
-	padding: 2rem;
+	padding: 1.3rem;
+	padding-right: 1rem;
   width: 75vw;
-  height: 95vh;
+	height: 95vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
   border-radius: 0 4px 0 0;
   background: #fff;
 `;
@@ -34,8 +42,8 @@ const WrapperTexts = styled.div`
 `;
 
 const Title = styled.h2`
-	color: ${(props) => (props.modalTitle ? '#115680' : '#000')};
-	font-size: 1rem;
+	color: ${(props) => (props.modalTitle ? '#115680' : '#fff')};
+	font-size: ${(props) => (props.modalTitle ? '1rem' : '.80rem')};
 `;
 
 const SuggestionsTags = styled.span`
@@ -52,9 +60,50 @@ const SuggestionsText = styled.p`
 `;
 
 const AddFilterTitle = styled.p`
-	margin: .2rem;
-	color: #fff;
-	font-size: ${(props) => (props.subAddTitle ? '.85rem' : '1rem')};
+	margin: ${(props) => (props.searchTitle ? '0 0 0.6rem .90rem' : '.2rem')};
+	color: ${(props) => (props.searchTitle ? '#116EA0' : '#fff')};
+	font-size: ${(props) => (props.smallTitle ? '.85rem' : '1rem')};
+`;
+
+const ContainerNotifications = styled.div`
+	padding-left: 1rem;
+	height: 70vh
+	border-left: 1px solid #0000001A;
+`;
+
+const ContainerSearchInput = styled.div`
+	width: 100%;
+	height: 2rem;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	border: .5px solid #116EA0;
+	border-radius: 16px;
+`;
+
+const WrapperNotifications = styled.div`
+	padding-bottom: ${(props) => props.wrapperSearch && '2rem'};
+`;
+
+const NotificationsItem = styled.div`
+	margin-bottom: 1rem;
+	padding: .45rem .80rem .80rem;
+	display: flex;
+	flex-direction: column;
+	border: .5px solid #E6E6E6;
+	border-radius: 8px;
+`;
+
+const SearchInput = styled.input`
+	padding-left: .2rem;
+	width: 80%;
+	height: 1rem;
+	border: transparent;
+	outline: none;
+`;
+
+const Image = styled.img`
+	width: 15px;
 `;
 
 const Overlay = styled.div`
@@ -129,10 +178,11 @@ const InputBox = styled.span`
 `;
 
 const Label = styled.label`
-	font: 500 12px Eurostile, sans-serif;
+	font: 500 Eurostile, sans-serif;
+	font-size: ${(props) => (props.labelNotifications ? '.85rem' : '.75rem')};
 	margin: 0 0 .25rem .5rem;
 	letter-spacing: 0;
-	color: #7FBA4C;
+	color: ${(props) => (props.labelNotifications ? '#000' : '#7FBA4C')};
 `;
 
 const Input = styled.input`
@@ -179,6 +229,7 @@ const TagColor = styled.div`
 	height: 50px;
 	border-radius: 50%;
 	background-color: ${(props) => props.backgroundColor}
+	cursor: pointer;
 `;
 
 class Filters extends Component {
@@ -186,6 +237,7 @@ class Filters extends Component {
 		super(props);
 		this.state = {
 			isModalOpen: false,
+			nameValue: '',
 			colors: [
 				'#DE8F33',
 				'#D65B85',
@@ -198,6 +250,10 @@ class Filters extends Component {
 		};
 	}
 
+	handleColorOption = () => {
+		console.log('color');
+	}
+
 	renderColorOption = () => {
 		const { colors } = this.state;
 
@@ -205,15 +261,21 @@ class Filters extends Component {
 			<TagColor
 				key={color}
 				backgroundColor={color}
+				onClick={this.handleColorOption}
 			/>
 		));
 	}
 
-	handleFilterModal = () => {
+	handleChangeName = (event) => {
+		this.setState({ nameValue: event.target.value });
+		console.log( event.target.value);
+	}
+
+	handleOpenModal = () => {
 		this.setState({ isModalOpen: true });
 	}
 
-	handleClose = () => {
+	handleCloseModal = () => {
 		this.setState({ isModalOpen: false });
 	}
 
@@ -222,7 +284,7 @@ class Filters extends Component {
 			<FilterModal>
 				<Header>
 					<Title modalTitle>Adicionar Filtro</Title>
-					<CloseContainer onClick={this.handleClose}>
+					<CloseContainer onClick={this.handleCloseModal}>
 						<CloseButton>X</CloseButton>
 					</CloseContainer>
 				</Header>
@@ -230,6 +292,8 @@ class Filters extends Component {
 					<Label>Escolha um nome</Label>
 					<Input
 						placeholder={'Digite seu texto aqui'}
+						onChange={this.handleChangeName}
+						value={this.state.nameValue}
 					/>
 				</InputBox>
 				<InputBox last>
@@ -255,24 +319,51 @@ class Filters extends Component {
 					<ContainerTagsColor>
 						{ this.renderColorOption() }
 					</ContainerTagsColor>
-					<Button>Adicionar Filtro</Button>
+					<Button>
+						<Title>Adicionar Filtro</Title>
+					</Button>
 				</WrapperTagsColor>
 			</FilterModal>
 		</Overlay>
 	)
 
-	// eslint-disable-next-line class-methods-use-this
 	render() {
 		const { isModalOpen } = this.state;
 		return (
 			<Container>
-				<AddFilter onClick={this.handleFilterModal}>
+				<AddFilter onClick={this.handleOpenModal}>
 					<AddFilterImage src={filter} />
 					<WrapperTexts>
 						<AddFilterTitle>Adicionar filtro</AddFilterTitle>
-						<AddFilterTitle subAddTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
+						<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
 					</WrapperTexts>
 				</AddFilter>
+				<ContainerNotifications>
+					<WrapperNotifications wrapperSearch>
+						<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
+						<ContainerSearchInput>
+							<SearchInput
+								placeholder={'Digite aqui para pesquisar'}
+							/>
+							<Image src={magnifying} />
+						</ContainerSearchInput>
+					</WrapperNotifications>
+					<WrapperNotifications>
+						<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
+						<NotificationsItem>
+							<Label labelNotifications>Email</Label>
+							<NotificationsBar />
+						</NotificationsItem>
+						<NotificationsItem>
+							<Label labelNotifications>Push</Label>
+							<NotificationsBar />
+						</NotificationsItem>
+						<NotificationsItem>
+							<Label labelNotifications>SMS</Label>
+							<NotificationsBar />
+						</NotificationsItem>
+					</WrapperNotifications>
+				</ContainerNotifications>
 				{ isModalOpen && this.renderFilterModal() }
 			</Container>
 		);
