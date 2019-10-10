@@ -1,17 +1,7 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from 'react';
 
-import RoutesConfig from './RoutesConfig';
+import Routes from './routes';
 
-class App extends Component {
-	// eslint-disable-next-line class-methods-use-this
-	render() {
-		return (
-			<Router>
-				<RoutesConfig />
-			</Router>
-		);
-	}
-}
+const App = () => <Routes />;
 
 export default App;
