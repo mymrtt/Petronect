@@ -121,8 +121,8 @@ const IconInputPassword = styled.img`
 const Button = styled.button`
 	width: 55%;
 	height: 3rem;
-	margin-top: 1rem;
-	background: #115680 0% 0% no-repeat padding-box;
+	margin-top: 2.5rem;
+	background: #115680;
 	box-shadow: 0px 3px 6px #00000029;
 	border: none;
 	border-radius: 4px;
@@ -131,6 +131,7 @@ const Button = styled.button`
 	font: 500 1rem eurostile, sans serif;
 	letter-spacing: 0;
 	color: #FAFAFA;
+
 	@media (max-width: 768px) {
 		width: 60%;
 	}
@@ -196,22 +197,21 @@ const TextBox = styled.span`
 `;
 
 const Text = styled.p`
-	margin: ${(props) => (props.error ? '0' : '1rem 0')};
-	font: 700 18px eurostile, sans serif;
+	margin: 1rem 0;
+	font: 700 1.125rem eurostile, sans serif;
 	letter-spacing: 0.18px;
 	line-height: 2rem;
-	color: ${(props) => (props.error ? '#D53B40' : '#FFFFFF')};
-	font-size: .80rem;
+	color: #FFFFFF;
 	@media (max-width: 768px) {
-		margin: ${(props) => (props.error ? '.1rem 0' : '0')};
+		margin: 0;
 	}
 `;
 
 const LoginMessageError = styled.span`
-	// width: 55%;
-	width: 48%;
-	display: flex;
-	justify-content: flex-end;
+	position: absolute;
+	right: 0;
+	bottom: -1.5rem;
+
 	@media	(max-width: 768px) {
 		width: 55%;
 	}
@@ -220,12 +220,21 @@ const LoginMessageError = styled.span`
 	}
 `;
 
+const TextError = styled.p`
+	font: 500 .80rem eurostile, sans serif;
+	color: #D53B40;
+
+	@media (max-width: 768px) {
+		margin: .1rem 0;
+	}
+`;
+
 class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			showPassword: true,
-			error: true,
+			error: false,
 		};
 	}
 
@@ -238,16 +247,21 @@ class Login extends Component {
 	handleSubmit = (ev) => {
 		ev.preventDefault();
 		this.props.loginUserThunk({
-			username: this.loginEmailRef.value.toLowerCase(),
+			email: this.loginEmailRef.value.toLowerCase(),
 			password: this.loginPasswordRef.value,
 		});
+		// this.setState({
+		// 	error: true,
+		// });
 	}
 
 	renderError = () => {
 		if (this.state.error) {
 			return (
 				<LoginMessageError>
-					<Text error>Endereço de email e/ou senha incorretos</Text>
+					<TextError>
+						Endereço de email e/ou senha incorretos
+					</TextError>
 				</LoginMessageError>
 			);
 		}
@@ -283,8 +297,8 @@ class Login extends Component {
 							src={this.state.showPassword ? showPassword : hidePassword}
 							onClick={this.showPassword}
 						/>
+						{ this.state.error && this.renderError() }
 					</InputBox>
-					{ this.state.error && this.renderError() }
 					<Button>
 						Entrar
 					</Button>

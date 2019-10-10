@@ -8,6 +8,7 @@ import Dashboard from './component/DashBoard/DashBoard';
 import FiltersAndNotifications from './component/filtersAndNotifications/IndexFilters';
 
 export class RoutesConfig extends Component {
+	// eslint-disable-next-line class-methods-use-this
 	render() {
 		return (
 			<Switch>
