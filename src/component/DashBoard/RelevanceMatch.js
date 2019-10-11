@@ -3,12 +3,11 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import styled from 'styled-components';
 import { values } from 'lodash';
 
 // Modules
-import { addItem, putFavorite } from '../../dataflow/modules/Oportunities-Modules';
+import { addItem, putFavorite } from '../../dataflow/modules/oportunities-modules';
 import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
 
 // Images
