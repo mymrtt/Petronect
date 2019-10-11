@@ -24,7 +24,10 @@ const Container = styled.div`
   background: #fff;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
-  box-shadow: 2px 0 4px;
+	box-shadow: 2px 0 4px;
+	@media (max-width: 768px) {
+		display: none;
+	}
 `;
 
 const NavBar = styled.div`

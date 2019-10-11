@@ -13,6 +13,12 @@ const Container = styled.div`
 	align-items: flex-end;
 	justify-content: center;
 	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
+
+	@media (max-width: 768px) {
+		display: flex;
+		align-items: center;
+    flex-direction: column;
+	}
 `;
 
 const IndexFilters = () => (
