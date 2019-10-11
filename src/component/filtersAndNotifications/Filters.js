@@ -5,6 +5,7 @@ import styled from 'styled-components';
 // Images
 import filter from '../../assets/icon/filtrar.svg';
 import magnifying from '../../assets/icon/lupa.svg';
+import edit from '../../assets/icon/editar.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
@@ -22,13 +23,25 @@ const Container = styled.div`
 `;
 
 const AddFilter = styled.div`
-	padding: 1rem;
+	padding: ${(props) => (props.containerCard ? '0' : '1rem')};
 	width: 35%;
 	display: flex;
-	border-color: #116EA0;
+	flex-direction: ${(props) => props.containerCard && 'column'};
+	border: ${(props) => (props.containerCard ? '.5px solid #01B701' : '.5px solid #116EA0')};
 	border-radius: 4px;
-	background-color: #116EA0;
+	background-color: ${(props) => (props.containerCard ? '#fff' : '#116EA0')};
 	cursor: pointer;
+`;
+
+const WrapperCard = styled.div`
+	padding: 0 1rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	color: #fff;
+	font-size: 1rem;
+	background-color: #52BA44;
+	justify-content: space-between;
 `;
 
 const AddFilterImage = styled.img`
@@ -38,7 +51,7 @@ const AddFilterImage = styled.img`
 const WrapperTexts = styled.div`
 	display: ${(props) => props.suggestions && 'flex'};
 	align-items: ${(props) => props.suggestions && 'center'};
-	margin: ${(props) => props.suggestions && '.80rem .5rem;'};
+	margin: ${(props) => props.suggestions && '.80rem .5rem'};
 `;
 
 const Title = styled.h2`
@@ -46,8 +59,17 @@ const Title = styled.h2`
 	font-size: ${(props) => (props.modalTitle ? '1rem' : '.80rem')};
 `;
 
+const ContainerTags = styled.div`
+	padding: 0.5rem 1rem;
+	height: 3.7rem;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+`;
+
 const SuggestionsTags = styled.span`
 	margin-right: 1rem;
+	margin-bottom: ${(props) => props.Tag && '.3rem'};
 	padding: .2rem .4rem;
 	border-radius: 10px;
 	background-color: #aadf0040;
@@ -65,9 +87,32 @@ const AddFilterTitle = styled.p`
 	font-size: ${(props) => (props.smallTitle ? '.85rem' : '1rem')};
 `;
 
+const TagTitle = styled.p`
+	// padding: 0 1rem;
+	// height: 2rem;
+	// display: flex;
+	// align-items: center;
+	// color: #fff;
+	// font-size: 1rem;
+	// background-color: #52BA44;
+	// justify-content: space-between;
+	margin-left: ${(props) => props.cardText && '.5rem'};
+`;
+
+const CardEdit = styled.div`
+	display: flex;
+`;
+
+// const CardText = styled.p`
+// 	margin-left: .5rem;
+// `;
+
 const ContainerNotifications = styled.div`
 	padding-left: 1rem;
+	width: 25%;
 	height: 70vh
+	display: flex;
+	flex-direction: column;
 	border-left: 1px solid #0000001A;
 `;
 
@@ -250,8 +295,12 @@ class Filters extends Component {
 		};
 	}
 
+	// hadleCardEdit = () => {
+	// 	console.log('card edit');
+	// }
+
 	handleColorOption = () => {
-		console.log('color');
+		console.log('color option');
 	}
 
 	renderColorOption = () => {
@@ -268,7 +317,7 @@ class Filters extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
-		console.log( event.target.value);
+		console.log(event.target.value);
 	}
 
 	handleOpenModal = () => {
@@ -337,6 +386,29 @@ class Filters extends Component {
 						<AddFilterTitle>Adicionar filtro</AddFilterTitle>
 						<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
 					</WrapperTexts>
+				</AddFilter>
+				<AddFilter containerCard>
+					<WrapperCard>
+						<TagTitle>Sistema de offshore</TagTitle>
+						<CardEdit onClick={this.handleOpenModal}>
+							<Image src={edit} />
+							<TagTitle cardText>Edit</TagTitle>
+						</CardEdit>
+					</WrapperCard>
+					<ContainerTags>
+						<SuggestionsTags Tag>
+							<SuggestionsText suggestionsTags>montagem</SuggestionsText>
+						</SuggestionsTags>
+						<SuggestionsTags Tag>
+							<SuggestionsText suggestionsTags>instrumental</SuggestionsText>
+						</SuggestionsTags>
+						<SuggestionsTags Tag>
+							<SuggestionsText suggestionsTags>automoção</SuggestionsText>
+						</SuggestionsTags>
+						<SuggestionsTags Tag>
+							<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
+						</SuggestionsTags>
+					</ContainerTags>
 				</AddFilter>
 				<ContainerNotifications>
 					<WrapperNotifications wrapperSearch>
