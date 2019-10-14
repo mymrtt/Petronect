@@ -61,6 +61,17 @@ const WrapperCard = styled.div`
 	justify-content: space-between;
 `;
 
+const WrapperCard = styled.div`
+	padding: 0 1rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	color: #fff;
+	font-size: 1rem;
+	background-color: #52BA44;
+	justify-content: space-between;
+`;
+
 const AddFilterImage = styled.img`
 	margin-right: 1rem;
 `;
@@ -174,7 +185,7 @@ const SearchInput = styled.input`
 `;
 
 const Image = styled.img`
-	width: ${(props) => (props.logoTablet ? '100%' : '15px')};
+	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
 		width: ${(props) => props.magnifying && '20px'};
 	}
@@ -183,6 +194,7 @@ const Image = styled.img`
 const ImageMenu = styled.img`
 	display: none;
 	@media (max-width: 768px) {
+		padding-bottom: .3rem;
 		display: flex;
 	}
 `;
@@ -341,16 +353,23 @@ const Teste = styled.div`
 	}
 `;
 
-const Abelha = styled.div`
-`;
-
-const Testinho = styled.div`
+const MenuTablet = styled.div`
 	display: none;
 	@media (max-width: 768px) {
+		padding-left: 2.5rem;
 		width: 100%;
+		display: flex;
+	}
+`;
+
+const WrapperLogoTablet = styled.div`
+	display: none;
+	@media (max-width: 768px) {
+		width: ${(props) => (props.menu ? 'auto' : '85%')};
 		height: 20vh;
 		display: flex;
 		justify-content: center;
+		flex-direction: ${(props) => props.menu && 'column'};
 	}
 `;
 
@@ -371,7 +390,12 @@ class Filters extends Component {
 			],
 		};
 	}
-
+  
+	// hadleCardEdit = () => {
+	// 	console.log('card edit');
+	// }
+  
+  
 	handleColorOption = () => {
 		console.log('color option');
 	}
@@ -390,6 +414,7 @@ class Filters extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
+		console.log(event.target.value);
 	}
 
 	handleOpenModal = () => {
@@ -452,12 +477,15 @@ class Filters extends Component {
 		const { isModalOpen } = this.state;
 		return (
 			<Fragment>
-				<Abelha>
-					<ImageMenu src={menuHamburger} />
-					<Testinho>
+				<MenuTablet>
+					<WrapperLogoTablet menu>
+						<ImageMenu src={menuHamburger} />
+						<p>MENU</p>
+					</WrapperLogoTablet>
+					<WrapperLogoTablet>
 						<Image logoTablet src={logoWhite} />
-					</Testinho>
-				</Abelha>
+					</WrapperLogoTablet>
+				</MenuTablet>
 				<Container>
 					<Teste>
 						<AddFilter onClick={this.handleOpenModal}>
