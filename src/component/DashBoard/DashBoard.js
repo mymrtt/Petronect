@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // Components
@@ -33,25 +33,14 @@ const Content = styled.div`
   }
 `;
 
-
-class DashBoard extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
-
-	// eslint-disable-next-line class-methods-use-this
-	render() {
-		return (
-			<Container>
-				<Content>
-					<SideBar />
-					<RelevanceMatch />
-				</Content>
-			</Container>
-		);
-	}
-}
+const DashBoard = () => (
+	<Container>
+		<Content>
+			<SideBar />
+			<RelevanceMatch />
+		</Content>
+	</Container>
+);
 
 
 export default DashBoard;

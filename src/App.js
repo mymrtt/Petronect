@@ -1,16 +1,9 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+// Libs
+import React from 'react';
 
-import RoutesConfig from './RoutesConfig';
+// Components
+import Routes from './routes';
 
-class App extends Component {
-	render() {
-		return (
-			<Router>
-				<RoutesConfig />
-			</Router>
-		);
-	}
-}
+const App = () => <Routes />;
 
 export default App;
