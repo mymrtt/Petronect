@@ -29,6 +29,7 @@ const Container = styled.div`
 	box-shadow: 2px 0 4px;
 
 	@media (max-width: 768px) {
+		// display: none;
 		box-shadow: 0 0 0;
 	}
 `;
@@ -60,6 +61,7 @@ const ImgLogo = styled.img`
 `;
 
 const WrapperTablet = styled.div`
+	display: none;
 	@media (max-width: 768px) {
 		padding-left: 2.8rem
 		width: auto;
