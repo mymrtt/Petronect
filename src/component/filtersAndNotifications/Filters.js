@@ -61,6 +61,17 @@ const WrapperCard = styled.div`
 	justify-content: space-between;
 `;
 
+const WrapperCard = styled.div`
+	padding: 0 1rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	color: #fff;
+	font-size: 1rem;
+	background-color: #52BA44;
+	justify-content: space-between;
+`;
+
 const AddFilterImage = styled.img`
 	margin-right: 1rem;
 `;
@@ -379,7 +390,12 @@ class Filters extends Component {
 			],
 		};
 	}
-
+  
+	// hadleCardEdit = () => {
+	// 	console.log('card edit');
+	// }
+  
+  
 	handleColorOption = () => {
 		console.log('color option');
 	}
@@ -398,6 +414,7 @@ class Filters extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
+		console.log(event.target.value);
 	}
 
 	handleOpenModal = () => {
