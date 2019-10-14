@@ -3,6 +3,7 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import styled from 'styled-components';
 import { values } from 'lodash';
 

@@ -380,7 +380,12 @@ class Filters extends Component {
 			isMenuOpen: false,
 		};
 	}
-
+  
+	// hadleCardEdit = () => {
+	// 	console.log('card edit');
+	// }
+  
+  
 	handleColorOption = () => {
 		console.log('color option');
 	}
@@ -399,6 +404,7 @@ class Filters extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
+		console.log(event.target.value);
 	}
 
 	handleOpenMenu = () => {
