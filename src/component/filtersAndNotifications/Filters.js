@@ -377,6 +377,7 @@ class Filters extends Component {
 				'#D7E65D',
 				'#D53B40',
 			],
+			isMenuOpen: false,
 		};
 	}
 
@@ -398,6 +399,10 @@ class Filters extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
+	}
+
+	handleOpenMenu = () => {
+		
 	}
 
 	handleOpenModal = () => {
@@ -463,7 +468,7 @@ class Filters extends Component {
 				<MenuTablet>
 					<WrapperLogoTablet menu>
 						<ImageMenu src={menuHamburger} />
-						<p>MENU</p>
+						<AddFilterTitle smallTitle>MENU</AddFilterTitle>
 					</WrapperLogoTablet>
 					<WrapperLogoTablet>
 						<Image logoTablet src={logoWhite} />
