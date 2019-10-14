@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Components
+import MenuTablet from '../MenuTablet'
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
 
@@ -14,7 +15,8 @@ const Container = styled.div`
 	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
 
 	@media(max-width: 768px) {
-		align-items: center;
+		flex-direction: column;
+		align-items: flex-start;
 		justify-center: center;
 	}
 `;
@@ -35,6 +37,7 @@ const Content = styled.div`
 
 const DashBoard = () => (
 	<Container>
+		<MenuTablet/>
 		<Content>
 			<SideBar />
 			<RelevanceMatch />
