@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // IMG
-import LogoImg from '../../assets/img/LogoPNE.png';
-import RelevanceImg from '../../assets/icon/icon_menu-Relevancia.svg';
-import FilterImg from '../../assets/icon/icon_menu.svg';
-import PotentialImg from '../../assets/icon/icon_menu-analise.svg';
-import HistoricImg from '../../assets/icon/icon_menu-historico.svg';
-import ManagementImg from '../../assets/icon/icon_menu-gestão.svg';
-import DocumentsImg from '../../assets/icon/icon_menu-geracaoDoc.svg';
-import TaxImg from '../../assets/icon/icon_menu-justificativa.svg';
-import ClarificationImg from '../../assets/icon/icon_menu-hitorico.svg';
-import NotificationImg from '../../assets/icon/icon_menu-notificação.svg';
+import LogoImg from '../assets/img/LogoPNE.png';
+import RelevanceImg from '../assets/icon/icon_menu-Relevancia.svg';
+import FilterImg from '../assets/icon/icon_menu.svg';
+import PotentialImg from '../assets/icon/icon_menu-analise.svg';
+import HistoricImg from '../assets/icon/icon_menu-historico.svg';
+import ManagementImg from '../assets/icon/icon_menu-gestão.svg';
+import DocumentsImg from '../assets/icon/icon_menu-geracaoDoc.svg';
+import TaxImg from '../assets/icon/icon_menu-justificativa.svg';
+import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
+import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 
 const Container = styled.div`
 	width: 280px;
@@ -24,12 +24,11 @@ const Container = styled.div`
   background: #fff;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
-  box-shadow: 2px 0 4px;
+	box-shadow: 2px 0 4px;
 
-	@media(max-width: 768px) {
-		width: 100vw;
- 		height: 10vh;
-  }
+	@media (max-width: 768px) {
+		display: none;
+	}
 `;
 
 const NavBar = styled.div`
@@ -137,9 +136,9 @@ const BoxInfo = styled.div`
   justify-content: space-between;
 `;
 
-const InfoImg = styled.img`
-  padding-right: .5rem;
-`;
+// const InfoImg = styled.img`
+//   padding-right: .5rem;
+// `;
 
 const InfoItem = styled.p`
 	padding: 1rem 0;
@@ -239,7 +238,6 @@ class SideBar extends Component {
 					</BoxLogo>
 					<BoxMenu>
 						<MenuList>
-
 							{this.state.sidebarList.map((item) => (
 								<MenuItem
 									key={item}

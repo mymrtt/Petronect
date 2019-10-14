@@ -272,15 +272,14 @@ class RelevanceMatch extends Component {
 	}
 
 	removeItem = (event) => {
-		this.props.removeItem(this.state.list)
+		this.props.removeItem(this.state.list);
 	}
 
 	handleClick = (event) => {
 		event.preventDefault();
-		
 
 		this.props.addList();
-	}	
+	}
 
 	renderList = () => {
 		return this.props.keyword.map((keyword) => {
@@ -290,7 +289,7 @@ class RelevanceMatch extends Component {
 			};
 
 			return 	(
-				<KeiwordBox 
+				<KeiwordBox
 					key={keyword.oportunityId}
 					className='btn'
 				>

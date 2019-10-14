@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Components
-import SideBar from './SideBar';
+import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
 
 const Container = styled.div`
@@ -20,8 +20,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-	width: 90%;
-	height: 90%;
+	width: 92%;
+	height: 95%;
 	display:flex;
 	
 
@@ -41,6 +41,5 @@ const DashBoard = () => (
 		</Content>
 	</Container>
 );
-
 
 export default DashBoard;
