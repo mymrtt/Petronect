@@ -11,13 +11,18 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Redux
 import { loginUserThunk } from '../../dataflow/thunks/login-thunk';
 
-const mapStateToProps = (state) => ({
+import  { updateError } from '../../dataflow/modules/login-module';
 
+const mapStateToProps = (state) => ({
+	error: state.login.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	loginUserThunk: (info) => {
 		dispatch(loginUserThunk(info));
+	},
+	updateError: (info) => {
+		dispatch(updateError(info));
 	},
 });
 
@@ -98,7 +103,7 @@ const Input = styled.input`
 	padding: 1rem;
 	font-size: 1rem;
 	background: #FAFAFA 0% 0% no-repeat padding-box;
-	border: 1px solid #7FBA4C;
+	border: 1px solid ${(props) => (props.error ? '#D53B40' : '#7FBA4C')};
 	border-radius: 4px;
 	outline: none;
 
@@ -234,7 +239,6 @@ class Login extends Component {
 		super(props);
 		this.state = {
 			showPassword: true,
-			error: false,
 		};
 	}
 
@@ -249,14 +253,18 @@ class Login extends Component {
 		this.props.loginUserThunk({
 			email: this.loginEmailRef.value.toLowerCase(),
 			password: this.loginPasswordRef.value,
+			history: this.props.history,
 		});
-		// this.setState({
-		// 	error: true,
-		// });
+	}
+
+	handleError = () => {
+		if (this.props.error) {
+			this.props.updateError(false);
+		} return null;
 	}
 
 	renderError = () => {
-		if (this.state.error) {
+		if (this.props.error) {
 			return (
 				<LoginMessageError>
 					<TextError>
@@ -282,6 +290,8 @@ class Login extends Component {
 							autoFocus
 							type='email'
 							placeholder={'Digite sua senha e-mail'}
+							error={this.props.error}
+							onChange={this.handleError}
 						/>
 					</InputBox>
 					<InputBox last>
@@ -291,13 +301,15 @@ class Login extends Component {
 							type={this.state.showPassword ? 'password' : 'text'}
 							required
 							placeholder={'Digite sua senha'}
+							error={this.props.error}
+							onChange={this.handleError}
 						/>
 						<IconInputPassword
 							loginScreen
 							src={this.state.showPassword ? showPassword : hidePassword}
 							onClick={this.showPassword}
 						/>
-						{ this.state.error && this.renderError() }
+						{this.renderError() }
 					</InputBox>
 					<Button>
 						Entrar
