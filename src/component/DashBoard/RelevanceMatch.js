@@ -3,16 +3,15 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import styled from 'styled-components';
 import { values } from 'lodash';
 
 // Modules
-import { addItem, putFavorite } from '../../dataflow/modules/Oportunities-Modules';
+import { addItem, removeItem, putFavorite } from '../../dataflow/modules/Oportunities-Modules';
 import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
 
 // Images
-import shareIcon from '../../assets/icon/lupa.svg'
+import shareIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 
@@ -20,13 +19,16 @@ import startHover from '../../assets/icon/estrela-cinza.svg';
 import DetailsOportunities from './DetailsOportunities';
 
 const mapStateToProps = (state) => ({
-	search: state.oportunities.search,
+	keyword: state.oportunities.keyword,
 	oportunities: state.oportunities.oportunities,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	addItem: (info) => {
 		dispatch(addItem(info));
+	},
+	removeItem: (payload) => {
+		dispatch(removeItem(payload))
 	},
 	putFavorite: (info) => {
 		dispatch(putFavorite(info));
@@ -38,9 +40,19 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Container = styled.div`
   width: 75vw;
-  height: 95vh;
+  ${'' /* height: 95vh; */}
   border-radius: 0 4px 0 0 ;
   background: #fff;
+
+	@media(max-width: 768px) {
+		width: 95%;
+		height: 90%;
+	}
+
+	@media(max-width: 375px) {
+		width: 98%;
+		height: 98%;
+	}
 `;
 
 const Content = styled.div`
@@ -74,6 +86,9 @@ const HeaderText = styled.p`
 const WrapperForm = styled.div`
   width: auto;
   max-width: 60%;
+	display: flex;
+	flex-direction: column;
+	flwx-wrap: wrap;
 `;
 
 const Form = styled.div`
@@ -91,6 +106,10 @@ const TitleInput = styled.p`
   color: #116EA0;
   font-size: 0.875rem;
   font-weight: bold;
+
+	@media(max-width: 768px) {
+		display: none;
+	}
 `;
 
 const LabelBox = styled.label`
@@ -109,6 +128,35 @@ const InputHead = styled.input`
 	height: 95%;
   border:none;
 	outline: none;
+`;
+
+const WrapperKeyword = styled.div`
+	display: flex;
+`;
+
+const KeiwordBox = styled.div`
+	width: 89px;
+	height: 20px;
+	margin-right: .5rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	background: #AADF00;
+	border-radius: 10px;
+	opacity: 0.2;
+`;
+
+const KeiwordText = styled.p`
+	font-size: .85rem;
+	color: #404040;
+`;
+
+const ClosedKeyword = styled.button`
+	width: 20px;
+	height: 20px;
+	background: #FFFFFF;
+	border: 0.5px solid #115680;
+	border-radius: 19px;
 `;
 
 const ImgShare = styled.img`
@@ -133,8 +181,8 @@ const Button = styled.button`
 
 const WrapperTable = styled.div`
   width: 100%;
-  height: 90%; 
   display: flex;
+	flex-direction: column;
   justify-content: center;
   background: #fff;
 `;
@@ -149,14 +197,14 @@ const Table = styled.table`
 `;
 
 const HeaderRow = styled.tr`
-  width: 90vw;
+  width: 90%;
   height: 32px; 
   border-radius: 4px;
   color: #8C8C8C;
 `;
 
 const TableRow = styled.tr`
-  width: 90vw;
+  width: 90%;
   height: 32px; 
   border-radius: 4px;
   color: #8C8C8C;
@@ -176,6 +224,7 @@ const TableHeader = styled.th`
 `;
 
 const TableBody = styled.td`
+	width: ;
   padding-left: 1rem;
   text-align: left;
   font-size: .875rem;
@@ -186,7 +235,7 @@ class RelevanceMatch extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			search: '',
+			keyword: '',
 			data: [],
 			searchString: [],
 			hoverFavorites: false,
@@ -209,22 +258,52 @@ class RelevanceMatch extends Component {
 	handleInputChange = (event) => {
 		event.preventDefault();
 		this.setState({
-			search: event.target.value,
+			keyword: event.target.value,
 		});
 	}
 
 	handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			this.props.addItem(this.state.search);
-			console.log('enter press here! ');
+			this.props.addItem(this.state.keyword);
+			console.log('enter press here!', this.state.keyword);
 		}
 	}
 
-	handleFavorite = (event, id) => {
+	removeItem = (event) => {
+		this.props.removeItem(this.state.list)
+	}
+
+	handleClick = (event) => {
+		event.preventDefault();
+		
+
+		this.props.addList();
+	}	
+
+	renderList = () => {
+		return this.props.keyword.map((keyword) => {
+
+			const handleClick = () => {
+				this.props.removeItem(keyword.oportunityId);
+			};
+
+			return 	(
+				<KeiwordBox 
+					key={keyword.oportunityId}
+					className='btn'
+				>
+					<KeiwordText>{keyword}{keyword.dane}</KeiwordText>
+					<ClosedKeyword onClick={handleClick}>X</ClosedKeyword> 
+				</KeiwordBox>
+			);
+		});
+	}
+
+	handleFavorite = (event, oportunityId) => {
 		event.stopPropagation();
-		this.props.putFavorite(id);
-		console.log('handleFavorite', id);
+		this.props.putFavorite(oportunityId);
+		console.log('handleFavorite', oportunityId);
 	}
 
 	handleModalOportunities = () => {
@@ -242,13 +321,13 @@ class RelevanceMatch extends Component {
 		const filterFaves = values(oportunities).filter((item) => item.favorite);
 
 		this.setState({ filterFaves });
-		console.log('oioio', filterFaves)
+		console.log('oioio', filterFaves);
 	}
 
 	renderShowFavorites = () => {
 		const { isShowFavorites } = this.state;
 
-		this.setState({ isShowFavorites: !isShowFavorites })
+		this.setState({ isShowFavorites: !isShowFavorites });
 	}
 
 	render() {
@@ -283,8 +362,12 @@ class RelevanceMatch extends Component {
   								}
   							>
   								<img src={this.state.hoverFavorites ? startHover : start}/>
-                Favoritos</Button>
+                Favoritos
+								</Button>
   						</Form>
+							<WrapperKeyword>
+								{this.props.keyword.length > 0 ? this.renderList() : null}
+							</WrapperKeyword>
   					</WrapperForm>
   				</WrapperHead>
   			</Content>
@@ -299,23 +382,42 @@ class RelevanceMatch extends Component {
   						<TableHeader>Prazo</TableHeader>
   					</HeaderRow>
 
+						<Fragment>
+							{values(this.props.oportunities).filter((item) => item.favorite === true).map((item) => (
+								<TableRow key={item} onClick={this.handleModalOportunities}>
+									<TableBody>
+										<img src={start}/>
+									</TableBody>
+									<TableBody>{item.fit}</TableBody>
+									<TableBody>{item.category}</TableBody>
+									<TableBody>{item.oportunityId}</TableBody>
+									<TableBody>{item.titleDescription}</TableBody>
+									<TableBody>
+										{item.deadLineInitial}
+										{item.deadLineLastOne}
+									</TableBody>
+								</TableRow>
+							))}
+						</Fragment>
+
+
   					{values(this.props.oportunities).map((item) => (
   						<TableRow key={item} onClick={this.handleModalOportunities}>
-  							<TableBody onClick={(event) => { this.handleFavorite(event, item.id); }}>
+  							<TableBody onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
 									<img src={item.favorite ? start : startHover}/>
 								</TableBody>
   							<TableBody>{item.fit}</TableBody>
   							<TableBody>{item.category}</TableBody>
-  							<TableBody>{item.id}</TableBody>
+  							<TableBody>{item.oportunityId}</TableBody>
   							<TableBody>{item.titleDescription}</TableBody>
   							<TableBody>
   								{item.deadLineInitial}
   								{item.deadLineLastOne}
   							</TableBody>
   						</TableRow>
-  					))}
+						))}
   				</Table>
-					{isShowFavorites && this.showFavorites()}
+					{/* {isShowFavorites && this.showFavorites()} */}
   			</WrapperTable>
 				<Fragment>
 					{ isOportunitesModal && this.renderModalOportunities() }

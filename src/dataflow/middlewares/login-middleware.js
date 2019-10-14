@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://petronect-app-core-api-dev-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api';
+const API_URL = 'http://petronect-app-core-api-homolog-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api';
 
 // eslint-disable-next-line import/prefer-default-export
 export const loginUserMiddleware = (info) => axios({

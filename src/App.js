@@ -1,26 +1,9 @@
-import React, { Component } from 'react';
+// Libs
+import React from 'react';
 
 // Components
-import DashBoard from './component/DashBoard/DashBoard';
-import Login from './component/Login/Login';
+import Routes from './routes';
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			screen: 'login',
-		};
-	}
-
-	render() {
-		switch (this.state.screen) {
-		case 'login':
-			// return (<Login/>);
-		case 'dashboard':
-		default:
-			return (<DashBoard/>);
-		}
-	}
-}
+const App = () => <Routes />;
 
 export default App;

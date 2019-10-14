@@ -9,10 +9,12 @@ import {
 import thunkMiddleware from 'redux-thunk';
 
 // Reducers
-import Oportunities from './dataflow/modules/Oportunities-Modules';
+import Oportunities from './dataflow/modules/oportunities-modules';
+import Login from './dataflow/modules/login-module';
 
 const reducers = combineReducers({
 	oportunities: Oportunities,
+	login: Login,
 });
 
 export default function configureStore(initialState) {

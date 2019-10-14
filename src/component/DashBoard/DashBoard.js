@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // Components
@@ -11,26 +11,36 @@ const Container = styled.div`
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
-	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
+	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
+
+	@media(max-width: 768px) {
+		align-items: center;
+		justify-center: center;
+	}
 `;
 
+const Content = styled.div`
+	width: 90%;
+	height: 90%;
+	display:flex;
+	
 
-class DashBoard extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+	@media(max-width: 768px) {
+		width: 100%;
+ 		height: 100%;
+		align-items: flex-end;
+		justify-content: center;
+  }
+`;
 
-	// eslint-disable-next-line class-methods-use-this
-	render() {
-		return (
-			<Container>
-				<SideBar />
-				<RelevanceMatch />
-			</Container>
-		);
-	}
-}
+const DashBoard = () => (
+	<Container>
+		<Content>
+			<SideBar />
+			<RelevanceMatch />
+		</Content>
+	</Container>
+);
 
 
 export default DashBoard;

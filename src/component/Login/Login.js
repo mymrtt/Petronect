@@ -11,13 +11,18 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Redux
 import { loginUserThunk } from '../../dataflow/thunks/login-thunk';
 
-const mapStateToProps = (state) => ({
+import  { updateError } from '../../dataflow/modules/login-module';
 
+const mapStateToProps = (state) => ({
+	error: state.login.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	loginUserThunk: (info) => {
 		dispatch(loginUserThunk(info));
+	},
+	updateError: (info) => {
+		dispatch(updateError(info));
 	},
 });
 
@@ -27,7 +32,16 @@ const Container = styled.div`
 	width: 100%;
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
-	padding: 0 5vw;
+	padding: 0 4rem;
+	@media (max-width: 768px) {
+		padding-bottom: 4rem;
+		align-items: center;
+		flex-direction: column-reverse;
+	}
+	@media (max-width: 450px) {
+		padding: 1rem;
+		justify-content: flex-end;
+	}
 `;
 
 const InputContainer = styled.form`
@@ -35,14 +49,30 @@ const InputContainer = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 40%;
+	width: 55%;
 	height: 90vh;
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
+	@media (max-width: 768px) {
+		width: 85%;
+		height: 80vh;
+		border-radius: 6px;
+	}
+	@media (max-width: 450px) {
+		width: 100%;
+		height: 80vh;
+		display: flex;
+    justify-content: space-evenly;
+		border-radius: 6px;
+	}
 `;
 
 const Logo = styled.img`
-	width: 40%;
+	width: 35%;
+	padding: 1rem 0;
+	@media (max-width: 450px) {
+		width: 55%;
+	}
 `;
 
 const InputBox = styled.span`
@@ -52,6 +82,12 @@ const InputBox = styled.span`
 	justify-content: ${(props) => props.alt && 'space-between'};
 	width: 55%;
 	margin-top: ${(props) => props.last && '.5rem'};
+	@media (max-width: 768px) {
+		width: 60%;
+	}
+	@media (max-width: 450px) {
+		width: 90%;
+	}
 `;
 
 const Label = styled.label`
@@ -67,7 +103,7 @@ const Input = styled.input`
 	padding: 1rem;
 	font-size: 1rem;
 	background: #FAFAFA 0% 0% no-repeat padding-box;
-	border: 1px solid #7FBA4C;
+	border: 1px solid ${(props) => (props.error ? '#D53B40' : '#7FBA4C')};
 	border-radius: 4px;
 	outline: none;
 
@@ -90,19 +126,24 @@ const IconInputPassword = styled.img`
 const Button = styled.button`
 	width: 55%;
 	height: 3rem;
-	margin-top: 1rem;
-	background: #115680 0% 0% no-repeat padding-box;
+	margin-top: 2.5rem;
+	background: #115680;
 	box-shadow: 0px 3px 6px #00000029;
 	border: none;
 	border-radius: 4px;
 	outline: none;
-
 	text-align: center;
 	font: 500 1rem eurostile, sans serif;
 	letter-spacing: 0;
 	color: #FAFAFA;
-`;
 
+	@media (max-width: 768px) {
+		width: 60%;
+	}
+	@media (max-width: 450px) {
+		width: 90%;
+	}
+`;
 
 const AltBox = styled.span`
 	display: flex;
@@ -110,10 +151,18 @@ const AltBox = styled.span`
 	justify-content: space-between;
 	width: 52.5%;
 	margin-top: 3rem;
+	@media (max-width: 768px) {
+		margin-top: 1rem;
+		width: 60%;
+	}
+	@media (max-width: 450px) {
+		margin-top: 0;
+		width: 90%;
+	}
 `;
 
 const Link = styled.p`
-	font: 400 18px Eurostile, sans serif;
+	font: 400 1rem Eurostile, sans serif;
 	letter-spacing: 0;
 	color: ${(props) => props.color || '#505050'} ;
 	text-decoration: ${(props) => (props.color ? 'underline' : 'none')} ;
@@ -127,22 +176,62 @@ const LoginBox = styled.div`
 	width: 60%;
 	height: 90vh;
 	border-radius: 0 0 6px 6px;
+	@media (max-width: 768px) {
+		width: 95%;
+    height: 65vh;
+		justify-content: space-evenly;
+		flex-direction: row-reverse;
+	}
+	@media (max-width: 450px) {
+		display: none;
+	}
 `;
 
 const Img = styled.img`
 	width: 60%;
+	@media (max-width: 768px) {
+    width: 50%;
+	}
 `;
 
 const TextBox = styled.span`
 	width: 60%;
+	@media (max-width: 768px) {
+    width: 35%;
+	}
 `;
 
 const Text = styled.p`
-	margin: 3rem 0;
-	font: 700 18px eurostile, sans serif;
+	margin: 1rem 0;
+	font: 700 1.125rem eurostile, sans serif;
 	letter-spacing: 0.18px;
-	line-height: 2.5rem;
+	line-height: 2rem;
 	color: #FFFFFF;
+	@media (max-width: 768px) {
+		margin: 0;
+	}
+`;
+
+const LoginMessageError = styled.span`
+	position: absolute;
+	right: 0;
+	bottom: -1.5rem;
+
+	@media	(max-width: 768px) {
+		width: 55%;
+	}
+	@media (max-width: 450px) {
+		width: 85%;
+	}
+`;
+
+const TextError = styled.p`
+	font: 500 .80rem eurostile, sans serif;
+	color: #D53B40;
+
+	@media (max-width: 768px) {
+		margin: .1rem 0;
+	}
 `;
 
 class Login extends Component {
@@ -162,9 +251,30 @@ class Login extends Component {
 	handleSubmit = (ev) => {
 		ev.preventDefault();
 		this.props.loginUserThunk({
-			username: this.loginEmailRef.value.toLowerCase(),
+			email: this.loginEmailRef.value.toLowerCase(),
 			password: this.loginPasswordRef.value,
+			history: this.props.history,
 		});
+	}
+
+	handleError = () => {
+		if (this.props.error) {
+			this.props.updateError(false);
+		} return null;
+	}
+
+	renderError = () => {
+		if (this.props.error) {
+			return (
+				<LoginMessageError>
+					<TextError>
+						Endereço de email e/ou senha incorretos
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		return null;
 	}
 
 	render() {
@@ -180,6 +290,8 @@ class Login extends Component {
 							autoFocus
 							type='email'
 							placeholder={'Digite sua senha e-mail'}
+							error={this.props.error}
+							onChange={this.handleError}
 						/>
 					</InputBox>
 					<InputBox last>
@@ -189,12 +301,15 @@ class Login extends Component {
 							type={this.state.showPassword ? 'password' : 'text'}
 							required
 							placeholder={'Digite sua senha'}
+							error={this.props.error}
+							onChange={this.handleError}
 						/>
 						<IconInputPassword
 							loginScreen
 							src={this.state.showPassword ? showPassword : hidePassword}
 							onClick={this.showPassword}
 						/>
+						{this.renderError() }
 					</InputBox>
 					<Button>
 						Entrar
