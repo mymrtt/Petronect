@@ -1,12 +1,13 @@
-const ADD_ITEM = 'search/search/ADD_ITEM';
+const ADD_ITEM = 'keyword/keyword/ADD_ITEM';
+const REMOVE_ITEM = 'keyword/keyword/REMOVE_ITEM'
 const PUT_FAVORITE = 'favorite/favorite/PUT_FAVORITE';
 
 const initialState = {
-	search: [],
+	keyword: [],
 	favoriteList: [],
 	oportunities: {
 		Test1: {
-			id: 'Test1',
+			oportunityId: 'Test1',
 			favorite: false,
 			fit: 'Test1',
 			category: 'Test1',
@@ -15,7 +16,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test2: {
-			id: 'Test2',
+			oportunityId: 'Test2',
 			favorite: false,
 			fit: 'Test2',
 			category: 'Test2',
@@ -24,7 +25,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test3: {
-			id: 'Test3',
+			oportunityId: 'Test3',
 			favorite: false,
 			fit: 'Test3',
 			category: 'Test3',
@@ -33,7 +34,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test4: {
-			id: 'Test4',
+			oportunityId: 'Test4',
 			favorite: false,
 			fit: 'Test4',
 			category: 'Test4',
@@ -42,7 +43,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test5: {
-			id: 'Test5',
+			oportunityId: 'Test5',
 			favorite: false,
 			fit: 'Test5',
 			category: 'Test5',
@@ -51,7 +52,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test6: {
-			id: 'Test6',
+			oportunityId: 'Test6',
 			favorite: false,
 			fit: 'Test6',
 			category: 'Test6',
@@ -60,7 +61,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test7: {
-			id: 'Test7',
+			oportunityId: 'Test7',
 			favorite: false,
 			fit: 'Test7',
 			category: 'Test7',
@@ -69,7 +70,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test8: {
-			id: 'Test8',
+			oportunityId: 'Test8',
 			favorite: false,
 			fit: 'Test8',
 			category: 'Test8',
@@ -78,7 +79,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test9: {
-			id: 'Test9',
+			oportunityId: 'Test9',
 			favorite: false,
 			fit: 'Test9',
 			category: 'Test9',
@@ -87,7 +88,7 @@ const initialState = {
 			deadLineLastOne: '28/08/19',
 		},
 		Test10: {
-			id: 'Test10',
+			oportunityId: 'Test10',
 			favorite: false,
 			fit: 'Test10',
 			category: 'Test10',
@@ -102,7 +103,13 @@ const initialState = {
 export default function (state = initialState, action) {
 	switch (action.type) {
 	case ADD_ITEM:
-		return { ...state, search: state.search.concat([action.info]) };
+		return { ...state, 
+			keyword: state.keyword.concat([action.info]) 
+		};
+	case REMOVE_ITEM:
+		return { ...state, 
+			keyword: state.keyword.filter(item => item.id !== action.info)
+		};
 	case PUT_FAVORITE:
 		return {
 			...state,
@@ -121,6 +128,11 @@ export default function (state = initialState, action) {
 
 export const addItem = (info) => ({
 	type: ADD_ITEM,
+	info,
+});
+
+export const removeItem = info => ({
+	type: REMOVE_ITEM,
 	info,
 });
 

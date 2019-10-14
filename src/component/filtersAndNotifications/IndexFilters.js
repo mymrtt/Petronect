@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 // Components
-import SideBar from '../SideBar';
+import SideBar from '../DashBoard/SideBar';
 import Filters from './Filters';
 
 const Container = styled.div`
