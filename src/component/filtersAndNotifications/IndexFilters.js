@@ -28,9 +28,9 @@ const Content = styled.div`
 
 	@media(max-width: 768px) {
 		width: 100%;
- 		height: 100%;
-		align-items: flex-end;
-		justify-content: center;
+		height: 100%;
+		align-items: center;
+		flex-direction: column;
   }
 `;
 
