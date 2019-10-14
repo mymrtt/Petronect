@@ -19,6 +19,9 @@ const Container = styled.div`
 		align-items: center;
     flex-direction: column;
 	}
+	@media (max-width: 648px) {
+		background: #fff;
+	}
 `;
 
 const Content = styled.div`
