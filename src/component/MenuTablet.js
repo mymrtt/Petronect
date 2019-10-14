@@ -1,7 +1,12 @@
+// Libs
 import React from 'react';
 import styled from 'styled-components';
 
-const MenuTablet = styled.div`
+// Images
+import logoWhite from '../assets/img/logoBranca.svg';
+import menuHamburger from '../assets/icon/menu_hamburguer.svg';
+
+const Container = styled.div`
 	display: none;
 	@media (max-width: 768px) {
 		padding-left: 2.5rem;
@@ -21,6 +26,11 @@ const WrapperLogoTablet = styled.div`
 	}
 `;
 
+const LogoDescription = styled.p`
+	color: #fff;
+	font-size: .85rem;
+`;
+
 const ImageMenu = styled.img`
 	display: none;
 	@media (max-width: 768px) {
@@ -37,15 +47,15 @@ const Image = styled.img`
 `;
 
 const MenuTablet = () => (
-	<MenuTablet>
+	<Container>
 		<WrapperLogoTablet menu>
 			<ImageMenu src={menuHamburger} />
-			<p>MENU</p>
+			<LogoDescription>MENU</LogoDescription>
 		</WrapperLogoTablet>
 		<WrapperLogoTablet>
 			<Image logoTablet src={logoWhite} />
 		</WrapperLogoTablet>
-	</MenuTablet>
+	</Container>
 );
 
 export default MenuTablet;

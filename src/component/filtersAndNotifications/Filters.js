@@ -11,6 +11,7 @@ import menuHamburger from '../../assets/icon/menu_hamburguer.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
+import MenuTablet from '../MenuTablet';
 
 const Container = styled.div`
 	padding-top: 1.3rem;
@@ -342,26 +343,6 @@ const Teste = styled.div`
 	}
 `;
 
-const MenuTablet = styled.div`
-	display: none;
-	@media (max-width: 768px) {
-		padding-left: 2.5rem;
-		width: 100%;
-		display: flex;
-	}
-`;
-
-const WrapperLogoTablet = styled.div`
-	display: none;
-	@media (max-width: 768px) {
-		width: ${(props) => (props.menu ? 'auto' : '85%')};
-		height: 20vh;
-		display: flex;
-		justify-content: center;
-		flex-direction: ${(props) => props.menu && 'column'};
-	}
-`;
-
 class Filters extends Component {
 	constructor(props) {
 		super(props);
@@ -377,15 +358,13 @@ class Filters extends Component {
 				'#D7E65D',
 				'#D53B40',
 			],
-			isMenuOpen: false,
 		};
 	}
-  
+
 	// hadleCardEdit = () => {
 	// 	console.log('card edit');
 	// }
-  
-  
+
 	handleColorOption = () => {
 		console.log('color option');
 	}
@@ -405,10 +384,6 @@ class Filters extends Component {
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
 		console.log(event.target.value);
-	}
-
-	handleOpenMenu = () => {
-		
 	}
 
 	handleOpenModal = () => {
@@ -471,15 +446,7 @@ class Filters extends Component {
 		const { isModalOpen } = this.state;
 		return (
 			<Fragment>
-				<MenuTablet>
-					<WrapperLogoTablet menu>
-						<ImageMenu src={menuHamburger} />
-						<AddFilterTitle smallTitle>MENU</AddFilterTitle>
-					</WrapperLogoTablet>
-					<WrapperLogoTablet>
-						<Image logoTablet src={logoWhite} />
-					</WrapperLogoTablet>
-				</MenuTablet>
+				<MenuTablet />
 				<Container>
 					<Teste>
 						<AddFilter onClick={this.handleOpenModal}>
