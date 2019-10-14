@@ -1,10 +1,13 @@
 // Libs
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 // Images
 import logoWhite from '../assets/img/logoBranca.svg';
 import menuHamburger from '../assets/icon/menu_hamburguer.svg';
+
+// Components
+import SideBar from './SideBar';
 
 const Container = styled.div`
 	display: none;
@@ -18,6 +21,7 @@ const Container = styled.div`
 const WrapperLogoTablet = styled.div`
 	display: none;
 	@media (max-width: 768px) {
+		position: relative;
 		width: ${(props) => (props.menu ? 'auto' : '85%')};
 		height: 20vh;
 		display: flex;
@@ -46,16 +50,48 @@ const Image = styled.img`
 	}
 `;
 
-const MenuTablet = () => (
-	<Container>
-		<WrapperLogoTablet menu>
-			<ImageMenu src={menuHamburger} />
-			<LogoDescription>MENU</LogoDescription>
-		</WrapperLogoTablet>
-		<WrapperLogoTablet>
-			<Image logoTablet src={logoWhite} />
-		</WrapperLogoTablet>
-	</Container>
-);
+const ContainerSidebar = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+`;
+
+class MenuTablet extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isMenuOpen: false,
+		};
+	}
+
+	renderMenu = () => (
+		<ContainerSidebar>
+			<SideBar handleMenuOpen={this.handleMenuOpen} />
+		</ContainerSidebar>
+	)
+
+	handleMenuOpen = () => {
+		const { isMenuOpen } = this.state;
+
+		this.setState({ isMenuOpen: !isMenuOpen });
+	}
+
+	render() {
+		const { isMenuOpen } = this.state;
+		return (
+			<Container>
+				<WrapperLogoTablet menu>
+					<ImageMenu src={menuHamburger} onClick={this.handleMenuOpen} />
+					<LogoDescription>MENU</LogoDescription>
+				</WrapperLogoTablet>
+				<WrapperLogoTablet>
+					<Image logoTablet src={logoWhite} />
+				</WrapperLogoTablet>
+				{ isMenuOpen && this.renderMenu() }
+			</Container>
+		);
+	}
+}
 
 export default MenuTablet;

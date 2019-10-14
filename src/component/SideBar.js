@@ -1,8 +1,9 @@
+// Libs
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-// IMG
+// Images
 import LogoImg from '../assets/img/LogoPNE.png';
 import RelevanceImg from '../assets/icon/icon_menu-Relevancia.svg';
 import FilterImg from '../assets/icon/icon_menu.svg';
@@ -13,6 +14,7 @@ import DocumentsImg from '../assets/icon/icon_menu-geracaoDoc.svg';
 import TaxImg from '../assets/icon/icon_menu-justificativa.svg';
 import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
+import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
 const Container = styled.div`
 	width: 280px;
@@ -27,7 +29,8 @@ const Container = styled.div`
 	box-shadow: 2px 0 4px;
 
 	@media (max-width: 768px) {
-		display: none;
+		// display: none;
+		box-shadow: 0 0 0;
 	}
 `;
 
@@ -48,13 +51,35 @@ const BoxLogo = styled.figure`
   justify-content: center;
   align-items: center;
 
-	@media(max-width: 375px) {
+	@media (max-width: 768px) {
 		display: none;
-  }
+	}
 `;
 
 const ImgLogo = styled.img`
   width: 145px;
+`;
+
+const WrapperTablet = styled.div`
+	display: none;
+	@media (max-width: 768px) {
+		padding-left: 2.8rem
+		width: auto;
+		height: 20vh;
+		display: flex;
+		justify-content: center;
+    align-items: flex-start;
+		flex-direction: column;
+	}
+`;
+
+const ImageMenuTablet = styled.img`
+	display: none;
+	@media (max-width: 768px) {
+		padding-bottom: .3rem;
+		width: 35%;
+		display: flex;
+	}
 `;
 
 const BoxMenu = styled.div`
@@ -90,7 +115,7 @@ const IconSideBar = styled.img`
 `;
 
 const MenuItem = styled(Link)`
-  height: 36px;
+  height: 55px;
   display: flex;
   align-items: center;
   list-style: none;
@@ -103,8 +128,10 @@ const MenuItem = styled(Link)`
   border-radius: 18px 0 0 18px;
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};
-
-	@media(max-width: 375px) {
+	@media (max-width: 768px) {
+		height: 90px;
+	}
+	@media (max-width: 375px) {
 		background: black;
 	}
 `;
@@ -135,10 +162,6 @@ const BoxInfo = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
-
-// const InfoImg = styled.img`
-//   padding-right: .5rem;
-// `;
 
 const InfoItem = styled.p`
 	padding: 1rem 0;
@@ -226,7 +249,6 @@ class SideBar extends Component {
 			],
 		};
 	}
-
 	// componentDidMount() {}
 
 	render() {
@@ -236,11 +258,14 @@ class SideBar extends Component {
 					<BoxLogo>
 						<ImgLogo src={LogoImg} alt="Logo" />
 					</BoxLogo>
+					<WrapperTablet>
+						<ImageMenuTablet src={menuHamburger} onClick={this.props.handleMenuOpen} />
+					</WrapperTablet>
 					<BoxMenu>
 						<MenuList>
 							{this.state.sidebarList.map((item) => (
 								<MenuItem
-									key={item}
+									key={item.text}
 									disable={item.disable}
 									selected={item.text === this.state.selectedItem}
 									to={item.route}

@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import filter from '../../assets/icon/filtrar.svg';
 import magnifying from '../../assets/icon/lupa.svg';
 import edit from '../../assets/icon/editar.svg';
-import logoWhite from '../../assets/img/logoBranca.svg';
-import menuHamburger from '../../assets/icon/menu_hamburguer.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
@@ -178,14 +176,6 @@ const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
 		width: ${(props) => props.magnifying && '20px'};
-	}
-`;
-
-const ImageMenu = styled.img`
-	display: none;
-	@media (max-width: 768px) {
-		padding-bottom: .3rem;
-		display: flex;
 	}
 `;
 

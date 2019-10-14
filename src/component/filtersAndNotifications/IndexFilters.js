@@ -34,10 +34,19 @@ const Content = styled.div`
   }
 `;
 
+const ContainerSidebar = styled.span`
+	display: flex;
+	@media (max-width: 768px) {
+		display: none;
+	}
+`;
+
 const IndexFilters = () => (
 	<Container>
 		<Content>
-			<SideBar />
+			<ContainerSidebar>
+				<SideBar />
+			</ContainerSidebar>
 			<Filters />
 		</Content>
 	</Container>

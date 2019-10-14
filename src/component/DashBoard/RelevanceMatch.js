@@ -3,7 +3,6 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import styled from 'styled-components';
 import { values } from 'lodash';
 
@@ -18,6 +17,7 @@ import startHover from '../../assets/icon/estrela-cinza.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
+import MenuTablet from '../MenuTablet';
 
 const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,
@@ -41,7 +41,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Container = styled.div`
   width: 75vw;
-  ${'' /* height: 95vh; */}
   border-radius: 0 4px 0 0 ;
   background: #fff;
 
@@ -72,7 +71,7 @@ const WrapperHead = styled.div`
 `;
 
 const BoxHeader = styled.span`
-	width: 60%;
+	width: 50%;
   display: flex;
   align-items: center;
 `;
@@ -349,60 +348,80 @@ class RelevanceMatch extends Component {
 	render() {
 		const { isOportunitesModal, isShowFavorites } = this.state;
   	return (
-  		<Container>
-  			<Content>
-  				<WrapperHead>
-  					<BoxHeader>
-  						<HeaderText>Oportunidades selecionadas</HeaderText>
-  					</BoxHeader>
-  					<WrapperForm>
-  						<Form onSubmit={this.handleKeyPress}>
-								<BoxInput>
-									<TitleInput>Pesquisar</TitleInput>
-									<LabelBox>
-										<InputHead placeholder="Digite aqui para pesquisar"
-											onChange={this.handleInputChange}
-											onKeyPress={this.handleKeyPress}
-										></InputHead>
-										<ImgShare src={shareIcon}/>
-									</LabelBox>
-								</BoxInput>
-  							<Button
-  								type="button"
-  								value="1"
-  								onClick = {this.showFavorites}
-  								style={{
-  									backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
-  									color: this.state.hoverFavorites ? '#fff' : '#404040',
-  								}
-  								}
-  							>
-  								<img src={this.state.hoverFavorites ? startHover : start}/>
-                Favoritos
-								</Button>
-  						</Form>
-							<WrapperKeyword>
-								{this.props.keyword.length > 0 ? this.renderList() : null}
-							</WrapperKeyword>
-  					</WrapperForm>
-  				</WrapperHead>
-  			</Content>
-  			<WrapperTable>
-  				<Table>
-  					<HeaderRow>
-  						<TableHeader boxWidth><img src={start}/></TableHeader>
-  						<TableHeader boxWidth>Fit</TableHeader>
-  						<TableHeader>Categoria</TableHeader>
-  						<TableHeader>Id</TableHeader>
-  						<TableHeader>Título e descrição</TableHeader>
-  						<TableHeader>Prazo</TableHeader>
-  					</HeaderRow>
+			<Fragment>
+				<MenuTablet />
+				<Container>
+					<Content>
+						<WrapperHead>
+							<BoxHeader>
+								<HeaderText>Oportunidades selecionadas</HeaderText>
+							</BoxHeader>
+							<WrapperForm>
+								<Form onSubmit={this.handleKeyPress}>
+									<BoxInput>
+										<TitleInput>Pesquisar</TitleInput>
+										<LabelBox>
+											<InputHead placeholder="Digite aqui para pesquisar"
+												onChange={this.handleInputChange}
+												onKeyPress={this.handleKeyPress}
+											></InputHead>
+											<ImgShare src={shareIcon}/>
+										</LabelBox>
+									</BoxInput>
+									<Button
+										type="button"
+										value="1"
+										onClick = {this.showFavorites}
+										style={{
+											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
+											color: this.state.hoverFavorites ? '#fff' : '#404040',
+										}
+										}
+									>
+										<img src={this.state.hoverFavorites ? startHover : start}/>
+									Favoritos
+									</Button>
+								</Form>
+								<WrapperKeyword>
+									{this.props.keyword.length > 0 ? this.renderList() : null}
+								</WrapperKeyword>
+							</WrapperForm>
+						</WrapperHead>
+					</Content>
+					<WrapperTable>
+						<Table>
+							<HeaderRow>
+								<TableHeader boxWidth><img src={start}/></TableHeader>
+								<TableHeader boxWidth>Fit</TableHeader>
+								<TableHeader>Categoria</TableHeader>
+								<TableHeader>Id</TableHeader>
+								<TableHeader>Título e descrição</TableHeader>
+								<TableHeader>Prazo</TableHeader>
+							</HeaderRow>
 
-						<Fragment>
-							{values(this.props.oportunities).filter((item) => item.favorite === true).map((item) => (
+							<Fragment>
+								{values(this.props.oportunities).filter((item) => item.favorite === true).map((item) => (
+									<TableRow key={item} onClick={this.handleModalOportunities}>
+										<TableBody>
+											<img src={start}/>
+										</TableBody>
+										<TableBody>{item.fit}</TableBody>
+										<TableBody>{item.category}</TableBody>
+										<TableBody>{item.oportunityId}</TableBody>
+										<TableBody>{item.titleDescription}</TableBody>
+										<TableBody>
+											{item.deadLineInitial}
+											{item.deadLineLastOne}
+										</TableBody>
+									</TableRow>
+								))}
+							</Fragment>
+
+
+							{values(this.props.oportunities).map((item) => (
 								<TableRow key={item} onClick={this.handleModalOportunities}>
-									<TableBody>
-										<img src={start}/>
+									<TableBody onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
+										<img src={item.favorite ? start : startHover}/>
 									</TableBody>
 									<TableBody>{item.fit}</TableBody>
 									<TableBody>{item.category}</TableBody>
@@ -414,31 +433,14 @@ class RelevanceMatch extends Component {
 									</TableBody>
 								</TableRow>
 							))}
-						</Fragment>
-
-
-  					{values(this.props.oportunities).map((item) => (
-  						<TableRow key={item} onClick={this.handleModalOportunities}>
-  							<TableBody onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
-									<img src={item.favorite ? start : startHover}/>
-								</TableBody>
-  							<TableBody>{item.fit}</TableBody>
-  							<TableBody>{item.category}</TableBody>
-  							<TableBody>{item.oportunityId}</TableBody>
-  							<TableBody>{item.titleDescription}</TableBody>
-  							<TableBody>
-  								{item.deadLineInitial}
-  								{item.deadLineLastOne}
-  							</TableBody>
-  						</TableRow>
-						))}
-  				</Table>
-					{/* {isShowFavorites && this.showFavorites()} */}
-  			</WrapperTable>
-				<Fragment>
-					{ isOportunitesModal && this.renderModalOportunities() }
-				</Fragment>
-  		</Container>
+						</Table>
+						{/* {isShowFavorites && this.showFavorites()} */}
+					</WrapperTable>
+					<Fragment>
+						{ isOportunitesModal && this.renderModalOportunities() }
+					</Fragment>
+				</Container>
+			</Fragment>
   	);
 	}
 }

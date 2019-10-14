@@ -26,20 +26,28 @@ const Content = styled.div`
 	height: 95%;
 	display:flex;
 	
-
 	@media(max-width: 768px) {
 		width: 100%;
  		height: 100%;
-		align-items: flex-end;
-		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
   }
+`;
+
+const ContainerSidebar = styled.span`
+	display: flex;
+	@media (max-width: 768px) {
+		display: none;
+	}
 `;
 
 const DashBoard = () => (
 	<Container>
-		<MenuTablet/>
 		<Content>
-			<SideBar />
+			<ContainerSidebar>
+				<SideBar />
+			</ContainerSidebar>
 			<RelevanceMatch />
 		</Content>
 	</Container>
