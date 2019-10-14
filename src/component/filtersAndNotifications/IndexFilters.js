@@ -21,10 +21,25 @@ const Container = styled.div`
 	}
 `;
 
+const Content = styled.div`
+	width: 92%;
+	height: 95%;
+	display: flex;
+
+	@media(max-width: 768px) {
+		width: 100%;
+ 		height: 100%;
+		align-items: flex-end;
+		justify-content: center;
+  }
+`;
+
 const IndexFilters = () => (
 	<Container>
-		<SideBar />
-		<Filters />
+		<Content>
+			<SideBar />
+			<Filters />
+		</Content>
 	</Container>
 );
 

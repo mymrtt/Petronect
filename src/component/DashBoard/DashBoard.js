@@ -11,15 +11,35 @@ const Container = styled.div`
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
-	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
+	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
+
+	@media(max-width: 768px) {
+		align-items: center;
+		justify-center: center;
+	}
+`;
+
+const Content = styled.div`
+	width: 92%;
+	height: 95%;
+	display:flex;
+	
+
+	@media(max-width: 768px) {
+		width: 100%;
+ 		height: 100%;
+		align-items: flex-end;
+		justify-content: center;
+  }
 `;
 
 const DashBoard = () => (
 	<Container>
-		<SideBar />
-		<RelevanceMatch />
+		<Content>
+			<SideBar />
+			<RelevanceMatch />
+		</Content>
 	</Container>
 );
-
 
 export default DashBoard;

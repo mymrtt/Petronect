@@ -180,6 +180,13 @@ const Image = styled.img`
 	}
 `;
 
+const ImageMenu = styled.img`
+	display: none;
+	@media (max-width: 768px) {
+		display: flex;
+	}
+`;
+
 const Overlay = styled.div`
 	position: absolute;
 	top: 0;
@@ -447,7 +454,7 @@ class Filters extends Component {
 		return (
 			<Fragment>
 				<Abelha>
-					<Image src={menuHamburger} />
+					<ImageMenu src={menuHamburger} />
 					<Testinho>
 						<Image logoTablet src={logoWhite} />
 					</Testinho>
