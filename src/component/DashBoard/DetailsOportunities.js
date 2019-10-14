@@ -130,6 +130,28 @@ const BoxInfo = styled.div`
 	padding-bottom: 2rem;
 `;
 
+const BoxButton = styled.div`
+	width: 100%;
+	height: 100%;
+	padding: 2rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	outline: none;
+`;
+
+const ButtonDetails = styled.button`
+	width: 505px;
+	height: 56px;
+	background: #116EA0;
+	box-shadow: 0px 3px 6px #00000029;
+	border-radius: 4px;
+	text-align: center;
+	font: Bold 16px/46px Eurostile;
+	letter-spacing: 0;
+	color: #FAFAFA;
+`;
+
 class DetailsOportunies extends Component {
 	constructor(props) {
 		super(props);
@@ -216,6 +238,11 @@ class DetailsOportunies extends Component {
 							</IconWrap>
 						</InfoContent>
 					</DetailsOportuny>
+					<BoxButton>
+						<ButtonDetails>
+							Enviar uma oferta
+						</ButtonDetails>
+					</BoxButton>
 				</Container>
 			</Overlay>
 		);
