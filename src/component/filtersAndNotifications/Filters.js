@@ -1,24 +1,27 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // Images
 import filter from '../../assets/icon/filtrar.svg';
 import magnifying from '../../assets/icon/lupa.svg';
 import edit from '../../assets/icon/editar.svg';
+import RelevanceImg from '../../assets/icon/icon_menu-Relevancia.svg';
+import FilterImg from '../../assets/icon/icon_menu.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
 import MenuTablet from '../MenuTablet';
 
-const Container = styled.div`
-	@media (max-width: 648px) {
-		padding: .2rem;
-    height: 100vh;
-    overflow-y: scroll;
-		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
-	}
-`;
+// const Container = styled.div`
+// 	@media (max-width: 648px) {
+// 		padding: .2rem;
+//     height: 100vh;
+//     overflow-y: scroll;
+// 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
+// 	}
+// `;
 
 const Content = styled.div`
 	padding-top: 1.3rem;
@@ -29,14 +32,15 @@ const Content = styled.div`
 	justify-content: space-between;
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
-	background: #fff;
+	background-color: #fff;
 	@media (max-width: 768px) {
 		width: 95vw;
+		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
+    margin-bottom: 4rem;
 		padding-top: .5rem;
 		flex-direction: column;
-		background: #fff;
 	}
 `;
 
@@ -116,9 +120,6 @@ const AddFilterTitle = styled.p`
 	margin: ${(props) => (props.searchTitle ? '0 0 0.6rem .90rem' : '.2rem')};
 	color: ${(props) => (props.searchTitle ? '#116EA0' : '#fff')};
 	font-size: ${(props) => (props.smallTitle ? '.85rem' : '1rem')};
-	// @media (max-width: 648px) {
-	// 	color: #fff;
-	// }
 `;
 
 const TagTitle = styled.p`
@@ -345,6 +346,44 @@ const Teste = styled.div`
 	}
 `;
 
+const ContainerFooterMobile = styled.div`
+	@media (max-width: 648px) {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		height: 3rem;
+		display: flex;
+		align-items: center;
+		z-index: 1;
+		background-color: #fff;
+		border: #0000001A solid 1px;
+	}
+`;
+
+const FooterMobileItem = styled.div`
+	display: none;
+	@media (max-width: 648px) {
+		padding: .4rem;
+		padding-left: 1rem;
+		display: flex;
+		width: 50%;
+		height: 2.5rem;
+		display: flex;
+		align-items: center;
+		background-color: #116EA015;
+		border-radius: 20px;
+		cursor: pointer;
+	}
+`;
+
+const FooterMobileText = styled(Link)`
+	@media (max-width: 648px) { 
+		font-size: .875rem;
+		font-weight: 900;
+		color: #116ea0;
+	}
+`;
+
 class Filters extends Component {
 	constructor(props) {
 		super(props);
@@ -449,7 +488,7 @@ class Filters extends Component {
 		return (
 			<Fragment>
 				<MenuTablet />
-				<Container>
+				{/* <Container> */}
 					<Content>
 						<Teste>
 							<AddFilter onClick={this.handleOpenModal}>
@@ -511,7 +550,17 @@ class Filters extends Component {
 						</ContainerNotifications>
 						{ isModalOpen && this.renderFilterModal() }
 					</Content>
-				</Container>
+				{/* </Container> */}
+				<ContainerFooterMobile>
+					<FooterMobileItem>
+						<Image src={RelevanceImg} />
+						<FooterMobileText to="/dashboard">Match Relevância</FooterMobileText>
+					</FooterMobileItem>
+					<FooterMobileItem>
+						<Image src={FilterImg} />
+						<FooterMobileText to="/filtersandnotifications">Filtros e notificações</FooterMobileText>
+					</FooterMobileItem>
+				</ContainerFooterMobile>
 			</Fragment>
 		);
 	}
