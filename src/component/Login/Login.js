@@ -35,7 +35,7 @@ const Container = styled.div`
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
 	@media (max-width: 768px) {
-		padding-bottom: 4rem;
+		padding-bottom: 2rem;
 		align-items: center;
 		flex-direction: column-reverse;
 	}
@@ -55,6 +55,7 @@ const InputContainer = styled.form`
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
 	@media (max-width: 768px) {
+		padding: 2rem;
 		width: 85%;
 		height: 80vh;
 		border-radius: 6px;
@@ -77,9 +78,17 @@ const Logo = styled.img`
 `;
 
 const LogoCreate = styled.img`
-	position: absolute;
-	top: 10%;
-	width: 10vw;
+	// position: absolute;
+	// top: 10%;
+	// width: 10vw;
+	width: 20%;
+	@media(max-width: 768px) {
+		padding: 2rem;
+    width: 30%;
+	}
+	@media(max-width: 648px) {
+    width: 55%;
+	}
 `;
 
 const InputBox = styled.span`
@@ -89,9 +98,9 @@ const InputBox = styled.span`
 	justify-content: ${(props) => props.alt && 'space-between'};
 	width: ${(props) => props.width};
 	margin-top: ${(props) => props.last && '.5rem'};
-	@media (max-width: 768px) {
-		width: 60%;
-	}
+	// @media (max-width: 768px) {
+	// 	width: 60%;
+	// }
 	@media (max-width: 450px) {
 		width: 90%;
 	}
@@ -146,7 +155,7 @@ const Button = styled.button`
 	color: #FAFAFA;
 
 	@media (max-width: 768px) {
-		width: 60%;
+		width: 100%;
 	}
 	@media (max-width: 450px) {
 		width: 90%;
@@ -246,7 +255,8 @@ const TextError = styled.p`
 const CreateContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	// justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
 	width: 100%;
 `;
@@ -266,6 +276,12 @@ const CreateBox = styled.form`
 	@media(max-width: 1440px) {
 		width: 50%;
 	}
+	@media(max-width: 768px) {
+		width: 75%;
+	}
+	@media(max-width: 648px) {
+		padding: 2rem;
+	}
 `;
 
 const TermsText = styled.p`
@@ -278,15 +294,21 @@ const TermsText = styled.p`
 	strong {
 		text-decoration: underline;
 	}
+	@media(max-width: 768px) {
+		width: 100%;
+	}
 `;
 
 
 const CreateTitle = styled.h1`
 	align-self: flex-start;
 	margin: 0 1rem 1rem;
-	font: 700 24px Eurostile;
+	font: 700 1.5rem Eurostile;
 	letter-spacing: 0;
 	color: #116EA0;
+	@media(max-width: 768px) {
+		font-size: 1.3rem;
+	}
 `;
 
 class Login extends Component {
@@ -423,7 +445,7 @@ class Login extends Component {
 						ref={(node) => { this.createEmailRef = node; }}
 						type={'email'}
 						required
-						placeholder={'name@email.com'}
+						placeholder={'nome@email.com'}
 						error={this.props.error}
 						onChange={this.handleError}
 					/>
