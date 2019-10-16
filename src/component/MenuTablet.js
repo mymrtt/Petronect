@@ -5,7 +5,7 @@ import styled from 'styled-components';
 // Images
 import logoWhite from '../assets/img/logoBranca.svg';
 import menuHamburger from '../assets/icon/menu_hamburguer.svg';
-
+import logoMobile from '../assets/img/LogoPNE.png';
 // Components
 import SideBar from './SideBar';
 
@@ -27,6 +27,9 @@ const WrapperLogoTablet = styled.div`
 		display: flex;
 		justify-content: center;
 		flex-direction: ${(props) => props.menu && 'column'};
+	}
+	@media (max-width: 648px) {
+		display: none;
 	}
 `;
 
@@ -55,6 +58,22 @@ const ContainerSidebar = styled.div`
 	top: 0;
 	left: 0;
 	bottom: 0;
+`;
+
+const MenuMobile = styled.div`
+	display: none;
+	@media (max-width: 648px) {
+		display: flex;
+		width: 40%;
+	}
+`;
+
+const ImageMenuMobile = styled.img`
+	display: none;
+	@media (max-width: 648px) {
+		display: flex;
+		width: 80%;
+	}
 `;
 
 class MenuTablet extends Component {
@@ -89,6 +108,9 @@ class MenuTablet extends Component {
 					<Image logoTablet src={logoWhite} />
 				</WrapperLogoTablet>
 				{ isMenuOpen && this.renderMenu() }
+				<MenuMobile>
+					<ImageMenuMobile src={logoMobile} />
+				</MenuMobile>
 			</Container>
 		);
 	}

@@ -17,7 +17,8 @@ import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
 const Container = styled.div`
-	width: 280px;
+	// width: 280px;
+	width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -26,12 +27,6 @@ const Container = styled.div`
   background: #fff;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
-	box-shadow: 2px 0 4px;
-
-	@media (max-width: 768px) {
-		// display: none;
-		box-shadow: 0 0 0;
-	}
 `;
 
 const NavBar = styled.div`
@@ -63,7 +58,7 @@ const ImgLogo = styled.img`
 const WrapperTablet = styled.div`
 	display: none;
 	@media (max-width: 768px) {
-		padding-left: 2.8rem
+		padding-left: 1.8rem
 		width: auto;
 		height: 20vh;
 		display: flex;
@@ -86,9 +81,12 @@ const BoxMenu = styled.div`
   width: 100%;
   height: 40%;
   display: flex;
-  justify-content: flex-end;
-
-	@media(max-width: 375px) {
+	justify-content: flex-end;
+	
+	@media (max-width: 768px) {
+		height: 60%;
+	}
+	@media (max-width: 375px) {
 		height: 100%;
 		background: #fff;
 		box-shadow: 0px -1px 2px #0000001A;
@@ -102,6 +100,9 @@ const MenuList = styled.ul`
   justify-content: space-evenly;
   flex-direction: column;
 
+	@media (max-width: 768px) {
+		width: 95%;
+	}
 	@media(max-width: 375px) {
 		width: 100%;
 		height: 100%;
@@ -202,49 +203,49 @@ class SideBar extends Component {
 					disable: false,
 					iconSelected: FilterImg,
 					text: 'Filtros e notificações',
-					route: '/filters and notifications',
+					route: '/filtersandnotifications',
 				},
 				{
 					disable: true,
 					iconSelected: PotentialImg,
 					text: 'Análise de Potencial',
-					route: '/potential analysis',
+					route: '/potentialanalysis',
 				},
 				{
 					disable: true,
 					iconSelected: HistoricImg,
 					text: 'Histórico de oportunidades',
-					route: '/historical opportunities',
+					route: '/historicalopportunities',
 				},
 				{
 					disable: true,
 					iconSelected: ManagementImg,
 					text: 'Gestão interna',
-					route: '/internal management',
+					route: '/internalmanagement',
 				},
 				{
 					disable: true,
 					iconSelected: DocumentsImg,
 					text: 'Geração de documentos',
-					route: '/document generation',
+					route: '/documentgeneration',
 				},
 				{
 					disable: true,
 					iconSelected: TaxImg,
 					text: 'Justificativa de impostos',
-					route: '/tax justification',
+					route: '/taxjustification',
 				},
 				{
 					disable: true,
 					iconSelected: ClarificationImg,
 					text: 'Histórico de esclarecimentos',
-					route: '/clarification history',
+					route: '/clarificationhistory',
 				},
 				{
 					disable: true,
 					iconSelected: NotificationImg,
 					text: 'Notificação de resultados',
-					route: '/notification of results',
+					route: '/notificationofresults',
 				},
 			],
 		};
