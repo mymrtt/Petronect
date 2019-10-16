@@ -22,6 +22,7 @@ import MenuTablet from '../MenuTablet';
 const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,
 	oportunities: state.oportunities.oportunities,
+	oportunitiesList: state.oportunities.oportunitiesList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -72,6 +73,7 @@ const WrapperHead = styled.div`
 
 const BoxHeader = styled.span`
 	width: 50%;
+	padding-left: 1.5rem;
   display: flex;
   align-items: center;
 `;
@@ -84,8 +86,9 @@ const HeaderText = styled.p`
 `;
 
 const WrapperForm = styled.div`
-  width: auto;
+  width: 50%;
   max-width: 60%;
+	padding-right: 1rem;
 	display: flex;
 	flex-direction: column;
 	flwx-wrap: wrap;
@@ -94,7 +97,7 @@ const WrapperForm = styled.div`
 const Form = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const BoxInput = styled.div`
@@ -197,6 +200,7 @@ const Button = styled.button`
 
 const WrapperTable = styled.div`
   width: 100%;
+	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
   justify-content: center;
@@ -205,7 +209,7 @@ const WrapperTable = styled.div`
 
 const Table = styled.table`
   background: #fff;
-  width: 97%;
+  width: 100%;
   border-radius: 5px;
   >:nth-child(odd) {
     background: #F7F7F7; 
@@ -257,6 +261,7 @@ class RelevanceMatch extends Component {
 			hoverFavorites: false,
 			isOportunitesModal: false,
 			isShowFavorites: false,
+			inputShare: false,
 		};
 	}
 
@@ -315,6 +320,31 @@ class RelevanceMatch extends Component {
 		});
 	}
 
+	handleInputShare = () => {
+		const { inputShare } = this.state;
+		this.setState((prevState) => ({
+			inputShare: !prevState.inputShare,
+		}));
+		console.log('test', inputShare);
+	}
+
+	handleInputFalse = () => (
+		<>
+			<InputHead placeholder="Digite aqui para pesquisar"
+				onClick={this.handleInputShare}
+			></InputHead>
+		</>
+	)
+
+	handleInput = () => (
+		<>
+			<InputHead placeholder="Digite aqui para pesquisar"
+				onChange={this.handleInputChange}
+				onKeyPress={this.handleKeyPress}
+			></InputHead>
+		</>
+	)
+
 	handleFavorite = (event, oportunityId) => {
 		event.stopPropagation();
 		this.props.putFavorite(oportunityId);
@@ -345,8 +375,31 @@ class RelevanceMatch extends Component {
 		this.setState({ isShowFavorites: !isShowFavorites });
 	}
 
+	renderOportunity = () => {
+		const {	oportunitiesList } = this.props;
+
+		const list = oportunitiesList.hits;
+
+		// values(list).filter((item) => item.favorite === true).map((item) => (
+		// 	<TableRow key={item} onClick={this.handleModalOportunities}>
+		// 		<TableBody>
+		// 			<img src={start}/>
+		// 		</TableBody>
+		// 		<TableBody>{item.fit}</TableBody>
+		// 		<TableBody>{item.category}</TableBody>
+		// 		<TableBody>{item.oportunityId}</TableBody>
+		// 		<TableBody>{item.titleDescription}</TableBody>
+		// 		<TableBody>
+		// 			{item.deadLineInitial}
+		// 			{item.deadLineLastOne}
+		// 		</TableBody>
+		// 	</TableRow>
+		// ));
+		console.log('testets',list)
+	}
+
 	render() {
-		const { isOportunitesModal, isShowFavorites } = this.state;
+		const { isOportunitesModal, isShowFavorites, inputShare } = this.state;
   	return (
 			<Fragment>
 				<MenuTablet />
@@ -361,10 +414,7 @@ class RelevanceMatch extends Component {
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
 										<LabelBox>
-											<InputHead placeholder="Digite aqui para pesquisar"
-												onChange={this.handleInputChange}
-												onKeyPress={this.handleKeyPress}
-											></InputHead>
+											 {this.handleInput()}
 											<ImgShare src={shareIcon}/>
 										</LabelBox>
 									</BoxInput>
@@ -400,21 +450,7 @@ class RelevanceMatch extends Component {
 							</HeaderRow>
 
 							<Fragment>
-								{values(this.props.oportunities).filter((item) => item.favorite === true).map((item) => (
-									<TableRow key={item} onClick={this.handleModalOportunities}>
-										<TableBody>
-											<img src={start}/>
-										</TableBody>
-										<TableBody>{item.fit}</TableBody>
-										<TableBody>{item.category}</TableBody>
-										<TableBody>{item.oportunityId}</TableBody>
-										<TableBody>{item.titleDescription}</TableBody>
-										<TableBody>
-											{item.deadLineInitial}
-											{item.deadLineLastOne}
-										</TableBody>
-									</TableRow>
-								))}
+								{this.renderOportunity()}
 							</Fragment>
 
 
