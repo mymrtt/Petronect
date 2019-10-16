@@ -2,75 +2,110 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const Proceed = styled.div`
+const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 `;
 
-const ProceedTitle = styled.div`
+const Proceed = styled.div`
   width: 100%;
 	position: relative;
 	display: flex;
   justify-content: space-around;
 	align-items: center;
 	flex-direction: row;
-  border-radius: 4px;
-	&:before {
-		position: absolute;
-    display: inline-block;
-    bottom: 1.15rem;
-    width: 54%;
-    height: 1px;
-    content: '';
+	border-radius: 4px;	
+`;
+
+const Slider = styled.input`
+  -webkit-appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+	transition: opacity .2s;
+	
+	:hover {
+		opacity: 1;
+	}
+	::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 15px;
+		height: 15px;
+		border-radius: 50%;
+		background: #115680;
+		cursor: pointer;
+	}
+	::-moz-range-thumb {
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #4CAF50;
+		cursor: pointer;
 	}
 `;
 
-const Line = styled.span`
-	position: absolute;
-	top: .85rem;
+const Teste = styled.div`
 	width: 100%;
-	border-bottom: solid 3px #E6E6E6;
+	position: relative;
+	margin-bottom: .5rem;
 `;
 
-const ProceedText = styled.p`
-  margin-bottom: 2rem;
-	position: relative;
-	display: flex;
-	justify-content: center;
-	cursor: pointer;
-	&:before {
-    position: absolute;
-    display: inline-block;
-    bottom: -1.30rem;
-    width: 10px;
-		height: 10px;
-		background-color: #116EA0;
-		border: 1px solid #00000029;
-		border-radius: 10px;
-		z-index: 1;
-		content: '';
-	}
+const Text = styled.p`
+	font-size: .85rem;
+	color: #8C8C8C;
+	position: absolute;
+	bottom: .3rem;
+	right: 0;
 `;
 
 class NotificationsBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			value: 0,
 		};
+	}
+
+	renderValues = () => {
+		const { value } = this.state;
+
+		if (value > 0 && value < 51) {
+			return <Text>Semanal</Text>;
+		}
+		if (value > 50) {
+			return <Text>Diária</Text>;
+		}
+		return <Text>Nunca</Text>;
+	}
+
+	handleChangeValue = (event) => {
+		this.setState({ value: event.target.value });
 	}
 
 	render() {
 		return (
-			<Proceed>
-				<ProceedTitle>
-					<ProceedText />
-					<Line />
-				</ProceedTitle>
-			</Proceed>
+			<Container>
+				<Teste>
+					{this.renderValues()}
+				</Teste>
+				<Proceed>
+					<Slider
+						type="range"
+						min="0"
+						max="100"
+						value={this.state.value}
+						onChange={this.handleChangeValue}
+					/>
+				</Proceed>
+			</Container>
 		);
 	}
 }
-
 
 export default NotificationsBar;

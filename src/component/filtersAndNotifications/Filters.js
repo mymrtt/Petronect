@@ -188,8 +188,9 @@ const ContainerSearchMobile = styled.div`
 
 const WrapperSearch = styled.div`
 	padding-bottom: 2rem;
+	width: 100%;
+
 	@media (max-width: 648px) {
-		width: 100%;
 		padding-bottom: 1rem;
 	}
 `;
@@ -547,15 +548,6 @@ class Filters extends Component {
 							</AddFilter>
 						</Teste>
 						<ContainerNotifications>
-							{/* <WrapperSearch>
-								<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
-								<ContainerSearchInput>
-									<SearchInput
-										placeholder={'Digite aqui para pesquisar'}
-									/>
-									<Image magnifying src={magnifying} />
-								</ContainerSearchInput>
-							</WrapperSearch> */}
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
 							</ContainerSearch>
