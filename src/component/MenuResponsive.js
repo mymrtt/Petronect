@@ -6,15 +6,20 @@ import styled from 'styled-components';
 import logoWhite from '../assets/img/logoBranca.svg';
 import menuHamburger from '../assets/icon/menu_hamburguer.svg';
 import logoMobile from '../assets/img/LogoPNE.png';
+import dropdown from '../assets/icon/dropdown.svg';
+
 // Components
 import SideBar from './SideBar';
 
 const Container = styled.div`
 	display: none;
-	@media (max-width: 768px) {
+	@media(max-width: 768px) {
 		padding-left: 2.5rem;
 		width: 100%;
 		display: flex;
+	}
+	@media(max-width: 648px) {
+		padding-left: 1.3rem;
 	}
 `;
 
@@ -49,7 +54,8 @@ const ImageMenu = styled.img`
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
-		width: ${(props) => props.magnifying && '20px'};
+		width: ${(props) => props.dropdown && '10px'};
+		margin-left: ${(props) => props.dropdown && '.5rem'};
 	}
 `;
 
@@ -63,20 +69,34 @@ const ContainerSidebar = styled.div`
 const MenuMobile = styled.div`
 	display: none;
 	@media (max-width: 648px) {
+		width: 100%;
 		display: flex;
-		width: 40%;
+		justify-content: space-between;
 	}
 `;
 
 const ImageMenuMobile = styled.img`
 	display: none;
 	@media (max-width: 648px) {
+		width: 35%;
 		display: flex;
-		width: 80%;
 	}
 `;
 
-class MenuTablet extends Component {
+const Teste = styled.div`
+	width: 40%;
+	display: flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+const Text = styled.p`
+	color: #404040;
+	font-size: .85rem;
+`;
+
+class MenuResponsive extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -96,6 +116,10 @@ class MenuTablet extends Component {
 		this.setState({ isMenuOpen: !isMenuOpen });
 	}
 
+	handleOpenDropdown = () => {
+		console.log('dropdown');
+	}
+
 	render() {
 		const { isMenuOpen } = this.state;
 		return (
@@ -110,10 +134,14 @@ class MenuTablet extends Component {
 				{ isMenuOpen && this.renderMenu() }
 				<MenuMobile>
 					<ImageMenuMobile src={logoMobile} />
+					<Teste>
+						<Text>Pedro Gualandi</Text>
+						<Image dropdown src={dropdown} onClick={this.handleOpenDropdown} />
+					</Teste>
 				</MenuMobile>
 			</Container>
 		);
 	}
 }
 
-export default MenuTablet;
+export default MenuResponsive;

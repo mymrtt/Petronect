@@ -83,7 +83,7 @@ const BoxMenu = styled.div`
   display: flex;
 	justify-content: flex-end;
 	
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		height: 60%;
 	}
 	@media (max-width: 375px) {
@@ -100,7 +100,7 @@ const MenuList = styled.ul`
   justify-content: space-evenly;
   flex-direction: column;
 
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		width: 95%;
 	}
 	@media(max-width: 375px) {
@@ -129,7 +129,7 @@ const MenuItem = styled(Link)`
   border-radius: 18px 0 0 18px;
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		height: 90px;
 	}
 	@media (max-width: 375px) {

@@ -19,7 +19,8 @@ import FilterImg from '../../assets/icon/icon_menu_input.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
-import MenuTablet from '../MenuTablet';
+import MenuResponsive from '../MenuResponsive';
+import Footer from '../Footer';
 
 const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,
@@ -50,6 +51,7 @@ const Container = styled.div`
 	@media(max-width: 768px) {
 		width: 95%;
 		height: 100%;
+		overflow-y: scroll;
 	}
 
 	@media(max-width: 375px) {
@@ -69,22 +71,42 @@ const Content = styled.div`
 const WrapperHead = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	@media (max-width: 648px) {
+		display: none;
+	}
+`;
+
+const WrapperHeadMobile = styled.div`
+	display: none;
+	@media (max-width: 648px) {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
 `;
 
 const BoxHeader = styled.span`
-	width: 50%;
-	padding-left: 1.5rem;
+	width: 60%;
   display: flex;
-  align-items: center;
+	align-items: center;
+	@media(max-width: 1024px) {
+		width: 40%;
+	}
+	@media(max-width: 768px) {
+		width: 52%;
+	}
 `;
 
 const HeaderText = styled.p`
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   font-size: 1rem;
   font-weight: bold;
-  color: #116EA0; 
+	color: #116EA0;
+	@media(max-width: 1024px) {
+		padding: 0 1rem;
+	}
 `;
 
 const WrapperForm = styled.div`
@@ -94,18 +116,30 @@ const WrapperForm = styled.div`
 	display: flex;
 	flex-direction: column;
 	flwx-wrap: wrap;
+	@media (max-width: 648px) {
+		width: 55%;
+	}
 `;
 
 const Form = styled.div`
   width: 100%;
 	position: relative;
   display: flex;
-  justify-content: flex-end;
+	justify-content: space-between;
+	@media (max-width: 648px) {
+		padding-right: 1rem;
+		justify-content: flex-end;
+	}
 `;
 
 const BoxInput = styled.div`
 	display: flex;
-	align-items: center
+	align-items: center;
+
+	@media (max-width: 648px) {
+		// width: 35px;
+		width: 20%;
+	}
 `;
 
 const TitleInput = styled.p`
@@ -131,6 +165,12 @@ const LabelBox = styled.label`
 		width: 172px;
 		height: 32px;
 	} */}
+	@media (max-width: 648px) {
+    margin: 0;
+    padding: 0;
+		position: relative;
+    justify-content: center;
+	}
 `;
 
 const InputHead = styled.input`
@@ -203,6 +243,10 @@ const ClosedKeyword = styled.button`
 const ImgShare = styled.img`
 	padding-left: .85rem;
 	cursor: pointer;
+	@media (max-width: 648px) {
+		padding: 0;
+    position: absolute;
+	}
 `;
 
 const Button = styled.button`
@@ -224,6 +268,9 @@ const Button = styled.button`
 		width: 85px;
 		font-size: .75rem;		
 	}
+	@media(max-width: 648px) {
+		width: 15%;
+	}
 `;
 
 const WrapperTable = styled.div`
@@ -231,8 +278,12 @@ const WrapperTable = styled.div`
 	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
-  justify-content: center;
-  background: #fff;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+	@media(max-width: 648px) {
+		overflow: scroll;
+	}
 `;
 
 const Table = styled.table`
@@ -272,7 +323,7 @@ const TableHeader = styled.th`
 `;
 
 const TableBody = styled.td`
-	width: ;
+	// width: ;
   padding-left: 1rem;
   text-align: left;
   font-size: .875rem;
@@ -439,7 +490,7 @@ class RelevanceMatch extends Component {
 		const { isOportunitesModal, isShowFavorites, inputShare } = this.state;
   	return (
 			<Fragment>
-				<MenuTablet />
+				<MenuResponsive />
 				<Container>
 					<Content>
 						<WrapperHead>
@@ -471,6 +522,38 @@ class RelevanceMatch extends Component {
 								</Form>
 							</WrapperForm>
 						</WrapperHead>
+
+						<WrapperHeadMobile>
+							<BoxHeader>
+								<HeaderText>Oportunidades</HeaderText>
+							</BoxHeader>
+							<WrapperForm>
+								<Form onSubmit={this.handleKeyPress}>
+									<BoxInput>
+										<TitleInput>Pesquisar</TitleInput>
+										<LabelBox mobile>
+											<ImgShare src={shareIcon}/>
+										</LabelBox>
+									</BoxInput>
+									<Button
+										type="button"
+										value="1"
+										onClick={this.showFavorites}
+										style={{
+											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
+											color: this.state.hoverFavorites ? '#fff' : '#404040',
+										}
+										}
+									>
+										<img src={this.state.hoverFavorites ? startHover : start}/>
+									</Button>
+								</Form>
+								<WrapperKeyword>
+									{this.props.keyword.length > 0 ? this.renderList() : null}
+								</WrapperKeyword>
+							</WrapperForm>
+						</WrapperHeadMobile>
+
 					</Content>
 					<WrapperTable>
 						<Table>
@@ -510,6 +593,7 @@ class RelevanceMatch extends Component {
 						{ isOportunitesModal && this.renderModalOportunities() }
 					</Fragment>
 				</Container>
+				<Footer />
 			</Fragment>
   	);
 	}

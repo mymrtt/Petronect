@@ -1,27 +1,32 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 // Images
 import filter from '../../assets/icon/filtrar.svg';
 import magnifying from '../../assets/icon/lupa.svg';
 import edit from '../../assets/icon/editar.svg';
-import RelevanceImg from '../../assets/icon/icon_menu-Relevancia.svg';
-import FilterImg from '../../assets/icon/icon_menu.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
-import MenuTablet from '../MenuTablet';
+import MenuResponsive from '../MenuResponsive';
+import Footer from '../Footer';
 
-// const Container = styled.div`
-// 	@media (max-width: 648px) {
-// 		padding: .2rem;
-//     height: 100vh;
-//     overflow-y: scroll;
-// 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
-// 	}
-// `;
+const Container = styled.div`
+	@media (max-width: 768px) {
+		width: 95vw;
+		overflow-y: scroll;
+	}
+	@media (max-width: 648px) {
+		padding: .30rem;
+		width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
+	}
+`;
 
 const Content = styled.div`
 	padding-top: 1.3rem;
@@ -38,8 +43,10 @@ const Content = styled.div`
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-    margin-bottom: 4rem;
+		margin-bottom: 2rem;
+		// margin: 3rem 0;
 		padding-top: .5rem;
+		height: 90vh;
 		flex-direction: column;
 	}
 `;
@@ -86,6 +93,7 @@ const WrapperTexts = styled.div`
 	margin: ${(props) => props.suggestions && '.80rem .5rem'};
 	@media (max-width: 648px) {
 		flex-wrap: wrap;
+		margin: ${(props) => props.suggestions && '1rem'};
 	}
 `;
 
@@ -141,7 +149,9 @@ const ContainerNotifications = styled.div`
 		width: 40%;
 	}
 	@media (max-width: 648px) {
+		padding-left: .5rem;
 		width: 100%;
+		border-left: 0;
 	}
 `;
 
@@ -154,15 +164,42 @@ const ContainerSearchInput = styled.div`
 	border: .5px solid #116EA0;
 	border-radius: 16px;
 	@media (max-width: 640px) {
+    margin-left: .5rem;
 		height: 2.5rem;
+    width: 100%;
+	}
+`;
+
+const ContainerSearch = styled.div`
+	display: flex;
+	@media(max-width: 648px) {
+		display: none;
+	}
+`;
+
+const ContainerSearchMobile = styled.div`
+	display: none;
+	@media(max-width: 648px) {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+`;
+
+const WrapperSearch = styled.div`
+	padding-bottom: 2rem;
+	width: 100%;
+
+	@media (max-width: 648px) {
+		padding-bottom: 1rem;
 	}
 `;
 
 const WrapperNotifications = styled.div`
-	padding-bottom: ${(props) => props.wrapperSearch && '2rem'};
-	@media (max-width: 648px) {
-		padding-bottom: ${(props) => props.wrapperSearch && '1rem'};
-	}
+	// padding-bottom: ${(props) => props.wrapperSearch && '2rem'};
+	// @media (max-width: 648px) {
+	// 	padding-bottom: ${(props) => props.wrapperSearch && '1rem'};
+	// }
 `;
 
 const NotificationsItem = styled.div`
@@ -181,6 +218,7 @@ const SearchInput = styled.input`
 	border: transparent;
 	outline: none;
 	@media (max-width: 648px) {
+		width: 90%;
 		height: 2rem;
 	}
 `;
@@ -188,7 +226,7 @@ const SearchInput = styled.input`
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
-		width: ${(props) => props.magnifying && '20px'};
+		width: ${(props) => props.magnifying && '18px'};
 	}
 `;
 
@@ -215,6 +253,7 @@ const FilterModal = styled.div`
 		z-index: 1;
 	}
 	@media (max-width: 648px) {
+		padding: 0 1rem;
 		width: 92%;
     height: 90vh;
 	}
@@ -245,7 +284,7 @@ const CloseContainer = styled.div`
 	@media (max-width: 640px) {
     top: .5rem;
     bottom: 0;
-		left: 17rem;
+		left: 16.5rem;
     width: 35px;
     height: 35px;
 	}
@@ -254,7 +293,7 @@ const CloseContainer = styled.div`
 const CloseButton = styled.button`
 	width: 100%;
 	height: 100%;
-	font-size: 1rem;
+	font-size: 1.2rem;
 	color: #115680;
 	border: none;
 	background: transparent;
@@ -272,8 +311,8 @@ const InputBox = styled.span`
 	@media (max-width: 768px) {
 		width: 60%;
 	}
-	@media (max-width: 450px) {
-		width: 90%;
+	@media (max-width: 648px) {
+		width: 100%;
 	}
 `;
 
@@ -283,6 +322,9 @@ const Label = styled.label`
 	margin: 0 0 .25rem .5rem;
 	letter-spacing: 0;
 	color: ${(props) => (props.labelNotifications ? '#000' : '#7FBA4C')};
+	@media(max-width: 648px) {
+		margin: 0 0 .25rem 1rem;
+	}
 `;
 
 const Input = styled.input`
@@ -299,6 +341,9 @@ const Input = styled.input`
 		font: Light 16px Open Sans;
 		letter-spacing: 0;
 		color: #959595;
+	}
+	@media(max-width: 648px) {
+		padding-left: 1rem;
 	}
 `;
 
@@ -342,45 +387,8 @@ const Teste = styled.div`
 		flex-direction: column;
 	}
 	@media (max-width: 648px) {
-		margin-left: 1rem;
-	}
-`;
-
-const ContainerFooterMobile = styled.div`
-	@media (max-width: 648px) {
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		height: 3rem;
-		display: flex;
-		align-items: center;
-		z-index: 1;
-		background-color: #fff;
-		border: #0000001A solid 1px;
-	}
-`;
-
-const FooterMobileItem = styled.div`
-	display: none;
-	@media (max-width: 648px) {
-		padding: .4rem;
-		padding-left: 1rem;
-		display: flex;
-		width: 50%;
-		height: 2.5rem;
-		display: flex;
-		align-items: center;
-		background-color: #116EA015;
-		border-radius: 20px;
-		cursor: pointer;
-	}
-`;
-
-const FooterMobileText = styled(Link)`
-	@media (max-width: 648px) { 
-		font-size: .875rem;
-		font-weight: 900;
-		color: #116ea0;
+		margin-left: .5rem;
+    width: 100%;
 	}
 `;
 
@@ -420,6 +428,20 @@ class Filters extends Component {
 				onClick={this.handleColorOption}
 			/>
 		));
+	}
+
+	renderWrapperSearch = () => {
+		return (
+			<WrapperSearch>
+				<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
+				<ContainerSearchInput>
+					<SearchInput
+						placeholder={'Digite aqui para pesquisar'}
+					/>
+					<Image magnifying src={magnifying} />
+				</ContainerSearchInput>
+			</WrapperSearch>
+		)
 	}
 
 	handleChangeName = (event) => {
@@ -487,9 +509,12 @@ class Filters extends Component {
 		const { isModalOpen } = this.state;
 		return (
 			<Fragment>
-				<MenuTablet />
-				{/* <Container> */}
+				<MenuResponsive />
+				<Container>
 					<Content>
+						<ContainerSearchMobile>
+							{this.renderWrapperSearch()}
+						</ContainerSearchMobile>
 						<Teste>
 							<AddFilter onClick={this.handleOpenModal}>
 								<AddFilterImage src={filter} />
@@ -523,15 +548,9 @@ class Filters extends Component {
 							</AddFilter>
 						</Teste>
 						<ContainerNotifications>
-							<WrapperNotifications wrapperSearch>
-								<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
-								<ContainerSearchInput>
-									<SearchInput
-										placeholder={'Digite aqui para pesquisar'}
-									/>
-									<Image magnifying src={magnifying} />
-								</ContainerSearchInput>
-							</WrapperNotifications>
+							<ContainerSearch>
+								{this.renderWrapperSearch()}
+							</ContainerSearch>
 							<WrapperNotifications>
 								<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
 								<NotificationsItem>
@@ -550,17 +569,8 @@ class Filters extends Component {
 						</ContainerNotifications>
 						{ isModalOpen && this.renderFilterModal() }
 					</Content>
-				{/* </Container> */}
-				<ContainerFooterMobile>
-					<FooterMobileItem>
-						<Image src={RelevanceImg} />
-						<FooterMobileText to="/dashboard">Match Relevância</FooterMobileText>
-					</FooterMobileItem>
-					<FooterMobileItem>
-						<Image src={FilterImg} />
-						<FooterMobileText to="/filtersandnotifications">Filtros e notificações</FooterMobileText>
-					</FooterMobileItem>
-				</ContainerFooterMobile>
+				</Container>
+				<Footer />
 			</Fragment>
 		);
 	}

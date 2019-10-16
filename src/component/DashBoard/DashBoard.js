@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Components
-import MenuTablet from '../MenuTablet'
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
 
@@ -18,6 +17,9 @@ const Container = styled.div`
 		flex-direction: column;
 		align-items: flex-start;
 		justify-center: center;
+	}
+	@media(max-width: 648px) {
+		background: #fff;
 	}
 `;
 
