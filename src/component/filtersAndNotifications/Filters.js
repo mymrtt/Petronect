@@ -430,19 +430,17 @@ class Filters extends Component {
 		));
 	}
 
-	renderWrapperSearch = () => {
-		return (
-			<WrapperSearch>
-				<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
-				<ContainerSearchInput>
-					<SearchInput
-						placeholder={'Digite aqui para pesquisar'}
-					/>
-					<Image magnifying src={magnifying} />
-				</ContainerSearchInput>
-			</WrapperSearch>
-		)
-	}
+	renderWrapperSearch = () => (
+		<WrapperSearch>
+			<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
+			<ContainerSearchInput>
+				<SearchInput
+					placeholder={'Digite aqui para pesquisar'}
+				/>
+				<Image magnifying src={magnifying} />
+			</ContainerSearchInput>
+		</WrapperSearch>
+	)
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
