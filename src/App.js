@@ -1,23 +1,9 @@
-import React, { Component } from 'react';
-// import styled from 'styled-components';
+// Libs
+import React from 'react';
 
 // Components
-import DashBoard  from './Component/DashBoard';
+import Routes from './routes';
 
-class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-    }
-  }
-
-  render() {
-    return (
-    <>
-      <DashBoard/>
-    </>     
-    );
-  }
-}
+const App = () => <Routes />;
 
 export default App;
