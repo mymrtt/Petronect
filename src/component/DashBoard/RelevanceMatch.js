@@ -14,6 +14,8 @@ import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thu
 import shareIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
+import FilterImg from '../../assets/icon/icon_menu_input.svg';
+
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -96,6 +98,7 @@ const WrapperForm = styled.div`
 
 const Form = styled.div`
   width: 100%;
+	position: relative;
   display: flex;
   justify-content: flex-end;
 `;
@@ -116,11 +119,10 @@ const TitleInput = styled.p`
 `;
 
 const LabelBox = styled.label`
-  width: 225px;
   height: 32px;
-  margin-left: .5rem;
+  width: 225px;
   padding-left: 1rem;
-  border-radius: 16px;
+  border-radius: 16px 16px 0 0 ;
   border: solid #116EA0 .5px;
   display: flex;
   align-items: center;
@@ -132,7 +134,7 @@ const LabelBox = styled.label`
 `;
 
 const InputHead = styled.input`
-	width: 80%;
+	width: 85%;
 	height: 95%;
   border:none;
 	outline: none;
@@ -144,11 +146,23 @@ const InputHead = styled.input`
 `;
 
 const WrapperKeyword = styled.div`
+	width: 225px;
+	height: auto;
 	display: flex;
+	flex-wrap: wrap;
+	position: absolute;
+	background: #FFFFFF;
+	border: 0.5px solid #116EA0;
+
+	display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 0 0 16px 16px;
+}
 `;
 
 const KeiwordBox = styled.div`
-	width: 89px;
+	width: auto;
 	height: 20px;
 	margin-right: .5rem;
 	display: flex;
@@ -159,7 +173,21 @@ const KeiwordBox = styled.div`
 	opacity: 0.2;
 `;
 
+const BtnCreateFilter = styled.button`
+	width: 251px;
+	height: 33px;
+	background: #116EA0;
+	border-radius: 0px 0px 16px 16px;
+	opacity: 1;
+	font: Regular 14px/46px Eurostile;
+	color: #FFFFFF;
+	outline: none;
+	border: none;
+	cursor: pointer;
+`;
+
 const KeiwordText = styled.p`
+	padding: 0 .5rem;
 	font-size: .85rem;
 	color: #404040;
 `;
@@ -314,7 +342,7 @@ class RelevanceMatch extends Component {
 					className='btn'
 				>
 					<KeiwordText>{keyword}{keyword.dane}</KeiwordText>
-					<ClosedKeyword onClick={handleClick}>X</ClosedKeyword> 
+					<ClosedKeyword onClick={handleClick}>X</ClosedKeyword>
 				</KeiwordBox>
 			);
 		});
@@ -322,26 +350,35 @@ class RelevanceMatch extends Component {
 
 	handleInputShare = () => {
 		const { inputShare } = this.state;
-		this.setState((prevState) => ({
-			inputShare: !prevState.inputShare,
-		}));
-		console.log('test', inputShare);
+		this.setState({ inputShare: !inputShare });
 	}
 
 	handleInputFalse = () => (
 		<>
 			<InputHead placeholder="Digite aqui para pesquisar"
-				onClick={this.handleInputShare}
+				onFocus={this.handleInputShare}
 			></InputHead>
 		</>
 	)
 
 	handleInput = () => (
 		<>
-			<InputHead placeholder="Digite aqui para pesquisar"
-				onChange={this.handleInputChange}
-				onKeyPress={this.handleKeyPress}
-			></InputHead>
+			<div>
+				<LabelBox>
+					<InputHead placeholder="Digite aqui para pesquisar"
+						onChange={this.handleInputChange}
+						onKeyPress={this.handleKeyPress}
+					></InputHead>
+					{/* <ImgShare src={shareIcon}/> */}
+					<p>+</p>
+				</LabelBox>
+				<WrapperKeyword>
+					{this.props.keyword.length > 0 ? this.renderList() : null}
+					<BtnCreateFilter>
+					<img src={FilterImg}/>
+					Salvar Filtro</BtnCreateFilter>
+				</WrapperKeyword>
+			</div>
 		</>
 	)
 
@@ -413,15 +450,15 @@ class RelevanceMatch extends Component {
 								<Form onSubmit={this.handleKeyPress}>
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
-										<LabelBox>
-											 {this.handleInput()}
-											<ImgShare src={shareIcon}/>
-										</LabelBox>
+										{this.handleInput()}
+										{/* <------AQUI ENTRA O INPUTTTTT-------> */}
+										{/* {inputShare ? this.handleInputFalse : this.handleInput} */}
+										{/* <------AQUI ENTRA O INPUTTTTT-------> */}
 									</BoxInput>
 									<Button
 										type="button"
 										value="1"
-										onClick = {this.showFavorites}
+										onClick = {this.showFavorites ? this.renderOportunity : this.renderOportunity }
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
@@ -432,9 +469,6 @@ class RelevanceMatch extends Component {
 									Favoritos
 									</Button>
 								</Form>
-								<WrapperKeyword>
-									{this.props.keyword.length > 0 ? this.renderList() : null}
-								</WrapperKeyword>
 							</WrapperForm>
 						</WrapperHead>
 					</Content>
