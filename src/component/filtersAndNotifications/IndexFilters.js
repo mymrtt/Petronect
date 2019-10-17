@@ -19,6 +19,9 @@ const Container = styled.div`
 		align-items: center;
     flex-direction: column;
 	}
+	@media (max-width: 648px) {
+		background: #fff;
+	}
 `;
 
 const Content = styled.div`
@@ -34,10 +37,19 @@ const Content = styled.div`
   }
 `;
 
+const ContainerSidebar = styled.span`
+	display: flex;
+	@media (max-width: 768px) {
+		display: none;
+	}
+`;
+
 const IndexFilters = () => (
 	<Container>
 		<Content>
-			<SideBar />
+			<ContainerSidebar>
+				<SideBar />
+			</ContainerSidebar>
 			<Filters />
 		</Content>
 	</Container>

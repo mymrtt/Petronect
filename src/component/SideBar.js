@@ -1,8 +1,9 @@
+// Libs
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-// IMG
+// Images
 import LogoImg from '../assets/img/LogoPNE.png';
 import RelevanceImg from '../assets/icon/icon_menu-Relevancia.svg';
 import FilterImg from '../assets/icon/icon_menu.svg';
@@ -13,9 +14,11 @@ import DocumentsImg from '../assets/icon/icon_menu-geracaoDoc.svg';
 import TaxImg from '../assets/icon/icon_menu-justificativa.svg';
 import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
+import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
 const Container = styled.div`
-	width: 280px;
+	// width: 280px;
+	width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -24,11 +27,6 @@ const Container = styled.div`
   background: #fff;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
-	box-shadow: 2px 0 4px;
-
-	@media (max-width: 768px) {
-		display: none;
-	}
 `;
 
 const NavBar = styled.div`
@@ -48,22 +46,47 @@ const BoxLogo = styled.figure`
   justify-content: center;
   align-items: center;
 
-	@media(max-width: 375px) {
+	@media (max-width: 768px) {
 		display: none;
-  }
+	}
 `;
 
 const ImgLogo = styled.img`
   width: 145px;
 `;
 
+const WrapperTablet = styled.div`
+	display: none;
+	@media (max-width: 768px) {
+		padding-left: 1.8rem
+		width: auto;
+		height: 20vh;
+		display: flex;
+		justify-content: center;
+    align-items: flex-start;
+		flex-direction: column;
+	}
+`;
+
+const ImageMenuTablet = styled.img`
+	display: none;
+	@media (max-width: 768px) {
+		padding-bottom: .3rem;
+		width: 35%;
+		display: flex;
+	}
+`;
+
 const BoxMenu = styled.div`
   width: 100%;
   height: 40%;
   display: flex;
-  justify-content: flex-end;
-
-	@media(max-width: 375px) {
+	justify-content: flex-end;
+	
+	@media (max-width: 1024px) {
+		height: 60%;
+	}
+	@media (max-width: 375px) {
 		height: 100%;
 		background: #fff;
 		box-shadow: 0px -1px 2px #0000001A;
@@ -77,6 +100,9 @@ const MenuList = styled.ul`
   justify-content: space-evenly;
   flex-direction: column;
 
+	@media (max-width: 1024px) {
+		width: 95%;
+	}
 	@media(max-width: 375px) {
 		width: 100%;
 		height: 100%;
@@ -90,7 +116,7 @@ const IconSideBar = styled.img`
 `;
 
 const MenuItem = styled(Link)`
-  height: 36px;
+  height: 55px;
   display: flex;
   align-items: center;
   list-style: none;
@@ -103,8 +129,10 @@ const MenuItem = styled(Link)`
   border-radius: 18px 0 0 18px;
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};
-
-	@media(max-width: 375px) {
+	@media (max-width: 1024px) {
+		height: 90px;
+	}
+	@media (max-width: 375px) {
 		background: black;
 	}
 `;
@@ -135,10 +163,6 @@ const BoxInfo = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
-
-// const InfoImg = styled.img`
-//   padding-right: .5rem;
-// `;
 
 const InfoItem = styled.p`
 	padding: 1rem 0;
@@ -179,54 +203,53 @@ class SideBar extends Component {
 					disable: false,
 					iconSelected: FilterImg,
 					text: 'Filtros e notificações',
-					route: '/filters and notifications',
+					route: '/filtersandnotifications',
 				},
 				{
 					disable: true,
 					iconSelected: PotentialImg,
 					text: 'Análise de Potencial',
-					route: '/potential analysis',
+					route: '/potentialanalysis',
 				},
 				{
 					disable: true,
 					iconSelected: HistoricImg,
 					text: 'Histórico de oportunidades',
-					route: '/historical opportunities',
+					route: '/historicalopportunities',
 				},
 				{
 					disable: true,
 					iconSelected: ManagementImg,
 					text: 'Gestão interna',
-					route: '/internal management',
+					route: '/internalmanagement',
 				},
 				{
 					disable: true,
 					iconSelected: DocumentsImg,
 					text: 'Geração de documentos',
-					route: '/document generation',
+					route: '/documentgeneration',
 				},
 				{
 					disable: true,
 					iconSelected: TaxImg,
 					text: 'Justificativa de impostos',
-					route: '/tax justification',
+					route: '/taxjustification',
 				},
 				{
 					disable: true,
 					iconSelected: ClarificationImg,
 					text: 'Histórico de esclarecimentos',
-					route: '/clarification history',
+					route: '/clarificationhistory',
 				},
 				{
 					disable: true,
 					iconSelected: NotificationImg,
 					text: 'Notificação de resultados',
-					route: '/notification of results',
+					route: '/notificationofresults',
 				},
 			],
 		};
 	}
-
 	// componentDidMount() {}
 
 	render() {
@@ -236,11 +259,14 @@ class SideBar extends Component {
 					<BoxLogo>
 						<ImgLogo src={LogoImg} alt="Logo" />
 					</BoxLogo>
+					<WrapperTablet>
+						<ImageMenuTablet src={menuHamburger} onClick={this.props.handleMenuOpen} />
+					</WrapperTablet>
 					<BoxMenu>
 						<MenuList>
 							{this.state.sidebarList.map((item) => (
 								<MenuItem
-									key={item}
+									key={item.text}
 									disable={item.disable}
 									selected={item.text === this.state.selectedItem}
 									to={item.route}

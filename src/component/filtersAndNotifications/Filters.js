@@ -6,13 +6,29 @@ import styled from 'styled-components';
 import filter from '../../assets/icon/filtrar.svg';
 import magnifying from '../../assets/icon/lupa.svg';
 import edit from '../../assets/icon/editar.svg';
-import logoWhite from '../../assets/img/logoBranca.svg';
-import menuHamburger from '../../assets/icon/menu_hamburguer.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
+import MenuResponsive from '../MenuResponsive';
+import Footer from '../Footer';
 
 const Container = styled.div`
+	@media (max-width: 768px) {
+		width: 95vw;
+		overflow-y: scroll;
+	}
+	@media (max-width: 648px) {
+		padding: .30rem;
+		width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
+	}
+`;
+
+const Content = styled.div`
 	padding-top: 1.3rem;
 	padding-right: 1rem;
   width: 75vw;
@@ -21,11 +37,16 @@ const Container = styled.div`
 	justify-content: space-between;
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
-	background: #fff;
+	background-color: #fff;
 	@media (max-width: 768px) {
 		width: 95vw;
+		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
+		margin-bottom: 2rem;
+		// margin: 3rem 0;
+		padding-top: .5rem;
+		height: 90vh;
 		flex-direction: column;
 	}
 `;
@@ -46,19 +67,9 @@ const AddFilter = styled.div`
 		width: 80%;
 	}
 	@media (max-width: 648px) {
+		margin-bottom: .5rem;
 		width: 100%;
 	}
-`;
-
-const WrapperCard = styled.div`
-	padding: 0 1rem;
-	height: 2rem;
-	display: flex;
-	align-items: center;
-	color: #fff;
-	font-size: 1rem;
-	background-color: #52BA44;
-	justify-content: space-between;
 `;
 
 const WrapperCard = styled.div`
@@ -80,6 +91,10 @@ const WrapperTexts = styled.div`
 	display: ${(props) => props.suggestions && 'flex'};
 	align-items: ${(props) => props.suggestions && 'center'};
 	margin: ${(props) => props.suggestions && '.80rem .5rem'};
+	@media (max-width: 648px) {
+		flex-wrap: wrap;
+		margin: ${(props) => props.suggestions && '1rem'};
+	}
 `;
 
 const Title = styled.h2`
@@ -116,24 +131,12 @@ const AddFilterTitle = styled.p`
 `;
 
 const TagTitle = styled.p`
-	// padding: 0 1rem;
-	// height: 2rem;
-	// display: flex;
-	// align-items: center;
-	// color: #fff;
-	// font-size: 1rem;
-	// background-color: #52BA44;
-	// justify-content: space-between;
 	margin-left: ${(props) => props.cardText && '.5rem'};
 `;
 
 const CardEdit = styled.div`
 	display: flex;
 `;
-
-// const CardText = styled.p`
-// 	margin-left: .5rem;
-// `;
 
 const ContainerNotifications = styled.div`
 	padding-left: 1rem;
@@ -146,7 +149,9 @@ const ContainerNotifications = styled.div`
 		width: 40%;
 	}
 	@media (max-width: 648px) {
+		padding-left: .5rem;
 		width: 100%;
+		border-left: 0;
 	}
 `;
 
@@ -159,12 +164,42 @@ const ContainerSearchInput = styled.div`
 	border: .5px solid #116EA0;
 	border-radius: 16px;
 	@media (max-width: 640px) {
-		height: 3rem;
+    margin-left: .5rem;
+		height: 2.5rem;
+    width: 100%;
+	}
+`;
+
+const ContainerSearch = styled.div`
+	display: flex;
+	@media(max-width: 648px) {
+		display: none;
+	}
+`;
+
+const ContainerSearchMobile = styled.div`
+	display: none;
+	@media(max-width: 648px) {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+`;
+
+const WrapperSearch = styled.div`
+	padding-bottom: 2rem;
+	width: 100%;
+
+	@media (max-width: 648px) {
+		padding-bottom: 1rem;
 	}
 `;
 
 const WrapperNotifications = styled.div`
-	padding-bottom: ${(props) => props.wrapperSearch && '2rem'};
+	// padding-bottom: ${(props) => props.wrapperSearch && '2rem'};
+	// @media (max-width: 648px) {
+	// 	padding-bottom: ${(props) => props.wrapperSearch && '1rem'};
+	// }
 `;
 
 const NotificationsItem = styled.div`
@@ -182,20 +217,16 @@ const SearchInput = styled.input`
 	height: 1rem;
 	border: transparent;
 	outline: none;
+	@media (max-width: 648px) {
+		width: 90%;
+		height: 2rem;
+	}
 `;
 
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
-		width: ${(props) => props.magnifying && '20px'};
-	}
-`;
-
-const ImageMenu = styled.img`
-	display: none;
-	@media (max-width: 768px) {
-		padding-bottom: .3rem;
-		display: flex;
+		width: ${(props) => props.magnifying && '18px'};
 	}
 `;
 
@@ -222,6 +253,7 @@ const FilterModal = styled.div`
 		z-index: 1;
 	}
 	@media (max-width: 648px) {
+		padding: 0 1rem;
 		width: 92%;
     height: 90vh;
 	}
@@ -252,7 +284,7 @@ const CloseContainer = styled.div`
 	@media (max-width: 640px) {
     top: .5rem;
     bottom: 0;
-		left: 19rem;
+		left: 16.5rem;
     width: 35px;
     height: 35px;
 	}
@@ -261,7 +293,7 @@ const CloseContainer = styled.div`
 const CloseButton = styled.button`
 	width: 100%;
 	height: 100%;
-	font-size: 1rem;
+	font-size: 1.2rem;
 	color: #115680;
 	border: none;
 	background: transparent;
@@ -279,8 +311,8 @@ const InputBox = styled.span`
 	@media (max-width: 768px) {
 		width: 60%;
 	}
-	@media (max-width: 450px) {
-		width: 90%;
+	@media (max-width: 648px) {
+		width: 100%;
 	}
 `;
 
@@ -290,6 +322,9 @@ const Label = styled.label`
 	margin: 0 0 .25rem .5rem;
 	letter-spacing: 0;
 	color: ${(props) => (props.labelNotifications ? '#000' : '#7FBA4C')};
+	@media(max-width: 648px) {
+		margin: 0 0 .25rem 1rem;
+	}
 `;
 
 const Input = styled.input`
@@ -306,6 +341,9 @@ const Input = styled.input`
 		font: Light 16px Open Sans;
 		letter-spacing: 0;
 		color: #959595;
+	}
+	@media(max-width: 648px) {
+		padding-left: 1rem;
 	}
 `;
 
@@ -349,27 +387,8 @@ const Teste = styled.div`
 		flex-direction: column;
 	}
 	@media (max-width: 648px) {
-		margin-left: 1rem;
-	}
-`;
-
-const MenuTablet = styled.div`
-	display: none;
-	@media (max-width: 768px) {
-		padding-left: 2.5rem;
-		width: 100%;
-		display: flex;
-	}
-`;
-
-const WrapperLogoTablet = styled.div`
-	display: none;
-	@media (max-width: 768px) {
-		width: ${(props) => (props.menu ? 'auto' : '85%')};
-		height: 20vh;
-		display: flex;
-		justify-content: center;
-		flex-direction: ${(props) => props.menu && 'column'};
+		margin-left: .5rem;
+    width: 100%;
 	}
 `;
 
@@ -390,12 +409,11 @@ class Filters extends Component {
 			],
 		};
 	}
-  
+
 	// hadleCardEdit = () => {
 	// 	console.log('card edit');
 	// }
-  
-  
+
 	handleColorOption = () => {
 		console.log('color option');
 	}
@@ -411,6 +429,18 @@ class Filters extends Component {
 			/>
 		));
 	}
+
+	renderWrapperSearch = () => (
+		<WrapperSearch>
+			<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
+			<ContainerSearchInput>
+				<SearchInput
+					placeholder={'Digite aqui para pesquisar'}
+				/>
+				<Image magnifying src={magnifying} />
+			</ContainerSearchInput>
+		</WrapperSearch>
+	)
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
@@ -477,76 +507,68 @@ class Filters extends Component {
 		const { isModalOpen } = this.state;
 		return (
 			<Fragment>
-				<MenuTablet>
-					<WrapperLogoTablet menu>
-						<ImageMenu src={menuHamburger} />
-						<p>MENU</p>
-					</WrapperLogoTablet>
-					<WrapperLogoTablet>
-						<Image logoTablet src={logoWhite} />
-					</WrapperLogoTablet>
-				</MenuTablet>
+				<MenuResponsive />
 				<Container>
-					<Teste>
-						<AddFilter onClick={this.handleOpenModal}>
-							<AddFilterImage src={filter} />
-							<WrapperTexts>
-								<AddFilterTitle>Adicionar filtro</AddFilterTitle>
-								<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
-							</WrapperTexts>
-						</AddFilter>
-						<AddFilter containerCard>
-							<WrapperCard>
-								<TagTitle>Sistema de offshore</TagTitle>
-								<CardEdit onClick={this.handleOpenModal}>
-									<Image src={edit} />
-									<TagTitle cardText>Edit</TagTitle>
-								</CardEdit>
-							</WrapperCard>
-							<ContainerTags>
-								<SuggestionsTags Tag>
-									<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-								</SuggestionsTags>
-								<SuggestionsTags Tag>
-									<SuggestionsText suggestionsTags>instrumental</SuggestionsText>
-								</SuggestionsTags>
-								<SuggestionsTags Tag>
-									<SuggestionsText suggestionsTags>automoção</SuggestionsText>
-								</SuggestionsTags>
-								<SuggestionsTags Tag>
-									<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-								</SuggestionsTags>
-							</ContainerTags>
-						</AddFilter>
-					</Teste>
-					<ContainerNotifications>
-						<WrapperNotifications wrapperSearch>
-							<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
-							<ContainerSearchInput>
-								<SearchInput
-									placeholder={'Digite aqui para pesquisar'}
-								/>
-								<Image magnifying src={magnifying} />
-							</ContainerSearchInput>
-						</WrapperNotifications>
-						<WrapperNotifications>
-							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
-							<NotificationsItem>
-								<Label labelNotifications>Email</Label>
-								<NotificationsBar />
-							</NotificationsItem>
-							<NotificationsItem>
-								<Label labelNotifications>Push</Label>
-								<NotificationsBar />
-							</NotificationsItem>
-							<NotificationsItem>
-								<Label labelNotifications>SMS</Label>
-								<NotificationsBar />
-							</NotificationsItem>
-						</WrapperNotifications>
-					</ContainerNotifications>
-					{ isModalOpen && this.renderFilterModal() }
+					<Content>
+						<ContainerSearchMobile>
+							{this.renderWrapperSearch()}
+						</ContainerSearchMobile>
+						<Teste>
+							<AddFilter onClick={this.handleOpenModal}>
+								<AddFilterImage src={filter} />
+								<WrapperTexts>
+									<AddFilterTitle>Adicionar filtro</AddFilterTitle>
+									<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
+								</WrapperTexts>
+							</AddFilter>
+							<AddFilter containerCard>
+								<WrapperCard>
+									<TagTitle>Sistema de offshore</TagTitle>
+									<CardEdit onClick={this.handleOpenModal}>
+										<Image src={edit} />
+										<TagTitle cardText>Edit</TagTitle>
+									</CardEdit>
+								</WrapperCard>
+								<ContainerTags>
+									<SuggestionsTags Tag>
+										<SuggestionsText suggestionsTags>montagem</SuggestionsText>
+									</SuggestionsTags>
+									<SuggestionsTags Tag>
+										<SuggestionsText suggestionsTags>instrumental</SuggestionsText>
+									</SuggestionsTags>
+									<SuggestionsTags Tag>
+										<SuggestionsText suggestionsTags>automoção</SuggestionsText>
+									</SuggestionsTags>
+									<SuggestionsTags Tag>
+										<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
+									</SuggestionsTags>
+								</ContainerTags>
+							</AddFilter>
+						</Teste>
+						<ContainerNotifications>
+							<ContainerSearch>
+								{this.renderWrapperSearch()}
+							</ContainerSearch>
+							<WrapperNotifications>
+								<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
+								<NotificationsItem>
+									<Label labelNotifications>Email</Label>
+									<NotificationsBar />
+								</NotificationsItem>
+								<NotificationsItem>
+									<Label labelNotifications>Push</Label>
+									<NotificationsBar />
+								</NotificationsItem>
+								<NotificationsItem>
+									<Label labelNotifications>SMS</Label>
+									<NotificationsBar />
+								</NotificationsItem>
+							</WrapperNotifications>
+						</ContainerNotifications>
+						{ isModalOpen && this.renderFilterModal() }
+					</Content>
 				</Container>
+				<Footer />
 			</Fragment>
 		);
 	}

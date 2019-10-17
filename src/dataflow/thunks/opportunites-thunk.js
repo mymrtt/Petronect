@@ -23,7 +23,7 @@ export const getAllOpportunitiesThunk = () => (
 			// 	};
 			// });
 
-			console.log('response', response.data);
+			console.log('response', response.data.hits.hits);
 		} catch (err) {
 			console.log(err);
 		}

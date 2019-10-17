@@ -17,6 +17,8 @@ import startHover from '../../assets/icon/estrela-cinza.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
+import MenuResponsive from '../MenuResponsive';
+import Footer from '../Footer';
 
 const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,
@@ -40,13 +42,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Container = styled.div`
   width: 75vw;
-  ${'' /* height: 95vh; */}
   border-radius: 0 4px 0 0 ;
   background: #fff;
 
 	@media(max-width: 768px) {
 		width: 95%;
-		height: 90%;
+		height: 100%;
+		overflow-y: scroll;
 	}
 
 	@media(max-width: 375px) {
@@ -64,23 +66,44 @@ const Content = styled.div`
 `;
 
 const WrapperHead = styled.div`
-  width: 95%;
+  width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	align-items: center;
+	@media (max-width: 648px) {
+		display: none;
+	}
+`;
+
+const WrapperHeadMobile = styled.div`
+	display: none;
+	@media (max-width: 648px) {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
 `;
 
 const BoxHeader = styled.span`
+	width: 60%;
   display: flex;
-  align-items: center;
+	align-items: center;
+	@media(max-width: 1024px) {
+		width: 40%;
+	}
+	@media(max-width: 768px) {
+		width: 52%;
+	}
 `;
 
 const HeaderText = styled.p`
-  width: 251px;
+  padding: 0 1.5rem;
   font-size: 1rem;
   font-weight: bold;
-  color: #116EA0; 
+	color: #116EA0;
+	@media(max-width: 1024px) {
+		padding: 0 1rem;
+	}
 `;
 
 const WrapperForm = styled.div`
@@ -89,17 +112,29 @@ const WrapperForm = styled.div`
 	display: flex;
 	flex-direction: column;
 	flwx-wrap: wrap;
+	@media (max-width: 648px) {
+		width: 55%;
+	}
 `;
 
 const Form = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+	justify-content: space-between;
+	@media (max-width: 648px) {
+		padding-right: 1rem;
+		justify-content: flex-end;
+	}
 `;
 
 const BoxInput = styled.div`
 	display: flex;
-	align-items: center
+	align-items: center;
+
+	@media (max-width: 648px) {
+		// width: 35px;
+		width: 20%;
+	}
 `;
 
 const TitleInput = styled.p`
@@ -113,7 +148,7 @@ const TitleInput = styled.p`
 `;
 
 const LabelBox = styled.label`
-  width: 251px;
+  width: 225px;
   height: 32px;
   margin-left: .5rem;
   padding-left: 1rem;
@@ -121,6 +156,17 @@ const LabelBox = styled.label`
   border: solid #116EA0 .5px;
   display: flex;
   align-items: center;
+
+	${'' /* @media(max-width: 768px) {
+		width: 172px;
+		height: 32px;
+	} */}
+	@media (max-width: 648px) {
+    margin: 0;
+    padding: 0;
+		position: relative;
+    justify-content: center;
+	}
 `;
 
 const InputHead = styled.input`
@@ -128,6 +174,11 @@ const InputHead = styled.input`
 	height: 95%;
   border:none;
 	outline: none;
+	font-size: 0.875rem;
+
+	@media(max-width: 768px) {
+		font-size: 0.75rem;
+	}
 `;
 
 const WrapperKeyword = styled.div`
@@ -162,12 +213,17 @@ const ClosedKeyword = styled.button`
 const ImgShare = styled.img`
 	padding-left: .85rem;
 	cursor: pointer;
+	@media (max-width: 648px) {
+		padding: 0;
+    position: absolute;
+	}
 `;
 
 const Button = styled.button`
   width: 103px;
   height: 32px;
 	margin-left: 1rem;
+	padding: 0 1rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -177,14 +233,26 @@ const Button = styled.button`
   font-size: .875rem;
 	cursor: pointer;
 	outline: none;
+
+	@media(max-width: 768px) {
+		width: 85px;
+		font-size: .75rem;		
+	}
+	@media(max-width: 648px) {
+		width: 15%;
+	}
 `;
 
 const WrapperTable = styled.div`
   width: 100%;
   display: flex;
 	flex-direction: column;
-  justify-content: center;
-  background: #fff;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+	@media(max-width: 648px) {
+		overflow: scroll;
+	}
 `;
 
 const Table = styled.table`
@@ -224,7 +292,7 @@ const TableHeader = styled.th`
 `;
 
 const TableBody = styled.td`
-	width: ;
+	// width: ;
   padding-left: 1rem;
   text-align: left;
   font-size: .875rem;
@@ -332,60 +400,112 @@ class RelevanceMatch extends Component {
 	render() {
 		const { isOportunitesModal, isShowFavorites } = this.state;
   	return (
-  		<Container>
-  			<Content>
-  				<WrapperHead>
-  					<BoxHeader>
-  						<HeaderText>Oportunidades selecionadas</HeaderText>
-  					</BoxHeader>
-  					<WrapperForm>
-  						<Form onSubmit={this.handleKeyPress}>
-								<BoxInput>
-									<TitleInput>Pesquisar</TitleInput>
-									<LabelBox>
-										<InputHead placeholder="Digite aqui para pesquisar"
-											onChange={this.handleInputChange}
-											onKeyPress={this.handleKeyPress}
-										></InputHead>
-										<ImgShare src={shareIcon}/>
-									</LabelBox>
-								</BoxInput>
-  							<Button
-  								type="button"
-  								value="1"
-  								onClick = {this.showFavorites}
-  								style={{
-  									backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
-  									color: this.state.hoverFavorites ? '#fff' : '#404040',
-  								}
-  								}
-  							>
-  								<img src={this.state.hoverFavorites ? startHover : start}/>
-                Favoritos
-								</Button>
-  						</Form>
-							<WrapperKeyword>
-								{this.props.keyword.length > 0 ? this.renderList() : null}
-							</WrapperKeyword>
-  					</WrapperForm>
-  				</WrapperHead>
-  			</Content>
-  			<WrapperTable>
-  				<Table>
-  					<HeaderRow>
-  						<TableHeader boxWidth><img src={start}/></TableHeader>
-  						<TableHeader boxWidth>Fit</TableHeader>
-  						<TableHeader>Categoria</TableHeader>
-  						<TableHeader>Id</TableHeader>
-  						<TableHeader>Título e descrição</TableHeader>
-  						<TableHeader>Prazo</TableHeader>
-  					</HeaderRow>
+			<Fragment>
+				<MenuResponsive />
+				<Container>
+					<Content>
+						<WrapperHead>
+							<BoxHeader>
+								<HeaderText>Oportunidades selecionadas</HeaderText>
+							</BoxHeader>
+							<WrapperForm>
+								<Form onSubmit={this.handleKeyPress}>
+									<BoxInput>
+										<TitleInput>Pesquisar</TitleInput>
+										<LabelBox>
+											<InputHead placeholder="Digite aqui para pesquisar"
+												onChange={this.handleInputChange}
+												onKeyPress={this.handleKeyPress}
+											></InputHead>
+											<ImgShare src={shareIcon}/>
+										</LabelBox>
+									</BoxInput>
+									<Button
+										type="button"
+										value="1"
+										onClick = {this.showFavorites}
+										style={{
+											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
+											color: this.state.hoverFavorites ? '#fff' : '#404040',
+										}
+										}
+									>
+										<img src={this.state.hoverFavorites ? startHover : start}/>
+									Favoritos
+									</Button>
+								</Form>
+								<WrapperKeyword>
+									{this.props.keyword.length > 0 ? this.renderList() : null}
+								</WrapperKeyword>
+							</WrapperForm>
+						</WrapperHead>
 
-						<Fragment>
-							{values(this.props.oportunities).filter((item) => item.favorite === true).map((item) => (
+						<WrapperHeadMobile>
+							<BoxHeader>
+								<HeaderText>Oportunidades</HeaderText>
+							</BoxHeader>
+							<WrapperForm>
+								<Form onSubmit={this.handleKeyPress}>
+									<BoxInput>
+										<TitleInput>Pesquisar</TitleInput>
+										<LabelBox mobile>
+											<ImgShare src={shareIcon}/>
+										</LabelBox>
+									</BoxInput>
+									<Button
+										type="button"
+										value="1"
+										onClick={this.showFavorites}
+										style={{
+											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
+											color: this.state.hoverFavorites ? '#fff' : '#404040',
+										}
+										}
+									>
+										<img src={this.state.hoverFavorites ? startHover : start}/>
+									</Button>
+								</Form>
+								<WrapperKeyword>
+									{this.props.keyword.length > 0 ? this.renderList() : null}
+								</WrapperKeyword>
+							</WrapperForm>
+						</WrapperHeadMobile>
+
+					</Content>
+					<WrapperTable>
+						<Table>
+							<HeaderRow>
+								<TableHeader boxWidth><img src={start}/></TableHeader>
+								<TableHeader boxWidth>Fit</TableHeader>
+								<TableHeader>Categoria</TableHeader>
+								<TableHeader>Id</TableHeader>
+								<TableHeader>Título e descrição</TableHeader>
+								<TableHeader>Prazo</TableHeader>
+							</HeaderRow>
+
+							<Fragment>
+								{values(this.props.oportunities).filter((item) => item.favorite === true).map((item) => (
+									<TableRow key={item} onClick={this.handleModalOportunities}>
+										<TableBody>
+											<img src={start}/>
+										</TableBody>
+										<TableBody>{item.fit}</TableBody>
+										<TableBody>{item.category}</TableBody>
+										<TableBody>{item.oportunityId}</TableBody>
+										<TableBody>{item.titleDescription}</TableBody>
+										<TableBody>
+											{item.deadLineInitial}
+											{item.deadLineLastOne}
+										</TableBody>
+									</TableRow>
+								))}
+							</Fragment>
+
+
+							{values(this.props.oportunities).map((item) => (
 								<TableRow key={item} onClick={this.handleModalOportunities}>
-									<TableBody>
-										<img src={start}/>
+									<TableBody onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
+										<img src={item.favorite ? start : startHover}/>
 									</TableBody>
 									<TableBody>{item.fit}</TableBody>
 									<TableBody>{item.category}</TableBody>
@@ -397,31 +517,15 @@ class RelevanceMatch extends Component {
 									</TableBody>
 								</TableRow>
 							))}
-						</Fragment>
-
-
-  					{values(this.props.oportunities).map((item) => (
-  						<TableRow key={item} onClick={this.handleModalOportunities}>
-  							<TableBody onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
-									<img src={item.favorite ? start : startHover}/>
-								</TableBody>
-  							<TableBody>{item.fit}</TableBody>
-  							<TableBody>{item.category}</TableBody>
-  							<TableBody>{item.oportunityId}</TableBody>
-  							<TableBody>{item.titleDescription}</TableBody>
-  							<TableBody>
-  								{item.deadLineInitial}
-  								{item.deadLineLastOne}
-  							</TableBody>
-  						</TableRow>
-						))}
-  				</Table>
-					{/* {isShowFavorites && this.showFavorites()} */}
-  			</WrapperTable>
-				<Fragment>
-					{ isOportunitesModal && this.renderModalOportunities() }
-				</Fragment>
-  		</Container>
+						</Table>
+						{/* {isShowFavorites && this.showFavorites()} */}
+					</WrapperTable>
+					<Fragment>
+						{ isOportunitesModal && this.renderModalOportunities() }
+					</Fragment>
+				</Container>
+				<Footer />
+			</Fragment>
   	);
 	}
 }
