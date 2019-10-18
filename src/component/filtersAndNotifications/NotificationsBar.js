@@ -50,7 +50,7 @@ const Slider = styled.input`
 	}
 `;
 
-const Teste = styled.div`
+const ContainerValues = styled.div`
 	width: 100%;
 	position: relative;
 	margin-bottom: .5rem;
@@ -91,9 +91,9 @@ class NotificationsBar extends Component {
 	render() {
 		return (
 			<Container>
-				<Teste>
+				<ContainerValues>
 					{this.renderValues()}
-				</Teste>
+				</ContainerValues>
 				<Proceed>
 					<Slider
 						type="range"
