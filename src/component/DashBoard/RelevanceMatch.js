@@ -464,6 +464,12 @@ class RelevanceMatch extends Component {
 		console.log('entrou no input', inputShare);
 	}
 
+	handleOnBlur = () => {
+		const { inputShare } = this.state;
+		this.setState({ inputShare: false });
+		console.log('entrou no input', inputShare);
+	}
+
 	handleInputFalse = () => (
 		<>
 			<WrapLabel>
@@ -581,7 +587,7 @@ class RelevanceMatch extends Component {
   	return (
 			<Fragment>
 				<MenuResponsive />
-				<Container>
+				<Container onBlur={this.handleOnBlur}>
 					<Content>
 						<WrapperHead>
 							<BoxHeader>

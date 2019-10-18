@@ -294,7 +294,7 @@ renderKeywordsList = () => this.props.keyword.map((keyword) => (
 
 render() {
   	return (
-  		<Overlay onClick={this.props.handleOpenModalFilter}>
+  		<Overlay>
   			<FilterModal>
   				<Header>
   					<Title modalTitle>Adicionar Filtro</Title>
