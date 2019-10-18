@@ -13,7 +13,7 @@ export const loginUserThunk = (info) => (
 		try {
 			const response = await loginUserMiddleware(info);
 
-			Cookies.set(
+			Cookies.get(
 				'petronect_creds',
 				{
 					accessToken: response.data.Authorization,

@@ -405,7 +405,6 @@ class RelevanceMatch extends Component {
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
 		});
-		console.log('hoverFavorites', this.state.hoverFavorites);
 	}
 
 	handleInputChange = (event) => {
@@ -461,6 +460,12 @@ class RelevanceMatch extends Component {
 	handleInputShare = () => {
 		const { inputShare } = this.state;
 		this.setState({ inputShare: true });
+		console.log('entrou no input', inputShare);
+	}
+
+	handleOnBlur = () => {
+		const { inputShare } = this.state;
+		this.setState({ inputShare: false });
 		console.log('entrou no input', inputShare);
 	}
 
@@ -581,7 +586,7 @@ class RelevanceMatch extends Component {
   	return (
 			<Fragment>
 				<MenuResponsive />
-				<Container>
+				<Container onBlur={this.handleOnBlur}>
 					<Content>
 						<WrapperHead>
 							<BoxHeader>
