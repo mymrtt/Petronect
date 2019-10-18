@@ -433,21 +433,21 @@ class Filters extends Component {
 		};
 	}
 
-	handleColorOption = (color) => {
-		this.setState({ item: color });
-	}
+	// handleColorOption = (color) => {
+	// 	this.setState({ item: color });
+	// }
 
-	renderColorOption = () => {
-		const { colors } = this.state;
+	// renderColorOption = () => {
+	// 	const { colors } = this.state;
 
-		return colors.map((color) => (
-			<TagColor
-				key={color}
-				backgroundColor={color}
-				onClick={() => this.handleColorOption(color)}
-			/>
-		));
-	}
+	// 	return colors.map((color) => (
+	// 		<TagColor
+	// 			key={color}
+	// 			backgroundColor={color}
+	// 			onClick={() => this.handleColorOption(color)}
+	// 		/>
+	// 	));
+	// }
 
 	renderCardsFilter = () => {
 		const { CardList } = this.state;

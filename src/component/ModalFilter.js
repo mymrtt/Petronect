@@ -281,6 +281,11 @@ class ModalFilter extends Component {
 		console.log(event.target.value);
 	}
 
+	handleColorOption = (color) => {
+		this.setState({ item: color });
+		console.log(this.setState({ item: color }));
+	}
+
 	renderColorOption = () => {
 		const { colors } = this.state;
 
@@ -288,7 +293,7 @@ class ModalFilter extends Component {
 			<TagColor
 				key={color}
 				backgroundColor={color}
-				onClick={this.handleColorOption}
+				onClick={() => this.handleColorOption(color)}
 			/>
 		));
 	}
