@@ -12,45 +12,6 @@ const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,
 });
 
-const Container = styled.div`
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
-
-	@media(max-width: 768px) {
-		flex-direction: column;
-		align-items: flex-start;
-		justify-center: center;
-	}
-	@media(max-width: 648px) {
-		background: #fff;
-	}
-`;
-
-const Content = styled.div`
-	width: 92%;
-	height: 95%;
-	display:flex;
-	
-	@media(max-width: 768px) {
-		width: 100%;
- 		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-  }
-`;
-
-const ContainerSidebar = styled.span`
-	display: flex;
-	@media (max-width: 768px) {
-		display: none;
-	}
-`;
-
 const Overlay = styled.div`
 	position: absolute;
 	top: 0;
@@ -255,7 +216,7 @@ class ModalFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isModalOpen: true,
+			nameValue: '',
 			colors: [
 				'#DE8F33',
 				'#D65B85',
@@ -265,86 +226,91 @@ class ModalFilter extends Component {
 				'#D7E65D',
 				'#D53B40',
 			],
-
 		};
 	}
 
-renderColorOption = () => {
-	const { colors } = this.state;
+	handleChangeName = (event) => {
+		this.setState({ nameValue: event.target.value });
+	}
 
-	return colors.map((color) => (
-		<TagColor
-			key={color}
-			backgroundColor={color}
-			onClick={this.handleColorOption}
-		/>
-	));
-}
+	handleColorOption = (color) => {
+		this.setState({ item: color });
+	}
 
-renderKeywordsList = () => this.props.keyword.map((keyword) => (
-	<Fragment
-		key={keyword.oportunityId}
-		className='btn'
-	>
-		<KeywordText>{keyword}</KeywordText>
-		{console.log('chegou na função', keyword)}
-	</Fragment>
-))
+	renderColorOption = () => {
+		const { colors } = this.state;
+
+		return colors.map((color) => (
+			<TagColor
+				key={color}
+				backgroundColor={color}
+				onClick={this.handleColorOption}
+			/>
+		));
+	}
+
+	renderKeywordsList = () => this.props.keyword.map((keyword) => (
+		<Fragment
+			key={keyword.oportunityId}
+			className='btn'
+		>
+			<KeywordText>{keyword}</KeywordText>
+		</Fragment>
+	))
 
 
-render() {
-  	return (
-  		<Overlay onClick={this.props.handleOpenModalFilter}>
-  			<FilterModal>
-  				<Header>
-  					<Title modalTitle>Adicionar Filtro</Title>
-  					<CloseContainer onClick={this.props.handleOpenModalFilter}>
-						{console.log('dfechou', this.props.handleOpenModalFilter)}
-  						<CloseButton>X</CloseButton>
-  					</CloseContainer>
-  				</Header>
-  				<InputBox>
-  					<Label>Escolha um nome</Label>
-  					<Input
-  						placeholder={'Digite seu texto aqui'}
-  						onChange={this.handleChangeName}
-  						value={this.state.nameValue}
-  					/>
-  				</InputBox>
-  				<InputBox last>
-  					<Label>Digite as tags relacionadas</Label>
-					<Input
-						placeholder={'Digite seu texto aqui'}
-					/>
-					<Wraptext>
-						{this.renderKeywordsList()}
-					</Wraptext>
-  				</InputBox>
-  				<WrapperTexts suggestions>
-  					<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
-  					<SuggestionsTags>
-  						<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-  					</SuggestionsTags>
-  					<SuggestionsTags>
-  						<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
-  					</SuggestionsTags>
-  					<SuggestionsTags>
-  						<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-  					</SuggestionsTags>
-  				</WrapperTexts>
-  				<WrapperTagsColor>
-  					<Label>Escolha uma cor</Label>
-  					<ContainerTagsColor>
-  						{ this.renderColorOption() }
-  					</ContainerTagsColor>
-  					<Button>
-  						<Title>Adicionar Filtro</Title>
-  					</Button>
-  				</WrapperTagsColor>
-  			</FilterModal>
-  		</Overlay>
-  	);
-}
+	render() {
+		return (
+			<Overlay>
+				<FilterModal>
+					<Header>
+						<Title modalTitle>Adicionar Filtro</Title>
+						<CloseContainer onClick={this.props.handleOpenModalFilter}>
+							<CloseButton>X</CloseButton>
+						</CloseContainer>
+					</Header>
+					<InputBox>
+						<Label>Escolha um nome</Label>
+						<Input
+							placeholder={'Digite seu texto aqui'}
+							onChange={this.handleChangeName}
+							value={this.state.nameValue}
+						/>
+					</InputBox>
+					<InputBox last>
+						<Label>Digite as tags relacionadas</Label>
+						<Input
+							placeholder={'Digite seu texto aqui'}
+						/>
+						<Wraptext>
+							{this.renderKeywordsList()}
+						</Wraptext>
+					</InputBox>
+					<WrapperTexts suggestions>
+						<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
+						<SuggestionsTags>
+							<SuggestionsText suggestionsTags>montagem</SuggestionsText>
+						</SuggestionsTags>
+						<SuggestionsTags>
+							<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
+						</SuggestionsTags>
+						<SuggestionsTags>
+							<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
+						</SuggestionsTags>
+					</WrapperTexts>
+					<WrapperTagsColor>
+						<Label>Escolha uma cor</Label>
+						<ContainerTagsColor>
+							{ this.renderColorOption() }
+						</ContainerTagsColor>
+						<Button>
+							<Title>Adicionar Filtro</Title>
+						</Button>
+					</WrapperTagsColor>
+				</FilterModal>
+			</Overlay>
+		);
+	}
 }
 
 export default connect(mapStateToProps, null)(ModalFilter);

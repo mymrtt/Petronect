@@ -375,17 +375,17 @@ class Filters extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isModalOpen: false,
-			nameValue: '',
-			colors: [
-				'#DE8F33',
-				'#D65B85',
-				'#52BA44',
-				'#01B0B7',
-				'#8A5BD6',
-				'#D7E65D',
-				'#D53B40',
-			],
+			// isModalOpen: false,
+			// nameValue: '',
+			// colors: [
+			// 	'#DE8F33',
+			// 	'#D65B85',
+			// 	'#52BA44',
+			// 	'#01B0B7',
+			// 	'#8A5BD6',
+			// 	'#D7E65D',
+			// 	'#D53B40',
+			// ],
 
 			CardList: {
 				card1: {
@@ -432,30 +432,40 @@ class Filters extends Component {
 		this.setState({ item: color });
 	}
 
-	renderColorOption = () => {
-		const { colors } = this.state;
+	// renderColorOption = () => {
+	// 	const { colors } = this.state;
 
-		return colors.map((color) => (
-			<TagColor
-				key={color}
-				backgroundColor={color}
-				onClick={() => this.handleColorOption(color)}
-			/>
-		));
-	}
+	// 	return colors.map((color) => (
+	// 		<TagColor
+	// 			key={color}
+	// 			backgroundColor={color}
+	// 			onClick={() => this.handleColorOption(color)}
+	// 		/>
+	// 	));
+	// }
+
+	// renderCardsFilter = () => {
+	// 	const { CardList } = this.state;
+
+	// 	return (
+	// 		<ContainerFilters>
+	// 			{ values(CardList).map((card) => (
+	// 				<CardFilter
+	// 					key={card.title}
+	// 					item={this.state.item}
+	// 					card={card}
+	// 					handleOpenModal={this.handleOpenModal}
+	// 				/>
+	// 			))}
+	// 		</ContainerFilters>
+	// 	);
+	// }
 
 	renderCardsFilter = () => {
 		const { CardList } = this.state;
 
 		return (
 			<ContainerFilters>
-				<AddFilter onClick={this.handleOpenModal}>
-					<AddFilterImage src={filter} />
-					<WrapperTexts>
-						<AddFilterTitle>Adicionar filtro</AddFilterTitle>
-						<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
-					</WrapperTexts>
-				</AddFilter>
 				{ values(CardList).map((card) => (
 					<CardFilter
 						key={card.title}
@@ -468,9 +478,20 @@ class Filters extends Component {
 		);
 	}
 
-	// renderCardsFilter = () => {
-	// 	return <CardFilter item={this.state.item} handleOpenModal={this.handleOpenModal} />;
-	// }
+	// renderList = () => this.props.keyword.map((keyword) => {
+	// 	const handleClick = () => {
+	// 		this.props.removeItem(keyword.oportunityId);
+	// 	};
+
+	// 	return 	(
+	// 		<Fragment
+	// 			key={keyword.oportunityId}
+	// 			className='btn'
+	// 		>
+	// 			<KeywordText>{keyword}</KeywordText>
+	// 		</Fragment>
+	// 	);
+	// })
 
 	renderWrapperSearch = () => (
 		<WrapperSearch>
@@ -484,68 +505,7 @@ class Filters extends Component {
 		</WrapperSearch>
 	)
 
-	handleChangeName = (event) => {
-		this.setState({ nameValue: event.target.value });
-	}
-
-	handleOpenModal = () => {
-		this.setState({ isModalOpen: true });
-	}
-
-	handleCloseModal = () => {
-		this.setState({ isModalOpen: false });
-	}
-
-	renderFilterModal = () => (
-		<Overlay>
-			<FilterModal>
-				<Header>
-					<Title modalTitle>Adicionar Filtro</Title>
-					<CloseContainer onClick={this.handleCloseModal}>
-						<CloseButton>X</CloseButton>
-					</CloseContainer>
-				</Header>
-				<InputBox>
-					<Label>Escolha um nome</Label>
-					<Input
-						placeholder={'Digite seu texto aqui'}
-						onChange={this.handleChangeName}
-						value={this.state.nameValue}
-					/>
-				</InputBox>
-				<InputBox last>
-					<Label>Digite as tags relacionadas</Label>
-					<Input
-						placeholder={'Digite seu texto aqui'}
-					/>
-				</InputBox>
-				<WrapperTexts suggestions>
-					<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
-					<SuggestionsTags>
-						<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-					</SuggestionsTags>
-					<SuggestionsTags>
-						<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
-					</SuggestionsTags>
-					<SuggestionsTags>
-						<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-					</SuggestionsTags>
-				</WrapperTexts>
-				<WrapperTagsColor>
-					<Label>Escolha uma cor</Label>
-					<ContainerTagsColor>
-						{ this.renderColorOption() }
-					</ContainerTagsColor>
-					<Button>
-						<Title>Adicionar Filtro</Title>
-					</Button>
-				</WrapperTagsColor>
-			</FilterModal>
-		</Overlay>
-	)
-
 	render() {
-		const { isModalOpen } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -573,7 +533,6 @@ class Filters extends Component {
 								<NotificationsBar />
 							</NotificationsItem>
 						</ContainerNotifications>
-						{ isModalOpen && this.renderFilterModal() }
 					</Content>
 				</Container>
 				<Footer />
