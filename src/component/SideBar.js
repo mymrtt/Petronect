@@ -130,7 +130,7 @@ const MenuItem = styled(Link)`
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};
 	@media (max-width: 1024px) {
-		height: 90px;
+		height: 40px;
 	}
 	@media (max-width: 375px) {
 		background: black;
