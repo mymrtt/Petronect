@@ -278,6 +278,7 @@ class ModalFilter extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
+		console.log(event.target.value);
 	}
 
 	renderColorOption = () => {
