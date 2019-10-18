@@ -13,7 +13,7 @@ const Container = styled.div`
 	align-items: center;
 	margin-bottom: 1rem;
 	@media (max-width: 768px) {
-    // margin-left: 3rem;
+		width: 100%;
 		align-items: flex-start;
 		flex-direction: column;
 	}
@@ -94,11 +94,11 @@ class CardFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		}
+		};
 	}
 
 	render() {
-		const { card } = this.props;
+		const { card, handleOpenModal } = this.props;
 		return (
 			<Container>
 				<Card
@@ -108,7 +108,7 @@ class CardFilter extends Component {
 						background={this.props.item ? this.props.item : '#115680'}
 					>
 						<TagTitle>{card.title}</TagTitle>
-						<CardEdit onClick={this.props.handleOpenModal}>
+						<CardEdit onClick={handleOpenModal}>
 							<Image src={edit} />
 							<TagTitle cardText>Edit</TagTitle>
 						</CardEdit>
