@@ -10,12 +10,13 @@ import hidePassword from '../../assets/icon/login-hide-password.svg';
 import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 
 // Redux
-import { loginUserThunk } from '../../dataflow/thunks/login-thunk';
+import { loginUserThunk, createAccountThunk } from '../../dataflow/thunks/login-thunk';
 
 import { updateError } from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
 	error: state.login.error,
+	createSuccess: state.login.createSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,6 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	updateError: (info) => {
 		dispatch(updateError(info));
+	},
+	createAccountThunk: (info) => {
+		dispatch(createAccountThunk(info));
 	},
 });
 
@@ -78,9 +82,9 @@ const Logo = styled.img`
 `;
 
 const LogoCreate = styled.img`
-	// position: absolute;
-	// top: 10%;
-	// width: 10vw;
+	position: absolute;
+	top: 10%;
+	width: 10vw;
 	width: 20%;
 	@media(max-width: 768px) {
 		padding: 2rem;
@@ -98,16 +102,18 @@ const InputBox = styled.span`
 	justify-content: ${(props) => props.alt && 'space-between'};
 	width: ${(props) => props.width};
 	margin-top: ${(props) => props.last && '.5rem'};
-	// @media (max-width: 768px) {
-	// 	width: 60%;
-	// }
+	
+	@media (max-width: 768px) {
+		width: 60%;
+	}
+	
 	@media (max-width: 450px) {
 		width: 90%;
 	}
 `;
 
 const Label = styled.label`
-	font: 500 12px Eurostile;
+	font: 500 0.75rem Eurostile;
 	margin: 0 0 .25rem 1rem;
 	letter-spacing: 0;
 	color: #7FBA4C;
@@ -125,7 +131,7 @@ const Input = styled.input`
 	outline: none;
 
 	::placeholder {
-		font: 300 16px Open Sans, sans serif;
+		font: 300 1rem Open Sans, sans serif;
 		letter-spacing: 0;
 		color: #959595;
 	}
@@ -153,6 +159,7 @@ const Button = styled.button`
 	font: 600 1rem eurostile, sans serif;
 	letter-spacing: 0;
 	color: #FAFAFA;
+	cursor: pointer;
 
 	@media (max-width: 768px) {
 		width: 100%;
@@ -255,7 +262,7 @@ const TextError = styled.p`
 const CreateContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	// justify-content: space-around;
+	justify-content: space-around;
 	justify-content: space-evenly;
 	align-items: center;
 	width: 100%;
@@ -287,7 +294,7 @@ const CreateBox = styled.form`
 const TermsText = styled.p`
 	width: 90%;
 	margin: 1.5rem 0 -1rem;
-	font: 400 14px Eurostile;
+	font: 400 0.875rem Eurostile;
 	letter-spacing: 0;
 	color: #505050;
 
@@ -298,7 +305,6 @@ const TermsText = styled.p`
 		width: 100%;
 	}
 `;
-
 
 const CreateTitle = styled.h1`
 	align-self: flex-start;
@@ -311,11 +317,52 @@ const CreateTitle = styled.h1`
 	}
 `;
 
+const CreatedBox = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 30%;
+	min-width: 360px;
+	padding: 3rem 4rem;
+	background: #FFF;
+	box-shadow: 0px 1px 2px #0000001A;
+	border-radius: 4px;
+	transition: width 1s; 
+
+	@media(max-width: 1440px) {
+		width: 50%;
+	}
+	@media(max-width: 768px) {
+		width: 75%;
+		padding: 2rem;
+	}
+	@media(max-width: 425px) {
+		width: 95%;
+	}
+`;
+
+const CreatedText = styled.div`
+	width: 92.5%;
+	margin: 0 0 -1rem;
+	font: 400 1.125rem Eurostile;
+	letter-spacing: 0;
+	color: #505050;
+`;
+
+const BackText = styled.div`
+	align-self: flex-end;
+	margin-top: 2rem;
+	cursor: pointer;
+	font: 600 1.25rem Eurostile;
+	color: #116EA0;
+`;
+
 class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentScreen: 'create',
+			currentScreen: 'login',
+			isCreated: false,
 			showPassword: true,
 		};
 	}
@@ -365,9 +412,21 @@ class Login extends Component {
 
 	createSubmit = (ev) => {
 		ev.preventDefault();
-		console.log('nome: ', this.createNameRef.value);
-		console.log('email: ', this.createEmailRef.value);
-		console.log('senha: ', this.createPasswordRef.value);
+
+		this.props.createAccountThunk({
+			name: this.createNameRef.value,
+			email: this.createEmailRef.value,
+			password: this.createPasswordRef.value,
+		});
+		this.setState({
+			isCreated: true,
+		});
+	}
+
+	handleBackLogin = () => {
+		this.setState({
+			currentScreen: 'login',
+		});
 	}
 
 	renderLogin = () => <>
@@ -424,55 +483,72 @@ class Login extends Component {
 	renderCreateAccount = () => (
 		<CreateContainer>
 			<LogoCreate src={logoW} />
-			<CreateBox onSubmit={this.createSubmit}>
-				<CreateTitle>
-					Criar Conta
-				</CreateTitle>
-				<InputBox width='100%'>
-					<Label>Nome</Label>
-					<Input
-						ref={(node) => { this.createNameRef = node; }}
-						required
-						autoFocus
-						placeholder={'Nome'}
-						error={this.props.error}
-						onChange={this.handleError}
-					/>
-				</InputBox>
-				<InputBox last width='100%'>
-					<Label>Email</Label>
-					<Input
-						ref={(node) => { this.createEmailRef = node; }}
-						type={'email'}
-						required
-						placeholder={'nome@email.com'}
-						error={this.props.error}
-						onChange={this.handleError}
-					/>
-					{this.renderError()}
-				</InputBox>
-				<InputBox last width='100%'>
-					<Label>Senha</Label>
-					<Input
-						ref={(node) => { this.createPasswordRef = node; }}
-						type={this.state.showPassword ? 'password' : 'text'}
-						required
-						placeholder={'Digite sua senha'}
-						error={this.props.error}
-						onChange={this.handleError}
-					/>
-					<IconInputPassword
-						loginScreen
-						src={this.state.showPassword ? showPassword : hidePassword}
-						onClick={this.showPassword}
-					/>
-				</InputBox>
-				<TermsText>
-					Clique abaixo para concordar com nossos <strong>Termos de Serviço</strong> e se inscrever.
-				</TermsText>
-				<Button width='100%'>
-					Concordar e criar conta
-				</Button>
+			<CreateBox>
+				{this.state.isCreated && this.props.createSuccess
+				// Quando deu sucesso em criar conta
+					? (<>
+						<CreateTitle>
+							Sucesso! Verifique seu caixa de email.
+						</CreateTitle>
+						<CreatedText>
+							Sua conta foi criado com secesso. Por favor, verifique sua caixa de email, para efetuar confirmar a criação da conta!
+						</CreatedText>
+						<BackText onClick={this.handleBackLogin}>
+							Voltar para o Login
+						</BackText>
+					</>)
+					// Quando vai criar conta
+					: (<form onSubmit={this.createSubmit}>
+						<CreateTitle>
+							Criar Conta
+						</CreateTitle>
+						<InputBox width='100%'>
+							<Label>Nome</Label>
+							<Input
+								ref={(node) => { this.createNameRef = node; }}
+								required
+								autoFocus
+								placeholder={'Nome'}
+								error={this.props.error}
+								onChange={this.handleError}
+							/>
+						</InputBox>
+						<InputBox last width='100%'>
+							<Label>Email</Label>
+							<Input
+								ref={(node) => { this.createEmailRef = node; }}
+								type={'email'}
+								required
+								placeholder={'nome@email.com'}
+								error={this.props.error}
+								onChange={this.handleError}
+							/>
+							{this.renderError()}
+						</InputBox>
+						<InputBox last width='100%'>
+							<Label>Senha</Label>
+							<Input
+								ref={(node) => { this.createPasswordRef = node; }}
+								type={this.state.showPassword ? 'password' : 'text'}
+								required
+								placeholder={'Digite sua senha'}
+								error={this.props.error}
+								onChange={this.handleError}
+							/>
+							<IconInputPassword
+								loginScreen
+								src={this.state.showPassword ? showPassword : hidePassword}
+								onClick={this.showPassword}
+							/>
+						</InputBox>
+						<TermsText>
+							Clique abaixo para concordar com nossos <strong>Termos de Serviço</strong> e se inscrever.
+						</TermsText>
+						<Button width='100%'>
+							Concordar e criar conta
+						</Button>
+					</form>)
+				}
 			</CreateBox>
 		</CreateContainer>
 	)
