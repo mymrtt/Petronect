@@ -94,16 +94,11 @@ class CardFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isOpen: true,
 		};
 	}
 
-	handleClose = () => {
-		this.setState({ isOpen: false });
-	}
-
 	render() {
-		const { card } = this.props;
+		const { card, handleOpenModal } = this.props;
 		return (
 			<Container>
 				<Card
@@ -113,7 +108,7 @@ class CardFilter extends Component {
 						background={this.props.item ? this.props.item : '#115680'}
 					>
 						<TagTitle>{card.title}</TagTitle>
-						<CardEdit onClick={this.handleClose}>
+						<CardEdit onClick={handleOpenModal}>
 							<Image src={edit} />
 							<TagTitle cardText>Edit</TagTitle>
 						</CardEdit>

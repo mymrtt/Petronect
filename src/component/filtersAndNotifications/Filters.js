@@ -382,16 +382,16 @@ class Filters extends Component {
 		super(props);
 		this.state = {
 			isModalOpen: false,
-			nameValue: '',
-			colors: [
-				'#DE8F33',
-				'#D65B85',
-				'#52BA44',
-				'#01B0B7',
-				'#8A5BD6',
-				'#D7E65D',
-				'#D53B40',
-			],
+			// nameValue: '',
+			// colors: [
+			// 	'#DE8F33',
+			// 	'#D65B85',
+			// 	'#52BA44',
+			// 	'#01B0B7',
+			// 	'#8A5BD6',
+			// 	'#D7E65D',
+			// 	'#D53B40',
+			// ],
 			CardList: {
 				card1: {
 					title: 'Sistema de offshore',
@@ -478,20 +478,17 @@ class Filters extends Component {
 		</WrapperSearch>
 	)
 
-	handleChangeName = (event) => {
-		this.setState({ nameValue: event.target.value });
-	}
+	// handleChangeName = (event) => {
+	// 	this.setState({ nameValue: event.target.value });
+	// }
 
 	handleOpenModal = () => {
-		this.setState({ isModalOpen: true });
+		const { isModalOpen } = this.state;
+		this.setState({ isModalOpen: !isModalOpen });
 	}
 
-	handleCloseModal = () => {
-		this.setState({ isModalOpen: false });
-	}
-
-	renderFilterModal = () => (
-		<ModalFilter />
+	renderModalFilter = () => (
+		<ModalFilter handleOpenModal={this.handleOpenModal}/>
 	)
 
 	render() {
@@ -523,7 +520,7 @@ class Filters extends Component {
 								<NotificationsBar />
 							</NotificationsItem>
 						</ContainerNotifications>
-						{ isModalOpen && this.renderFilterModal() }
+						{ isModalOpen && this.renderModalFilter() }
 					</Content>
 				</Container>
 				<Footer />

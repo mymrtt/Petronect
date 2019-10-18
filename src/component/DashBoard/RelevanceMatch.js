@@ -434,13 +434,13 @@ class RelevanceMatch extends Component {
 		this.props.addList();
 	}
 
-	handleOpenModalFilter = () => {
+	handleOpenModal = () => {
 		const { isModalOpen } = this.state;
 		this.setState({ isModalOpen: !isModalOpen });
 	}
 
 	renderModalFilter = () => (
-		<ModalFilter handleOpenModalFilter={this.handleOpenModalFilter} />
+		<ModalFilter handleOpenModal={this.handleOpenModal} />
 	)
 
 	renderList = () => this.props.keyword.map((keyword) => {
@@ -492,7 +492,7 @@ class RelevanceMatch extends Component {
 						{this.props.keyword.length > 0 ? this.renderList() : null}
 					</Wraptext>
 					<BtnCreateFilter
-						onClick={this.handleOpenModalFilter}
+						onClick={this.handleOpenModal}
 					>
 						<ImgFilter src={FilterImg}/>
 						Salvar Filtro

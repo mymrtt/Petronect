@@ -263,7 +263,7 @@ class ModalFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isModalOpen: true,
+			nameValue: '',
 			colors: [
 				'#DE8F33',
 				'#D65B85',
@@ -273,8 +273,11 @@ class ModalFilter extends Component {
 				'#D7E65D',
 				'#D53B40',
 			],
-
 		};
+	}
+
+	handleChangeName = (event) => {
+		this.setState({ nameValue: event.target.value });
 	}
 
 	renderColorOption = () => {
@@ -304,7 +307,7 @@ class ModalFilter extends Component {
 				<FilterModal>
 					<Header>
 						<Title modalTitle>Adicionar Filtro</Title>
-						<CloseContainer onClick={this.props.handleOpenModalFilter}>
+						<CloseContainer onClick={this.props.handleOpenModal}>
 							<CloseButton>X</CloseButton>
 						</CloseContainer>
 					</Header>
