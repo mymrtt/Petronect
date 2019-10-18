@@ -1,16 +1,17 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
+import { values } from 'lodash';
 
 // Images
 import filter from '../../assets/icon/filtrar.svg';
 import magnifying from '../../assets/icon/lupa.svg';
-import edit from '../../assets/icon/editar.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
 import MenuResponsive from '../MenuResponsive';
 import Footer from '../Footer';
+import CardFilter from './CardFilter';
 
 const Container = styled.div`
 	@media (max-width: 768px) {
@@ -18,7 +19,9 @@ const Container = styled.div`
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-		padding: .30rem;
+		// padding: .30rem;
+		padding-top: 2rem;
+    // padding-bottom: .5rem;
 		width: 100%;
     height: 100vh;
     display: flex;
@@ -52,9 +55,10 @@ const Content = styled.div`
 `;
 
 const AddFilter = styled.div`
-	margin-right: ${(props) => (props.containerCard ? '0' : '1rem')};
+	// margin-right: ${(props) => (props.containerCard ? '0' : '1rem')};
+	margin-bottom: 1rem;
 	padding: ${(props) => (props.containerCard ? '0' : '1rem')};
-	width: 45%;
+	width: 48%;
 	display: flex;
 	flex-direction: ${(props) => props.containerCard && 'column'};
 	border: ${(props) => (props.containerCard ? '.5px solid #01B701' : '.5px solid #116EA0')};
@@ -70,17 +74,6 @@ const AddFilter = styled.div`
 		margin-bottom: .5rem;
 		width: 100%;
 	}
-`;
-
-const WrapperCard = styled.div`
-	padding: 0 1rem;
-	height: 2rem;
-	display: flex;
-	align-items: center;
-	color: #fff;
-	font-size: 1rem;
-	background-color: #52BA44;
-	justify-content: space-between;
 `;
 
 const AddFilterImage = styled.img`
@@ -102,14 +95,6 @@ const Title = styled.h2`
 	font-size: ${(props) => (props.modalTitle ? '1rem' : '.80rem')};
 `;
 
-const ContainerTags = styled.div`
-	padding: 0.5rem 1rem;
-	height: 3.7rem;
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-`;
-
 const SuggestionsTags = styled.span`
 	margin-right: 1rem;
 	margin-bottom: ${(props) => props.Tag && '.3rem'};
@@ -128,14 +113,6 @@ const AddFilterTitle = styled.p`
 	margin: ${(props) => (props.searchTitle ? '0 0 0.6rem .90rem' : '.2rem')};
 	color: ${(props) => (props.searchTitle ? '#116EA0' : '#fff')};
 	font-size: ${(props) => (props.smallTitle ? '.85rem' : '1rem')};
-`;
-
-const TagTitle = styled.p`
-	margin-left: ${(props) => props.cardText && '.5rem'};
-`;
-
-const CardEdit = styled.div`
-	display: flex;
 `;
 
 const ContainerNotifications = styled.div`
@@ -195,12 +172,12 @@ const WrapperSearch = styled.div`
 	}
 `;
 
-const WrapperNotifications = styled.div`
-	// padding-bottom: ${(props) => props.wrapperSearch && '2rem'};
-	// @media (max-width: 648px) {
-	// 	padding-bottom: ${(props) => props.wrapperSearch && '1rem'};
-	// }
-`;
+// const WrapperNotifications = styled.div`
+// 	// padding-bottom: ${(props) => props.wrapperSearch && '2rem'};
+// 	// @media (max-width: 648px) {
+// 	// 	padding-bottom: ${(props) => props.wrapperSearch && '1rem'};
+// 	// }
+// `;
 
 const NotificationsItem = styled.div`
 	margin-bottom: 1rem;
@@ -377,10 +354,12 @@ const TagColor = styled.div`
 	cursor: pointer;
 `;
 
-const Teste = styled.div`
+const ContainerFilters = styled.div`
+	padding: 0 1rem;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
 	@media (max-width: 768px) {
     margin-left: 3rem;
 		align-items: flex-start;
@@ -407,15 +386,50 @@ class Filters extends Component {
 				'#D7E65D',
 				'#D53B40',
 			],
+
+			CardList: {
+				card1: {
+					title: 'Sistema de offshore',
+					tags: [
+						'instrumental',
+						'montagem',
+						'elétrica',
+						'automoção',
+					],
+				},
+				card2: {
+					title: 'Serviço de montagem',
+					tags: [
+						'montagem',
+						'automoção',
+						'elétrica',
+						'instrumental',
+					],
+				},
+				card3: {
+					title: 'Remoção de material',
+					tags: [
+						'montagem',
+						'instrumental',
+						'automoção',
+						'elétrica',
+					],
+				},
+				card4: {
+					title: 'Manutenção em plataforma',
+					tags: [
+						'cromo-mobilidenio',
+						'corrosão',
+						'jateamento',
+						'rapel',
+					],
+				},
+			},
 		};
 	}
 
-	// hadleCardEdit = () => {
-	// 	console.log('card edit');
-	// }
-
-	handleColorOption = () => {
-		console.log('color option');
+	handleColorOption = (color) => {
+		this.setState({ item: color });
 	}
 
 	renderColorOption = () => {
@@ -425,10 +439,38 @@ class Filters extends Component {
 			<TagColor
 				key={color}
 				backgroundColor={color}
-				onClick={this.handleColorOption}
+				onClick={() => this.handleColorOption(color)}
 			/>
 		));
 	}
+
+	renderCardsFilter = () => {
+		const { CardList } = this.state;
+
+		return (
+			<ContainerFilters>
+				<AddFilter onClick={this.handleOpenModal}>
+					<AddFilterImage src={filter} />
+					<WrapperTexts>
+						<AddFilterTitle>Adicionar filtro</AddFilterTitle>
+						<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
+					</WrapperTexts>
+				</AddFilter>
+				{ values(CardList).map((card) => (
+					<CardFilter
+						key={card.title}
+						item={this.state.item}
+						card={card}
+						handleOpenModal={this.handleOpenModal}
+					/>
+				))}
+			</ContainerFilters>
+		);
+	}
+
+	// renderCardsFilter = () => {
+	// 	return <CardFilter item={this.state.item} handleOpenModal={this.handleOpenModal} />;
+	// }
 
 	renderWrapperSearch = () => (
 		<WrapperSearch>
@@ -444,7 +486,6 @@ class Filters extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
-		console.log(event.target.value);
 	}
 
 	handleOpenModal = () => {
@@ -513,57 +554,24 @@ class Filters extends Component {
 						<ContainerSearchMobile>
 							{this.renderWrapperSearch()}
 						</ContainerSearchMobile>
-						<Teste>
-							<AddFilter onClick={this.handleOpenModal}>
-								<AddFilterImage src={filter} />
-								<WrapperTexts>
-									<AddFilterTitle>Adicionar filtro</AddFilterTitle>
-									<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
-								</WrapperTexts>
-							</AddFilter>
-							<AddFilter containerCard>
-								<WrapperCard>
-									<TagTitle>Sistema de offshore</TagTitle>
-									<CardEdit onClick={this.handleOpenModal}>
-										<Image src={edit} />
-										<TagTitle cardText>Edit</TagTitle>
-									</CardEdit>
-								</WrapperCard>
-								<ContainerTags>
-									<SuggestionsTags Tag>
-										<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-									</SuggestionsTags>
-									<SuggestionsTags Tag>
-										<SuggestionsText suggestionsTags>instrumental</SuggestionsText>
-									</SuggestionsTags>
-									<SuggestionsTags Tag>
-										<SuggestionsText suggestionsTags>automoção</SuggestionsText>
-									</SuggestionsTags>
-									<SuggestionsTags Tag>
-										<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-									</SuggestionsTags>
-								</ContainerTags>
-							</AddFilter>
-						</Teste>
+						{this.renderCardsFilter()}
 						<ContainerNotifications>
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
 							</ContainerSearch>
-							<WrapperNotifications>
-								<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
-								<NotificationsItem>
-									<Label labelNotifications>Email</Label>
-									<NotificationsBar />
-								</NotificationsItem>
-								<NotificationsItem>
-									<Label labelNotifications>Push</Label>
-									<NotificationsBar />
-								</NotificationsItem>
-								<NotificationsItem>
-									<Label labelNotifications>SMS</Label>
-									<NotificationsBar />
-								</NotificationsItem>
-							</WrapperNotifications>
+							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
+							<NotificationsItem>
+								<Label labelNotifications>Email</Label>
+								<NotificationsBar />
+							</NotificationsItem>
+							<NotificationsItem>
+								<Label labelNotifications>Push</Label>
+								<NotificationsBar />
+							</NotificationsItem>
+							<NotificationsItem>
+								<Label labelNotifications>SMS</Label>
+								<NotificationsBar />
+							</NotificationsItem>
 						</ContainerNotifications>
 						{ isModalOpen && this.renderFilterModal() }
 					</Content>
