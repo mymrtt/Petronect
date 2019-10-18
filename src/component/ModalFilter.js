@@ -231,8 +231,16 @@ const Wraptext = styled.ul`
 	width: 100%;
 	height: auto;
 	display: flex;
+	align-items: center;
 	flex-wrap: wrap;
 	padding: .5rem;
+	padding-top: 0;
+`;
+
+const TagText = styled.p`
+	font-size: .85rem;
+	color: #8C8C8C;
+	margin-right: 1rem;
 `;
 
 const KeywordText = styled.li`
@@ -269,80 +277,80 @@ class ModalFilter extends Component {
 		};
 	}
 
-renderColorOption = () => {
-	const { colors } = this.state;
+	renderColorOption = () => {
+		const { colors } = this.state;
 
-	return colors.map((color) => (
-		<TagColor
-			key={color}
-			backgroundColor={color}
-			onClick={this.handleColorOption}
-		/>
-	));
-}
+		return colors.map((color) => (
+			<TagColor
+				key={color}
+				backgroundColor={color}
+				onClick={this.handleColorOption}
+			/>
+		));
+	}
 
-renderKeywordsList = () => this.props.keyword.map((keyword) => (
-	<Fragment
-		key={keyword.oportunityId}
-		className='btn'
-	>
-		<KeywordText>{keyword}</KeywordText>
-	</Fragment>
-))
+	renderKeywordsList = () => this.props.keyword.map((keyword) => (
+		<Fragment
+			key={keyword.oportunityId}
+			className='btn'
+		>
+			<KeywordText>{keyword}</KeywordText>
+		</Fragment>
+	))
 
-
-render() {
-  	return (
-  		<Overlay>
-  			<FilterModal onClick={this.props.handleOpenModalFilter}>
-  				<Header>
-  					<Title modalTitle>Adicionar Filtro</Title>
-  					<CloseContainer onClick={this.props.handleOpenModalFilter}>
-  						<CloseButton>X</CloseButton>
-  					</CloseContainer>
-  				</Header>
-  				<InputBox>
-  					<Label>Escolha um nome</Label>
-  					<Input
-  						placeholder={'Digite seu texto aqui'}
-  						onChange={this.handleChangeName}
-  						value={this.state.nameValue}
-  					/>
-  				</InputBox>
-  				<InputBox last>
-  					<Label>Digite as tags relacionadas</Label>
-					<Input
-						placeholder={'Digite seu texto aqui'}
-					/>
-					<Wraptext>
-						{this.renderKeywordsList()}
-					</Wraptext>
-  				</InputBox>
-  				<WrapperTexts suggestions>
-  					<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
-  					<SuggestionsTags>
-  						<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-  					</SuggestionsTags>
-  					<SuggestionsTags>
-  						<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
-  					</SuggestionsTags>
-  					<SuggestionsTags>
-  						<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-  					</SuggestionsTags>
-  				</WrapperTexts>
-  				<WrapperTagsColor>
-  					<Label>Escolha uma cor</Label>
-  					<ContainerTagsColor>
-  						{ this.renderColorOption() }
-  					</ContainerTagsColor>
-  					<Button>
-  						<Title>Adicionar Filtro</Title>
-  					</Button>
-  				</WrapperTagsColor>
-  			</FilterModal>
-  		</Overlay>
-  	);
-}
+	render() {
+		return (
+			<Overlay>
+				<FilterModal>
+					<Header>
+						<Title modalTitle>Adicionar Filtro</Title>
+						<CloseContainer onClick={this.props.handleOpenModalFilter}>
+							<CloseButton>X</CloseButton>
+						</CloseContainer>
+					</Header>
+					<InputBox>
+						<Label>Escolha um nome</Label>
+						<Input
+							placeholder={'Digite seu texto aqui'}
+							onChange={this.handleChangeName}
+							value={this.state.nameValue}
+						/>
+					</InputBox>
+					<InputBox last>
+						{/* <Label>Digite as tags relacionadas</Label>
+						<Input
+							placeholder={'Digite seu texto aqui'}
+						/> */}
+						<Wraptext>
+							<TagText>Tags:</TagText>
+							{this.renderKeywordsList()}
+						</Wraptext>
+					</InputBox>
+					{/* <WrapperTexts suggestions>
+						<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
+						<SuggestionsTags>
+							<SuggestionsText suggestionsTags>montagem</SuggestionsText>
+						</SuggestionsTags>
+						<SuggestionsTags>
+							<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
+						</SuggestionsTags>
+						<SuggestionsTags>
+							<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
+						</SuggestionsTags>
+					</WrapperTexts> */}
+					<WrapperTagsColor>
+						<Label>Escolha uma cor</Label>
+						<ContainerTagsColor>
+							{ this.renderColorOption() }
+						</ContainerTagsColor>
+						<Button>
+							<Title>Adicionar Filtro</Title>
+						</Button>
+					</WrapperTagsColor>
+				</FilterModal>
+			</Overlay>
+		);
+	}
 }
 
 export default connect(mapStateToProps, null)(ModalFilter);

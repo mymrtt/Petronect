@@ -12,6 +12,7 @@ import NotificationsBar from './NotificationsBar';
 import MenuResponsive from '../MenuResponsive';
 import Footer from '../Footer';
 import CardFilter from './CardFilter';
+import ModalFilter from '../ModalFilter';
 
 const Container = styled.div`
 	@media (max-width: 768px) {
@@ -46,7 +47,7 @@ const Content = styled.div`
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-		margin-bottom: 2rem;
+		margin-bottom: 3rem;
 		// margin: 3rem 0;
 		padding-top: .5rem;
 		height: 90vh;
@@ -123,7 +124,7 @@ const ContainerNotifications = styled.div`
 	flex-direction: column;
 	border-left: 1px solid #0000001A;
 	@media (max-width: 768px) {
-		width: 40%;
+		width: 45%;
 	}
 	@media (max-width: 648px) {
 		padding-left: .5rem;
@@ -169,6 +170,7 @@ const WrapperSearch = styled.div`
 
 	@media (max-width: 648px) {
 		padding-bottom: 1rem;
+		width: 95%;
 	}
 `;
 
@@ -186,6 +188,9 @@ const NotificationsItem = styled.div`
 	flex-direction: column;
 	border: .5px solid #E6E6E6;
 	border-radius: 8px;
+	@media(max-width: 648px) {
+		padding: .45rem .80rem 1rem;
+	}
 `;
 
 const SearchInput = styled.input`
@@ -355,6 +360,7 @@ const TagColor = styled.div`
 `;
 
 const ContainerFilters = styled.div`
+	width: 90%;
 	padding: 0 1rem;
 	display: flex;
 	justify-content: space-between;
@@ -386,7 +392,6 @@ class Filters extends Component {
 				'#D7E65D',
 				'#D53B40',
 			],
-
 			CardList: {
 				card1: {
 					title: 'Sistema de offshore',
@@ -449,13 +454,6 @@ class Filters extends Component {
 
 		return (
 			<ContainerFilters>
-				{/* <AddFilter onClick={this.handleOpenModal}>
-					<AddFilterImage src={filter} />
-					<WrapperTexts>
-						<AddFilterTitle>Adicionar filtro</AddFilterTitle>
-						<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
-					</WrapperTexts>
-				</AddFilter> */}
 				{ values(CardList).map((card) => (
 					<CardFilter
 						key={card.title}
@@ -467,10 +465,6 @@ class Filters extends Component {
 			</ContainerFilters>
 		);
 	}
-
-	// renderCardsFilter = () => {
-	// 	return <CardFilter item={this.state.item} handleOpenModal={this.handleOpenModal} />;
-	// }
 
 	renderWrapperSearch = () => (
 		<WrapperSearch>
@@ -497,51 +491,7 @@ class Filters extends Component {
 	}
 
 	renderFilterModal = () => (
-		<Overlay>
-			<FilterModal>
-				<Header>
-					<Title modalTitle>Adicionar Filtro</Title>
-					<CloseContainer onClick={this.handleCloseModal}>
-						<CloseButton>X</CloseButton>
-					</CloseContainer>
-				</Header>
-				<InputBox>
-					<Label>Escolha um nome</Label>
-					<Input
-						placeholder={'Digite seu texto aqui'}
-						onChange={this.handleChangeName}
-						value={this.state.nameValue}
-					/>
-				</InputBox>
-				<InputBox last>
-					<Label>Digite as tags relacionadas</Label>
-					<Input
-						placeholder={'Digite seu texto aqui'}
-					/>
-				</InputBox>
-				<WrapperTexts suggestions>
-					<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
-					<SuggestionsTags>
-						<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-					</SuggestionsTags>
-					<SuggestionsTags>
-						<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
-					</SuggestionsTags>
-					<SuggestionsTags>
-						<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-					</SuggestionsTags>
-				</WrapperTexts>
-				<WrapperTagsColor>
-					<Label>Escolha uma cor</Label>
-					<ContainerTagsColor>
-						{ this.renderColorOption() }
-					</ContainerTagsColor>
-					<Button>
-						<Title>Adicionar Filtro</Title>
-					</Button>
-				</WrapperTagsColor>
-			</FilterModal>
-		</Overlay>
+		<ModalFilter />
 	)
 
 	render() {
