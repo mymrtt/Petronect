@@ -405,7 +405,6 @@ class RelevanceMatch extends Component {
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
 		});
-		console.log('hoverFavorites', this.state.hoverFavorites);
 	}
 
 	handleInputChange = (event) => {
