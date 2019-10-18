@@ -1,12 +1,11 @@
 const ADD_ITEM = 'keyword/keyword/ADD_ITEM';
 const REMOVE_ITEM = 'keyword/keyword/REMOVE_ITEM'
 const PUT_FAVORITE = 'favorite/favorite/PUT_FAVORITE';
-const OPORTUNITIES_LIST = 'oportunitiesList/oportunitiesList/OPORTUNITIES_LIST;'
+const OPORTUNITIES_LIST = 'oportunitiesList/oportunitiesList/OPORTUNITIES_LIST;';
 
 const initialState = {
 	keyword: [],
 	favoriteList: [],
-	oportunitiesList: {},
 	oportunities: {
 		Test1: {
 			oportunityId: 'Test1',
@@ -119,13 +118,7 @@ export default function (state = initialState, action) {
 	case PUT_FAVORITE:
 		return {
 			...state,
-			oportunities: {
-				...state.oportunities,
-				[action.info]: {
-					...state.oportunities[action.info],
-					favorite: !state.oportunities[action.info].favorite,
-				},
-			},
+			favoriteList: state.favoriteList.concat([action.info])
 		};
 	default:
 		return state;
