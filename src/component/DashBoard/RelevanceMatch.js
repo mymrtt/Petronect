@@ -14,6 +14,8 @@ import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thu
 import shareIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
+import FilterImg from '../../assets/icon/icon_menu_input.svg';
+
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -23,6 +25,7 @@ import Footer from '../Footer';
 const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,
 	oportunities: state.oportunities.oportunities,
+	oportunitiesList: state.oportunities.oportunitiesList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -107,8 +110,9 @@ const HeaderText = styled.p`
 `;
 
 const WrapperForm = styled.div`
-  width: auto;
+  width: 50%;
   max-width: 60%;
+	padding-right: 1rem;
 	display: flex;
 	flex-direction: column;
 	flwx-wrap: wrap;
@@ -119,6 +123,7 @@ const WrapperForm = styled.div`
 
 const Form = styled.div`
   width: 100%;
+	position: relative;
   display: flex;
 	justify-content: space-between;
 	@media (max-width: 648px) {
@@ -148,11 +153,10 @@ const TitleInput = styled.p`
 `;
 
 const LabelBox = styled.label`
-  width: 225px;
   height: 32px;
-  margin-left: .5rem;
+  width: 225px;
   padding-left: 1rem;
-  border-radius: 16px;
+  border-radius: 16px 16px 0 0 ;
   border: solid #116EA0 .5px;
   display: flex;
   align-items: center;
@@ -170,7 +174,7 @@ const LabelBox = styled.label`
 `;
 
 const InputHead = styled.input`
-	width: 80%;
+	width: 85%;
 	height: 95%;
   border:none;
 	outline: none;
@@ -182,11 +186,23 @@ const InputHead = styled.input`
 `;
 
 const WrapperKeyword = styled.div`
+	width: 225px;
+	height: auto;
 	display: flex;
+	flex-wrap: wrap;
+	position: absolute;
+	background: #FFFFFF;
+	border: 0.5px solid #116EA0;
+
+	display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 0 0 16px 16px;
+}
 `;
 
 const KeiwordBox = styled.div`
-	width: 89px;
+	width: auto;
 	height: 20px;
 	margin-right: .5rem;
 	display: flex;
@@ -197,7 +213,21 @@ const KeiwordBox = styled.div`
 	opacity: 0.2;
 `;
 
+const BtnCreateFilter = styled.button`
+	width: 251px;
+	height: 33px;
+	background: #116EA0;
+	border-radius: 0px 0px 16px 16px;
+	opacity: 1;
+	font: Regular 14px/46px Eurostile;
+	color: #FFFFFF;
+	outline: none;
+	border: none;
+	cursor: pointer;
+`;
+
 const KeiwordText = styled.p`
+	padding: 0 .5rem;
 	font-size: .85rem;
 	color: #404040;
 `;
@@ -245,6 +275,7 @@ const Button = styled.button`
 
 const WrapperTable = styled.div`
   width: 100%;
+	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -257,7 +288,7 @@ const WrapperTable = styled.div`
 
 const Table = styled.table`
   background: #fff;
-  width: 97%;
+  width: 100%;
   border-radius: 5px;
   >:nth-child(odd) {
     background: #F7F7F7; 
@@ -309,6 +340,7 @@ class RelevanceMatch extends Component {
 			hoverFavorites: false,
 			isOportunitesModal: false,
 			isShowFavorites: false,
+			inputShare: false,
 		};
 	}
 
@@ -361,11 +393,45 @@ class RelevanceMatch extends Component {
 					className='btn'
 				>
 					<KeiwordText>{keyword}{keyword.dane}</KeiwordText>
-					<ClosedKeyword onClick={handleClick}>X</ClosedKeyword> 
+					<ClosedKeyword onClick={handleClick}>X</ClosedKeyword>
 				</KeiwordBox>
 			);
 		});
 	}
+
+	handleInputShare = () => {
+		const { inputShare } = this.state;
+		this.setState({ inputShare: !inputShare });
+	}
+
+	handleInputFalse = () => (
+		<>
+			<InputHead placeholder="Digite aqui para pesquisar"
+				onFocus={this.handleInputShare}
+			></InputHead>
+		</>
+	)
+
+	handleInput = () => (
+		<>
+			<div>
+				<LabelBox>
+					<InputHead placeholder="Digite aqui para pesquisar"
+						onChange={this.handleInputChange}
+						onKeyPress={this.handleKeyPress}
+					></InputHead>
+					{/* <ImgShare src={shareIcon}/> */}
+					<p>+</p>
+				</LabelBox>
+				<WrapperKeyword>
+					{this.props.keyword.length > 0 ? this.renderList() : null}
+					<BtnCreateFilter>
+					<img src={FilterImg}/>
+					Salvar Filtro</BtnCreateFilter>
+				</WrapperKeyword>
+			</div>
+		</>
+	)
 
 	handleFavorite = (event, oportunityId) => {
 		event.stopPropagation();
@@ -397,8 +463,31 @@ class RelevanceMatch extends Component {
 		this.setState({ isShowFavorites: !isShowFavorites });
 	}
 
+	renderOportunity = () => {
+		const {	oportunitiesList } = this.props;
+
+		const list = oportunitiesList.hits;
+
+		// values(list).filter((item) => item.favorite === true).map((item) => (
+		// 	<TableRow key={item} onClick={this.handleModalOportunities}>
+		// 		<TableBody>
+		// 			<img src={start}/>
+		// 		</TableBody>
+		// 		<TableBody>{item.fit}</TableBody>
+		// 		<TableBody>{item.category}</TableBody>
+		// 		<TableBody>{item.oportunityId}</TableBody>
+		// 		<TableBody>{item.titleDescription}</TableBody>
+		// 		<TableBody>
+		// 			{item.deadLineInitial}
+		// 			{item.deadLineLastOne}
+		// 		</TableBody>
+		// 	</TableRow>
+		// ));
+		console.log('testets',list)
+	}
+
 	render() {
-		const { isOportunitesModal, isShowFavorites } = this.state;
+		const { isOportunitesModal, isShowFavorites, inputShare } = this.state;
   	return (
 			<Fragment>
 				<MenuResponsive />
@@ -412,18 +501,15 @@ class RelevanceMatch extends Component {
 								<Form onSubmit={this.handleKeyPress}>
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
-										<LabelBox>
-											<InputHead placeholder="Digite aqui para pesquisar"
-												onChange={this.handleInputChange}
-												onKeyPress={this.handleKeyPress}
-											></InputHead>
-											<ImgShare src={shareIcon}/>
-										</LabelBox>
+										{this.handleInput()}
+										{/* <------AQUI ENTRA O INPUTTTTT-------> */}
+										{/* {inputShare ? this.handleInputFalse : this.handleInput} */}
+										{/* <------AQUI ENTRA O INPUTTTTT-------> */}
 									</BoxInput>
 									<Button
 										type="button"
 										value="1"
-										onClick = {this.showFavorites}
+										onClick = {this.showFavorites ? this.renderOportunity : this.renderOportunity }
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
@@ -434,9 +520,6 @@ class RelevanceMatch extends Component {
 									Favoritos
 									</Button>
 								</Form>
-								<WrapperKeyword>
-									{this.props.keyword.length > 0 ? this.renderList() : null}
-								</WrapperKeyword>
 							</WrapperForm>
 						</WrapperHead>
 
@@ -484,21 +567,7 @@ class RelevanceMatch extends Component {
 							</HeaderRow>
 
 							<Fragment>
-								{values(this.props.oportunities).filter((item) => item.favorite === true).map((item) => (
-									<TableRow key={item} onClick={this.handleModalOportunities}>
-										<TableBody>
-											<img src={start}/>
-										</TableBody>
-										<TableBody>{item.fit}</TableBody>
-										<TableBody>{item.category}</TableBody>
-										<TableBody>{item.oportunityId}</TableBody>
-										<TableBody>{item.titleDescription}</TableBody>
-										<TableBody>
-											{item.deadLineInitial}
-											{item.deadLineLastOne}
-										</TableBody>
-									</TableRow>
-								))}
+								{this.renderOportunity()}
 							</Fragment>
 
 

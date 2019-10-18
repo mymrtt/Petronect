@@ -1,10 +1,12 @@
 const ADD_ITEM = 'keyword/keyword/ADD_ITEM';
 const REMOVE_ITEM = 'keyword/keyword/REMOVE_ITEM'
 const PUT_FAVORITE = 'favorite/favorite/PUT_FAVORITE';
+const OPORTUNITIES_LIST = 'oportunitiesList/oportunitiesList/OPORTUNITIES_LIST;'
 
 const initialState = {
 	keyword: [],
 	favoriteList: [],
+	oportunitiesList: {},
 	oportunities: {
 		Test1: {
 			oportunityId: 'Test1',
@@ -110,6 +112,10 @@ export default function (state = initialState, action) {
 		return { ...state, 
 			keyword: state.keyword.filter(item => item.id !== action.info)
 		};
+	case OPORTUNITIES_LIST:
+		return { ...state, 
+			oportunitiesList: action.info,
+		};
 	case PUT_FAVORITE:
 		return {
 			...state,
@@ -133,6 +139,11 @@ export const addItem = (info) => ({
 
 export const removeItem = info => ({
 	type: REMOVE_ITEM,
+	info,
+});
+
+export const oportunitiesList = (info) => ({
+	type: OPORTUNITIES_LIST,
 	info,
 });
 
