@@ -54,31 +54,31 @@ const Content = styled.div`
 	}
 `;
 
-const AddFilter = styled.div`
-	// margin-right: ${(props) => (props.containerCard ? '0' : '1rem')};
-	margin-bottom: 1rem;
-	padding: ${(props) => (props.containerCard ? '0' : '1rem')};
-	width: 48%;
-	display: flex;
-	flex-direction: ${(props) => props.containerCard && 'column'};
-	border: ${(props) => (props.containerCard ? '.5px solid #01B701' : '.5px solid #116EA0')};
-	border-radius: 4px;
-	background-color: ${(props) => (props.containerCard ? '#fff' : '#116EA0')};
-	cursor: pointer;
-	@media (max-width: 768px) {
-		margin-right: 0;
-		margin-bottom: 1rem;
-		width: 80%;
-	}
-	@media (max-width: 648px) {
-		margin-bottom: .5rem;
-		width: 100%;
-	}
-`;
+// const AddFilter = styled.div`
+// 	// margin-right: ${(props) => (props.containerCard ? '0' : '1rem')};
+// 	margin-bottom: 1rem;
+// 	padding: ${(props) => (props.containerCard ? '0' : '1rem')};
+// 	width: 48%;
+// 	display: flex;
+// 	flex-direction: ${(props) => props.containerCard && 'column'};
+// 	border: ${(props) => (props.containerCard ? '.5px solid #01B701' : '.5px solid #116EA0')};
+// 	border-radius: 4px;
+// 	background-color: ${(props) => (props.containerCard ? '#fff' : '#116EA0')};
+// 	cursor: pointer;
+// 	@media (max-width: 768px) {
+// 		margin-right: 0;
+// 		margin-bottom: 1rem;
+// 		width: 80%;
+// 	}
+// 	@media (max-width: 648px) {
+// 		margin-bottom: .5rem;
+// 		width: 100%;
+// 	}
+// `;
 
-const AddFilterImage = styled.img`
-	margin-right: 1rem;
-`;
+// const AddFilterImage = styled.img`
+// 	margin-right: 1rem;
+// `;
 
 const WrapperTexts = styled.div`
 	display: ${(props) => props.suggestions && 'flex'};
@@ -449,13 +449,13 @@ class Filters extends Component {
 
 		return (
 			<ContainerFilters>
-				<AddFilter onClick={this.handleOpenModal}>
+				{/* <AddFilter onClick={this.handleOpenModal}>
 					<AddFilterImage src={filter} />
 					<WrapperTexts>
 						<AddFilterTitle>Adicionar filtro</AddFilterTitle>
 						<AddFilterTitle smallTitle>Selecione palavras chave para apurar contratos relevantes</AddFilterTitle>
 					</WrapperTexts>
-				</AddFilter>
+				</AddFilter> */}
 				{ values(CardList).map((card) => (
 					<CardFilter
 						key={card.title}

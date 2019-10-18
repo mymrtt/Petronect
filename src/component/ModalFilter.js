@@ -287,19 +287,17 @@ renderKeywordsList = () => this.props.keyword.map((keyword) => (
 		className='btn'
 	>
 		<KeywordText>{keyword}</KeywordText>
-		{console.log('chegou na função', keyword)}
 	</Fragment>
 ))
 
 
 render() {
   	return (
-  		<Overlay onClick={this.props.handleOpenModalFilter}>
-  			<FilterModal>
+  		<Overlay>
+  			<FilterModal onClick={this.props.handleOpenModalFilter}>
   				<Header>
   					<Title modalTitle>Adicionar Filtro</Title>
   					<CloseContainer onClick={this.props.handleOpenModalFilter}>
-						{console.log('dfechou', this.props.handleOpenModalFilter)}
   						<CloseButton>X</CloseButton>
   					</CloseContainer>
   				</Header>
