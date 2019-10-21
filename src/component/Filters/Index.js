@@ -25,7 +25,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-	width: 92%;
+	width: 95%;
 	height: 95%;
 	display: flex;
 

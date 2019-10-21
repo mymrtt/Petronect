@@ -82,11 +82,11 @@ const InputBox = styled.span`
 	position: relative;
 	display: flex;
 	flex-direction: ${(props) => (props.alt ? 'row' : 'column')};
-	justify-content: ${(props) => props.alt && 'space-between'};
+	// justify-content: ${(props) => props.alt && 'space-between'};
 	width: 100%;
 	margin-top: ${(props) => props.last && '.5rem'};
 	@media (max-width: 768px) {
-		width: 60%;
+		width: 100%;
 	}
 	@media (max-width: 648px) {
 		width: 100%;
