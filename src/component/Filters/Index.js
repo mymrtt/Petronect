@@ -44,7 +44,7 @@ const ContainerSidebar = styled.span`
 	}
 `;
 
-const IndexFilters = () => (
+const Index = () => (
 	<Container>
 		<Content>
 			<ContainerSidebar>
@@ -55,4 +55,4 @@ const IndexFilters = () => (
 	</Container>
 );
 
-export default IndexFilters;
+export default Index;
