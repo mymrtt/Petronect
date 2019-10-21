@@ -118,7 +118,7 @@ class CardFilter extends Component {
 							values(card.tags).map((tag) => (
 								<SuggestionsTags
 									Tag
-									background={this.props.item ? `${this.props.item}30` : '#11568030'} 
+									background={this.props.item ? `${this.props.item}30` : '#11568030'}
 									key={tag}>
 									<SuggestionsText suggestionsTags>{tag}</SuggestionsText>
 								</SuggestionsTags>

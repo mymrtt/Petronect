@@ -1,55 +1,11 @@
+// Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-// Modules
-import { addItem, removeItem, putFavorite } from '../dataflow/modules/oportunities-modules';
-
-// Components
-
-
 const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,
 });
-
-const Container = styled.div`
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
-
-	@media(max-width: 768px) {
-		flex-direction: column;
-		align-items: flex-start;
-		justify-center: center;
-	}
-	@media(max-width: 648px) {
-		background: #fff;
-	}
-`;
-
-const Content = styled.div`
-	width: 92%;
-	height: 95%;
-	display:flex;
-	
-	@media(max-width: 768px) {
-		width: 100%;
- 		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-  }
-`;
-
-const ContainerSidebar = styled.span`
-	display: flex;
-	@media (max-width: 768px) {
-		display: none;
-	}
-`;
 
 const Overlay = styled.div`
 	position: absolute;
@@ -153,15 +109,15 @@ const Title = styled.h2`
 	font-size: ${(props) => (props.modalTitle ? '1rem' : '.80rem')};
 `;
 
-const WrapperTexts = styled.div`
-	display: ${(props) => props.suggestions && 'flex'};
-	align-items: ${(props) => props.suggestions && 'center'};
-	margin: ${(props) => props.suggestions && '.80rem .5rem'};
-	@media (max-width: 648px) {
-		flex-wrap: wrap;
-		margin: ${(props) => props.suggestions && '1rem'};
-	}
-`;
+// const WrapperTexts = styled.div`
+// 	display: ${(props) => props.suggestions && 'flex'};
+// 	align-items: ${(props) => props.suggestions && 'center'};
+// 	margin: ${(props) => props.suggestions && '.80rem .5rem'};
+// 	@media (max-width: 648px) {
+// 		flex-wrap: wrap;
+// 		margin: ${(props) => props.suggestions && '1rem'};
+// 	}
+// `;
 
 const Input = styled.input`
 	width: 100%;
@@ -198,11 +154,11 @@ const WrapperTagsColor = styled.div`
 
 `;
 
-const SuggestionsText = styled.p`
-	margin-right: ${(props) => props.suggestionsTitle && '1rem'};
-	font-size: ${(props) => (props.suggestionsTitle ? '.75rem' : '.80rem')};
-	color: ${(props) => (props.suggestionsTitle ? '#8C8C8C' : '#404040')};
-`;
+// const SuggestionsText = styled.p`
+// 	margin-right: ${(props) => props.suggestionsTitle && '1rem'};
+// 	font-size: ${(props) => (props.suggestionsTitle ? '.75rem' : '.80rem')};
+// 	color: ${(props) => (props.suggestionsTitle ? '#8C8C8C' : '#404040')};
+// `;
 
 const ContainerTagsColor = styled.div`
 	margin: .8rem 0;
@@ -211,13 +167,13 @@ const ContainerTagsColor = styled.div`
 	justify-content: space-between;
 `;
 
-const SuggestionsTags = styled.span`
-	margin-right: 1rem;
-	margin-bottom: ${(props) => props.Tag && '.3rem'};
-	padding: .2rem .4rem;
-	border-radius: 10px;
-	background-color: #aadf0040;
-`;
+// const SuggestionsTags = styled.span`
+// 	margin-right: 1rem;
+// 	margin-bottom: ${(props) => props.Tag && '.3rem'};
+// 	padding: .2rem .4rem;
+// 	border-radius: 10px;
+// 	background-color: #aadf0040;
+// `;
 
 const TagColor = styled.div`
 	width: 50px;
