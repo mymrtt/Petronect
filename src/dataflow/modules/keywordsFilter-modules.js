@@ -1,4 +1,4 @@
-const ADD_ITEM = 'keyword/keyword/ADD_ITEM';
+const ADD_KEYWORD = 'keyword/keyword/ADD_KEYWORD';
 
 
 const initialState = {

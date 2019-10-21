@@ -338,7 +338,7 @@ const WrapperTable = styled.div`
 	}
 `;
 
-const Table = styled.table`
+const Table = styled.div`
   background: #fff;
   width: 100%;
   border-radius: 5px;
@@ -347,16 +347,20 @@ const Table = styled.table`
   }
 `;
 
-const HeaderRow = styled.tr`
-  width: 90%;
+const HeaderRow = styled.div`
+  width: 100%;
   height: 32px; 
+	display: flex;
+	align-items: center;
   border-radius: 4px;
   color: #8C8C8C;
 `;
 
-const TableRow = styled.tr`
-  width: 90%;
+const TableRow = styled.div`
+  width: 100%;
   height: 32px; 
+	display: flex;
+	align-items: center;
   border-radius: 4px;
   color: #8C8C8C;
 	cursor: pointer;
@@ -366,17 +370,19 @@ const TableRow = styled.tr`
   }
 `;
 
-const TableHeader = styled.th`
-  width: ${(props) => (props.boxWidth ? '50px' : 'auto')};
+const TableHeader = styled.span`
+  width: ${(props) => (props.boxWidth ? '100	px' : '100%')};
   padding-left: 1rem;
+	margin-right: 1rem;
   text-align: left;
   font-size: .875rem;
   font-weight: 500;
 `;
 
-const TableBody = styled.td`
-	// width: ;
+const TableBody = styled.span`
+	width: ${(props) => (props.spanWidth ? '65px' : '80%')};;
   padding-left: 1rem;
+	margin-right: 1rem;
   text-align: left;
   font-size: .875rem;
   font-weight: 500;
@@ -418,6 +424,7 @@ class RelevanceMatch extends Component {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			this.props.addItem(this.state.keyword);
+			this.refs.reset.value = '';
 		}
 	}
 
@@ -487,6 +494,7 @@ class RelevanceMatch extends Component {
 					<InputHead placeholder="Digite aqui para pesquisar"
 						onChange={this.handleInputChange}
 						onKeyPress={this.handleKeyPress}
+						ref="reset"
 					></InputHead>
 					<AddKeyword
 						onClick={this.handleKeyClick}
@@ -665,10 +673,10 @@ class RelevanceMatch extends Component {
 
 							{values(this.props.oportunities).map((item) => (
 								<TableRow key={item} onClick={this.handleModalOportunities}>
-									<TableBody onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
+									<TableBody spanWidth onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
 										<img src={!(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0) ? start : startHover}/>
 									</TableBody>
-									<TableBody>{item.fit}</TableBody>
+									<TableBody spanWidth>{item.fit}</TableBody>
 									<TableBody>{item.category}</TableBody>
 									<TableBody>{item.oportunityId}</TableBody>
 									<TableBody>{item.titleDescription}</TableBody>
