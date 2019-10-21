@@ -5,8 +5,6 @@ import styled from 'styled-components';
 // Modules
 import { addItem, removeItem, putFavorite } from '../dataflow/modules/oportunities-modules';
 
-// Components
-
 
 const mapStateToProps = (state) => ({
 	keyword: state.oportunities.keyword,

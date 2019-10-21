@@ -473,6 +473,7 @@ class RelevanceMatch extends Component {
 	handleOnBlur = () => {
 		const { inputShare } = this.state;
 		this.setState({ inputShare: false });
+
 		console.log('entrou no input', inputShare);
 	}
 
@@ -502,7 +503,7 @@ class RelevanceMatch extends Component {
 				</LabelBox>
 				<WrapperKeyword>
 					<Wraptext>
-						{this.props.keyword.length > 0 ? this.renderList() : null}
+						{this.props.keyword.length > 0 && this.renderList() }
 					</Wraptext>
 					<BtnCreateFilter
 						onClick={this.handleOpenModal}
