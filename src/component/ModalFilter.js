@@ -41,7 +41,7 @@ const FilterModal = styled.div`
 	@media (max-width: 648px) {
 		padding: 0 1rem;
 		width: 92%;
-    height: 90vh;
+		height: 65%;
 	}
 `;
 
