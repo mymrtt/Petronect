@@ -62,7 +62,7 @@ const Container = styled.div`
 	@media(max-width: 960px) {
 		width: 95%;
 		height: auto;
-		margin-top: 1.5rem;
+		margin-top: 3.5rem;
 		${''}
 	}
 
@@ -388,7 +388,7 @@ const TableRow = styled.div`
 	}
 
 	@media(max-width: 420px) {
-		display: flex;
+		flex-wrap: nowrap;
 		align-items: flex-end;
 		padding: .5rem 0;
 	}
