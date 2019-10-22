@@ -41,7 +41,7 @@ const NavBar = styled.div`
 
 const BoxLogo = styled.figure`
   width: 100%;
-  height: 15%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
