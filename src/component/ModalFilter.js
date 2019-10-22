@@ -3,6 +3,10 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+// Images
+import closeIcon from '../assets/icon/close-blue.svg';
+
+// Modules
 import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
 
 const mapStateToProps = (state) => ({
@@ -35,7 +39,7 @@ const FilterModal = styled.div`
 	border: .5px solid #115680;
 	border-radius: 8px;
 	background: #fff;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		z-index: 1;
 	}
 	@media (max-width: 648px) {
@@ -79,12 +83,18 @@ const CloseContainer = styled.div`
 const CloseButton = styled.button`
 	width: 100%;
 	height: 100%;
+	display: flex;
+	justify-content: center;
 	font-size: 1.2rem;
 	color: #115680;
 	border: none;
 	background: transparent;
 	outline: none;
 	cursor: pointer;
+`;
+
+const CloseImage = styled.img`
+	width: 13px;
 `;
 
 const InputBox = styled.span`
@@ -94,7 +104,7 @@ const InputBox = styled.span`
 	// justify-content: ${(props) => props.alt && 'space-between'};
 	width: 100%;
 	margin-top: ${(props) => props.last && '.5rem'};
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		width: 100%;
 	}
 	@media (max-width: 648px) {
@@ -252,7 +262,6 @@ class ModalFilter extends Component {
 		console.log(color);
 	}
 
-
 	handleCard = (event) => {
 		event.stopPropagation();
 		this.props.updateCard({
@@ -289,7 +298,9 @@ class ModalFilter extends Component {
 					<Header>
 						<Title modalTitle>Adicionar Filtro</Title>
 						<CloseContainer onClick={this.props.handleOpenModal}>
-							<CloseButton>X</CloseButton>
+							<CloseButton>
+								<CloseImage src={closeIcon} />
+							</CloseButton>
 						</CloseContainer>
 					</Header>
 					<InputBox>

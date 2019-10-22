@@ -14,7 +14,7 @@ import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
 const Container = styled.div`
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		width: 95vw;
 		height: 100%;
 		overflow-y: scroll;
@@ -32,24 +32,26 @@ const Container = styled.div`
 const Content = styled.div`
 	padding-top: 1.3rem;
 	padding-right: 1rem;
-  width: 75vw;
+	// width: 75vw;
+	width: 78vw;
 	height: 95vh;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
 	background-color: #fff;
-	@media (max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 95vw;
 		// height: 100%;
 		// overflow-y: scroll;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		margin-top: 6rem;
 		padding-top: .60rem;
 		// height: auto;
 		flex-direction: column;
 		border-radius: 4px;
+		overflow-y: scroll;
 	}
 `;
 
@@ -57,6 +59,7 @@ const AddFilterTitle = styled.p`
 	margin: ${(props) => (props.searchTitle ? '0 0 0.6rem .90rem' : '.2rem')};
 	color: ${(props) => (props.searchTitle ? '#116EA0' : '#fff')};
 	font-size: ${(props) => (props.smallTitle ? '.85rem' : '1rem')};
+	font-weight : ${(props) => (props.searchTitle ? '600' : '200')};
 	@media(max-width: 648px) {
 		margin: ${(props) => props.searchTitle && '0 0 0.6rem 1.38rem'};
 	}
@@ -65,14 +68,16 @@ const AddFilterTitle = styled.p`
 const ContainerNotifications = styled.div`
 	padding-left: 1rem;
 	width: 25%;
-	height: 70vh
+	height: 70vh;
 	display: flex;
 	flex-direction: column;
 	border-left: 1px solid #0000001A;
-	@media (max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 45%;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
+		margin-bottom: 4rem;
+		padding-top: 1rem;
 		padding-left: .5rem;
 		width: 100%;
 		height: 45vh;
@@ -88,7 +93,7 @@ const ContainerSearchInput = styled.div`
 	align-items: center;
 	border: .5px solid #116EA0;
 	border-radius: 16px;
-	@media (max-width: 640px) {
+	@media(max-width: 640px) {
     margin-left: .5rem;
 		height: 2.5rem;
     width: 100%;
@@ -115,7 +120,7 @@ const WrapperSearch = styled.div`
 	padding-bottom: 2rem;
 	width: 100%;
 
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		padding-bottom: .60rem;
 		width: 100%;
 	}
@@ -129,7 +134,7 @@ const NotificationsItem = styled.div`
 	border: .5px solid #E6E6E6;
 	border-radius: 8px;
 	@media(max-width: 648px) {
-		padding: .45rem .80rem 1rem;
+		padding: .45rem .80rem 1.3rem;
 	}
 `;
 
@@ -139,7 +144,7 @@ const SearchInput = styled.input`
 	height: 1rem;
 	border: transparent;
 	outline: none;
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		width: 85%;
 		height: 2rem;
 	}
@@ -170,12 +175,13 @@ const ContainerFilters = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	@media (max-width: 768px) {
+	@media(max-width: 960px) {
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
+		flex-wrap: nowrap;
 		margin-left: .5rem;
     width: 100%;
 	}
@@ -282,7 +288,7 @@ class Filters extends Component {
 							</ContainerSearch>
 							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
 							<NotificationsItem>
-								<Label labelNotifications>Email</Label>
+								<Label labelNotifications>E-mail</Label>
 								<NotificationsBar />
 							</NotificationsItem>
 							<NotificationsItem>

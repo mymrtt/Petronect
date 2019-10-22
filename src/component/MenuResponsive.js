@@ -13,22 +13,23 @@ import SideBar from './SideBar';
 
 const Container = styled.div`
 	display: none;
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		padding-left: 2.5rem;
 		width: 100%;
 		// height: 18%;
 		display: flex;
 	}
 	@media(max-width: 648px) {
+		padding: 0 .5rem;
+		height: 3rem;
 		position: fixed;
     background-color: #fff;
-		padding-left: 1.3rem;
-	}
+		padding: 0 1.3rem;
 `;
 
 const WrapperLogoTablet = styled.div`
 	display: none;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		position: relative;
 		width: ${(props) => (props.menu ? 'auto' : '85%')};
 		height: 20vh;
@@ -49,7 +50,7 @@ const LogoDescription = styled.p`
 
 const ImageMenu = styled.img`
 	display: none;
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		padding-bottom: .3rem;
 		display: flex;	
 	}
@@ -82,7 +83,8 @@ const MenuMobile = styled.div`
 const ImageMenuMobile = styled.img`
 	display: none;
 	@media (max-width: 648px) {
-		width: 35%;
+		// width: 35%;
+		width: 120px;
 		display: flex;
 	}
 `;
