@@ -63,6 +63,7 @@ const Container = styled.div`
 		width: 95%;
 		height: auto;
 		margin-top: 1.5rem;
+		overflow-y: scroll;
 	}
 
 	${'' /* @media(max-width: 375px) {
