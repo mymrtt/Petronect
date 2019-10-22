@@ -64,7 +64,7 @@ const Container = styled.div`
 		width: 95%;
 		height: auto;
 		margin-top: 1.5rem;
-		${'' /* overflow-y: scroll; */}
+		${''}
 	}
 
 	${'' /* @media(max-width: 375px) {
@@ -388,8 +388,17 @@ const TableRow = styled.div`
 	}
 `;
 
+const BoxTableBody = styled.div`
+	display: flex;
+	width: auto;
+
+	@media(max-width: 420px) {
+		flex-direction: column-reverse;
+	}
+`;
+
 const TableHeader = styled.span`
-  width: ${(props) => (props.boxWidth ? '100	px' : '100%')};
+  width: ${(props) => (props.boxWidth ? '100px' : '100%')};
   padding-left: 1rem;
 	margin-right: 1rem;
   text-align: left;
@@ -398,7 +407,8 @@ const TableHeader = styled.span`
 `;
 
 const TableBody = styled.span`
-	width: ${(props) => (props.spanWidth ? '65px' : '80%')};;
+	${'' /* width: ${(props) => (props.spanWidth ? '65px' : '80%')};; */}
+	width: 100%;
   padding-left: 1rem;
 	margin-right: 1rem;
   text-align: left;
@@ -407,6 +417,11 @@ const TableBody = styled.span`
 
 	@media(max-width: 960px) {
 		width: auto;
+		display: ${(props) => (props.displayNone ? 'none': 'static')}
+	}
+
+	@media(max-width: 420px) {
+		display: ${(props) => (props.displayNone ? 'none': 'static')}
 	}
 `;
 
@@ -438,13 +453,13 @@ class RelevanceMatch extends Component {
 	handleKeyPress = (event) => {
 		event.preventDefault();
 		const keyword = this.inputSearch.value.replace(' ', '').trim();
-		const alreadyExisting = this.props.keywords.filter(item => item === keyword).length > 0;
+		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
 			this.props.addItem(keyword);
 		}
 		this.inputSearch.value = '';
-	}	
+	}
 
 	handleKeyClick = (event) => {
 		if (event) {
@@ -459,7 +474,7 @@ class RelevanceMatch extends Component {
 	}
 
 	handleOpenModal = () => {
-		this.resetInput()
+		this.resetInput();
 		const { isModalOpen } = this.state;
 		this.setState({ isModalOpen: !isModalOpen });
 	}
@@ -484,9 +499,9 @@ class RelevanceMatch extends Component {
 				key={keyword}
 			>
 				<KeywordText>{keyword}</KeywordText>
-				<ClosedKeyword onClick={handleClick}>X</ClosedKeyword> 
+				<ClosedKeyword onClick={handleClick}>X</ClosedKeyword>
 			</ListKeyword>
-		)
+		);
 	});
 
 	handleInputSearch = () => {
@@ -500,7 +515,7 @@ class RelevanceMatch extends Component {
 	handleSearchInput = () => (
 		<>
 		<FormHead onSubmit= {this.handleKeyPress}>
-			<LabelBox 
+			<LabelBox
 				borderRadius= {this.state.inputSearch ? '16px 16px 0 0' : '1rem'}
 			>
 				<InputHead
@@ -512,7 +527,7 @@ class RelevanceMatch extends Component {
 				>+</AddKeyword>
 			</LabelBox>
 		</FormHead>
-		{this.state.inputSearch && (			
+		{this.state.inputSearch && (
 			<WrapperKeyword>
 				<Wraptext>
 					{this.props.keywords.length > 0 && this.renderList() }
@@ -531,7 +546,7 @@ class RelevanceMatch extends Component {
 		this.props.putFavorite(oportunityId);
 	}
 
-	handleDesfavor  = (event, oportunityId) => {
+	handleDesfavor = (event, oportunityId) => {
 		event.stopPropagation();
 		this.props.removeFavorite(oportunityId);
 	}
@@ -560,7 +575,7 @@ class RelevanceMatch extends Component {
 		this.setState({ isShowFavorites: !isShowFavorites });
 		console.log('favorito', this.state.isShowFavorites);
 	}
-  
+
 	render() {
 		const {
 			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
@@ -581,8 +596,8 @@ class RelevanceMatch extends Component {
 										<WrapInput>
 
 											{this.handleSearchInput()}
-											{this.state.inputSearch &&
-												<Overlay
+											{this.state.inputSearch
+												&& <Overlay
 													onClick={this.resetInput}
 												></Overlay>
 											}
@@ -655,7 +670,7 @@ class RelevanceMatch extends Component {
 
 
 							{values(this.props.oportunities).map((item) => {
-								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0)
+								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0);
 
 								const handleFavorite = (event) => {
 									if (isFavorite) {
@@ -663,25 +678,30 @@ class RelevanceMatch extends Component {
 									} else {
 										this.handleFavorite(event, item.oportunityId);
 									}
-								}
+								};
 								return (
-								<TableRow key={item} onClick={this.handleModalOportunities}>
-									<TableBody
-										spanWidth
-										onClick={handleFavorite}
-									>
-										<img src={isFavorite ? start : startHover}/>
-									</TableBody>
-									<TableBody spanWidth>{item.fit}</TableBody>
-									<TableBody>{item.category}</TableBody>
-									<TableBody>{item.oportunityId}</TableBody>
-									<TableBody>{item.titleDescription}</TableBody>
-									<TableBody>
-										{item.deadLineInitial}
-										{item.deadLineLastOne}
-									</TableBody>
-								</TableRow>
-							)})}
+									<TableRow key={item} onClick={this.handleModalOportunities}>
+										<BoxTableBody>
+											<TableBody
+												spanWidth
+												onClick={handleFavorite}
+											>
+												<img src={isFavorite ? start : startHover}/>
+											</TableBody>
+											<TableBody spanWidth>{item.fit}</TableBody>
+										</BoxTableBody>
+										<BoxTableBody>
+											<TableBody>{item.category}</TableBody>
+											<TableBody displayNone >{item.oportunityId}</TableBody>
+											<TableBody>{item.titleDescription}</TableBody>
+										</BoxTableBody>
+										<TableBody>
+											{item.deadLineInitial}
+											{item.deadLineLastOne}
+										</TableBody>
+									</TableRow>
+								)
+; })}
 						</Table>
 					</WrapperTable>
 					<Fragment>

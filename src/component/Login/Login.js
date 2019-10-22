@@ -331,31 +331,6 @@ const CreateTitle = styled.h1`
 	}
 `;
 
-<<<<<<< HEAD
-// const CreatedBox = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// 	align-items: center;
-// 	width: 30%;
-// 	min-width: 360px;
-// 	padding: 3rem 4rem;
-// 	background: #FFF;
-// 	box-shadow: 0px 1px 2px #0000001A;
-// 	border-radius: 4px;
-// 	transition: width 1s; 
-
-// 	@media(max-width: 1440px) {
-// 		width: 50%;
-// 	}
-// 	@media(max-width: 768px) {
-// 		width: 75%;
-// 		padding: 2rem;
-// 	}
-// 	@media(max-width: 425px) {
-// 		width: 95%;
-// 	}
-// `;
-=======
 const CreatedBox = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -379,7 +354,6 @@ const CreatedBox = styled.div`
 		width: 95%;
 	}
 `;
->>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 
 const CreatedText = styled.div`
 	width: 92.5%;
