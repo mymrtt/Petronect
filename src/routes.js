@@ -15,7 +15,7 @@ const RoutesConfig = () => (
 	<BrowserRouter>
 		<Switch>
 			<Route exact path='/' component={Login} />
-			<PrivateRoute path='/dashboard' component={Dashboard} />
+			<PrivateRoute path='/match-relevancia' component={Dashboard} />
 			<PrivateRoute component={Filters} />
 		</Switch>
 	</BrowserRouter>

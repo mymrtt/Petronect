@@ -20,7 +20,9 @@ const Container = styled.div`
 		display: flex;
 	}
 	@media(max-width: 648px) {
-		background: #fff;
+		position: fixed;
+    background-color: #fff;
+		padding-left: 1.3rem;
 	}
 `;
 
@@ -47,8 +49,7 @@ const LogoDescription = styled.p`
 
 const ImageMenu = styled.img`
 	display: none;
-
-	@media (max-width: 768px) {
+	@media(max-width: 768px) {
 		padding-bottom: .3rem;
 		display: flex;	
 	}
