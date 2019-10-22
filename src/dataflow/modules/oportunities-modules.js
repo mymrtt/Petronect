@@ -5,6 +5,7 @@ const REMOVE_ITEM = 'petronect/keyword/REMOVE_ITEM'
 const PUT_FAVORITE = 'petronect/favorite/PUT_FAVORITE';
 const OPORTUNITIES_LIST = 'petronect/oportunitiesList/OPORTUNITIES_LIST';
 const UPDATE_CARD = 'petronect/oportunities/UPDATE_CARD';
+const REMOVE_FAVORITE = 'petronect/oportunities/REMOVE_FAVORITE'
 
 const initialState = {
 	favoriteList: [],
@@ -134,6 +135,11 @@ export default function (state = initialState, action) {
 			...state,
 			favoriteList: state.favoriteList.concat([action.info]),
 		};
+	case REMOVE_FAVORITE:
+		return {
+			...state,
+			favoriteList: without(state.favoriteList, action.info),
+		};
 	case UPDATE_CARD:
 		return {
 			...state,
@@ -163,6 +169,11 @@ export const oportunitiesList = (info) => ({
 
 export const putFavorite = (info) => ({
 	type: PUT_FAVORITE,
+	info,
+});
+
+export const removeFavorite = (info) => ({
+	type: REMOVE_FAVORITE,
 	info,
 });
 
