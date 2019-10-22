@@ -559,7 +559,7 @@ class RelevanceMatch extends Component {
 		this.setState({ isShowFavorites: !isShowFavorites });
 		console.log('favorito', this.state.isShowFavorites);
 	}
-
+  
 	render() {
 		const {
 			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
@@ -682,7 +682,6 @@ class RelevanceMatch extends Component {
 								</TableRow>
 							)})}
 						</Table>
-						{/* {isShowFavorites && this.showFavorites()} */}
 					</WrapperTable>
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }
