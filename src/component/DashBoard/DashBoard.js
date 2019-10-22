@@ -18,13 +18,15 @@ const Container = styled.div`
 		align-items: flex-start;
 		justify-center: center;
 	}
-	@media(max-width: 648px) {
-		background: #fff;
+
+	@media(max-width: 360px) {	
+		height: auto;
 	}
+	
 `;
 
 const Content = styled.div`
-	width: 92%;
+	width: 95%;
 	height: 95%;
 	display:flex;
 	

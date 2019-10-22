@@ -7,14 +7,15 @@ import { values } from 'lodash';
 import edit from '../../assets/icon/editar.svg';
 
 const Container = styled.div`
+	margin-bottom: 1rem;
 	width: 48%;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	margin-bottom: 1rem;
 	@media (max-width: 768px) {
+		margin-bottom: 0;
 		width: 100%;
-		align-items: flex-start;
+		align-items: center;
 		flex-direction: column;
 	}
 	@media (max-width: 648px) {
@@ -118,7 +119,7 @@ class CardFilter extends Component {
 							values(card.tags).map((tag) => (
 								<SuggestionsTags
 									Tag
-									background={this.props.item ? `${this.props.item}30` : '#11568030'} 
+									background={this.props.item ? `${this.props.item}30` : '#11568030'}
 									key={tag}>
 									<SuggestionsText suggestionsTags>{tag}</SuggestionsText>
 								</SuggestionsTags>

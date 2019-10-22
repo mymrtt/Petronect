@@ -16,9 +16,12 @@ const Container = styled.div`
 	@media(max-width: 768px) {
 		padding-left: 2.5rem;
 		width: 100%;
+		// height: 18%;
 		display: flex;
 	}
 	@media(max-width: 648px) {
+		position: fixed;
+    background-color: #fff;
 		padding-left: 1.3rem;
 	}
 `;
@@ -29,6 +32,7 @@ const WrapperLogoTablet = styled.div`
 		position: relative;
 		width: ${(props) => (props.menu ? 'auto' : '85%')};
 		height: 20vh;
+		// height: 90%;
 		display: flex;
 		justify-content: center;
 		flex-direction: ${(props) => props.menu && 'column'};
@@ -45,17 +49,17 @@ const LogoDescription = styled.p`
 
 const ImageMenu = styled.img`
 	display: none;
-	@media (max-width: 768px) {
+	@media(max-width: 768px) {
 		padding-bottom: .3rem;
-		display: flex;
+		display: flex;	
 	}
 `;
 
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
-		width: ${(props) => props.dropdown && '10px'};
 		margin-left: ${(props) => props.dropdown && '.5rem'};
+		width: ${(props) => props.dropdown && '10px'};
 	}
 `;
 
@@ -83,12 +87,15 @@ const ImageMenuMobile = styled.img`
 	}
 `;
 
-const Teste = styled.div`
+const ContainerUser = styled.div`
 	width: 40%;
 	display: flex;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	@media(max-width: 648px) {
+		width: 38%;
+	}
 `;
 
 const Text = styled.p`
@@ -134,10 +141,10 @@ class MenuResponsive extends Component {
 				{ isMenuOpen && this.renderMenu() }
 				<MenuMobile>
 					<ImageMenuMobile src={logoMobile} />
-					<Teste>
+					<ContainerUser>
 						<Text>Pedro Gualandi</Text>
 						<Image dropdown src={dropdown} onClick={this.handleOpenDropdown} />
-					</Teste>
+					</ContainerUser>
 				</MenuMobile>
 			</Container>
 		);

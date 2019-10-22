@@ -25,7 +25,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-	width: 92%;
+	width: 95%;
 	height: 95%;
 	display: flex;
 
@@ -44,7 +44,7 @@ const ContainerSidebar = styled.span`
 	}
 `;
 
-const IndexFilters = () => (
+const Index = () => (
 	<Container>
 		<Content>
 			<ContainerSidebar>
@@ -55,4 +55,4 @@ const IndexFilters = () => (
 	</Container>
 );
 
-export default IndexFilters;
+export default Index;
