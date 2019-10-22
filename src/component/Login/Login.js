@@ -38,14 +38,9 @@ const Container = styled.div`
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
-	${'' /* @media (max-width: 768px) {
-		flex-direction: ${props => !(props.screen === 'create') && 'column-reverse'};
-		justify-content: center;
-======= */}
 	@media (max-width: 960px) {
 		padding-bottom: 2rem;
 		align-items: center;
-		padding-bottom: 2rem;
 	}
 	@media (max-width: 450px) {
 		padding: 1rem;
@@ -105,9 +100,6 @@ const InputBox = styled.span`
 	
 	@media (max-width: 768px) {
 		width: 100%;
-	}
-	@media (max-width: 478px) {
-		margin-top: ${(props) => props.last && '0rem'};
 	}
 `;
 
