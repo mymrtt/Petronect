@@ -21,10 +21,11 @@ const Container = styled.div`
 	}
 	@media (max-width: 648px) {
 		// padding: .30rem;
-		padding-top: 2rem;
+		// padding-top: 2rem;
+		padding-top: 0;
     // padding-bottom: .5rem;
 		width: 100%;
-    height: 100vh;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,13 +46,15 @@ const Content = styled.div`
 	@media (max-width: 768px) {
 		width: 95vw;
 		height: 100%;
-		overflow-y: scroll;
+		// overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-		margin-bottom: 3rem;
+		// margin-bottom: 3rem;
+		padding-top: 4rem;
+		// margin-bottom: 0;
 		// margin: 3rem 0;
-		padding-top: .5rem;
-		height: 90vh;
+		// padding-top: .5rem;
+		// height: 90vh;
 		flex-direction: column;
 	}
 `;
@@ -75,6 +78,7 @@ const ContainerNotifications = styled.div`
 	@media (max-width: 648px) {
 		padding-left: .5rem;
 		width: 100%;
+		height: 45vh;
 		border-left: 0;
 	}
 `;
@@ -116,7 +120,7 @@ const WrapperSearch = styled.div`
 
 	@media (max-width: 648px) {
 		padding-bottom: 1rem;
-		width: 95%;
+		width: 100%;
 	}
 `;
 
@@ -170,7 +174,7 @@ const ContainerFilters = styled.div`
 	align-items: center;
 	flex-wrap: wrap;
 	@media (max-width: 768px) {
-    margin-left: 2rem;
+		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
 	}
