@@ -39,7 +39,7 @@ const FilterModal = styled.div`
 	border: .5px solid #115680;
 	border-radius: 8px;
 	background: #fff;
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		z-index: 1;
 	}
 	@media (max-width: 648px) {
@@ -104,7 +104,7 @@ const InputBox = styled.span`
 	// justify-content: ${(props) => props.alt && 'space-between'};
 	width: 100%;
 	margin-top: ${(props) => props.last && '.5rem'};
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		width: 100%;
 	}
 	@media (max-width: 648px) {

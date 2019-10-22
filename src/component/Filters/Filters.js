@@ -14,7 +14,7 @@ import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
 const Container = styled.div`
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		width: 95vw;
 		height: 100%;
 		overflow-y: scroll;
@@ -39,7 +39,7 @@ const Content = styled.div`
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
 	background-color: #fff;
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		width: 95vw;
 		// height: 100%;
 		// overflow-y: scroll;
@@ -71,7 +71,7 @@ const ContainerNotifications = styled.div`
 	display: flex;
 	flex-direction: column;
 	border-left: 1px solid #0000001A;
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		width: 45%;
 	}
 	@media (max-width: 648px) {
@@ -174,7 +174,7 @@ const ContainerFilters = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;

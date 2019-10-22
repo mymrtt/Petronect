@@ -13,7 +13,7 @@ import SideBar from './SideBar';
 
 const Container = styled.div`
 	display: none;
-	@media(max-width: 870px) {
+	@media(max-width: 960px) {
 		padding-left: 2.5rem;
 		width: 100%;
 		// height: 18%;
@@ -30,7 +30,7 @@ const Container = styled.div`
 
 const WrapperLogoTablet = styled.div`
 	display: none;
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		position: relative;
 		width: ${(props) => (props.menu ? 'auto' : '85%')};
 		height: 20vh;
@@ -51,7 +51,7 @@ const LogoDescription = styled.p`
 
 const ImageMenu = styled.img`
 	display: none;
-	@media(max-width: 870px) {
+	@media(max-width: 960px) {
 		padding-bottom: .3rem;
 		display: flex;	
 	}

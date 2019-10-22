@@ -12,7 +12,7 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		margin-bottom: 0;
 		width: 100%;
 		align-items: center;
@@ -33,7 +33,7 @@ const Card = styled.div`
 	border-radius: 4px;
 	background-color: #fff;
 	cursor: pointer;
-	@media (max-width: 870px) {
+	@media (max-width: 960px) {
 		margin-bottom: 1rem;
 		width: 83%;
 	}
