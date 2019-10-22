@@ -37,7 +37,7 @@ const WrapperLogoTablet = styled.div`
 		justify-content: center;
 		flex-direction: ${(props) => props.menu && 'column'};
 	}
-	@media(max-width: 648px) {
+	@media (max-width: 648px) {
 		display: none;
 	}
 `;
@@ -51,13 +51,13 @@ const ImageMenu = styled.img`
 	display: none;
 	@media(max-width: 768px) {
 		padding-bottom: .3rem;
-		display: flex;
+		display: flex;	
 	}
 `;
 
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
-	@media(max-width: 640px) {
+	@media (max-width: 640px) {
 		margin-left: ${(props) => props.dropdown && '.5rem'};
 		width: ${(props) => props.dropdown && '10px'};
 	}
@@ -72,7 +72,7 @@ const ContainerSidebar = styled.div`
 
 const MenuMobile = styled.div`
 	display: none;
-	@media(max-width: 648px) {
+	@media (max-width: 648px) {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
@@ -81,7 +81,7 @@ const MenuMobile = styled.div`
 
 const ImageMenuMobile = styled.img`
 	display: none;
-	@media(max-width: 648px) {
+	@media (max-width: 648px) {
 		width: 35%;
 		display: flex;
 	}
