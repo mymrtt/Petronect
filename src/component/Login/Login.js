@@ -77,9 +77,13 @@ const Logo = styled.img`
 `;
 
 const LogoCreate = styled.img`
-	position: absolute;
-	top: 10%;
+	margin-top: 5%;
 	width: 10vw;
+	@media (max-width: 768px) {
+		margin-bottom: 10%;
+		margin-top: 10%;
+		width: 30%;
+	}
 `;
 
 const InputBox = styled.span`
@@ -89,9 +93,6 @@ const InputBox = styled.span`
 	justify-content: ${(props) => props.alt && 'space-between'};
 	width: ${(props) => props.width};
 	margin-top: ${(props) => props.last && '.5rem'};
-	@media (max-width: 768px) {
-		width: 60%;
-	}
 	@media (max-width: 450px) {
 		width: 90%;
 	}
@@ -129,6 +130,9 @@ const IconInputPassword = styled.img`
 	width: 1.25rem;
 	margin-right: 1rem;
 	cursor: pointer;
+	@media (max-width: 340px) {
+		right: -0.5rem;;
+	}
 `;
 
 const Button = styled.button`
@@ -144,10 +148,6 @@ const Button = styled.button`
 	font: 600 1rem eurostile, sans serif;
 	letter-spacing: 0;
 	color: #FAFAFA;
-
-	@media (max-width: 768px) {
-		width: 60%;
-	}
 	@media (max-width: 450px) {
 		width: 90%;
 	}
@@ -158,7 +158,6 @@ const AltBox = styled.span`
 	flex-direction: row;
 	justify-content: space-between;
 	width: 52.5%;
-	margin-top: 3rem;
 	@media (max-width: 768px) {
 		margin-top: 1rem;
 		width: 60%;
@@ -246,7 +245,7 @@ const TextError = styled.p`
 const CreateContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
 	width: 100%;
 `;
@@ -256,7 +255,6 @@ const CreateBox = styled.form`
 	flex-direction: column;
 	align-items: center;
 	width: 30%;
-	min-width: 360px;
 	padding: 3rem 4rem;
 	background: #FFF;
 	box-shadow: 0px 1px 2px #0000001A;
@@ -265,6 +263,16 @@ const CreateBox = styled.form`
 
 	@media(max-width: 1440px) {
 		width: 50%;
+	}
+	@media (max-width: 768px) {
+		width: 100%;
+		min-width: 86%;
+		padding: 2rem;
+	}
+	@media (max-width: 450px) {
+		padding: 0.5rem;
+		padding-bottom: 2rem;
+		transition: padding 1s;
 	}
 `;
 
