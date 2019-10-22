@@ -46,7 +46,7 @@ const BoxLogo = styled.figure`
   justify-content: center;
   align-items: center;
 
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		display: none;
 	}
 `;
@@ -57,7 +57,7 @@ const ImgLogo = styled.img`
 
 const WrapperTablet = styled.div`
 	display: none;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		padding-left: 1.8rem
 		width: auto;
 		height: 20vh;
@@ -70,7 +70,7 @@ const WrapperTablet = styled.div`
 
 const ImageMenuTablet = styled.img`
 	display: none;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		padding-bottom: .3rem;
 		width: 35%;
 		display: flex;
@@ -130,7 +130,7 @@ const MenuItem = styled(Link)`
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};
 	@media (max-width: 1024px) {
-		height: 90px;
+		height: 40px;
 	}
 	@media (max-width: 375px) {
 		background: black;
@@ -197,60 +197,59 @@ class SideBar extends Component {
 					disable: false,
 					iconSelected: RelevanceImg,
 					text: 'Match Relevância',
-					route: '/dashboard',
+					route: '/match-relevancia',
 				},
 				{
 					disable: false,
 					iconSelected: FilterImg,
 					text: 'Filtros e notificações',
-					route: '/filtersandnotifications',
+					route: '/filters-and-notifications',
 				},
 				{
 					disable: true,
 					iconSelected: PotentialImg,
 					text: 'Análise de Potencial',
-					route: '/potentialanalysis',
+					route: '/potential-analysis',
 				},
 				{
 					disable: true,
 					iconSelected: HistoricImg,
 					text: 'Histórico de oportunidades',
-					route: '/historicalopportunities',
+					route: '/historical-opportunities',
 				},
 				{
 					disable: true,
 					iconSelected: ManagementImg,
 					text: 'Gestão interna',
-					route: '/internalmanagement',
+					route: '/internal-management',
 				},
 				{
 					disable: true,
 					iconSelected: DocumentsImg,
 					text: 'Geração de documentos',
-					route: '/documentgeneration',
+					route: '/document-generation',
 				},
 				{
 					disable: true,
 					iconSelected: TaxImg,
 					text: 'Justificativa de impostos',
-					route: '/taxjustification',
+					route: '/tax-justification',
 				},
 				{
 					disable: true,
 					iconSelected: ClarificationImg,
 					text: 'Histórico de esclarecimentos',
-					route: '/clarificationhistory',
+					route: '/clarification-history',
 				},
 				{
 					disable: true,
 					iconSelected: NotificationImg,
 					text: 'Notificação de resultados',
-					route: '/notificationofresults',
+					route: '/notification-of-results',
 				},
 			],
 		};
 	}
-	// componentDidMount() {}
 
 	render() {
 		return (

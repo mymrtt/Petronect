@@ -7,7 +7,8 @@ import start from '../../assets/icon/estrela.svg';
 import shareIcon from '../../assets/icon/compartilhar.svg';
 import attachIcon from '../../assets/icon/anexar.svg';
 import doubtIcon from '../../assets/icon/duvida.svg';
-
+import loadingIcon from '../../assets/icon/loading.svg';
+import closeIcon from '../../assets/icon/close-blue.svg';
 
 const Overlay = styled.div`
 	position: absolute;
@@ -76,6 +77,10 @@ const CloseButton = styled.button`
 	cursor: pointer;
 `;
 
+const CloseImage = styled.img`
+	width: 13px;
+`;
+
 const DetailsOportuny = styled.div`
 	max-width: 900px;
 	padding: 1.5rem 3.5rem 0 3.5rem;
@@ -130,19 +135,104 @@ const BoxInfo = styled.div`
 	padding-bottom: 2rem;
 `;
 
+const BoxButton = styled.div`
+	width: 100%;
+	height: 100%;
+	padding: 2rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	outline: none;
+`;
+
+const ButtonDetails = styled.button`
+	width: 505px;
+	height: 56px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #116EA0;
+	box-shadow: 0px 3px 6px #00000029;
+	border-radius: 4px;
+`;
+
+const TextButton = styled.p`
+	text-align: center;
+	font: Bold 16px/46px Eurostile;
+	letter-spacing: 0;
+	color: #FAFAFA;
+`;
+
+const ImageLoading = styled.img` 
+	margin-right: 1rem;
+	animation-name: spin;
+	animation-duration: 4000ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+`;
+
 class DetailsOportunies extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			isDatailsOpen: true,
+			loadingTime: 5,
 		};
 	}
+
+	componentDidMount() {
+		this.timer = setInterval(
+			() => {
+				if (this.state.loadingTime === -3) {
+					this.setState({ loadingTime: 5 });
+				} else {
+					this.setState({ loadingTime: this.state.loadingTime - 1 });
+				}
+			},
+			1000,
+		);
+	}
+
+	componentWillUmount() {
+		clearInterval(this.timer);
+	}
+
+	checkOff = () => {
+		this.setState((prevState) => ({
+			isDatailsOpen: !prevState.isDatailsOpen,
+		}));
+	}
+
 
 	handleStop = (event) => {
 		event.stopPropagation();
 	}
 
+	loadingItemModal = () => (
+		<>
+			<ImageLoading icono src={loadingIcon}/>
+			<TextButton>carregando</TextButton>
+		</>
+	)
+
+	itemModal = () => (
+		<>
+			<TextButton>Enviar uma oferta</TextButton>
+		</>
+	)
+
 	render() {
+		const { isDatailsOpen } = this.state;
+
 		return (
 			<Overlay onClick={this.props.handleModalOportunities}>
 				<Container onClick={this.handleStop}>
@@ -152,7 +242,9 @@ class DetailsOportunies extends Component {
 							<TextHeader>85% Relevante</TextHeader>
 						</WrapperRelevance>
 						<CloseContainer onClick={this.props.handleModalOportunities}>
-							<CloseButton>X</CloseButton>
+							<CloseButton>
+								<CloseImage src={closeIcon} />
+							</CloseButton>
 						</CloseContainer>
 					</DatailsHeader>
 					<DetailsOportuny>
@@ -216,6 +308,14 @@ class DetailsOportunies extends Component {
 							</IconWrap>
 						</InfoContent>
 					</DetailsOportuny>
+					<BoxButton>
+						<ButtonDetails>
+							{ isDatailsOpen
+								? this.loadingItemModal()
+								: this.itemModal()
+							}
+						</ButtonDetails>
+					</BoxButton>
 				</Container>
 			</Overlay>
 		);

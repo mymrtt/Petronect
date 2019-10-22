@@ -1,18 +1,31 @@
+// Libs
+import * as Cookies from 'js-cookie';
+
 import { getAllOpportunitesMiddleware } from '../middlewares/opportunites-middlewares';
 
+import { oportunitiesList	} from '../modules/oportunities-modules'
+ 
 // const thumbnailBase = `${process.env.REACT_APP_UPLOAD_THUMBNAIL}`;
 
 // eslint-disable-next-line import/prefer-default-export
-export const getAllOpportunitiesThunk = () => (
+export const getAllOpportunitiesThunk = (info) => (
 	async (dispatch) => {
 		try {
+
 			const response = await getAllOpportunitesMiddleware();
 
 			const data = {};
 
+			Cookies.get(
+				'petronect_creds',
+				{
+					accessToken: response.data.Authorization,
+				},
+			);
+
 			// response.forEach((item) => {
 			// 	data[item.item_id] = {
-			// 		oportunityId: 'Test8',
+			// 		oportunityId: response.data.hits.hits,
 			// 		favorite: false,
 			// 		fit: 'Test8',
 			// 		category: 'Test8',
@@ -22,8 +35,8 @@ export const getAllOpportunitiesThunk = () => (
 
 			// 	};
 			// });
-
-			console.log('response', response.data.hits.hits);
+			dispatch(oportunitiesList(response.data));
+			console.log('response', response.data);
 		} catch (err) {
 			console.log(err);
 		}
