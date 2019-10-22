@@ -139,11 +139,11 @@ const MenuItem = styled(Link)`
 
 const WrapperInfo = styled.div`
   width: 80%;
-	height: 12%;
+	height: 18%;
   display: flex;
   align-items: center;
   justify-centent: center;
-  border-top: solid #000 1px;
+  border-top: solid #EBEBEB 1px;
 
 	@media(max-width: 375px) {
 		display: none;
