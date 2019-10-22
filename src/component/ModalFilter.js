@@ -4,12 +4,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // Images
-import Close from '../assets/icon/close-blue.svg';
+import closeIcon from '../assets/icon/close-blue.svg';
 
 // Modules
 import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
-
-
 
 const mapStateToProps = (state) => ({
 	keywords: state.oportunities.cardFilter.keywords,
@@ -302,7 +300,7 @@ class ModalFilter extends Component {
 						<Title modalTitle>Adicionar Filtro</Title>
 						<CloseContainer onClick={this.props.handleOpenModal}>
 							<CloseButton>
-								<CloseImage src={Close} />
+								<CloseImage src={closeIcon} />
 							</CloseButton>
 						</CloseContainer>
 					</Header>

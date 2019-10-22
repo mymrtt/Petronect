@@ -58,6 +58,7 @@ const AddFilterTitle = styled.p`
 	margin: ${(props) => (props.searchTitle ? '0 0 0.6rem .90rem' : '.2rem')};
 	color: ${(props) => (props.searchTitle ? '#116EA0' : '#fff')};
 	font-size: ${(props) => (props.smallTitle ? '.85rem' : '1rem')};
+	font-weight : ${(props) => (props.searchTitle ? '600' : '200')};
 	@media(max-width: 648px) {
 		margin: ${(props) => props.searchTitle && '0 0 0.6rem 1.38rem'};
 	}
@@ -75,8 +76,8 @@ const ContainerNotifications = styled.div`
 	}
 	@media (max-width: 648px) {
 		margin-bottom: 4rem;
+		padding-top: 1rem;
 		padding-left: .5rem;
-		// padding-bottom: 4rem;
 		width: 100%;
 		height: 45vh;
 		border-left: 0;
