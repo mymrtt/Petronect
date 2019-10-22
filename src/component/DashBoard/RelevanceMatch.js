@@ -53,14 +53,14 @@ const Container = styled.div`
 
 	@media(max-width: 768px) {
 		width: 95%;
-		height: 100%;
-		overflow-y: scroll;
+		height: auto;
+		margin-top: 1.5rem;
 	}
 
-	@media(max-width: 375px) {
-		width: 98%;
-		height: 98%;
-	}
+	${'' /* @media(max-width: 375px) {
+		width: 95%;
+		height: auto;
+	} */}
 `;
 
 const Content = styled.div`
@@ -180,6 +180,7 @@ const LabelBox = styled.label`
     padding: 0;
 		position: relative;
     justify-content: center;
+		border-radius: 16px;
 	}
 `;
 
@@ -206,7 +207,10 @@ const WrapperKeyword = styled.div`
 	align-items: flex-end;
 	border-radius: 0 0 16px 16px;
 	z-index: 2;
-}
+
+	@media(max-width: 360px) {
+		display: none;
+	}
 `;
 
 const WrapInput = styled.div`
@@ -329,14 +333,17 @@ const WrapperTable = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: #fff;
+
+	@media(max-width: 768px) {
+	}
+
 	@media(max-width: 648px) {
-		overflow: scroll;
 	}
 `;
 
 const Table = styled.div`
-  background: #fff;
   width: 100%;
+  background: #fff;
   border-radius: 5px;
   >:nth-child(odd) {
     background: #F7F7F7; 
@@ -350,6 +357,10 @@ const HeaderRow = styled.div`
 	align-items: center;
   border-radius: 4px;
   color: #8C8C8C;
+	
+	@media(max-width: 768px) {
+		display: none;
+	}
 `;
 
 const TableRow = styled.div`
@@ -364,6 +375,11 @@ const TableRow = styled.div`
     transition: all .2s ease; 
     color: #404040;
   }
+
+	@media(max-width: 768px) {
+		height: 64px;
+		flex-wrap: wrap;
+	}
 `;
 
 const TableHeader = styled.span`
@@ -382,6 +398,10 @@ const TableBody = styled.span`
   text-align: left;
   font-size: .875rem;
   font-weight: 500;
+
+	@media(max-width: 768px) {
+		width: auto;
+	}
 `;
 
 class RelevanceMatch extends Component {

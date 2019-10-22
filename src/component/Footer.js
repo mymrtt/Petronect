@@ -19,6 +19,9 @@ const FooterMobile = styled.div`
 		background-color: #fff;
 		border: #0000001A solid 1px;
 	}
+	@media (max-width: 648px) {
+		width: 93%;
+	}
 `;
 
 const Image = styled.img`
