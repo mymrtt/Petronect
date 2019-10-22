@@ -197,7 +197,7 @@ class SideBar extends Component {
 					disable: false,
 					iconSelected: RelevanceImg,
 					text: 'Match Relevância',
-					route: '/match-relevancua',
+					route: '/match-relevancia',
 				},
 				{
 					disable: false,

@@ -17,15 +17,11 @@ const Container = styled.div`
 	@media (max-width: 768px) {
 		width: 95vw;
 		height: 100%;
-		// overflow-y: scroll;
+		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-		// padding: .30rem;
-		// padding-top: 2rem;
-		padding-top: 0;
-    // padding-bottom: .5rem;
 		width: 100%;
-    height: auto;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,17 +41,15 @@ const Content = styled.div`
 	background-color: #fff;
 	@media (max-width: 768px) {
 		width: 95vw;
-		height: 100%;
+		// height: 100%;
 		// overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-		// margin-bottom: 3rem;
-		padding-top: 4rem;
-		// margin-bottom: 0;
-		// margin: 3rem 0;
-		// padding-top: .5rem;
-		// height: 90vh;
+		margin-top: 6rem;
+		padding-top: .60rem;
+		// height: auto;
 		flex-direction: column;
+		border-radius: 4px;
 	}
 `;
 
@@ -63,6 +57,9 @@ const AddFilterTitle = styled.p`
 	margin: ${(props) => (props.searchTitle ? '0 0 0.6rem .90rem' : '.2rem')};
 	color: ${(props) => (props.searchTitle ? '#116EA0' : '#fff')};
 	font-size: ${(props) => (props.smallTitle ? '.85rem' : '1rem')};
+	@media(max-width: 648px) {
+		margin: ${(props) => props.searchTitle && '0 0 0.6rem 1.38rem'};
+	}
 `;
 
 const ContainerNotifications = styled.div`
@@ -119,7 +116,7 @@ const WrapperSearch = styled.div`
 	width: 100%;
 
 	@media (max-width: 648px) {
-		padding-bottom: 1rem;
+		padding-bottom: .60rem;
 		width: 100%;
 	}
 `;
@@ -143,7 +140,7 @@ const SearchInput = styled.input`
 	border: transparent;
 	outline: none;
 	@media (max-width: 648px) {
-		width: 90%;
+		width: 85%;
 		height: 2rem;
 	}
 `;
@@ -230,22 +227,6 @@ class Filters extends Component {
 		};
 	}
 
-	// handleColorOption = (color) => {
-	// 	this.setState({ item: color });
-	// }
-
-	// renderColorOption = () => {
-	// 	const { colors } = this.state;
-
-	// 	return colors.map((color) => (
-	// 		<TagColor
-	// 			key={color}
-	// 			backgroundColor={color}
-	// 			onClick={() => this.handleColorOption(color)}
-	// 		/>
-	// 	));
-	// }
-
 	renderCardsFilter = () => {
 		const { CardList } = this.state;
 
@@ -274,10 +255,6 @@ class Filters extends Component {
 			</ContainerSearchInput>
 		</WrapperSearch>
 	)
-
-	// handleChangeName = (event) => {
-	// 	this.setState({ nameValue: event.target.value });
-	// }
 
 	handleOpenModal = () => {
 		const { isModalOpen } = this.state;
