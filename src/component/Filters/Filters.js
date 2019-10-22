@@ -50,6 +50,7 @@ const Content = styled.div`
 		// height: auto;
 		flex-direction: column;
 		border-radius: 4px;
+		overflow-y: scroll;
 	}
 `;
 
@@ -73,7 +74,9 @@ const ContainerNotifications = styled.div`
 		width: 45%;
 	}
 	@media (max-width: 648px) {
+		margin-bottom: 3rem;
 		padding-left: .5rem;
+		// padding-bottom: 4rem;
 		width: 100%;
 		height: 45vh;
 		border-left: 0;
@@ -282,7 +285,7 @@ class Filters extends Component {
 							</ContainerSearch>
 							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
 							<NotificationsItem>
-								<Label labelNotifications>Email</Label>
+								<Label labelNotifications>E-mail</Label>
 								<NotificationsBar />
 							</NotificationsItem>
 							<NotificationsItem>

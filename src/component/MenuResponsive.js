@@ -20,9 +20,11 @@ const Container = styled.div`
 		display: flex;
 	}
 	@media(max-width: 648px) {
+		padding: 0 .5rem;
+		height: 3rem;
 		position: fixed;
     background-color: #fff;
-		padding-left: 1.3rem;
+		// padding-left: 1.3rem;
 	}
 `;
 
