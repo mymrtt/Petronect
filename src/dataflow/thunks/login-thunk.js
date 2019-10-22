@@ -2,18 +2,18 @@
 import * as Cookies from 'js-cookie';
 
 // Actions
-import { updateError } from '../modules/login-module';
+import { updateError, updateCreateSuccess } from '../modules/login-module';
 
 // Middlewares
-import { loginUserMiddleware } from '../middlewares/login-middleware';
+import { loginUserMiddleware, createAccountMiddleware } from '../middlewares/login-middleware';
 
-// eslint-disable-next-line import/prefer-default-export
+
 export const loginUserThunk = (info) => (
 	async (dispatch) => {
 		try {
 			const response = await loginUserMiddleware(info);
 
-			Cookies.set(
+			Cookies.get(
 				'petronect_creds',
 				{
 					accessToken: response.data.Authorization,
@@ -26,3 +26,18 @@ export const loginUserThunk = (info) => (
 		}
 	}
 );
+
+export const createAccountThunk = (info) => (
+	async (dispatch) => {
+		try {
+			await createAccountMiddleware(info);
+
+			dispatch(updateCreateSuccess(true));
+		} catch (err) {
+			// console.log(err);
+			dispatch(updateCreateSuccess(false));
+		}
+	}
+);
+
+export default null;

@@ -1,9 +1,10 @@
+// Libs
 import React from 'react';
 import styled from 'styled-components';
 
 // Components
 import SideBar from '../SideBar';
-import RelevanceMatch from './RelevanceMatch';
+import Filters from './Filters';
 
 const Container = styled.div`
 	width: 100vw;
@@ -11,31 +12,28 @@ const Container = styled.div`
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
-	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
+	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 
-	@media(max-width: 960px) {
-		flex-direction: column;
-		align-items: flex-start;
-		justify-center: center;
+	@media (max-width: 960px) {
+		display: flex;
+		align-items: center;
+    flex-direction: column;
 	}
-
-	@media(max-width: 360px) {	
-		height: auto;
+	@media (max-width: 648px) {
+		background: #fff;
 	}
-	
 `;
 
 const Content = styled.div`
 	width: 95%;
 	height: 95%;
-	display:flex;
-	
+	display: flex;
+
 	@media(max-width: 960px) {
 		width: 100%;
- 		height: 100%;
-		display: flex;
-		flex-direction: column;
+		height: 100%;
 		align-items: center;
+		flex-direction: column;
   }
 `;
 
@@ -46,15 +44,15 @@ const ContainerSidebar = styled.span`
 	}
 `;
 
-const DashBoard = () => (
+const Index = () => (
 	<Container>
 		<Content>
 			<ContainerSidebar>
 				<SideBar />
 			</ContainerSidebar>
-			<RelevanceMatch />
+			<Filters />
 		</Content>
 	</Container>
 );
 
-export default DashBoard;
+export default Index;

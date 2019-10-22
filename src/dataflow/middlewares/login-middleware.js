@@ -14,3 +14,16 @@ export const loginUserMiddleware = (info) => axios({
 		password: info.password,
 	},
 });
+
+export const createAccountMiddleware = (info) => axios({
+	url: `${API_URL}/sign-up`,
+	method: 'post',
+	header: {
+		'Content-Type': 'application/json',
+	},
+	data: {
+		email: info.email,
+		name: info.name,
+		password: info.password,
+	},
+});
