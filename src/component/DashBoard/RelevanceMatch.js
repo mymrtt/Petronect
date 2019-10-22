@@ -248,14 +248,14 @@ const ClosedKeyword = styled.button`
 	border-radius: 19px;
 `;
 
-const Overlay = styled.div` 
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: -2;
-`;
+// const Overlay = styled.div` 
+// 	width: 100vw;
+// 	height: 100vh;
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	z-index: -2;
+// `;
 
 const BtnCreateFilter = styled.button`
 	width: 251px;
@@ -610,9 +610,9 @@ class RelevanceMatch extends Component {
 										<TitleInput>Pesquisar</TitleInput>
 										<WrapInput>
 											{this.handleInputFalse()}
-											<Overlay
+											{/* <Overlay
 												onClick={this.resetInput}
-											></Overlay>
+											></Overlay> */}
 										</WrapInput>
 									</BoxInput>
 									<Button
