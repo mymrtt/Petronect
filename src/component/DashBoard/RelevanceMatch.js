@@ -94,6 +94,7 @@ const WrapperHeadMobile = styled.div`
 	display: none;
 	@media (max-width: 648px) {
 		width: 100%;
+		padding-top: .75rem;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -210,7 +211,7 @@ const WrapperKeyword = styled.div`
 	border-radius: 0 0 16px 16px;
 	z-index: 2;
 
-	@media(max-width: 360px) {
+	@media(max-width: 768px) {
 		display: none;
 	}
 `;
