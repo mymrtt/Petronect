@@ -181,6 +181,7 @@ const ContainerFilters = styled.div`
 		flex-direction: column;
 	}
 	@media (max-width: 648px) {
+		flex-wrap: nowrap;
 		margin-left: .5rem;
     width: 100%;
 	}
