@@ -38,14 +38,19 @@ const Container = styled.div`
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
+<<<<<<< HEAD
+	@media (max-width: 768px) {
+		flex-direction: ${props => !(props.screen === 'create') && 'column-reverse'};
+		justify-content: center;
+=======
 	@media (max-width: 960px) {
 		padding-bottom: 2rem;
+>>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 		align-items: center;
-		flex-direction: column-reverse;
+		padding-bottom: 2rem;
 	}
 	@media (max-width: 450px) {
 		padding: 1rem;
-		justify-content: flex-end;
 	}
 `;
 
@@ -61,7 +66,7 @@ const InputContainer = styled.form`
 	@media (max-width: 960px) {
 		padding: 2rem;
 		width: 85%;
-		height: 80vh;
+		height: min-content;
 		border-radius: 6px;
 	}
 	@media (max-width: 450px) {
@@ -78,20 +83,22 @@ const Logo = styled.img`
 	margin: 1rem 0;
 	@media (max-width: 450px) {
 		width: 55%;
+		min-width: 180px;
 	}
 `;
 
 const LogoCreate = styled.img`
-	position: absolute;
-	top: 10%;
-	width: 10vw;
+	${'' /* position: absolute;
+	top: 10%; */}
 	width: 20%;
+<<<<<<< HEAD
+	min-width: 275px;
+	@media(max-width: 768px) {
+=======
 	@media(max-width: 960px) {
+>>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 		padding: 2rem;
     width: 30%;
-	}
-	@media(max-width: 648px) {
-    width: 55%;
 	}
 `;
 
@@ -103,12 +110,16 @@ const InputBox = styled.span`
 	width: ${(props) => props.width};
 	margin-top: ${(props) => props.last && '.5rem'};
 	
+<<<<<<< HEAD
+	@media (max-width: 768px) {
+		width: 100%;
+=======
 	@media (max-width: 960px) {
 		width: 60%;
+>>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 	}
-	
-	@media (max-width: 450px) {
-		width: 90%;
+	@media (max-width: 478px) {
+		margin-top: ${(props) => props.last && '0rem'};
 	}
 `;
 
@@ -165,7 +176,7 @@ const Button = styled.button`
 		width: 100%;
 	}
 	@media (max-width: 450px) {
-		width: 90%;
+		margin-top: .5rem;
 	}
 `;
 
@@ -191,6 +202,9 @@ const Link = styled.p`
 	color: ${(props) => props.color || '#505050'} ;
 	text-decoration: ${(props) => (props.color ? 'underline' : 'none')} ;
 	cursor: pointer;
+	:last-child {
+		text-align: right;
+	}
 `;
 
 const LoginBox = styled.div`
@@ -203,7 +217,7 @@ const LoginBox = styled.div`
 	border-radius: 0 0 6px 6px;
 	@media (max-width: 960px) {
 		width: 95%;
-    height: 65vh;
+    height: 40vh;
 		justify-content: space-evenly;
 		flex-direction: row-reverse;
 	}
@@ -317,6 +331,31 @@ const CreateTitle = styled.h1`
 	}
 `;
 
+<<<<<<< HEAD
+// const CreatedBox = styled.div`
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	width: 30%;
+// 	min-width: 360px;
+// 	padding: 3rem 4rem;
+// 	background: #FFF;
+// 	box-shadow: 0px 1px 2px #0000001A;
+// 	border-radius: 4px;
+// 	transition: width 1s; 
+
+// 	@media(max-width: 1440px) {
+// 		width: 50%;
+// 	}
+// 	@media(max-width: 768px) {
+// 		width: 75%;
+// 		padding: 2rem;
+// 	}
+// 	@media(max-width: 425px) {
+// 		width: 95%;
+// 	}
+// `;
+=======
 const CreatedBox = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -340,6 +379,7 @@ const CreatedBox = styled.div`
 		width: 95%;
 	}
 `;
+>>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 
 const CreatedText = styled.div`
 	width: 92.5%;
@@ -485,7 +525,7 @@ class Login extends Component {
 			<LogoCreate src={logoW} />
 			<CreateBox>
 				{this.state.isCreated && this.props.createSuccess
-				// Quando deu sucesso em criar conta
+					// Quando deu sucesso em criar conta
 					? (<>
 						<CreateTitle>
 							Sucesso! Verifique seu caixa de email.
@@ -572,7 +612,7 @@ class Login extends Component {
 
 	render() {
 		return (
-			<Container>
+			<Container screen={this.state.screen}>
 				{this.renderCurrentScreen()}
 			</Container>
 		);

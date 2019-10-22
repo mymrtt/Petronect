@@ -8,7 +8,12 @@ import { values } from 'lodash';
 // import { Link } from 'react-router-dom';
 
 // Modules
-import { addItem, removeItem, putFavorite } from '../../dataflow/modules/oportunities-modules';
+import {
+	addItem,
+	removeItem,
+	putFavorite,
+	removeFavorite,
+} from '../../dataflow/modules/oportunities-modules';
 import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
 
 // Images
@@ -41,6 +46,9 @@ const mapDispatchToProps = (dispatch) => ({
 	putFavorite: (info) => {
 		dispatch(putFavorite(info));
 	},
+	removeFavorite: (info) => {
+		dispatch(removeFavorite(info));
+	},
 	getAllOpportunitiesThunk: (info) => {
 		dispatch(getAllOpportunitiesThunk(info));
 	},
@@ -56,7 +64,7 @@ const Container = styled.div`
 		width: 95%;
 		height: auto;
 		margin-top: 1.5rem;
-		overflow-y: scroll;
+		${'' /* overflow-y: scroll; */}
 	}
 
 	${'' /* @media(max-width: 375px) {
@@ -88,6 +96,7 @@ const WrapperHeadMobile = styled.div`
 	display: none;
 	@media (max-width: 648px) {
 		width: 100%;
+		padding-top: .75rem;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -143,7 +152,6 @@ const BoxInput = styled.div`
 	align-items: center;
 
 	@media (max-width: 648px) {
-		// width: 35px;
 		width: 20%;
 	}
 `;
@@ -173,10 +181,6 @@ const LabelBox = styled.label`
   align-items: center;
 	z-index: 5;
 
-	${'' /* @media(max-width: 960px) {
-		width: 172px;
-		height: 32px;
-	} */}
 	@media (max-width: 648px) {
     margin: 0;
     padding: 0;
@@ -210,7 +214,7 @@ const WrapperKeyword = styled.div`
 	border-radius: 0 0 16px 16px;
 	z-index: 2;
 
-	@media(max-width: 360px) {
+	@media(max-width: 768px) {
 		display: none;
 	}
 `;
@@ -250,14 +254,14 @@ const ClosedKeyword = styled.button`
 	border-radius: 19px;
 `;
 
-// const Overlay = styled.div` 
-// 	width: 100vw;
-// 	height: 100vh;
-// 	position: fixed;
-// 	top: 0;
-// 	left: 0;
-// 	z-index: -2;
-// `;
+const Overlay = styled.div` 
+	${'' /* width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -2; */}
+`;
 
 const BtnCreateFilter = styled.button`
 	width: 251px;
@@ -493,7 +497,7 @@ class RelevanceMatch extends Component {
 		this.setState({ inputSearch: false });
 	}
 
-	handleInputFalse = () => (
+	handleSearchInput = () => (
 		<>
 		<FormHead onSubmit= {this.handleKeyPress}>
 			<LabelBox 
@@ -508,23 +512,28 @@ class RelevanceMatch extends Component {
 				>+</AddKeyword>
 			</LabelBox>
 		</FormHead>
-			{this.state.inputSearch && (			
-				<WrapperKeyword>
-					<Wraptext>
-						{this.props.keywords.length > 0 && this.renderList() }
-					</Wraptext>
-					<BtnCreateFilter onClick={this.handleOpenModal}>
-						<ImgFilter src={FilterImg}/>
-						Salvar Filtro
-					</BtnCreateFilter>
-				</WrapperKeyword>
-			)}
+		{this.state.inputSearch && (			
+			<WrapperKeyword>
+				<Wraptext>
+					{this.props.keywords.length > 0 && this.renderList() }
+				</Wraptext>
+				<BtnCreateFilter onClick={this.handleOpenModal}>
+					<ImgFilter src={FilterImg}/>
+					Salvar Filtro
+				</BtnCreateFilter>
+			</WrapperKeyword>
+		)}
 		</>
 	)
 
 	handleFavorite = (event, oportunityId) => {
 		event.stopPropagation();
 		this.props.putFavorite(oportunityId);
+	}
+
+	handleDesfavor  = (event, oportunityId) => {
+		event.stopPropagation();
+		this.props.removeFavorite(oportunityId);
 	}
 
 	handleModalOportunities = () => {
@@ -551,48 +560,7 @@ class RelevanceMatch extends Component {
 		this.setState({ isShowFavorites: !isShowFavorites });
 		console.log('favorito', this.state.isShowFavorites);
 	}
-
-	// renderOportunity = () => {
-	// 	const {	oportunities } = this.props;
-
-	// 	const list = oportunities;
-
-	// 	values(list).filter((item) => item.favorite === true).map((item) => (
-	// 		<TableRow key={item} onClick={this.handleModalOportunities}>
-	// 			<TableBody>
-	// 				<img src={start}/>
-	// 			</TableBody>
-	// 			<TableBody>{item.fit}</TableBody>
-	// 			<TableBody>{item.category}</TableBody>
-	// 			<TableBody>{item.oportunityId}</TableBody>
-	// 			<TableBody>{item.titleDescription}</TableBody>
-	// 			<TableBody>
-	// 				{item.deadLineInitial}
-	// 				{item.deadLineLastOne}
-	// 			</TableBody>
-	// 		</TableRow>
-	// 	));
-	// 	console.log('testets', list);
-	// }
-
-	// renderOportunity = () => this.props.favoriteList.map((favoriteList) => (
-	// 	<Fragment>
-	// 		<TableRow key={favoriteList}>
-	// 			<TableBody>
-	// 				<img src={start}/>
-	// 			</TableBody>
-	// 			<TableBody>{favoriteList}</TableBody>
-	// 			<TableBody>{favoriteList}</TableBody>
-	// 			<TableBody>{favoriteList}</TableBody>
-	// 			<TableBody>{favoriteList}</TableBody>
-	// 			<TableBody>
-	// 				{favoriteList}
-	// 				{favoriteList}
-	// 			</TableBody>
-	// 		</TableRow>
-	// 	</Fragment>
-	// ));
-
+  
 	render() {
 		const {
 			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
@@ -611,10 +579,14 @@ class RelevanceMatch extends Component {
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
 										<WrapInput>
-											{this.handleInputFalse()}
-											{/* <Overlay
-												onClick={this.resetInput}
-											></Overlay> */}
+
+											{this.handleSearchInput()}
+											{this.state.inputSearch &&
+												<Overlay
+													onClick={this.resetInput}
+												></Overlay>
+											}
+
 										</WrapInput>
 									</BoxInput>
 									<Button
@@ -628,7 +600,7 @@ class RelevanceMatch extends Component {
 										}
 									>
 										<img src={this.state.hoverFavorites ? startHover : start}/>
-									Favoritos
+										Favoritos
 									</Button>
 								</Form>
 							</WrapperForm>
@@ -682,10 +654,23 @@ class RelevanceMatch extends Component {
 							</Fragment>
 
 
-							{values(this.props.oportunities).map((item) => (
+							{values(this.props.oportunities).map((item) => {
+								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0)
+
+								const handleFavorite = (event) => {
+									if (isFavorite) {
+										this.handleDesfavor(event, item.oportunityId);
+									} else {
+										this.handleFavorite(event, item.oportunityId);
+									}
+								}
+								return (
 								<TableRow key={item} onClick={this.handleModalOportunities}>
-									<TableBody spanWidth onClick={(event) => { this.handleFavorite(event, item.oportunityId); }}>
-										<img src={!(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0) ? start : startHover}/>
+									<TableBody
+										spanWidth
+										onClick={handleFavorite}
+									>
+										<img src={isFavorite ? start : startHover}/>
 									</TableBody>
 									<TableBody spanWidth>{item.fit}</TableBody>
 									<TableBody>{item.category}</TableBody>
@@ -696,9 +681,8 @@ class RelevanceMatch extends Component {
 										{item.deadLineLastOne}
 									</TableBody>
 								</TableRow>
-							))}
+							)})}
 						</Table>
-						{/* {isShowFavorites && this.showFavorites()} */}
 					</WrapperTable>
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }

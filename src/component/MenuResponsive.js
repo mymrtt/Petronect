@@ -24,8 +24,7 @@ const Container = styled.div`
 		height: 3rem;
 		position: fixed;
     background-color: #fff;
-		// padding-left: 1.3rem;
-	}
+		padding: 0 1.3rem;
 `;
 
 const WrapperLogoTablet = styled.div`
