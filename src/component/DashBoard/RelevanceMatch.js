@@ -537,6 +537,49 @@ class RelevanceMatch extends Component {
 		console.log('favorito', this.state.isShowFavorites);
 	}
 
+	renderOportunityList = () => {
+		let list = [];
+		
+		if (this.state.isShowFavorites) {
+			list = this.props.favoriteList.map(item => this.props.oportunities[item]);
+		} else {
+			list = values(this.props.oportunities);	
+		}
+
+		console.log(this.props.favoriteList.map(item => this.props.oportunities[item]))
+		
+		console.log(list);
+		return list.map((item) => {
+		const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0)
+
+		const handleFavorite = (event) => {
+			if (isFavorite) {
+				this.handleDesfavor(event, item.oportunityId);
+			} else {
+				this.handleFavorite(event, item.oportunityId);
+			}
+		};
+
+		return (
+			<TableRow key={item} onClick={this.handleModalOportunities}>
+				<TableBody
+					spanWidth
+					onClick={handleFavorite}
+				>
+					<img src={isFavorite ? start : startHover}/>
+				</TableBody>
+				<TableBody spanWidth>{item.fit}</TableBody>
+				<TableBody>{item.category}</TableBody>
+				<TableBody>{item.oportunityId}</TableBody>
+				<TableBody>{item.titleDescription}</TableBody>
+				<TableBody>
+					{item.deadLineInitial}
+					{item.deadLineLastOne}
+				</TableBody>
+			</TableRow>
+		)});
+	}
+
 	render() {
 		const {
 			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
@@ -622,42 +665,8 @@ class RelevanceMatch extends Component {
 								<TableHeader>Título e descrição</TableHeader>
 								<TableHeader>Prazo</TableHeader>
 							</HeaderRow>
-
-							<Fragment>
-								{isShowFavorites ? this.renderOportunity() : null}
-							</Fragment>
-
-
-							{values(this.props.oportunities).map((item) => {
-								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0)
-
-								const handleFavorite = (event) => {
-									if (isFavorite) {
-										this.handleDesfavor(event, item.oportunityId);
-									} else {
-										this.handleFavorite(event, item.oportunityId);
-									}
-								}
-								return (
-								<TableRow key={item} onClick={this.handleModalOportunities}>
-									<TableBody
-										spanWidth
-										onClick={handleFavorite}
-									>
-										<img src={isFavorite ? start : startHover}/>
-									</TableBody>
-									<TableBody spanWidth>{item.fit}</TableBody>
-									<TableBody>{item.category}</TableBody>
-									<TableBody>{item.oportunityId}</TableBody>
-									<TableBody>{item.titleDescription}</TableBody>
-									<TableBody>
-										{item.deadLineInitial}
-										{item.deadLineLastOne}
-									</TableBody>
-								</TableRow>
-							)})}
+							{this.renderOportunityList()}
 						</Table>
-						{/* {isShowFavorites && this.showFavorites()} */}
 					</WrapperTable>
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }
