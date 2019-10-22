@@ -22,7 +22,7 @@ const Container = styled.div`
 	@media(max-width: 648px) {
 		position: fixed;
     background-color: #fff;
-		padding-left: 1.3rem;
+		padding: 0 1.3rem;
 	}
 `;
 
