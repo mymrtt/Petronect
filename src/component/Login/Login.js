@@ -273,7 +273,6 @@ const CreateBox = styled.div`
 	width: 30%;
 	padding: 3rem 4rem;
 	background: #FFF;
-	background: pink;
 	box-shadow: 0px 1px 2px #0000001A;
 	border-radius: 4px;
 	transition: width 1s; 
