@@ -51,7 +51,7 @@ const ImageMenu = styled.img`
 	display: none;
 	@media(max-width: 768px) {
 		padding-bottom: .3rem;
-		display: flex;
+		display: flex;	
 	}
 `;
 

@@ -3,8 +3,17 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
+
 const mapStateToProps = (state) => ({
-	keyword: state.oportunities.keyword,
+	keywords: state.oportunities.cardFilter.keywords,
+	// cardFilter: state.card.cardFilter,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	updateCard: (info) => {
+		dispatch(updateCard(info));
+	},
 });
 
 const Overlay = styled.div`
@@ -220,6 +229,7 @@ class ModalFilter extends Component {
 		super(props);
 		this.state = {
 			nameValue: '',
+
 			colors: [
 				'#DE8F33',
 				'#D65B85',
@@ -239,7 +249,16 @@ class ModalFilter extends Component {
 
 	handleColorOption = (color) => {
 		this.setState({ item: color });
-		console.log(this.setState({ item: color }));
+		console.log(color);
+	}
+
+
+	handleCard = (event) => {
+		event.stopPropagation();
+		this.props.updateCard({
+			cardName: this.state.nameValue,
+			cardColor: this.state.item,
+		});
 	}
 
 	renderColorOption = () => {
@@ -254,9 +273,9 @@ class ModalFilter extends Component {
 		));
 	}
 
-	renderKeywordsList = () => this.props.keyword.map((keyword) => (
+	renderKeywordsList = () => this.props.keywords.map((keyword) => (
 		<Fragment
-			key={keyword.oportunityId}
+			key={keyword}
 			className='btn'
 		>
 			<KeywordText>{keyword}</KeywordText>
@@ -308,7 +327,9 @@ class ModalFilter extends Component {
 						<ContainerTagsColor>
 							{ this.renderColorOption() }
 						</ContainerTagsColor>
-						<Button>
+						<Button
+							onClick={this.handleCard}
+						>
 							<Title>Adicionar Filtro</Title>
 						</Button>
 					</WrapperTagsColor>
@@ -318,4 +339,4 @@ class ModalFilter extends Component {
 	}
 }
 
-export default connect(mapStateToProps, null)(ModalFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalFilter);
