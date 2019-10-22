@@ -594,7 +594,7 @@ class RelevanceMatch extends Component {
 										}
 									>
 										<img src={this.state.hoverFavorites ? startHover : start}/>
-									Favoritos
+										Favoritos
 									</Button>
 								</Form>
 							</WrapperForm>
@@ -653,11 +653,9 @@ class RelevanceMatch extends Component {
 
 								const handleFavorite = (event) => {
 									if (isFavorite) {
-										console.log('passei corredp', event)
-										{/* this.handleFavorite(event, item.oportunityId); */}
-									} else {
-										console.log('to parado', event)
 										this.handleDesfavor(event, item.oportunityId);
+									} else {
+										this.handleFavorite(event, item.oportunityId);
 									}
 								}
 								return (
