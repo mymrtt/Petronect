@@ -13,7 +13,7 @@ const Container = styled.div`
 	justify-content: center;
 	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
 
-	@media(max-width: 768px) {
+	@media(max-width: 870px) {
 		flex-direction: column;
 		align-items: flex-start;
 		justify-center: center;
@@ -30,7 +30,7 @@ const Content = styled.div`
 	height: 95%;
 	display:flex;
 	
-	@media(max-width: 768px) {
+	@media(max-width: 870px) {
 		width: 100%;
  		height: 100%;
 		display: flex;
@@ -41,7 +41,7 @@ const Content = styled.div`
 
 const ContainerSidebar = styled.span`
 	display: flex;
-	@media (max-width: 768px) {
+	@media (max-width: 870px) {
 		display: none;
 	}
 `;
