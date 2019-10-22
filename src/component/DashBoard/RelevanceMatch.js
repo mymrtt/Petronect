@@ -59,7 +59,7 @@ const Container = styled.div`
   border-radius: 0 4px 0 0 ;
   background: #fff;
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 95%;
 		height: auto;
 		margin-top: 1.5rem;
@@ -108,7 +108,7 @@ const BoxHeader = styled.span`
 	@media(max-width: 1024px) {
 		width: 40%;
 	}
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 52%;
 	}
 `;
@@ -165,7 +165,7 @@ const TitleInput = styled.p`
   font-size: 0.875rem;
   font-weight: bold;
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		display: none;
 	}
 `;
@@ -179,6 +179,7 @@ const LabelBox = styled.label`
   display: flex;
   align-items: center;
 	z-index: 5;
+
 	@media (max-width: 648px) {
     margin: 0;
     padding: 0;
@@ -195,7 +196,7 @@ const InputHead = styled.input`
 	outline: none;
 	font-size: 0.875rem;
 	
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		font-size: 0.75rem;
 	}
 `;
@@ -320,7 +321,7 @@ const Button = styled.button`
 	cursor: pointer;
 	outline: none;
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 85px;
 		font-size: .75rem;		
 	}
@@ -338,7 +339,7 @@ const WrapperTable = styled.div`
 	align-items: center;
 	background: #fff;
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 	}
 
 	@media(max-width: 648px) {
@@ -362,7 +363,7 @@ const HeaderRow = styled.div`
   border-radius: 4px;
   color: #8C8C8C;
 	
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		display: none;
 	}
 `;
@@ -380,7 +381,7 @@ const TableRow = styled.div`
     color: #404040;
   }
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		height: 64px;
 		flex-wrap: wrap;
 	}
@@ -403,7 +404,7 @@ const TableBody = styled.span`
   font-size: .875rem;
   font-weight: 500;
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: auto;
 	}
 `;

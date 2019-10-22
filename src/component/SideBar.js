@@ -46,7 +46,7 @@ const BoxLogo = styled.figure`
   justify-content: center;
   align-items: center;
 
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		display: none;
 	}
 `;
@@ -57,7 +57,7 @@ const ImgLogo = styled.img`
 
 const WrapperTablet = styled.div`
 	display: none;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		padding-left: 1.8rem
 		width: auto;
 		height: 20vh;
@@ -70,7 +70,7 @@ const WrapperTablet = styled.div`
 
 const ImageMenuTablet = styled.img`
 	display: none;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		padding-bottom: .3rem;
 		width: 35%;
 		display: flex;

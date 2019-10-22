@@ -8,7 +8,7 @@ import shareIcon from '../../assets/icon/compartilhar.svg';
 import attachIcon from '../../assets/icon/anexar.svg';
 import doubtIcon from '../../assets/icon/duvida.svg';
 import loadingIcon from '../../assets/icon/loading.svg';
-
+import closeIcon from '../../assets/icon/close-blue.svg';
 
 const Overlay = styled.div`
 	position: absolute;
@@ -75,6 +75,10 @@ const CloseButton = styled.button`
 	background: transparent;
 	outline: none;
 	cursor: pointer;
+`;
+
+const CloseImage = styled.img`
+	width: 13px;
 `;
 
 const DetailsOportuny = styled.div`
@@ -238,7 +242,9 @@ class DetailsOportunies extends Component {
 							<TextHeader>85% Relevante</TextHeader>
 						</WrapperRelevance>
 						<CloseContainer onClick={this.props.handleModalOportunities}>
-							<CloseButton>X</CloseButton>
+							<CloseButton>
+								<CloseImage src={closeIcon} />
+							</CloseButton>
 						</CloseContainer>
 					</DatailsHeader>
 					<DetailsOportuny>
