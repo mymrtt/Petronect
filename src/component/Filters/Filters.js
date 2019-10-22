@@ -32,7 +32,8 @@ const Container = styled.div`
 const Content = styled.div`
 	padding-top: 1.3rem;
 	padding-right: 1rem;
-  width: 75vw;
+	// width: 75vw;
+	width: 78vw;
 	height: 95vh;
 	display: flex;
 	justify-content: space-between;
@@ -67,7 +68,7 @@ const AddFilterTitle = styled.p`
 const ContainerNotifications = styled.div`
 	padding-left: 1rem;
 	width: 25%;
-	height: 70vh
+	height: 70vh;
 	display: flex;
 	flex-direction: column;
 	border-left: 1px solid #0000001A;
