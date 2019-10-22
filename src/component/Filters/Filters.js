@@ -74,7 +74,7 @@ const ContainerNotifications = styled.div`
 		width: 45%;
 	}
 	@media (max-width: 648px) {
-		margin-bottom: 3rem;
+		margin-bottom: 4rem;
 		padding-left: .5rem;
 		// padding-bottom: 4rem;
 		width: 100%;
@@ -132,7 +132,7 @@ const NotificationsItem = styled.div`
 	border: .5px solid #E6E6E6;
 	border-radius: 8px;
 	@media(max-width: 648px) {
-		padding: .45rem .80rem 1rem;
+		padding: .45rem .80rem 1.3rem;
 	}
 `;
 
