@@ -20,7 +20,7 @@ const FooterMobile = styled.div`
 		border: #0000001A solid 1px;
 	}
 	@media (max-width: 648px) {
-		width: 93%;
+		width: 100%;
 	}
 `;
 
@@ -33,8 +33,6 @@ const Image = styled.img`
 const FooterMobileItem = styled.div`
 	display: none;
 	@media (max-width: 648px) {
-		// padding: .4rem;
-		// padding-left: 1rem;
 		margin: 0 .60rem;
 		display: flex;
 		width: 50%;
@@ -62,11 +60,11 @@ const Footer = () => (
 	<FooterMobile>
 		<FooterMobileItem>
 			<Image src={RelevanceImg} />
-			<FooterMobileText to="/dashboard">Match Relevância</FooterMobileText>
+			<FooterMobileText to="/match-relevancia">Match Relevância</FooterMobileText>
 		</FooterMobileItem>
 		<FooterMobileItem>
 			<Image src={FilterImg} />
-			<FooterMobileText to="/filtersandnotifications">Filtros e notificações</FooterMobileText>
+			<FooterMobileText to="/filters-and-notifications">Filtros e notificações</FooterMobileText>
 		</FooterMobileItem>
 	</FooterMobile>
 );
