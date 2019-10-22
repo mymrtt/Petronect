@@ -262,7 +262,6 @@ class ModalFilter extends Component {
 		console.log(color);
 	}
 
-
 	handleCard = (event) => {
 		event.stopPropagation();
 		this.props.updateCard({

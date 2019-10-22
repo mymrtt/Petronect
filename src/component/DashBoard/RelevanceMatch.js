@@ -5,7 +5,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-// import { Link } from 'react-router-dom';
 
 // Modules
 import {
@@ -351,6 +350,7 @@ const Table = styled.div`
   width: 100%;
   background: #fff;
   border-radius: 5px;
+	${'' /* overflow-y: scroll;	 */}
   >:nth-child(odd) {
     background: #F7F7F7; 
   }
@@ -386,6 +386,12 @@ const TableRow = styled.div`
 		height: 64px;
 		flex-wrap: wrap;
 	}
+
+	@media(max-width: 420px) {
+		display: flex;
+		align-items: flex-end;
+		padding: .5rem 0;
+	}
 `;
 
 const BoxTableBody = styled.div`
@@ -393,7 +399,9 @@ const BoxTableBody = styled.div`
 	width: auto;
 
 	@media(max-width: 420px) {
+		height: 100%;
 		flex-direction: column-reverse;
+		justify-content: space-between;
 	}
 `;
 

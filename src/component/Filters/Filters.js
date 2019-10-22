@@ -40,12 +40,12 @@ const Content = styled.div`
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
 	background-color: #fff;
-	@media (max-width: 960px) {
+	@media(max-width: 960px) {
 		width: 95vw;
 		// height: 100%;
 		// overflow-y: scroll;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		margin-top: 6rem;
 		padding-top: .60rem;
 		// height: auto;
@@ -72,10 +72,10 @@ const ContainerNotifications = styled.div`
 	display: flex;
 	flex-direction: column;
 	border-left: 1px solid #0000001A;
-	@media (max-width: 960px) {
+	@media(max-width: 960px) {
 		width: 45%;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		margin-bottom: 4rem;
 		padding-top: 1rem;
 		padding-left: .5rem;
@@ -93,7 +93,7 @@ const ContainerSearchInput = styled.div`
 	align-items: center;
 	border: .5px solid #116EA0;
 	border-radius: 16px;
-	@media (max-width: 640px) {
+	@media(max-width: 640px) {
     margin-left: .5rem;
 		height: 2.5rem;
     width: 100%;
@@ -120,7 +120,7 @@ const WrapperSearch = styled.div`
 	padding-bottom: 2rem;
 	width: 100%;
 
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		padding-bottom: .60rem;
 		width: 100%;
 	}
@@ -144,7 +144,7 @@ const SearchInput = styled.input`
 	height: 1rem;
 	border: transparent;
 	outline: none;
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		width: 85%;
 		height: 2rem;
 	}
@@ -175,12 +175,13 @@ const ContainerFilters = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	@media (max-width: 960px) {
+	@media(max-width: 960px) {
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
+		flex-wrap: nowrap;
 		margin-left: .5rem;
     width: 100%;
 	}
