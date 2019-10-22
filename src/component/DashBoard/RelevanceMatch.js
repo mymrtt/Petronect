@@ -5,7 +5,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-// import { Link } from 'react-router-dom';
 
 // Modules
 import {
