@@ -103,6 +103,7 @@ const ContainerUser = styled.div`
 const Text = styled.p`
 	color: #404040;
 	font-size: .85rem;
+	white-space: nowrap;
 `;
 
 class MenuResponsive extends Component {

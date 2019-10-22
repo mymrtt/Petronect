@@ -84,7 +84,7 @@ const BoxMenu = styled.div`
 	justify-content: flex-end;
 	
 	@media (max-width: 1024px) {
-		height: 60%;
+		height: 65%;
 	}
 	@media (max-width: 375px) {
 		height: 100%;
