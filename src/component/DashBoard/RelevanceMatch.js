@@ -63,6 +63,7 @@ const Container = styled.div`
 		width: 95%;
 		height: auto;
 		margin-top: 1.5rem;
+		overflow-y: scroll;
 	}
 
 	${'' /* @media(max-width: 375px) {
@@ -557,7 +558,7 @@ class RelevanceMatch extends Component {
 		this.setState({ isShowFavorites: !isShowFavorites });
 		console.log('favorito', this.state.isShowFavorites);
 	}
-
+  
 	render() {
 		const {
 			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
@@ -680,7 +681,6 @@ class RelevanceMatch extends Component {
 								</TableRow>
 							)})}
 						</Table>
-						{/* {isShowFavorites && this.showFavorites()} */}
 					</WrapperTable>
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }
