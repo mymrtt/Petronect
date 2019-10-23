@@ -712,9 +712,9 @@ class RelevanceMatch extends Component {
 								<TableHeader>Prazo</TableHeader>
 							</HeaderRow>
 
-							<Fragment>
+							{/* <Fragment> */}
 								{isShowFavorites ? this.renderOportunity() : null}
-							</Fragment>
+							{/* </Fragment> */}
 
 
 							{values(this.props.oportunities).map((item) => {
