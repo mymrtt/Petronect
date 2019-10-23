@@ -179,7 +179,8 @@ const ContainerFilters = styled.div`
 	@media(max-width: 648px) {
 		flex-wrap: nowrap;
 		margin-left: .5rem;
-    width: 100%;
+		width: 100%;
+		min-height: 85%;
 	}
 `;
 
