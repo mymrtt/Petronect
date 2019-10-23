@@ -49,7 +49,7 @@ const FooterMobileItem = styled.div`
 const FooterMobileText = styled(Link)`
 	@media (max-width: 648px) {
 		margin-left: 0.4rem;
-		font-size: .80rem;
+		font-size: .75rem;
 		font-weight: 900;
 		color: #116ea0;
 		white-space: nowrap;
@@ -64,7 +64,7 @@ const Footer = () => (
 		</FooterMobileItem>
 		<FooterMobileItem>
 			<Image src={FilterImg} />
-			<FooterMobileText to="/filters-and-notifications">Filtros e notificações</FooterMobileText>
+			<FooterMobileText to="/notifications">Notificações</FooterMobileText>
 		</FooterMobileItem>
 	</FooterMobile>
 );
