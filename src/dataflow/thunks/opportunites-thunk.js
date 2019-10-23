@@ -6,10 +6,12 @@ import { getAllOpportunitesMiddleware } from '../middlewares/opportunites-middle
 import { oportunitiesList } from '../modules/oportunities-modules'
 
 export const getAllOpportunitiesThunk = (info) => (
-	async (dispatch) => {
+	async (dispatch, getState) => {
 		try {
-			const { accessToken } = JSON.parse(Cookies.get('petronect_creds')) 
-			const response = await getAllOpportunitesMiddleware(accessToken);
+			const { keywords } = getState().oportunities.cardFilter;
+			console.log(keywords)
+			const { accessToken } = JSON.parse(Cookies.get('petronect_creds'));
+			const response = await getAllOpportunitesMiddleware({keywords, accessToken});
 
 			const opportunites = {};
 
@@ -25,6 +27,8 @@ export const getAllOpportunitiesThunk = (info) => (
 			});
 
 			dispatch(oportunitiesList(opportunites));
-		} catch (err) {}
+		} catch (err) {
+			console.log(err);
+		}
 	}
 );

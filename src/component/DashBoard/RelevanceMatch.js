@@ -3,7 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-// import { Link } from 'react-router-dom';
 import * as Cookies from 'js-cookie';
 
 // Modules
@@ -235,6 +234,19 @@ const KeywordText = styled.li`
 	background: #01B0B7;
 	border-radius: 10px;
 	list-style:none;
+	font-size: .85rem;
+	color: #404040;
+`;
+
+const ContainerText = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+const TextNull = styled.p`
+	padding-bottom: 1rem;
 	font-size: .85rem;
 	color: #404040;
 `;
@@ -477,23 +489,34 @@ class RelevanceMatch extends Component {
 		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
-			this.props.getAllOpportunitiesThunk('passei e sai correndo');
-
-			// this.props.addItem(keyword);
+			this.props.addItem(keyword);
+			this.props.getAllOpportunitiesThunk();
 		}
 		this.inputSearch.value = '';
+		this.setState({ 
+			textNull: false,
+		});
 	}
-
 
 	handleClick = (event) => {
 		event.preventDefault();
 		this.props.addList();
+		// this.setState({ 
+		// 	textNull: false,
+		// });
 	}
 
 	handleOpenModal = () => {
-		this.resetInput();
 		const { isModalOpen } = this.state;
-		this.setState({ isModalOpen: !isModalOpen });
+		if (this.props.keywords.length === 0) {
+			this.setState({ textNull: true });
+		} else {
+			this.resetInput();
+			this.setState({ 
+				isModalOpen: !isModalOpen,
+				textNull: false,
+			});
+		}
 	}
 
 	renderModalFilter = () => (
@@ -549,6 +572,9 @@ class RelevanceMatch extends Component {
 				<Wraptext>
 					{this.props.keywords.length > 0 && this.renderList() }
 				</Wraptext>
+				<ContainerText>
+					{this.state.textNull && <TextNull> Por favor insere uma palavra. </TextNull>}
+				</ContainerText>
 				<BtnCreateFilter onClick={this.handleOpenModal}>
 					<ImgFilter src={FilterImg}/>
 					Salvar Filtro
@@ -604,6 +630,14 @@ class RelevanceMatch extends Component {
 				}
 			};
 
+			const normalizeScore = (score) => {
+				if (score <= 1) {
+					return 1;
+				} else if (score < 100) {
+					return 100 - (100/score);
+				} else return 100;
+			}
+
 			return (
 				<TableRow key={item} onClick={this.handleModalOportunities}>
 					<TableBody
@@ -612,7 +646,7 @@ class RelevanceMatch extends Component {
 					>
 						<img src={isFavorite ? start : startHover}/>
 					</TableBody>
-					<TableBody spanWidth>{parseFloat(item.fit)}</TableBody>
+					<TableBody spanWidth>{Math.floor(normalizeScore(item.fit))}%</TableBody>
 					<TableBody>{item.category}</TableBody>
 					<TableBody>{item.oportunityId}</TableBody>
 					<TableBody>{item.titleDescription}</TableBody>
@@ -620,15 +654,15 @@ class RelevanceMatch extends Component {
 						{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
 					</TableBody>
 				</TableRow>
-			);
-		});
-	}
+			)});
+		}
+
 
 	render() {
 		const {
 			isOportunitesModal, isModalOpen, isShowFavorites
-} = this.state;
-
+		} = this.state;
+		console.log('tem que descomentar', this.props.keywords)
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -644,8 +678,8 @@ class RelevanceMatch extends Component {
 										<TitleInput>Pesquisar</TitleInput>
 										<WrapInput>
 											{this.renderSearchInput()}
-											{this.state.inputSearch
-												&& <Overlay
+											{this.state.inputSearch &&
+												<Overlay
 													onClick={this.resetInput}
 												></Overlay>
 											}
@@ -694,9 +728,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 									</Button>
 								</Form>
-								<WrapperKeyword>
+								{/* <WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword>
+								</WrapperKeyword> */}
 							</WrapperForm>
 						</WrapperHeadMobile>
 
@@ -711,45 +745,7 @@ class RelevanceMatch extends Component {
 								<TableHeader>Título e descrição</TableHeader>
 								<TableHeader>Prazo</TableHeader>
 							</HeaderRow>
-
-							{/* <Fragment> */}
-								{isShowFavorites ? this.renderOportunity() : null}
-							{/* </Fragment> */}
-
-
-							{values(this.props.oportunities).map((item) => {
-								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0);
-
-								const handleFavorite = (event) => {
-									if (isFavorite) {
-										this.handleDesfavor(event, item.oportunityId);
-									} else {
-										this.handleFavorite(event, item.oportunityId);
-									}
-								};
-								return (
-									<TableRow key={item} onClick={this.handleModalOportunities}>
-										{/* <BoxTableBody> */}
-										<TableBody
-											spanWidth
-											onClick={handleFavorite}
-										>
-											<img src={isFavorite ? start : startHover}/>
-										</TableBody>
-										<TableBody spanWidth>{item.fit}</TableBody>
-										{/* </BoxTableBody> */}
-										{/* <BoxTableBody> */}
-										<TableBody>{item.category}</TableBody>
-										<TableBody displayNone >{item.oportunityId}</TableBody>
-										<TableBody>{item.titleDescription}</TableBody>
-										{/* </BoxTableBody> */}
-										<TableBody>
-											{item.deadLineInitial}
-											{item.deadLineLastOne}
-										</TableBody>
-									</TableRow>
-								);
- 							})}
+							{this.renderOportunityList()}
 						</Table>
 					</WrapperTable>
 					<Fragment>
