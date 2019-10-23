@@ -20,6 +20,7 @@ const Container = styled.div`
 	}
 	@media (max-width: 648px) {
 		// margin-left: .5rem;
+		height: 6.3rem;
     width: 100%;
 	}
 `;

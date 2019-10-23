@@ -40,6 +40,9 @@ const Content = styled.div`
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
 	background-color: #fff;
+	@media(max-width: 1024px) {
+		width: 73vw;
+	}
 	@media(max-width: 960px) {
 		width: 95vw;
 		// height: 100%;
@@ -80,7 +83,7 @@ const ContainerNotifications = styled.div`
 		padding-top: 1rem;
 		padding-left: .5rem;
 		width: 100%;
-		height: 45vh;
+		height: 100%;
 		border-left: 0;
 	}
 `;
