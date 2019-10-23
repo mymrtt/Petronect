@@ -143,7 +143,6 @@ const SearchInput = styled.input`
 	outline: none;
 	@media(max-width: 648px) {
 		width: 85%;
-		// height: 2rem;
 	}
 `;
 

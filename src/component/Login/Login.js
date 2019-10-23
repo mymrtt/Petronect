@@ -12,7 +12,7 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Redux
 import { loginUserThunk, createAccountThunk } from '../../dataflow/thunks/login-thunk';
 
-import { updateError } from '../../dataflow/modules/login-module';
+import { updateError, updateCreateSuccess } from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
 	error: state.login.error,
@@ -28,6 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	createAccountThunk: (info) => {
 		dispatch(createAccountThunk(info));
+	},
+	updateCreateSuccess: (info) => {
+		dispatch(updateCreateSuccess(info));
 	},
 });
 
@@ -383,6 +386,10 @@ class Login extends Component {
 	handleError = () => {
 		if (this.props.error) {
 			this.props.updateError(false);
+		}
+
+		if (this.props.createSuccess === false) {
+			this.props.updateCreateSuccess(null);
 		} return null;
 	}
 
@@ -392,6 +399,16 @@ class Login extends Component {
 				<LoginMessageError>
 					<TextError>
 						Endereço de email e/ou senha incorretos
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		if (this.props.createSuccess === false) {
+			return (
+				<LoginMessageError>
+					<TextError>
+					 	Usuário já cadastrado
 					</TextError>
 				</LoginMessageError>
 			);
@@ -521,7 +538,6 @@ class Login extends Component {
 								error={this.props.error}
 								onChange={this.handleError}
 							/>
-							{this.renderError()}
 						</InputBox>
 						<InputBox last width='100%'>
 							<Label>Senha</Label>
@@ -538,6 +554,7 @@ class Login extends Component {
 								src={this.state.showPassword ? showPassword : hidePassword}
 								onClick={this.showPassword}
 							/>
+						{this.renderError()}
 						</InputBox>
 						<TermsText>
 							Clique abaixo para concordar com nossos <strong>Termos de Serviço</strong> e se inscrever.
