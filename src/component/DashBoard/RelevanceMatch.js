@@ -53,8 +53,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Container = styled.div`
-	// width: 75vw;
-	width: 78vw;
+	// width: 78vw;
+	width: 80%;
   border-radius: 0 4px 0 0 ;
   background: #fff;
 
@@ -73,7 +73,6 @@ const Container = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,7 +176,6 @@ const LabelBox = styled.label`
   border: solid #116EA0 .5px;
   display: flex;
   align-items: center;
-	z-index: 5;
 
 	@media (max-width: 648px) {
     margin: 0;
@@ -345,17 +343,17 @@ const WrapperTable = styled.div`
 	}
 `;
 
-const Table = styled.div`
+const Table = styled.table`
   width: 100%;
   background: #fff;
   border-radius: 5px;
-	${'' /* overflow-y: scroll;	 */}
+	${''}
   >:nth-child(odd) {
     background: #F7F7F7; 
   }
 `;
 
-const HeaderRow = styled.div`
+const HeaderRow = styled.th`
   width: 100%;
   height: 32px; 
 	display: flex;
@@ -368,7 +366,7 @@ const HeaderRow = styled.div`
 	}
 `;
 
-const TableRow = styled.div`
+const TableRow = styled.tr`
   width: 100%;
   height: 32px; 
 	display: flex;
@@ -387,24 +385,27 @@ const TableRow = styled.div`
 	}
 
 	@media(max-width: 420px) {
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
 		align-items: flex-end;
 		padding: .5rem 0;
 	}
 `;
 
-const BoxTableBody = styled.div`
-	display: flex;
-	width: auto;
+const BoxTableBody = styled.div`	
+		display: flex;
+		width: auto;
 
 	@media(max-width: 420px) {
 		height: 100%;
 		flex-direction: column-reverse;
 		justify-content: space-between;
 	}
+
+	@media(min-width: 768px) {
+	}
 `;
 
-const TableHeader = styled.span`
+const TableHeader = styled.td`
   width: ${(props) => (props.boxWidth ? '100px' : '100%')};
   padding-left: 1rem;
 	margin-right: 1rem;
@@ -413,9 +414,8 @@ const TableHeader = styled.span`
   font-weight: 500;
 `;
 
-const TableBody = styled.span`
-	${'' /* width: ${(props) => (props.spanWidth ? '65px' : '80%')};; */}
-	width: 100%;
+const TableBody = styled.td`
+	width: ${(props) => (props.spanWidth ? '65px' : '80%')};
   padding-left: 1rem;
 	margin-right: 1rem;
   text-align: left;
@@ -424,11 +424,11 @@ const TableBody = styled.span`
 
 	@media(max-width: 960px) {
 		width: auto;
-		display: ${(props) => (props.displayNone ? 'none': 'static')}
+		display: ${(props) => (props.displayNone ? 'none' : 'static')}
 	}
 
 	@media(max-width: 420px) {
-		display: ${(props) => (props.displayNone ? 'none': 'static')}
+		display: ${(props) => (props.displayNone ? 'none' : 'static')}
 	}
 `;
 
@@ -454,13 +454,13 @@ class RelevanceMatch extends Component {
 	getToken = () => {
 		try {
 			const response = Cookies.get('petronect_creds');
-			
+
 			if (response !== undefined) {
-				this.props.getAllOpportunitiesThunk(); 
+				this.props.getAllOpportunitiesThunk();
 			}
 		} catch (err) {
 			console.log(err);
-			this.props.history.replace(`/`)
+			this.props.history.replace('/');
 		}
 	}
 
@@ -567,7 +567,7 @@ class RelevanceMatch extends Component {
 	}
 
 	handleModalOportunities = () => {
-		this.setState(prevState => ({
+		this.setState((prevState) => ({
 			isOportunitesModal: !prevState.isOportunitesModal,
 		}));
 	}
@@ -577,65 +577,66 @@ class RelevanceMatch extends Component {
 	)
 
 	handleOpotunity = () => {
-		this.setState(prevState => ({
+		this.setState((prevState) => ({
 			isShowFavorites: !prevState.isShowFavorites,
 		}));
 	}
 
 	renderOportunityList = () => {
 		let list = [];
-		
+
 		if (this.state.isShowFavorites) {
-			list = this.props.favoriteList.map(item => this.props.oportunities[item]);
+			list = this.props.favoriteList.map((item) => this.props.oportunities[item]);
 		} else {
-			list = values(this.props.oportunities);	
+			list = values(this.props.oportunities);
 		}
 
 		return list.map((item) => {
-		const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0)
+			const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0);
 
-		const handleFavorite = (event) => {
-			if (isFavorite) {
-				this.handleDesfavor(event, item.oportunityId);
-			} else {
-				this.handleFavorite(event, item.oportunityId);
-			}
-		};
+			const handleFavorite = (event) => {
+				if (isFavorite) {
+					this.handleDesfavor(event, item.oportunityId);
+				} else {
+					this.handleFavorite(event, item.oportunityId);
+				}
+			};
 
-		const normalizeScore = (score) => {
+			const normalizeScore = (score) => {
 	
-			if(score <= 1) {
-				return 1;
-			} else if(score < 100) {
-				return 100 - (100/score);
-			} else return 100;
+				if(score <= 1) {
+					return 1;
+				} else if(score < 100) {
+					return 100 - (100/score);
+				} else return 100;
+			}
+			
+			return (
+				<TableRow key={item} onClick={this.handleModalOportunities}>
+					<TableBody
+						spanWidth
+						onClick={handleFavorite}
+					>
+						<img src={isFavorite ? start : startHover}/>
+					</TableBody>
+					<TableBody spanWidth>{Math.floor(normalizeScore(item.fit))}%</TableBody>
+					<TableBody>{item.category}</TableBody>
+					<TableBody>{item.oportunityId}</TableBody>
+					<TableBody>{item.titleDescription}</TableBody>
+					<TableBody>
+						{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
+					</TableBody>
+				</TableRow>
+			)});
 		}
-		console.log(normalizeScore(Math.floor(item.fit)))
-		
-		return (
-			<TableRow key={item} onClick={this.handleModalOportunities}>
-				<TableBody
-					spanWidth
-					onClick={handleFavorite}
-				>
-					<img src={isFavorite ? start : startHover}/>
-				</TableBody>
-				<TableBody spanWidth>{Math.floor(normalizeScore(item.fit))}%</TableBody>
-				<TableBody>{item.category}</TableBody>
-				<TableBody>{item.oportunityId}</TableBody>
-				<TableBody>{item.titleDescription}</TableBody>
-				<TableBody>
-					{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
-				</TableBody>
-			</TableRow>
-		)});
-	}
+
 
 	render() {
 		const {
-			isOportunitesModal, isModalOpen,
+			isOportunitesModal, isModalOpen, isShowFavorites
 		} = this.state;
-  	return (
+
+		return (
 			<Fragment>
 				<MenuResponsive />
 				<Container>

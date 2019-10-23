@@ -41,7 +41,8 @@ const NavBar = styled.div`
 
 const BoxLogo = styled.figure`
   width: 100%;
-  height: 15%;
+	// height: 20%;
+	height: 15vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,12 +80,13 @@ const ImageMenuTablet = styled.img`
 
 const BoxMenu = styled.div`
   width: 100%;
-  height: 40%;
+	// height: 40%;
+	height: 300px;
   display: flex;
 	justify-content: flex-end;
 	
 	@media (max-width: 1024px) {
-		height: 60%;
+		height: 65%;
 	}
 	@media (max-width: 375px) {
 		height: 100%;
@@ -139,11 +141,11 @@ const MenuItem = styled(Link)`
 
 const WrapperInfo = styled.div`
   width: 80%;
-	height: 12%;
+	height: 18%;
   display: flex;
   align-items: center;
   justify-centent: center;
-  border-top: solid #000 1px;
+  border-top: solid #EBEBEB 1px;
 
 	@media(max-width: 375px) {
 		display: none;
@@ -202,8 +204,8 @@ class SideBar extends Component {
 				{
 					disable: false,
 					iconSelected: FilterImg,
-					text: 'Filtros e notificações',
-					route: '/filters-and-notifications',
+					text: 'Notificações',
+					route: '/notifications',
 				},
 				{
 					disable: true,

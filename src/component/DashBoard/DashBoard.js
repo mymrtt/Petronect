@@ -20,9 +20,7 @@ const Container = styled.div`
 	}
 
 	@media(max-width: 360px) {	
-		height: auto;
 	}
-	
 `;
 
 const Content = styled.div`
@@ -41,6 +39,7 @@ const Content = styled.div`
 
 const ContainerSidebar = styled.span`
 	display: flex;
+	width: 20%;
 	@media (max-width: 960px) {
 		display: none;
 	}

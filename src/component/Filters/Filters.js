@@ -14,8 +14,9 @@ import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
 const Container = styled.div`
+	width: 80%;
 	@media (max-width: 960px) {
-		width: 95vw;
+		width: 95%;
 		height: 100%;
 		overflow-y: scroll;
 	}
@@ -32,8 +33,6 @@ const Container = styled.div`
 const Content = styled.div`
 	padding-top: 1.3rem;
 	padding-right: 1rem;
-	// width: 75vw;
-	width: 78vw;
 	height: 95vh;
 	display: flex;
 	justify-content: space-between;
@@ -42,8 +41,6 @@ const Content = styled.div`
 	background-color: #fff;
 	@media(max-width: 960px) {
 		width: 95vw;
-		// height: 100%;
-		// overflow-y: scroll;
 	}
 	@media(max-width: 648px) {
 		margin-top: 6rem;
@@ -80,7 +77,7 @@ const ContainerNotifications = styled.div`
 		padding-top: 1rem;
 		padding-left: .5rem;
 		width: 100%;
-		height: 45vh;
+		height: 100%;
 		border-left: 0;
 	}
 `;
@@ -146,7 +143,6 @@ const SearchInput = styled.input`
 	outline: none;
 	@media(max-width: 648px) {
 		width: 85%;
-		height: 2rem;
 	}
 `;
 
@@ -252,7 +248,7 @@ class Filters extends Component {
 
 	renderWrapperSearch = () => (
 		<WrapperSearch>
-			<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
+			<AddFilterTitle searchTitle smallTitle>Pesquisar Notificação</AddFilterTitle>
 			<ContainerSearchInput>
 				<SearchInput
 					placeholder={'Digite aqui para pesquisar'}
