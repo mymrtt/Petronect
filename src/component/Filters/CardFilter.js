@@ -112,7 +112,7 @@ class CardFilter extends Component {
 						<TagTitle>{card.title}</TagTitle>
 						<CardEdit onClick={handleOpenModal}>
 							<Image src={edit} />
-							<TagTitle cardText>Edit</TagTitle>
+							<TagTitle cardText>Editar</TagTitle>
 						</CardEdit>
 					</WrapperCard>
 					<ContainerTags>
