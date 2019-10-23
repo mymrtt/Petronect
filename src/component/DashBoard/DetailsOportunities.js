@@ -27,6 +27,7 @@ const Container = styled.div`
 	border: .5px solid #115680;
 	border-radius: 8px;
 	background: #fff;
+	z-index: 2;
 `;
 
 const DatailsHeader = styled.div`
