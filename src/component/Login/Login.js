@@ -58,7 +58,7 @@ const InputContainer = styled.form`
 	height: 90vh;
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		padding: 2rem;
 		width: 85%;
 		height: min-content;
@@ -158,7 +158,7 @@ const Button = styled.button`
 	color: #FAFAFA;
 	cursor: pointer;
 
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		width: 100%;
 	}
 	@media (max-width: 450px) {
@@ -172,7 +172,7 @@ const AltBox = styled.span`
 	justify-content: space-between;
 	width: 52.5%;
 	margin-top: 3rem;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		margin-top: 1rem;
 		width: 60%;
 	}
@@ -201,7 +201,7 @@ const LoginBox = styled.div`
 	width: 60%;
 	height: 90vh;
 	border-radius: 0 0 6px 6px;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		width: 95%;
     height: 40vh;
 		justify-content: space-evenly;
@@ -214,14 +214,14 @@ const LoginBox = styled.div`
 
 const Img = styled.img`
 	width: 60%;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
     width: 50%;
 	}
 `;
 
 const TextBox = styled.span`
 	width: 60%;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
     width: 35%;
 	}
 `;
@@ -232,7 +232,7 @@ const Text = styled.p`
 	letter-spacing: 0.18px;
 	line-height: 2rem;
 	color: #FFFFFF;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		margin: 0;
 	}
 `;
@@ -242,7 +242,7 @@ const LoginMessageError = styled.span`
 	right: 0;
 	bottom: -1.5rem;
 
-	@media	(max-width: 768px) {
+	@media	(max-width: 960px) {
 		width: 55%;
 	}
 	@media (max-width: 450px) {
@@ -254,7 +254,7 @@ const TextError = styled.p`
 	font: 500 .80rem eurostile, sans serif;
 	color: #D53B40;
 
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		margin: .1rem 0;
 	}
 `;
@@ -283,7 +283,7 @@ const CreateBox = styled.form`
 	@media(max-width: 1440px) {
 		width: 50%;
 	}
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 75%;
 	}
 	@media(max-width: 648px) {
@@ -301,7 +301,7 @@ const TermsText = styled.p`
 	strong {
 		text-decoration: underline;
 	}
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 100%;
 	}
 `;
@@ -312,7 +312,7 @@ const CreateTitle = styled.h1`
 	font: 700 1.5rem Eurostile;
 	letter-spacing: 0;
 	color: #116EA0;
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		font-size: 1.3rem;
 	}
 `;
