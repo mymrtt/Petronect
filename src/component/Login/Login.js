@@ -40,6 +40,10 @@ const Container = styled.div`
 	padding: 0 4rem;
 	@media (max-width: 960px) {
 		padding-bottom: 2rem;
+
+	@media (max-width: 768px) {
+		flex-direction: ${props => !(props.screen === 'create') && 'column-reverse'};
+		justify-content: center;
 		align-items: center;
 	}
 	@media (max-width: 450px) {
@@ -86,6 +90,9 @@ const LogoCreate = styled.img`
 	width: 20%;
 	@media(max-width: 960px) {
 		padding-bottom: 2rem;
+	  min-width: 275px;
+	@media(max-width: 768px) {
+		padding: 2rem;
     width: 30%;
 	}
 `;
@@ -100,6 +107,10 @@ const InputBox = styled.span`
 	
 	@media (max-width: 768px) {
 		width: 100%;
+
+	}
+	@media (max-width: 478px) {
+		margin-top: ${(props) => props.last && '0rem'};
 	}
 `;
 
