@@ -177,7 +177,6 @@ const LabelBox = styled.label`
   border: solid #116EA0 .5px;
   display: flex;
   align-items: center;
-	z-index: 5;
 
 	@media (max-width: 648px) {
     margin: 0;
@@ -628,7 +627,8 @@ class RelevanceMatch extends Component {
 	render() {
 		const {
 			isOportunitesModal, isModalOpen, isShowFavorites
-		} = this.state;
+} = this.state;
+
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -749,8 +749,7 @@ class RelevanceMatch extends Component {
 										</TableBody>
 									</TableRow>
 								);
-
-})}
+ 							})}
 						</Table>
 					</WrapperTable>
 					<Fragment>
