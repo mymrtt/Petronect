@@ -6,9 +6,9 @@ export const getAllOpportunitesMiddleware = (info) => axios({
 	url: `${API_URL}/opportunities/search`,
 	method: 'post',
 	headers: {
-		Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaWNlcm9wenJAZ21haWwuY29tIiwiZXhwIjoxNTcyNjE4ODE4fQ.qHgY78Or9e3Qbg-mb-_GsyC-k3lL8d7iHErcJkqpXwLedJfoniG8lIiVGJT10UHeRq8uH7GUBsSvu5-Aq9y-4A',
+		Authorization: info.accessToken,
 	},
-	data: ['parafuso', 'capacete'],
+	data: info.keywords,
 });
 
 export const getOpportunitesById = (info) => axios({
