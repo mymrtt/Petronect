@@ -46,15 +46,23 @@ const ContainerSidebar = styled.span`
 	}
 `;
 
-const DashBoard = () => (
-	<Container>
-		<Content>
-			<ContainerSidebar>
-				<SideBar />
-			</ContainerSidebar>
-			<RelevanceMatch />
-		</Content>
-	</Container>
-);
+class DashBoard extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {};
+	}
+	render() {
+		return (
+			<Container>
+				<Content>
+					<ContainerSidebar>
+						<SideBar />
+					</ContainerSidebar>
+					<RelevanceMatch history={this.props.history}/>
+				</Content>
+			</Container>
+		)
+	}
+}
 
 export default DashBoard;

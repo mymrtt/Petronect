@@ -1,11 +1,10 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
 // import { Link } from 'react-router-dom';
+import * as Cookies from 'js-cookie';
 
 // Modules
 import {
@@ -251,14 +250,14 @@ const ClosedKeyword = styled.button`
 	border-radius: 19px;
 `;
 
-// const Overlay = styled.div` 
-// 	width: 100vw;
-// 	height: 100vh;
-// 	position: fixed;
-// 	top: 0;
-// 	left: 0;
-// 	z-index: -2;
-// `;
+const Overlay = styled.div` 
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -2;
+`;
 
 const BtnCreateFilter = styled.button`
 	width: 251px;
@@ -423,7 +422,20 @@ class RelevanceMatch extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getAllOpportunitiesThunk(this.state.opportunities);
+		this.getToken();
+	}
+
+	getToken = () => {
+		try {
+			const response = Cookies.get('petronect_creds');
+			
+			if (response !== undefined) {
+				this.props.getAllOpportunitiesThunk(); 
+			}
+		} catch (err) {
+			console.log(err);
+			this.props.history.replace(`/`)
+		}
 	}
 
 	hoverFavorites = () => {
@@ -438,17 +450,13 @@ class RelevanceMatch extends Component {
 		const alreadyExisting = this.props.keywords.filter(item => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
-			this.props.addItem(keyword);
+			this.props.getAllOpportunitiesThunk('passei e sai correndo');
+
+			// this.props.addItem(keyword);
 		}
 		this.inputSearch.value = '';
 	}	
 
-	handleKeyClick = (event) => {
-		if (event) {
-			event.preventDefault();
-			this.props.addItem(this.state.keywords);
-		}
-	}
 
 	handleClick = (event) => {
 		event.preventDefault();
@@ -494,7 +502,7 @@ class RelevanceMatch extends Component {
 		this.setState({ inputSearch: false });
 	}
 
-	handleSearchInput = () => (
+	renderSearchInput = () => (
 		<>
 		<FormHead onSubmit= {this.handleKeyPress}>
 			<LabelBox 
@@ -534,28 +542,19 @@ class RelevanceMatch extends Component {
 	}
 
 	handleModalOportunities = () => {
-		const { isOportunitesModal } = this.state;
-		this.setState({ isOportunitesModal: !isOportunitesModal });
+		this.setState(prevState => ({
+			isOportunitesModal: !prevState.isOportunitesModal,
+		}));
 	}
 
 	renderModalOportunities = () => (
 		<DetailsOportunities handleModalOportunities={this.handleModalOportunities} />
 	)
 
-	showFavorites = () => {
-		const { oportunities } = this.props;
-
-		const filterFaves = values(oportunities).filter((item) => item.favorite);
-
-		this.setState({ filterFaves });
-		console.log('oioio', filterFaves);
-	}
-
 	handleOpotunity = () => {
-		const { isShowFavorites } = this.state;
-
-		this.setState({ isShowFavorites: !isShowFavorites });
-		console.log('favorito', this.state.isShowFavorites);
+		this.setState(prevState => ({
+			isShowFavorites: !prevState.isShowFavorites,
+		}));
 	}
 
 	renderOportunityList = () => {
@@ -566,10 +565,7 @@ class RelevanceMatch extends Component {
 		} else {
 			list = values(this.props.oportunities);	
 		}
-
-		console.log(this.props.favoriteList.map(item => this.props.oportunities[item]))
 		
-		console.log(list);
 		return list.map((item) => {
 		const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0)
 
@@ -589,13 +585,12 @@ class RelevanceMatch extends Component {
 				>
 					<img src={isFavorite ? start : startHover}/>
 				</TableBody>
-				<TableBody spanWidth>{item.fit}</TableBody>
+				<TableBody spanWidth>{parseFloat(item.fit)}</TableBody>
 				<TableBody>{item.category}</TableBody>
 				<TableBody>{item.oportunityId}</TableBody>
 				<TableBody>{item.titleDescription}</TableBody>
 				<TableBody>
-					{item.deadLineInitial}
-					{item.deadLineLastOne}
+					{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
 				</TableBody>
 			</TableRow>
 		)});
@@ -603,7 +598,7 @@ class RelevanceMatch extends Component {
 
 	render() {
 		const {
-			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
+			isOportunitesModal, isModalOpen,
 		} = this.state;
   	return (
 			<Fragment>
@@ -619,7 +614,7 @@ class RelevanceMatch extends Component {
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
 										<WrapInput>
-											{this.handleSearchInput()}
+											{this.renderSearchInput()}
 											{this.state.inputSearch &&
 												<Overlay
 													onClick={this.resetInput}
