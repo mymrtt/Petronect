@@ -41,7 +41,8 @@ const NavBar = styled.div`
 
 const BoxLogo = styled.figure`
   width: 100%;
-  height: 20%;
+	// height: 20%;
+	height: 15vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,7 +80,8 @@ const ImageMenuTablet = styled.img`
 
 const BoxMenu = styled.div`
   width: 100%;
-  height: 40%;
+	// height: 40%;
+	height: 300px;
   display: flex;
 	justify-content: flex-end;
 	
@@ -202,8 +204,8 @@ class SideBar extends Component {
 				{
 					disable: false,
 					iconSelected: FilterImg,
-					text: 'Filtros e notificações',
-					route: '/filters-and-notifications',
+					text: 'Notificações',
+					route: '/notifications',
 				},
 				{
 					disable: true,

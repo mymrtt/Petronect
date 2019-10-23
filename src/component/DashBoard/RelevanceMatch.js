@@ -54,8 +54,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Container = styled.div`
-	// width: 75vw;
-	width: 78vw;
+	// width: 78vw;
+	width: 80%;
   border-radius: 0 4px 0 0 ;
   background: #fff;
 
