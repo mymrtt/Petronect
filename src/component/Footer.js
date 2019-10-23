@@ -49,8 +49,7 @@ const FooterMobileItem = styled.div`
 const FooterMobileText = styled(Link)`
 	@media (max-width: 648px) {
 		margin-left: 0.4rem;
-		text-decoration: none
-		font-size: .80rem;
+		font-size: .75rem;
 		font-weight: 900;
 		color: #116ea0;
 		white-space: nowrap;
