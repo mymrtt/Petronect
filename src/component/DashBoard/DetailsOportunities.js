@@ -141,12 +141,13 @@ const Description = styled.p`
 `;
 
 const Text = styled.p`
-	${'' /* padding-bottom: 0.4rem; */}
-	${'' /* width: ${(props) => props.width}; */}
 	padding: ${(props) => (props.padding ? props.padding : '0 0 0.25rem 0')};
 	color: ${(props) => (props.title ? '#8C8C8C' : '#404040')};
 	font-weight: ${(props) => (props.bold ? 600 : 400)};
-	font-size: ${(props) => (props.fontSize ? '1rem' : '0.90rem')}
+	font-size: ${(props) => (props.fontSize ? '1rem' : '0.90rem')};
+	@media	(max-width: 648px) {
+		padding: ${(props) => (props.padding ? props.padding : '0 0 0 0')};
+	}
 `;
 
 const InfoContent = styled.div`
@@ -177,13 +178,13 @@ display: none;
 const IconWrapMobile = styled.span`
 	display: none;
 	@media (max-width: 648px) {
-		width: 22%;
+		${'' /* width: 22%; */}
 		display: flex;
 		justify-content: space-between;
 	}
-	@media (max-width: 545px) {
+	${'' /* @media (max-width: 545px) {
 		width: 30%;
-	}
+	} */}
 `;
 
 const BtnIcon = styled.button`
@@ -192,10 +193,16 @@ const BtnIcon = styled.button`
 	outline: none;
 	cursor: pointer;
 	margin-right: 1.5rem;
+	@media (max-width: 648px) {
+		margin-right: 0;
+	}
 `;
 
 const BoxInfo = styled.div`
 	padding-bottom: 2rem;
+	@media	(max-width: 648px) {
+		padding-bottom: 1rem;
+	}
 `;
 
 const BoxButton = styled.div`
@@ -207,7 +214,7 @@ const BoxButton = styled.div`
 	align-items: center;
 	outline: none;
 	@media	(max-width: 450px) {
-		padding: 1rem 0;
+		padding: 0 0 1rem 0;
 	}
 `;
 
@@ -316,7 +323,7 @@ class DetailsOportunies extends Component {
 					<DetailsOportuny>
 						<InfoContainer>
 							<InfoWrap>
-								<Text title fontSize>Título e descrição oooooo</Text>
+								<Text title fontSize>Título e descrição</Text>
 								<Description>Contrato global - manilhas de carga</Description>
 							</InfoWrap>
 
@@ -338,9 +345,11 @@ class DetailsOportunies extends Component {
 									<Text bold>Remoção de material</Text>
 								</InfoWrap>
 								<IconWrapMobile>
-									<Image src={shareIcon} icon />
-									<Image src={attachIcon} icon />
-									<Image src={doubtIcon} icon />
+									<BtnIcon>
+										<Image src={attachIcon} icon />
+									</BtnIcon>
+									{/* <Image src={shareIcon} icon /> */}
+									{/* <Image src={doubtIcon} icon /> */}
 								</IconWrapMobile>
 							</CategoryContainer>
 
@@ -378,15 +387,15 @@ class DetailsOportunies extends Component {
 							</BoxInfo>
 
 							<IconWrap>
-								<BtnIcon>
+								{/* <BtnIcon>
 									<Image src={shareIcon} icon />
-								</BtnIcon>
+								</BtnIcon> */}
 								<BtnIcon>
 									<Image src={attachIcon} icon />
 								</BtnIcon>
-								<BtnIcon>
+								{/* <BtnIcon>
 									<Image src={doubtIcon} icon />
-								</BtnIcon>
+								</BtnIcon> */}
 							</IconWrap>
 						</InfoContent>
 					</DetailsOportuny>
