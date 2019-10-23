@@ -20,6 +20,7 @@ const Container = styled.div`
 	}
 	@media (max-width: 648px) {
 		// margin-left: .5rem;
+		height: 6.3rem;
     width: 100%;
 	}
 `;
@@ -111,7 +112,7 @@ class CardFilter extends Component {
 						<TagTitle>{card.title}</TagTitle>
 						<CardEdit onClick={handleOpenModal}>
 							<Image src={edit} />
-							<TagTitle cardText>Edit</TagTitle>
+							<TagTitle cardText>Editar</TagTitle>
 						</CardEdit>
 					</WrapperCard>
 					<ContainerTags>

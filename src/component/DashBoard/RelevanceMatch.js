@@ -1,10 +1,10 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
+// import { Link } from 'react-router-dom';
+import * as Cookies from 'js-cookie';
 
 // Modules
 import {
@@ -74,7 +74,6 @@ const Container = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -253,12 +252,12 @@ const ClosedKeyword = styled.button`
 `;
 
 const Overlay = styled.div` 
-	${'' /* width: 100vw;
+	width: 100vw;
 	height: 100vh;
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: -2; */}
+	z-index: -2;
 `;
 
 const BtnCreateFilter = styled.button`
@@ -345,17 +344,17 @@ const WrapperTable = styled.div`
 	}
 `;
 
-const Table = styled.div`
+const Table = styled.table`
   width: 100%;
   background: #fff;
   border-radius: 5px;
-	${'' /* overflow-y: scroll;	 */}
+	${''}
   >:nth-child(odd) {
     background: #F7F7F7; 
   }
 `;
 
-const HeaderRow = styled.div`
+const HeaderRow = styled.th`
   width: 100%;
   height: 32px; 
 	display: flex;
@@ -368,7 +367,7 @@ const HeaderRow = styled.div`
 	}
 `;
 
-const TableRow = styled.div`
+const TableRow = styled.tr`
   width: 100%;
   height: 32px; 
 	display: flex;
@@ -387,24 +386,27 @@ const TableRow = styled.div`
 	}
 
 	@media(max-width: 420px) {
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
 		align-items: flex-end;
 		padding: .5rem 0;
 	}
 `;
 
-const BoxTableBody = styled.div`
-	display: flex;
-	width: auto;
+const BoxTableBody = styled.div`	
+		display: flex;
+		width: auto;
 
 	@media(max-width: 420px) {
 		height: 100%;
 		flex-direction: column-reverse;
 		justify-content: space-between;
 	}
+
+	@media(min-width: 768px) {
+	}
 `;
 
-const TableHeader = styled.span`
+const TableHeader = styled.td`
   width: ${(props) => (props.boxWidth ? '100px' : '100%')};
   padding-left: 1rem;
 	margin-right: 1rem;
@@ -413,9 +415,8 @@ const TableHeader = styled.span`
   font-weight: 500;
 `;
 
-const TableBody = styled.span`
-	${'' /* width: ${(props) => (props.spanWidth ? '65px' : '80%')};; */}
-	width: 100%;
+const TableBody = styled.td`
+	width: ${(props) => (props.spanWidth ? '65px' : '80%')};
   padding-left: 1rem;
 	margin-right: 1rem;
   text-align: left;
@@ -448,7 +449,20 @@ class RelevanceMatch extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getAllOpportunitiesThunk(this.state.opportunities);
+		this.getToken();
+	}
+
+	getToken = () => {
+		try {
+			const response = Cookies.get('petronect_creds');
+
+			if (response !== undefined) {
+				this.props.getAllOpportunitiesThunk();
+			}
+		} catch (err) {
+			console.log(err);
+			this.props.history.replace('/');
+		}
 	}
 
 	hoverFavorites = () => {
@@ -463,17 +477,13 @@ class RelevanceMatch extends Component {
 		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
-			this.props.addItem(keyword);
+			this.props.getAllOpportunitiesThunk('passei e sai correndo');
+
+			// this.props.addItem(keyword);
 		}
 		this.inputSearch.value = '';
 	}
 
-	handleKeyClick = (event) => {
-		if (event) {
-			event.preventDefault();
-			this.props.addItem(this.state.keywords);
-		}
-	}
 
 	handleClick = (event) => {
 		event.preventDefault();
@@ -519,7 +529,7 @@ class RelevanceMatch extends Component {
 		this.setState({ inputSearch: false });
 	}
 
-	handleSearchInput = () => (
+	renderSearchInput = () => (
 		<>
 		<FormHead onSubmit= {this.handleKeyPress}>
 			<LabelBox
@@ -559,35 +569,67 @@ class RelevanceMatch extends Component {
 	}
 
 	handleModalOportunities = () => {
-		const { isOportunitesModal } = this.state;
-		this.setState({ isOportunitesModal: !isOportunitesModal });
+		this.setState((prevState) => ({
+			isOportunitesModal: !prevState.isOportunitesModal,
+		}));
 	}
 
 	renderModalOportunities = () => (
 		<DetailsOportunities handleModalOportunities={this.handleModalOportunities} />
 	)
 
-	showFavorites = () => {
-		const { oportunities } = this.props;
-
-		const filterFaves = values(oportunities).filter((item) => item.favorite);
-
-		this.setState({ filterFaves });
-		console.log('oioio', filterFaves);
+	handleOpotunity = () => {
+		this.setState((prevState) => ({
+			isShowFavorites: !prevState.isShowFavorites,
+		}));
 	}
 
-	handleOpotunity = () => {
-		const { isShowFavorites } = this.state;
+	renderOportunityList = () => {
+		let list = [];
 
-		this.setState({ isShowFavorites: !isShowFavorites });
-		console.log('favorito', this.state.isShowFavorites);
+		if (this.state.isShowFavorites) {
+			list = this.props.favoriteList.map((item) => this.props.oportunities[item]);
+		} else {
+			list = values(this.props.oportunities);
+		}
+
+		return list.map((item) => {
+			const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0);
+
+			const handleFavorite = (event) => {
+				if (isFavorite) {
+					this.handleDesfavor(event, item.oportunityId);
+				} else {
+					this.handleFavorite(event, item.oportunityId);
+				}
+			};
+
+			return (
+				<TableRow key={item} onClick={this.handleModalOportunities}>
+					<TableBody
+						spanWidth
+						onClick={handleFavorite}
+					>
+						<img src={isFavorite ? start : startHover}/>
+					</TableBody>
+					<TableBody spanWidth>{parseFloat(item.fit)}</TableBody>
+					<TableBody>{item.category}</TableBody>
+					<TableBody>{item.oportunityId}</TableBody>
+					<TableBody>{item.titleDescription}</TableBody>
+					<TableBody>
+						{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
+					</TableBody>
+				</TableRow>
+			);
+		});
 	}
 
 	render() {
 		const {
-			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
-		} = this.state;
-  	return (
+			isOportunitesModal, isModalOpen, isShowFavorites
+} = this.state;
+
+		return (
 			<Fragment>
 				<MenuResponsive />
 				<Container>
@@ -601,8 +643,7 @@ class RelevanceMatch extends Component {
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
 										<WrapInput>
-
-											{this.handleSearchInput()}
+											{this.renderSearchInput()}
 											{this.state.inputSearch
 												&& <Overlay
 													onClick={this.resetInput}
@@ -688,20 +729,20 @@ class RelevanceMatch extends Component {
 								};
 								return (
 									<TableRow key={item} onClick={this.handleModalOportunities}>
-										<BoxTableBody>
-											<TableBody
-												spanWidth
-												onClick={handleFavorite}
-											>
-												<img src={isFavorite ? start : startHover}/>
-											</TableBody>
-											<TableBody spanWidth>{item.fit}</TableBody>
-										</BoxTableBody>
-										<BoxTableBody>
-											<TableBody>{item.category}</TableBody>
-											<TableBody displayNone >{item.oportunityId}</TableBody>
-											<TableBody>{item.titleDescription}</TableBody>
-										</BoxTableBody>
+										{/* <BoxTableBody> */}
+										<TableBody
+											spanWidth
+											onClick={handleFavorite}
+										>
+											<img src={isFavorite ? start : startHover}/>
+										</TableBody>
+										<TableBody spanWidth>{item.fit}</TableBody>
+										{/* </BoxTableBody> */}
+										{/* <BoxTableBody> */}
+										<TableBody>{item.category}</TableBody>
+										<TableBody displayNone >{item.oportunityId}</TableBody>
+										<TableBody>{item.titleDescription}</TableBody>
+										{/* </BoxTableBody> */}
 										<TableBody>
 											{item.deadLineInitial}
 											{item.deadLineLastOne}

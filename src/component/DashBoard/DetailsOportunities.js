@@ -167,12 +167,12 @@ const IconWrap = styled.span`
 `;
 
 const InfoContentMobile = styled.div`
-display: none;
-@media (max-width: 648px) {
-	display: block;
-	display: flex;
-	justify-content: space-between;
-}
+	display: none;
+	@media (max-width: 648px) {
+		display: block;
+		display: flex;
+		justify-content: space-between;
+	}
 `;
 
 const IconWrapMobile = styled.span`
