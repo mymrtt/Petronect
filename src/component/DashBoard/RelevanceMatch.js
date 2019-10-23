@@ -346,7 +346,7 @@ const WrapperTable = styled.div`
 	}
 `;
 
-const Table = styled.div`
+const Table = styled.table`
   width: 100%;
   background: #fff;
   border-radius: 5px;
@@ -356,7 +356,7 @@ const Table = styled.div`
   }
 `;
 
-const HeaderRow = styled.div`
+const HeaderRow = styled.th`
   width: 100%;
   height: 32px; 
 	display: flex;
@@ -369,7 +369,7 @@ const HeaderRow = styled.div`
 	}
 `;
 
-const TableRow = styled.div`
+const TableRow = styled.tr`
   width: 100%;
   height: 32px; 
 	display: flex;
@@ -388,24 +388,27 @@ const TableRow = styled.div`
 	}
 
 	@media(max-width: 420px) {
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
 		align-items: flex-end;
 		padding: .5rem 0;
 	}
 `;
 
-const BoxTableBody = styled.div`
-	display: flex;
-	width: auto;
+const BoxTableBody = styled.div`	
+		display: flex;
+		width: auto;
 
 	@media(max-width: 420px) {
 		height: 100%;
 		flex-direction: column-reverse;
 		justify-content: space-between;
 	}
+
+	@media(min-width: 768px) {
+	}
 `;
 
-const TableHeader = styled.span`
+const TableHeader = styled.td`
   width: ${(props) => (props.boxWidth ? '100px' : '100%')};
   padding-left: 1rem;
 	margin-right: 1rem;
@@ -414,9 +417,8 @@ const TableHeader = styled.span`
   font-weight: 500;
 `;
 
-const TableBody = styled.span`
-	${'' /* width: ${(props) => (props.spanWidth ? '65px' : '80%')};; */}
-	width: 100%;
+const TableBody = styled.td`
+	width: ${(props) => (props.spanWidth ? '65px' : '80%')};
   padding-left: 1rem;
 	margin-right: 1rem;
   text-align: left;
@@ -689,7 +691,7 @@ class RelevanceMatch extends Component {
 								};
 								return (
 									<TableRow key={item} onClick={this.handleModalOportunities}>
-										<BoxTableBody>
+										{/* <BoxTableBody> */}
 											<TableBody
 												spanWidth
 												onClick={handleFavorite}
@@ -697,12 +699,12 @@ class RelevanceMatch extends Component {
 												<img src={isFavorite ? start : startHover}/>
 											</TableBody>
 											<TableBody spanWidth>{item.fit}</TableBody>
-										</BoxTableBody>
-										<BoxTableBody>
+										{/* </BoxTableBody> */}
+										{/* <BoxTableBody> */}
 											<TableBody>{item.category}</TableBody>
 											<TableBody displayNone >{item.oportunityId}</TableBody>
 											<TableBody>{item.titleDescription}</TableBody>
-										</BoxTableBody>
+										{/* </BoxTableBody> */}
 										<TableBody>
 											{item.deadLineInitial}
 											{item.deadLineLastOne}
