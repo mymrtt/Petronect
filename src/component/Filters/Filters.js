@@ -143,7 +143,7 @@ const SearchInput = styled.input`
 	outline: none;
 	@media(max-width: 648px) {
 		width: 85%;
-		height: 2rem;
+		// height: 2rem;
 	}
 `;
 
@@ -249,7 +249,7 @@ class Filters extends Component {
 
 	renderWrapperSearch = () => (
 		<WrapperSearch>
-			<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
+			<AddFilterTitle searchTitle smallTitle>Pesquisar Notificação</AddFilterTitle>
 			<ContainerSearchInput>
 				<SearchInput
 					placeholder={'Digite aqui para pesquisar'}

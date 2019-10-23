@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { values } from 'lodash';
 
 // Images
+import deleteIcon from '../../assets/icon/delete.svg';
 
 const Container = styled.div`
 	margin-bottom: 1rem;
@@ -47,8 +48,6 @@ const WrapperCard = styled.div`
 	height: 2rem;
 	display: flex;
 	align-items: center;
-	color: #fff;
-	font-size: 1rem;
 	background-color: ${(props) => props.background};
 	justify-content: space-between;
 `;
@@ -76,9 +75,8 @@ const SuggestionsText = styled.p`
 `;
 
 const TagTitle = styled.p`
-	// margin-left: ${(props) => props.cardText && '.5rem'};
-	padding: ${(props) => props.cardText && '.3rem'};
-	font-size: ${(props) => props.cardText && '.75rem'};
+	color: #fff;
+	font-size: 1rem;
 `;
 
 const CardEdit = styled.div`
@@ -87,12 +85,10 @@ const CardEdit = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid #fff;
-	border-radius: 50%;
 `;
 
 const Image = styled.img`
-	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
+	width: ${(props) => (props.logoTablet ? '25%' : '18px')};
 	@media (max-width: 640px) {
 		width: ${(props) => props.magnifying && '18px'};
 	}
@@ -103,6 +99,10 @@ class CardFilter extends Component {
 		super(props);
 		this.state = {
 		};
+	}
+
+	handleDeleteCard = () => {
+		console.log('chegou');
 	}
 
 	render() {
@@ -116,9 +116,8 @@ class CardFilter extends Component {
 						background={this.props.item ? this.props.item : '#115680'}
 					>
 						<TagTitle>{card.title}</TagTitle>
-						<CardEdit>
-							{/* <Image src={edit} /> */}
-							<TagTitle cardText>X</TagTitle>
+						<CardEdit onClick={this.handleDeleteCard}>
+							<Image src={deleteIcon} />
 						</CardEdit>
 					</WrapperCard>
 					<ContainerTags>
@@ -138,6 +137,5 @@ class CardFilter extends Component {
 		);
 	}
 }
-
 
 export default CardFilter;
