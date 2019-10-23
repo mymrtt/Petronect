@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { values } from 'lodash';
 
 // Images
-import edit from '../../assets/icon/editar.svg';
 
 const Container = styled.div`
 	margin-bottom: 1rem;
@@ -19,7 +18,6 @@ const Container = styled.div`
 		flex-direction: column;
 	}
 	@media (max-width: 648px) {
-		// margin-left: .5rem;
 		height: 6.3rem;
     width: 100%;
 	}
@@ -78,11 +76,19 @@ const SuggestionsText = styled.p`
 `;
 
 const TagTitle = styled.p`
-	margin-left: ${(props) => props.cardText && '.5rem'};
+	// margin-left: ${(props) => props.cardText && '.5rem'};
+	padding: ${(props) => props.cardText && '.3rem'};
+	font-size: ${(props) => props.cardText && '.75rem'};
 `;
 
 const CardEdit = styled.div`
+	width: 20px;
+	height: 20px;
 	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #fff;
+	border-radius: 50%;
 `;
 
 const Image = styled.img`
@@ -100,7 +106,7 @@ class CardFilter extends Component {
 	}
 
 	render() {
-		const { card, handleOpenModal } = this.props;
+		const { card } = this.props;
 		return (
 			<Container>
 				<Card
@@ -110,9 +116,9 @@ class CardFilter extends Component {
 						background={this.props.item ? this.props.item : '#115680'}
 					>
 						<TagTitle>{card.title}</TagTitle>
-						<CardEdit onClick={handleOpenModal}>
-							<Image src={edit} />
-							<TagTitle cardText>Edit</TagTitle>
+						<CardEdit>
+							{/* <Image src={edit} /> */}
+							<TagTitle cardText>X</TagTitle>
 						</CardEdit>
 					</WrapperCard>
 					<ContainerTags>

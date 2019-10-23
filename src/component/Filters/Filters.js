@@ -14,8 +14,9 @@ import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
 const Container = styled.div`
+	width: 80%;
 	@media (max-width: 960px) {
-		width: 95vw;
+		width: 95%;
 		height: 100%;
 		overflow-y: scroll;
 	}
@@ -32,21 +33,14 @@ const Container = styled.div`
 const Content = styled.div`
 	padding-top: 1.3rem;
 	padding-right: 1rem;
-	// width: 75vw;
-	width: 78vw;
 	height: 95vh;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
 	background-color: #fff;
-	@media(max-width: 1024px) {
-		width: 73vw;
-	}
 	@media(max-width: 960px) {
 		width: 95vw;
-		// height: 100%;
-		// overflow-y: scroll;
 	}
 	@media(max-width: 648px) {
 		margin-top: 6rem;
