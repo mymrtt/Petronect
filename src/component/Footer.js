@@ -64,16 +64,11 @@ class Footer extends Component {
 		};
 	}
 
-	// changeColor = (event) => {
-	// 	this.setState({
-	// 		isBackground: !this.state.isBackground,
-	// 	});
-	// }
-
 	render() {
 		return (
 			<FooterMobile>
 				<FooterMobileItem>
+				<Image src={RelevanceImg} />
 					<FooterMobileText to="/match-relevancia">Match Relevância</FooterMobileText>
 				</FooterMobileItem>
 				<FooterMobileItem>
