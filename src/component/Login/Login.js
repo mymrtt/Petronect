@@ -419,6 +419,7 @@ class Login extends Component {
 	handleBackLogin = () => {
 		this.setState({
 			currentScreen: 'login',
+			isCreated: false,
 		});
 	}
 

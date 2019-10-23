@@ -178,7 +178,6 @@ const LabelBox = styled.label`
   border: solid #116EA0 .5px;
   display: flex;
   align-items: center;
-	z-index: 5;
 
 	@media (max-width: 648px) {
     margin: 0;
@@ -425,11 +424,11 @@ const TableBody = styled.span`
 
 	@media(max-width: 960px) {
 		width: auto;
-		display: ${(props) => (props.displayNone ? 'none': 'static')}
+		display: ${(props) => (props.displayNone ? 'none' : 'static')}
 	}
 
 	@media(max-width: 420px) {
-		display: ${(props) => (props.displayNone ? 'none': 'static')}
+		display: ${(props) => (props.displayNone ? 'none' : 'static')}
 	}
 `;
 
@@ -708,8 +707,8 @@ class RelevanceMatch extends Component {
 											{item.deadLineLastOne}
 										</TableBody>
 									</TableRow>
-								)
-; })}
+								);
+ 							})}
 						</Table>
 					</WrapperTable>
 					<Fragment>

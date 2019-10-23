@@ -16,6 +16,7 @@ const Overlay = styled.div`
 	left: 0;
 	width: 100vw;
 	height: 100vh;
+	z-index: 5;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -28,6 +29,10 @@ const Container = styled.div`
 	border-radius: 8px;
 	background: #fff;
 	z-index: 2;
+	margin: 0 0.625rem;
+	${'' /* @media	(max-width: 960px) {
+		width: 65%;
+	} */}
 `;
 
 const DatailsHeader = styled.div`
@@ -51,6 +56,9 @@ const Image = styled.img`
 
 const TextHeader = styled.p`
 	margin-left: 1rem;
+	color: #009D00;
+	font-size: .8rem;
+	font-weight: 600;
 `;
 
 const CloseContainer = styled.div`
@@ -65,6 +73,12 @@ const CloseContainer = styled.div`
 	border: 0.5px solid #E6E6E6;
 	border-radius: 50%;
 	background-color: #DBE9F1;
+	@media (max-width: 648px) {
+		position: relative;
+		bottom: 0.44rem;
+		background-color: #FFF;
+		border-color: #115680;
+	}
 `;
 
 const CloseButton = styled.button`
@@ -86,7 +100,9 @@ const DetailsOportuny = styled.div`
 	max-width: 900px;
 	padding: 1.5rem 3.5rem 0 3.5rem;
 	display: flex;
-
+	@media (max-width: 648px) {
+		padding: 1.5rem 1.8rem 0 1rem;
+	}
 `;
 
 const InfoContainer = styled.div`
@@ -95,10 +111,27 @@ const InfoContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	@media (max-width: 648px) {
+		width: 100%;
+	}
+`;
+
+const CategoryContainer = styled.div`
+	padding-bottom: .7rem;
+	@media (max-width: 648px) {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+	}
 `;
 
 const InfoWrap = styled.span`
-	padding-bottom: .90rem;
+	padding-bottom: .7rem;
+	${'' /* @media (max-width: 648px) {
+		display: flex;
+		flexDirection: row; */}
+	}
 `;
 
 const Description = styled.p`
@@ -108,7 +141,9 @@ const Description = styled.p`
 `;
 
 const Text = styled.p`
-	padding-bottom: .5rem;
+	${'' /* padding-bottom: 0.4rem; */}
+	${'' /* width: ${(props) => props.width}; */}
+	padding: ${(props) => (props.padding ? props.padding : '0 0 0.25rem 0')};
 	color: ${(props) => (props.title ? '#8C8C8C' : '#404040')};
 	font-weight: ${(props) => (props.bold ? 600 : 400)};
 	font-size: ${(props) => (props.fontSize ? '1rem' : '0.90rem')}
@@ -116,12 +151,39 @@ const Text = styled.p`
 
 const InfoContent = styled.div`
 	width: 30%;
+	@media (max-width: 648px) {
+		display: none;
+	}
 `;
 
 const IconWrap = styled.span`
 	width: 100%;
 	display: flex;
 	justify-content: flex-start;
+	${'' /* @media (max-width: 648px) {
+		width: 27%;
+	} */}
+`;
+
+const InfoContentMobile = styled.div`
+display: none;
+@media (max-width: 648px) {
+	display: block;
+	display: flex;
+	justify-content: space-between;
+}
+`;
+
+const IconWrapMobile = styled.span`
+	display: none;
+	@media (max-width: 648px) {
+		width: 22%;
+		display: flex;
+		justify-content: space-between;
+	}
+	@media (max-width: 545px) {
+		width: 30%;
+	}
 `;
 
 const BtnIcon = styled.button`
@@ -139,15 +201,18 @@ const BoxInfo = styled.div`
 const BoxButton = styled.div`
 	width: 100%;
 	height: 100%;
-	padding: 2rem 0;
+	padding: 0.8rem 0 1.5rem 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	outline: none;
+	@media	(max-width: 450px) {
+		padding: 1rem 0;
+	}
 `;
 
 const ButtonDetails = styled.button`
-	width: 505px;
+	width: 90%;
 	height: 56px;
 	display: flex;
 	justify-content: center;
@@ -221,7 +286,7 @@ class DetailsOportunies extends Component {
 	loadingItemModal = () => (
 		<>
 			<ImageLoading icono src={loadingIcon}/>
-			<TextButton>carregando</TextButton>
+			<TextButton>Carregando</TextButton>
 		</>
 	)
 
@@ -251,17 +316,33 @@ class DetailsOportunies extends Component {
 					<DetailsOportuny>
 						<InfoContainer>
 							<InfoWrap>
-								<Text title fontSize>Título e descrição</Text>
+								<Text title fontSize>Título e descrição oooooo</Text>
 								<Description>Contrato global - manilhas de carga</Description>
 							</InfoWrap>
 
-							<Text>Licitação, Lei 13.303, Art. 28, CAPUT</Text>
-							<Text bold>Petróleo Brasileiro S. A.</Text>
-
-							<InfoWrap>
-								<Text title fontSize>Categoria</Text>
-								<Text bold>Remoção de material</Text>
-							</InfoWrap>
+							<Text padding='.55rem 0 0 0'>Licitação, Lei 13.303, Art. 28, CAPUT</Text>
+							<Text bold padding='1.44rem 0'>Petróleo Brasileiro S. A.</Text>
+							<InfoContentMobile>
+								<BoxInfo>
+									<Text title fontSize>Id</Text>
+									<Text bold>8916909924</Text>
+								</BoxInfo>
+								<BoxInfo>
+									<Text title fontSize>Prazo</Text>
+									<Text bold>18/06/19 - 28/08/19</Text>
+								</BoxInfo>
+							</InfoContentMobile>
+							<CategoryContainer>
+								<InfoWrap>
+									<Text title fontSize>Categoria</Text>
+									<Text bold>Remoção de material</Text>
+								</InfoWrap>
+								<IconWrapMobile>
+									<Image src={shareIcon} icon />
+									<Image src={attachIcon} icon />
+									<Image src={doubtIcon} icon />
+								</IconWrapMobile>
+							</CategoryContainer>
 
 							<InfoWrap>
 								<Text title fontSize>Itens</Text>
