@@ -41,11 +41,13 @@ const Container = styled.div`
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
+	@media (max-width: 960px) {
+		padding-bottom: 2rem;
+
 	@media (max-width: 768px) {
 		flex-direction: ${props => !(props.screen === 'create') && 'column-reverse'};
 		justify-content: center;
 		align-items: center;
-		padding-bottom: 2rem;
 	}
 	@media (max-width: 450px) {
 		padding: 1rem;
@@ -89,7 +91,9 @@ const LogoCreate = styled.img`
 	${'' /* position: absolute;
 	top: 10%; */}
 	width: 20%;
-	min-width: 275px;
+	@media(max-width: 960px) {
+		padding-bottom: 2rem;
+	  min-width: 275px;
 	@media(max-width: 768px) {
 		padding: 2rem;
     width: 30%;
@@ -106,6 +110,7 @@ const InputBox = styled.span`
 	
 	@media (max-width: 768px) {
 		width: 100%;
+
 	}
 	@media (max-width: 478px) {
 		margin-top: ${(props) => props.last && '0rem'};
@@ -129,7 +134,6 @@ const Input = styled.input`
 	border: 1px solid ${(props) => (props.error ? '#D53B40' : '#7FBA4C')};
 	border-radius: 4px;
 	outline: none;
-
 	::placeholder {
 		font: 300 1rem Open Sans, sans serif;
 		letter-spacing: 0;
@@ -160,7 +164,6 @@ const Button = styled.button`
 	letter-spacing: 0;
 	color: #FAFAFA;
 	cursor: pointer;
-
 	@media (max-width: 960px) {
 		width: 100%;
 	}
@@ -244,7 +247,6 @@ const LoginMessageError = styled.span`
 	position: absolute;
 	right: 0;
 	bottom: -1.5rem;
-
 	@media	(max-width: 960px) {
 		width: 55%;
 	}
@@ -256,7 +258,6 @@ const LoginMessageError = styled.span`
 const TextError = styled.p`
 	font: 500 .80rem eurostile, sans serif;
 	color: #D53B40;
-
 	@media (max-width: 960px) {
 		margin: .1rem 0;
 	}
@@ -271,18 +272,16 @@ const CreateContainer = styled.div`
 	width: 100%;
 `;
 
-const CreateBox = styled.form`
+const CreateBox = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 30%;
-	min-width: 360px;
 	padding: 3rem 4rem;
 	background: #FFF;
 	box-shadow: 0px 1px 2px #0000001A;
 	border-radius: 4px;
 	transition: width 1s; 
-
 	@media(max-width: 1440px) {
 		width: 50%;
 	}
@@ -292,6 +291,9 @@ const CreateBox = styled.form`
 	@media(max-width: 648px) {
 		padding: 2rem;
 	}
+	@media(max-width: 450px) {
+		width: 85%;
+	}
 `;
 
 const TermsText = styled.p`
@@ -300,12 +302,14 @@ const TermsText = styled.p`
 	font: 400 0.875rem Eurostile;
 	letter-spacing: 0;
 	color: #505050;
-
 	strong {
 		text-decoration: underline;
 	}
 	@media(max-width: 960px) {
 		width: 100%;
+	}
+	@media(max-width: 450px) {
+		margin-bottom: 1rem;
 	}
 `;
 
@@ -317,7 +321,7 @@ const CreateTitle = styled.h1`
 	color: #116EA0;
 	@media(max-width: 960px) {
 		font-size: 1.3rem;
-	}
+	};
 `;
 
 // const CreatedBox = styled.div`
