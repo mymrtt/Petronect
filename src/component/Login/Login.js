@@ -38,14 +38,9 @@ const Container = styled.div`
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
-<<<<<<< HEAD
 	@media (max-width: 768px) {
 		flex-direction: ${props => !(props.screen === 'create') && 'column-reverse'};
 		justify-content: center;
-=======
-	@media (max-width: 960px) {
-		padding-bottom: 2rem;
->>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 		align-items: center;
 		padding-bottom: 2rem;
 	}
@@ -91,12 +86,8 @@ const LogoCreate = styled.img`
 	${'' /* position: absolute;
 	top: 10%; */}
 	width: 20%;
-<<<<<<< HEAD
 	min-width: 275px;
 	@media(max-width: 768px) {
-=======
-	@media(max-width: 960px) {
->>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 		padding: 2rem;
     width: 30%;
 	}
@@ -110,13 +101,8 @@ const InputBox = styled.span`
 	width: ${(props) => props.width};
 	margin-top: ${(props) => props.last && '.5rem'};
 	
-<<<<<<< HEAD
 	@media (max-width: 768px) {
 		width: 100%;
-=======
-	@media (max-width: 960px) {
-		width: 60%;
->>>>>>> e7cd30e7eb396105c358872b92ccc8c27f07d1c7
 	}
 	@media (max-width: 478px) {
 		margin-top: ${(props) => props.last && '0rem'};

@@ -41,7 +41,7 @@ const NavBar = styled.div`
 
 const BoxLogo = styled.figure`
   width: 100%;
-  height: 15%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,7 +84,7 @@ const BoxMenu = styled.div`
 	justify-content: flex-end;
 	
 	@media (max-width: 1024px) {
-		height: 60%;
+		height: 65%;
 	}
 	@media (max-width: 375px) {
 		height: 100%;
@@ -139,11 +139,11 @@ const MenuItem = styled(Link)`
 
 const WrapperInfo = styled.div`
   width: 80%;
-	height: 12%;
+	height: 18%;
   display: flex;
   align-items: center;
   justify-centent: center;
-  border-top: solid #000 1px;
+  border-top: solid #EBEBEB 1px;
 
 	@media(max-width: 375px) {
 		display: none;
