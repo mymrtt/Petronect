@@ -3,7 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-import * as Cookies from 'js-cookie';
 
 // Modules
 import {
@@ -463,23 +462,6 @@ class RelevanceMatch extends Component {
 		};
 	}
 
-	componentDidMount() {
-		this.getToken();
-	}
-
-	getToken = () => {
-		try {
-			const response = Cookies.get('petronect_creds');
-
-			if (response !== undefined) {
-				this.props.getAllOpportunitiesThunk();
-			}
-		} catch (err) {
-			console.log(err);
-			this.props.history.replace('/');
-		}
-	}
-
 	hoverFavorites = () => {
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
@@ -664,10 +646,7 @@ class RelevanceMatch extends Component {
 
 
 	render() {
-		const {
-			isOportunitesModal, isModalOpen, isShowFavorites
-		} = this.state;
-		console.log('tem que descomentar', this.props.keywords)
+		const { isOportunitesModal, isModalOpen } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive />
