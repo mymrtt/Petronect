@@ -280,10 +280,12 @@ class ModalFilter extends Component {
 			this.setState({ emptyName: true });
 		} else {
 			this.props.postKeywordThunk({
-				name: this.state.nameValue,
+				name: this.state.nameValue.trim(),
 				color: this.state.selectedColor,
 				keywords: this.handleKeywordsObject(),
 			});
+
+			this.props.handleOpenModal();
 		}
 	}
 
