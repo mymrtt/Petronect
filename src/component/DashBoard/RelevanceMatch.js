@@ -578,7 +578,7 @@ class RelevanceMatch extends Component {
 					{this.props.keywords.length > 0 && this.renderList() }
 				</Wraptext>
 				<ContainerText>
-					{this.state.textNull && <TextNull> Por favor insere uma palavra. </TextNull>}
+					{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave. </TextNull>}
 				</ContainerText>
 				<BtnCreateFilter onClick={this.handleOpenModal}>
 					<ImgFilter src={FilterImg}/>
