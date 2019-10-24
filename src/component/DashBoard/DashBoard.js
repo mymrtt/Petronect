@@ -45,7 +45,7 @@ const ContainerSidebar = styled.span`
 	}
 `;
 
-class DashBoard extends Component {
+class DashBoard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};

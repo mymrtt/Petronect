@@ -60,20 +60,43 @@ class Footer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isBackground: false,
+			isBackgroundMath: false,
+			isBackgroundNot: false,
 		};
+	}
+
+	handleChangeColorMath = () => {
+		const { isBackgroundMath } = this.state;
+		this.setState({ isBackgroundMath: !isBackgroundMath });
+		console.log(this.setState({
+			isBackgroundMath: !isBackgroundMath,
+		}), 'math');
+	}
+
+	handleChangeColorNot = () => {
+		const { isBackgroundNot } = this.state;
+		this.setState({ isBackgroundNot: !isBackgroundNot });
+		console.log(this.setState({
+			isBackgroundNot: !isBackgroundNot,
+		}), 'not');
 	}
 
 	render() {
 		return (
 			<FooterMobile>
-				<FooterMobileItem>
-				<Image src={RelevanceImg} />
+				<FooterMobileItem
+					style={{ backgroundColor: this.state.isBackgroundMath ? '#116EA015' : '#fff' }}
+					onClick={this.handleChangeColorMath}
+				>
+					<Image src={RelevanceImg} />
 					<FooterMobileText to="/match-relevancia">Match Relevância</FooterMobileText>
 				</FooterMobileItem>
-				<FooterMobileItem>
+				<FooterMobileItem
+					style={{ backgroundColor: this.state.isBackgroundNot ? '#116EA015' : '#fff' }}
+					onClick={this.handleChangeColorNot}
+				>
 					<Image src={FilterImg} />
-					<FooterMobileText to="/filters-and-notifications">Filtros e notificações</FooterMobileText>
+					<FooterMobileText to="/notifications">Filtros e notificações</FooterMobileText>
 				</FooterMobileItem>
 			</FooterMobile>
 		);

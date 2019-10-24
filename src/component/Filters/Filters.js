@@ -173,13 +173,12 @@ const ContainerFilters = styled.div`
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
-		min-height: 85%;
+		// min-height: 85%;
 	}
 	@media(max-width: 648px) {
 		flex-wrap: nowrap;
 		margin-left: .5rem;
 		width: 100%;
-		// min-height: 85%;
 	}
 `;
 
