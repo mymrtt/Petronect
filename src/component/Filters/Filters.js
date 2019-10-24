@@ -17,12 +17,11 @@ const Container = styled.div`
 	width: 80%;
 	@media (max-width: 960px) {
 		width: 95%;
-		height: 100%;
+		height: 100vh;
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
 		width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +44,6 @@ const Content = styled.div`
 	@media(max-width: 648px) {
 		margin-top: 6rem;
 		padding-top: .60rem;
-		// height: auto;
 		flex-direction: column;
 		border-radius: 4px;
 		overflow-y: scroll;
@@ -125,7 +123,7 @@ const WrapperSearch = styled.div`
 
 const NotificationsItem = styled.div`
 	margin-bottom: 1rem;
-	padding: .45rem .80rem .80rem;
+	padding: .45rem .80rem 1rem;
 	display: flex;
 	flex-direction: column;
 	border: .5px solid #E6E6E6;
@@ -175,11 +173,13 @@ const ContainerFilters = styled.div`
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
+		min-height: 85%;
 	}
 	@media(max-width: 648px) {
 		flex-wrap: nowrap;
 		margin-left: .5rem;
-    width: 100%;
+		width: 100%;
+		// min-height: 85%;
 	}
 `;
 
