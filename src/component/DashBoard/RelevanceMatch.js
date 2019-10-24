@@ -55,10 +55,11 @@ const mapDispatchToProps = (dispatch) => ({
 const Container = styled.div`
 	// width: 75vw;
 	width: 80%;
-  border-radius: 4px 4px 0 0;
+  border-radius: 0 4px 0 0;
   background: #fff;
 
 	@media(max-width: 960px) {
+		border-radius: 4px 4px 0 0;
 		width: 95%;
 		height: auto;
 		margin-top: 3.5rem;
