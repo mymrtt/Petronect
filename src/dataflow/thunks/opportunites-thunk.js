@@ -3,20 +3,19 @@ import * as Cookies from 'js-cookie';
 
 import { getAllOpportunitesMiddleware, getOpportunityById } from '../middlewares/opportunites-middlewares';
 
-import { oportunitiesList } from '../modules/oportunities-modules'
+import { oportunitiesList } from '../modules/oportunities-modules';
 
-const { accessToken } = JSON.parse(Cookies.get('petronect_creds'));
-
-
+// eslint-disable-next-line import/prefer-default-export
 export const getAllOpportunitiesThunk = () => (
 	async (dispatch, getState) => {
+		const { accessToken } = JSON.parse(Cookies.get('petronect_creds'));
 		try {
 			const { keywords } = getState().oportunities.cardFilter;
-			const response = await getAllOpportunitesMiddleware({keywords, accessToken});
+			const response = await getAllOpportunitesMiddleware({ keywords, accessToken });
 
 			const oportunities = {};
 
-			response.data.hits.hits.forEach(item => {
+			response.data.hits.hits.forEach((item) => {
 				oportunities[item._id] = {
 					oportunityId: item._id,
 					fit: item._score,
@@ -24,7 +23,7 @@ export const getAllOpportunitiesThunk = () => (
 					titleDescription: item._source.OPPORT_DESCR,
 					deadLineInitial: item._source.OPEN_DATE,
 					deadLineLastOne: item._source.END_DATE,
-				}
+				};
 			});
 
 			dispatch(oportunitiesList(oportunities));

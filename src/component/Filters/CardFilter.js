@@ -49,9 +49,11 @@ const WrapperCard = styled.div`
 	padding: 0 1rem;
 	height: 2rem;
 	display: flex;
-	align-items: center;
-	background-color: ${(props) => props.background};
 	justify-content: space-between;
+	align-items: center;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	background-color: ${(props) => props.background};
 `;
 
 const ContainerTags = styled.div`
