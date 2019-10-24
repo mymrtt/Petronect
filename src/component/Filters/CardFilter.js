@@ -5,6 +5,8 @@ import { values } from 'lodash';
 
 // Images
 import deleteIcon from '../../assets/icon/delete.svg';
+import searchIcon from '../../assets/icon/lupa-white.svg';
+
 
 const Container = styled.div`
 	margin-bottom: 1rem;
@@ -94,6 +96,14 @@ const Image = styled.img`
 	}
 `;
 
+const ImageSeach = styled.img`
+	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
+	margin-left: .5rem;
+	@media (max-width: 640px) {
+		width: ${(props) => props.magnifying && '18px'};
+	}
+`;
+
 class CardFilter extends Component {
 	constructor(props) {
 		super(props);
@@ -115,7 +125,9 @@ class CardFilter extends Component {
 					<WrapperCard
 						background={this.props.item ? this.props.item : '#115680'}
 					>
-						<TagTitle>{card.title}</TagTitle>
+						<TagTitle>{card.title}
+							<ImageSeach src={searchIcon} />
+						</TagTitle>
 						<CardEdit onClick={this.handleDeleteCard}>
 							<Image src={deleteIcon} />
 						</CardEdit>

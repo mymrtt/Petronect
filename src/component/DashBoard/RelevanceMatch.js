@@ -226,9 +226,8 @@ const ListKeyword = styled.div`
 
 const KeywordText = styled.li`
 	width: auto;
-	height: 20px;
 	margin: 0.5rem 0.35rem 0 0;
-	padding: 0 .5rem;
+	padding: .25rem .25rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -237,6 +236,7 @@ const KeywordText = styled.li`
 	list-style:none;
 	font-size: .85rem;
 	color: #404040;
+	word-break: break-all;
 `;
 
 const ClosedKeyword = styled.button`
@@ -724,7 +724,8 @@ class RelevanceMatch extends Component {
 					</WrapperTable>
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }
-						{ isModalOpen && this.renderModalFilter() }
+						{/* { isModalOpen && this.renderModalFilter() } */}
+						{ this.renderModalFilter() }
 					</Fragment>
 				</Container>
 				<Footer />

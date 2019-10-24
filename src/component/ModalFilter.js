@@ -40,12 +40,15 @@ const FilterModal = styled.div`
 	border-radius: 8px;
 	background: #fff;
 	@media (max-width: 960px) {
-		z-index: 1;
+		z-index: 2;
 	}
+
+	@media (max-width: 768px) {
+		padding: 1rem;
+	}
+
 	@media (max-width: 648px) {
-		padding: 0 1rem;
-		width: 92%;
-		height: 65%;
+		width: 30rem;
 	}
 `;
 
@@ -71,12 +74,13 @@ const CloseContainer = styled.div`
 	border: 0.5px solid #115680;
 	border-radius: 50%;
 	background-color: #fff;
-	@media (max-width: 640px) {
-    top: .5rem;
-    bottom: 0;
-		left: 16.5rem;
-    width: 35px;
-    height: 35px;
+
+	@media(max-width: 768px) {
+		top: -2rem;
+		left: 32rem;
+	}
+	@media (max-width: 648px) {
+		left: 27rem;
 	}
 `;
 
