@@ -241,6 +241,19 @@ const KeywordText = styled.li`
 	color: #404040;
 `;
 
+const ContainerText = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+const TextNull = styled.p`
+	padding-bottom: 1rem;
+	font-size: .85rem;
+	color: #404040;
+`;
+
 const ClosedKeyword = styled.button`
 	width: 15px;
 	height: 15px;
@@ -483,18 +496,30 @@ class RelevanceMatch extends Component {
 			this.props.getAllOpportunitiesThunk();
 		}
 		this.inputSearch.value = '';
+		this.setState({ 
+			textNull: false,
+		});
 	}
-
 
 	handleClick = (event) => {
 		event.preventDefault();
 		this.props.addList();
+		// this.setState({ 
+		// 	textNull: false,
+		// });
 	}
 
 	handleOpenModal = () => {
-		this.resetInput();
 		const { isModalOpen } = this.state;
-		this.setState({ isModalOpen: !isModalOpen });
+		if (this.props.keywords.length === 0) {
+			this.setState({ textNull: true });
+		} else {
+			this.resetInput();
+			this.setState({ 
+				isModalOpen: !isModalOpen,
+				textNull: false,
+			});
+		}
 	}
 
 	renderModalFilter = () => (
@@ -551,6 +576,9 @@ class RelevanceMatch extends Component {
 				<Wraptext>
 					{this.props.keywords.length > 0 && this.renderList() }
 				</Wraptext>
+				<ContainerText>
+					{this.state.textNull && <TextNull> Por favor insere uma palavra. </TextNull>}
+				</ContainerText>
 				<BtnCreateFilter onClick={this.handleOpenModal}>
 					<ImgFilter src={FilterImg}/>
 					Salvar Filtro
@@ -608,14 +636,13 @@ class RelevanceMatch extends Component {
 			};
 
 			const normalizeScore = (score) => {
-	
-				if(score <= 1) {
+				if (score <= 1) {
 					return 1;
-				} else if(score < 100) {
+				} else if (score < 100) {
 					return 100 - (100/score);
 				} else return 100;
 			}
-			
+
 			return (
 				<TableRow key={item} onClick={this.handleModalOportunities}>
 					<TableBody
@@ -640,7 +667,7 @@ class RelevanceMatch extends Component {
 		const {
 			isOportunitesModal, isModalOpen, isShowFavorites
 		} = this.state;
-
+		console.log('tem que descomentar', this.props.keywords)
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -706,9 +733,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 									</Button>
 								</Form>
-								<WrapperKeyword>
+								{/* <WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword>
+								</WrapperKeyword> */}
 							</WrapperForm>
 						</WrapperHeadMobile>
 
