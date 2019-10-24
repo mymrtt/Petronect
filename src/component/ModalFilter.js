@@ -7,7 +7,8 @@ import styled from 'styled-components';
 import closeIcon from '../assets/icon/close-blue.svg';
 
 // Modules
-import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
+// import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
+import { updateCard } from '../dataflow/modules/oportunities-modules';
 
 const mapStateToProps = (state) => ({
 	keywords: state.oportunities.cardFilter.keywords,
@@ -162,6 +163,19 @@ const Input = styled.input`
 	}
 `;
 
+const TextErrorBox = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
+
+const TextError = styled.p`
+	font: 500 .80rem eurostile, sans serif;
+	color: #D53B40;
+	@media (max-width: 960px) {
+		margin: .1rem 0;
+	}
+`;
+
 const Button = styled.button`
 	padding: 1rem;
 	width: 100%;
@@ -268,10 +282,15 @@ class ModalFilter extends Component {
 
 	handleCard = (event) => {
 		event.stopPropagation();
-		this.props.updateCard({
-			cardName: this.state.nameValue,
-			cardColor: this.state.item,
-		});
+
+		if (!this.state.nameValue) {
+			this.setState({ emptyName: true });
+		} else {
+			this.props.updateCard({
+				cardName: this.state.nameValue,
+				cardColor: this.state.item,
+			});
+		}
 	}
 
 	renderColorOption = () => {
@@ -314,6 +333,9 @@ class ModalFilter extends Component {
 							onChange={this.handleChangeName}
 							value={this.state.nameValue}
 						/>
+						<TextErrorBox>
+							{this.state.emptyName && <TextError>Por favor digite um nome</TextError>}
+						</TextErrorBox>
 					</InputBox>
 					<InputBox last>
 						{/* <Label>Digite as tags relacionadas</Label>
