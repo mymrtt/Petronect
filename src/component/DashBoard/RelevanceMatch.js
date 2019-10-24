@@ -53,9 +53,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Container = styled.div`
-	// width: 78vw;
+	// width: 75vw;
 	width: 80%;
-  border-radius: 0 4px 0 0 ;
+  border-radius: 4px 4px 0 0;
   background: #fff;
 
 	@media(max-width: 960px) {
@@ -93,7 +93,7 @@ const WrapperHeadMobile = styled.div`
 	display: none;
 	@media (max-width: 648px) {
 		width: 100%;
-		padding-top: .75rem;
+		padding: .75rem 0;
 		display: flex;
 		justify-content: space-between;
 	}
