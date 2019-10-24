@@ -39,13 +39,13 @@ const Content = styled.div`
 
 const ContainerSidebar = styled.span`
 	display: flex;
-	width: 20%;
+	width: 25vw;
 	@media (max-width: 960px) {
 		display: none;
 	}
 `;
 
-class DashBoard extends React.Component {
+class DashBoard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
