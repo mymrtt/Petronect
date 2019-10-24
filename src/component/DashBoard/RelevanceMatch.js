@@ -12,7 +12,7 @@ import {
 	putFavorite,
 	removeFavorite,
 } from '../../dataflow/modules/oportunities-modules';
-import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
+import { getAllOpportunitiesThunk,  } from '../../dataflow/thunks/opportunites-thunk';
 
 // Images
 import shareIcon from '../../assets/icon/lupa.svg';
@@ -50,6 +50,9 @@ const mapDispatchToProps = (dispatch) => ({
 	getAllOpportunitiesThunk: (info) => {
 		dispatch(getAllOpportunitiesThunk(info));
 	},
+	// getOpportunityThunk: (info) => {
+	// 	dispatch(getOpportunityThunk(info))
+	// }
 });
 
 const Container = styled.div`
@@ -532,6 +535,7 @@ class RelevanceMatch extends Component {
 	renderList = () => this.props.keywords.map((keyword) => {
 		const handleClick = () => {
 			this.props.removeItem(keyword);
+			this.props.getAllOpportunitiesThunk();
 		};
 
 		return (
@@ -598,6 +602,7 @@ class RelevanceMatch extends Component {
 		this.setState((prevState) => ({
 			isOportunitesModal: !prevState.isOportunitesModal,
 		}));
+		// this.props.getOpportunityThunk();
 	}
 
 	renderModalOportunities = () => (

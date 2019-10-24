@@ -11,7 +11,7 @@ export const getAllOpportunitesMiddleware = (info) => axios({
 	data: info.keywords,
 });
 
-export const getOpportunitesById = (info) => axios({
+export const getOpportunityById = (info) => axios({
 	url: `${API_URL}/opportunities/${info.opportunityId}/`,
 	method: 'get',
 	headers: {

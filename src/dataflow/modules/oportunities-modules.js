@@ -26,7 +26,6 @@ export default function (state = initialState, action) {
 			},
 		};
 	case REMOVE_ITEM:
-		console.log(without(state.cardFilter.keywords, action.info));
 		return { 
 			...state,
 			cardFilter: {
