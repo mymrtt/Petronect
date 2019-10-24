@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 // Components
@@ -46,10 +46,11 @@ const ContainerSidebar = styled.span`
 `;
 
 class DashBoard extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {};
 	}
+
 	render() {
 		return (
 			<Container>
@@ -60,7 +61,7 @@ class DashBoard extends React.Component {
 					<RelevanceMatch history={this.props.history}/>
 				</Content>
 			</Container>
-		)
+		);
 	}
 }
 
