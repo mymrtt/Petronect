@@ -96,7 +96,7 @@ class Footer extends Component {
 					onClick={this.handleChangeColorNot}
 				>
 					<Image src={FilterImg} />
-					<FooterMobileText to="/filters-and-notifications">Filtros e notificações</FooterMobileText>
+					<FooterMobileText to="/notifications">Filtros e notificações</FooterMobileText>
 				</FooterMobileItem>
 			</FooterMobile>
 		);
