@@ -3,7 +3,7 @@ import * as Cookies from 'js-cookie';
 
 import { getAllOpportunitesMiddleware, postKeywordMiddleware } from '../middlewares/opportunites-middlewares';
 
-import { oportunitiesList, addNotification } from '../modules/oportunities-modules';
+import { oportunitiesList, addNotification, removeAllKeywords } from '../modules/oportunities-modules';
 
 export const getAllOpportunitiesThunk = (info) => (
 	async (dispatch, getState) => {
@@ -45,7 +45,9 @@ export const postKeywordThunk = (info) => (
 				keywordList.push(item.name);
 			});
 
-			dispatch(addNotification({ ...info, keywordList }));
+			await dispatch(addNotification({ ...info, keywordList }));
+
+			dispatch(removeAllKeywords());
 		} catch (err) {
 			console.log(err);
 		}

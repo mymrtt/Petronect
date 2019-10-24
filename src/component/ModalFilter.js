@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import closeIcon from '../assets/icon/close-blue.svg';
 
 // Modules
-// import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
 import { postKeywordThunk } from '../dataflow/thunks/opportunites-thunk';
 
 const mapStateToProps = (state) => ({

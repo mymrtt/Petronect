@@ -2,6 +2,7 @@ import { without } from 'lodash';
 
 const ADD_ITEM = 'petronect/keyword/ADD_ITEM';
 const REMOVE_ITEM = 'petronect/keyword/REMOVE_ITEM';
+const REMOVE_ALL_KEYWORDS = 'petronect/keyword/REMOVE_ALL_KEYWORDS';
 const PUT_FAVORITE = 'petronect/favorite/PUT_FAVORITE';
 const OPORTUNITIES_LIST = 'petronect/oportunitiesList/OPORTUNITIES_LIST';
 const UPDATE_CARD = 'petronect/oportunities/UPDATE_CARD';
@@ -34,6 +35,12 @@ export default function (state = initialState, action) {
 			cardFilter: {
 				...state.cardFilter,
 				keywords: without(state.cardFilter.keywords, action.info),
+			},
+		};
+	case REMOVE_ALL_KEYWORDS:
+		return {
+			cardFilter: {
+				keywords: [],
 			},
 		};
 	case OPORTUNITIES_LIST:
@@ -75,6 +82,11 @@ export const addItem = (info) => ({
 
 export const removeItem = (info) => ({
 	type: REMOVE_ITEM,
+	info,
+});
+
+export const removeAllKeywords = (info) => ({
+	type: REMOVE_ALL_KEYWORDS,
 	info,
 });
 
