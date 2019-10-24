@@ -19,7 +19,7 @@ const Container = styled.div`
 		flex-direction: column;
 	}
 	@media (max-width: 648px) {
-		height: 6.3rem;
+		min-height: 6.3rem;
     width: 100%;
 	}
 `;
