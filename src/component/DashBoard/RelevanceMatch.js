@@ -729,9 +729,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 									</Button>
 								</Form>
-								{/* <WrapperKeyword>
+								<WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword> */}
+								</WrapperKeyword>
 							</WrapperForm>
 						</WrapperHeadMobile>
 
