@@ -90,6 +90,8 @@ const CloseButton = styled.button`
 	background: transparent;
 	outline: none;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
 `;
 
 const CloseImage = styled.img`
@@ -225,6 +227,8 @@ const ButtonDetails = styled.button`
 	justify-content: center;
 	align-items: center;
 	background: #116EA0;
+	border: none;
+	outline: none;
 	box-shadow: 0px 3px 6px #00000029;
 	border-radius: 4px;
 `;
