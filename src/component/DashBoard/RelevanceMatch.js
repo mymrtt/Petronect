@@ -11,7 +11,7 @@ import {
 	putFavorite,
 	removeFavorite,
 } from '../../dataflow/modules/oportunities-modules';
-import { getAllOpportunitiesThunk,  } from '../../dataflow/thunks/opportunites-thunk';
+import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
 
 // Images
 import shareIcon from '../../assets/icon/lupa.svg';
@@ -57,7 +57,7 @@ const mapDispatchToProps = (dispatch) => ({
 const Container = styled.div`
 	// width: 75vw;
 	width: 80%;
-  border-radius: 4px 4px 0 0;
+  border-radius: 0 4px 0 0;
   background: #fff;
 
 	@media(max-width: 960px) {
@@ -86,6 +86,7 @@ const WrapperHead = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding: .75rem 0;
 	@media (max-width: 648px) {
 		display: none;
 	}
@@ -227,9 +228,8 @@ const ListKeyword = styled.div`
 
 const KeywordText = styled.li`
 	width: auto;
-	height: 20px;
 	margin: 0.5rem 0.35rem 0 0;
-	padding: 0 .5rem;
+	padding: .25rem .25rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -238,6 +238,7 @@ const KeywordText = styled.li`
 	list-style:none;
 	font-size: .85rem;
 	color: #404040;
+	word-break: break-all;
 `;
 
 const ContainerText = styled.div`
@@ -478,7 +479,7 @@ class RelevanceMatch extends Component {
 			this.props.getAllOpportunitiesThunk();
 		}
 		this.inputSearch.value = '';
-		this.setState({ 
+		this.setState({
 			textNull: false,
 		});
 	}
@@ -486,7 +487,7 @@ class RelevanceMatch extends Component {
 	handleClick = (event) => {
 		event.preventDefault();
 		this.props.addList();
-		// this.setState({ 
+		// this.setState({
 		// 	textNull: false,
 		// });
 	}
@@ -497,7 +498,7 @@ class RelevanceMatch extends Component {
 			this.setState({ textNull: true });
 		} else {
 			this.resetInput();
-			this.setState({ 
+			this.setState({
 				isModalOpen: !isModalOpen,
 				textNull: false,
 			});
@@ -559,7 +560,7 @@ class RelevanceMatch extends Component {
 					{this.props.keywords.length > 0 && this.renderList() }
 				</Wraptext>
 				<ContainerText>
-					{this.state.textNull && <TextNull> Por favor insere uma palavra. </TextNull>}
+					{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave. </TextNull>}
 				</ContainerText>
 				<BtnCreateFilter onClick={this.handleOpenModal}>
 					<ImgFilter src={FilterImg}/>
@@ -620,10 +621,10 @@ class RelevanceMatch extends Component {
 			const normalizeScore = (score) => {
 				if (score <= 1) {
 					return 1;
-				} else if (score < 100) {
-					return 100 - (100/score);
-				} else return 100;
-			}
+				} if (score < 100) {
+					return 100 - (100 / score);
+				} return 100;
+			};
 
 			return (
 				<TableRow key={item} onClick={this.handleModalOportunities}>
@@ -641,12 +642,13 @@ class RelevanceMatch extends Component {
 						{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
 					</TableBody>
 				</TableRow>
-			)});
-		}
+			);
+		});
+	}
 
 
 	render() {
-		const { isOportunitesModal, isModalOpen } = this.state;
+		const { isOportunitesModal } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -662,8 +664,8 @@ class RelevanceMatch extends Component {
 										<TitleInput>Pesquisar</TitleInput>
 										<WrapInput>
 											{this.renderSearchInput()}
-											{this.state.inputSearch &&
-												<Overlay
+											{this.state.inputSearch
+												&& <Overlay
 													onClick={this.resetInput}
 												></Overlay>
 											}
@@ -734,7 +736,8 @@ class RelevanceMatch extends Component {
 					</WrapperTable>
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }
-						{ isModalOpen && this.renderModalFilter() }
+						{/* { isModalOpen && this.renderModalFilter() } */}
+						{ this.renderModalFilter() }
 					</Fragment>
 				</Container>
 				<Footer />

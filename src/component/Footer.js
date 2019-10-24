@@ -19,9 +19,6 @@ const FooterMobile = styled.div`
 		background-color: #fff;
 		border: #0000001A solid 1px;
 	}
-	@media (max-width: 648px) {
-		width: 100%;
-	}
 `;
 
 const Image = styled.img`
@@ -33,7 +30,7 @@ const Image = styled.img`
 const FooterMobileItem = styled.div`
 	display: none;
 	@media (max-width: 648px) {
-		margin: 0 .60rem;
+		// margin: 0 .60rem;
 		display: flex;
 		width: 50%;
 		height: 2.2rem;
@@ -66,18 +63,18 @@ class Footer extends Component {
 	}
 
 	handleChangeColorMath = () => {
-		const { isBackgroundMath } = this.state;
-		this.setState({ isBackgroundMath: !isBackgroundMath });
+		// const { isBackgroundMath } = this.state;
+		this.setState({ isBackgroundMath: true });
 		console.log(this.setState({
-			isBackgroundMath: !isBackgroundMath,
+			isBackgroundMath: true,
 		}), 'math');
 	}
 
 	handleChangeColorNot = () => {
-		const { isBackgroundNot } = this.state;
-		this.setState({ isBackgroundNot: !isBackgroundNot });
+		// const { isBackgroundNot } = this.state;
+		this.setState({ isBackgroundNot: true });
 		console.log(this.setState({
-			isBackgroundNot: !isBackgroundNot,
+			isBackgroundNot: true,
 		}), 'not');
 	}
 
@@ -96,7 +93,7 @@ class Footer extends Component {
 					onClick={this.handleChangeColorNot}
 				>
 					<Image src={FilterImg} />
-					<FooterMobileText to="/notifications">Filtros e notificações</FooterMobileText>
+					<FooterMobileText to="/notifications">Notificações</FooterMobileText>
 				</FooterMobileItem>
 			</FooterMobile>
 		);
