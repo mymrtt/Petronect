@@ -106,7 +106,7 @@ const BoxHeader = styled.span`
   display: flex;	
 	align-items: center;
 	@media(max-width: 1024px) {
-		width: 40%;
+		width: 45%;
 	}
 	@media(max-width: 648px) {
 		width: auto;
