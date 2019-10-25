@@ -14,7 +14,7 @@ import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
-// Middlewares
+// Redux
 import { getAllKeywordThunk } from '../../dataflow/thunks/opportunites-thunk';
 import { removeAllNotification } from '../../dataflow/modules/oportunities-modules';
 
@@ -294,10 +294,10 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen } = this.state;
-		console.log('ooooooallNotification', this.props.allNotification)
+		console.log('filters history={this.props.history}', this.props.history)
 		return (
 			<Fragment>
-				<MenuResponsive />
+				<MenuResponsive history={this.props.history}/>
 				<Container>
 					<Content>
 						<ContainerSearchMobile>

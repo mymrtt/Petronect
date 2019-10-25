@@ -651,7 +651,7 @@ class RelevanceMatch extends Component {
 		const { isOportunitesModal, isModalOpen } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive />
+				<MenuResponsive history={this.props.history} />
 				<Container>
 					<Content>
 						<WrapperHead>
