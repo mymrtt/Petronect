@@ -33,32 +33,31 @@ export const getAllOpportunitiesThunk = () => (
 	}
 );
 
-// export const getOpportunityThunk = (info) => {
-// 	async (dispatch) => {
-// 		try {
-// 			console.log('cicero');
-// 			// const response = await getOpportunityById({...info, accessToken});
+export const getOpportunityThunk = (info) => {
+	async (dispatch) => {
+		try {
+			const response = await getOpportunityById({...info, accessToken});
 
-// 			// const oportunities = {};
+			const oportunities = {};
 
-// 			// console.log(response);
-// 			// response.data.hits.hits.forEach(item => {
-// 			// 	oportunities[item._id] = {
-// 			// 		oportunityId: item._id,
-// 			// 		fit: item._score,
-// 			// 		category: item._source.OPPORT_DESCR,
-// 			// 		titleDescription: item._source.OPPORT_DESCR,
-// 			// 		deadLineInitial: item._source.OPEN_DATE,
-// 			// 		deadLineLastOne: item._source.END_DATE,
-// 			// 	}
-// 			// });
+			console.log(response);
+			response.data.hits.hits.forEach(item => {
+				oportunities[item._id] = {
+					oportunityId: item._id,
+					fit: item._score,
+					category: item._source.OPPORT_DESCR,
+					titleDescription: item._source.OPPORT_DESCR,
+					deadLineInitial: item._source.OPEN_DATE,
+					deadLineLastOne: item._source.END_DATE,
+				}
+			});
 
-// 			// dispatch(oportunitiesList(oportunities));
-// 		} catch (err) {
-// 			console.log(err);
-// 		}
-// 	}
-// }
+			dispatch(oportunitiesList(oportunities));
+		} catch (err) {
+			console.log(err);
+		}
+	}
+}
 
 export const postKeywordThunk = (info) => (
 	async (dispatch) => {
