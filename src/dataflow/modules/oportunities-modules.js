@@ -9,6 +9,7 @@ const UPDATE_CARD = 'petronect/oportunities/UPDATE_CARD';
 const REMOVE_FAVORITE = 'petronect/oportunities/REMOVE_FAVORITE';
 const ADD_NOTIFICATION = 'petronect/keyword/ADD_NOTIFICATION';
 const ADD_ALL_NOTIFICATION = 'petronect/keyword/ADD_ALL_NOTIFICATION';
+const REMOVE_ALL_NOTIFICATION = 'petronect/keyword/REMOVE_ALL_NOTIFICATION'
 
 const initialState = {
 	favoriteList: [],
@@ -77,6 +78,11 @@ export default function (state = initialState, action) {
 			...state,
 			allNotification: action.info,
 		};
+	case REMOVE_ALL_NOTIFICATION:
+		return {
+			...state,
+			allNotification: [],
+		};
 	default:
 		return state;
 	}
@@ -124,5 +130,10 @@ export const addNotification = (info) => ({
 
 export const getAllNotification = (info) => ({
 	type: ADD_ALL_NOTIFICATION,
+	info,
+});
+
+export const removeAllNotification = (info) => ({
+	type: REMOVE_ALL_NOTIFICATION,
 	info,
 });

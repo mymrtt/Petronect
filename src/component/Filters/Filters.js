@@ -3,7 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-import * as Cookies from 'js-cookie';
 
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
@@ -17,11 +16,18 @@ import ModalFilter from '../ModalFilter';
 
 // Middlewares
 import { getAllKeywordThunk } from '../../dataflow/thunks/opportunites-thunk';
-// import { getAllKeywordMiddleware } from '../../dataflow/middlewares/opportunites-middlewares';
+import { removeAllNotification } from '../../dataflow/modules/oportunities-modules';
+
+const mapStateToProps = (state) => ({
+	allNotification: state.oportunities.allNotification,
+});
 
 const mapDispatchToProps = (dispatch) => ({
 	getAllKeywordThunk: (info) => {
 		dispatch(getAllKeywordThunk(info));
+	},
+	removeAllNotification: (info) => {
+		dispatch(removeAllNotification(info));
 	},
 });
 
@@ -284,6 +290,7 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen } = this.state;
+		console.log('ooooooallNotification', this.props.allNotification)
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -322,4 +329,4 @@ class Filters extends Component {
 
 
 // export default Filters;
-export default connect(null, mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);
