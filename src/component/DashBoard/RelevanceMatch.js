@@ -61,6 +61,7 @@ const Container = styled.div`
   background: #fff;
 
 	@media(max-width: 960px) {
+		border-radius: 4px 4px 0 0;
 		width: 95%;
 		height: auto;
 		margin-top: 3.5rem;
@@ -648,7 +649,7 @@ class RelevanceMatch extends Component {
 
 
 	render() {
-		const { isOportunitesModal } = this.state;
+		const { isOportunitesModal, isModalOpen } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -714,9 +715,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 									</Button>
 								</Form>
-								{/* <WrapperKeyword>
+								<WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword> */}
+								</WrapperKeyword>
 							</WrapperForm>
 						</WrapperHeadMobile>
 
@@ -736,8 +737,8 @@ class RelevanceMatch extends Component {
 					</WrapperTable>
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }
-						{/* { isModalOpen && this.renderModalFilter() } */}
-						{ this.renderModalFilter() }
+						{ isModalOpen && this.renderModalFilter() }
+
 					</Fragment>
 				</Container>
 				<Footer />
