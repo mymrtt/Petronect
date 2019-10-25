@@ -286,11 +286,11 @@ class Filters extends Component {
 								<Label labelNotifications>E-mail</Label>
 								<NotificationsBar />
 							</NotificationsItem>
-							<NotificationsItem>
+							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>Push</Label>
 								<NotificationsBar />
 							</NotificationsItem>
-							<NotificationsItem>
+							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>SMS</Label>
 								<NotificationsBar />
 							</NotificationsItem>

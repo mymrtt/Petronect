@@ -3,7 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-import * as Cookies from 'js-cookie';
 
 // Modules
 import {
@@ -50,15 +49,19 @@ const mapDispatchToProps = (dispatch) => ({
 	getAllOpportunitiesThunk: (info) => {
 		dispatch(getAllOpportunitiesThunk(info));
 	},
+	// getOpportunityThunk: (info) => {
+	// 	dispatch(getOpportunityThunk(info))
+	// }
 });
 
 const Container = styled.div`
 	// width: 75vw;
-	width: 85vw;
-  border-radius: 0 4px 0 0 ;
+	width: 80%;
+  border-radius: 0 4px 0 0;
   background: #fff;
 
 	@media(max-width: 960px) {
+		border-radius: 4px 4px 0 0;
 		width: 95%;
 		height: auto;
 		margin-top: 3.5rem;
@@ -468,23 +471,6 @@ class RelevanceMatch extends Component {
 		};
 	}
 
-	componentDidMount() {
-		this.getToken();
-	}
-
-	getToken = () => {
-		try {
-			const response = Cookies.get('petronect_creds');
-
-			if (response !== undefined) {
-				this.props.getAllOpportunitiesThunk();
-			}
-		} catch (err) {
-			console.log(err);
-			this.props.history.replace('/');
-		}
-	}
-
 	hoverFavorites = () => {
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
@@ -540,6 +526,7 @@ class RelevanceMatch extends Component {
 	renderList = () => this.props.keywords.map((keyword) => {
 		const handleClick = () => {
 			this.props.removeItem(keyword);
+			this.props.getAllOpportunitiesThunk();
 		};
 
 		return (
@@ -581,7 +568,7 @@ class RelevanceMatch extends Component {
 					{this.props.keywords.length > 0 && this.renderList() }
 				</Wraptext>
 				<ContainerText>
-					{this.state.textNull && <TextNull> Por favor insere uma palavra. </TextNull>}
+					{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave. </TextNull>}
 				</ContainerText>
 				<BtnCreateFilter onClick={this.handleOpenModal}>
 					<ImgFilter src={FilterImg}/>
@@ -614,6 +601,7 @@ class RelevanceMatch extends Component {
 		this.setState((prevState) => ({
 			isOportunitesModal: !prevState.isOportunitesModal,
 		}));
+		// this.props.getOpportunityThunk();
 	}
 
 	renderModalOportunities = () => (
@@ -650,8 +638,8 @@ class RelevanceMatch extends Component {
 				if (score <= 1) {
 					return 1;
 				} if (score < 100) {
-					return 100 - (100/score);
-				} else return 100;
+					return 100 - (100 / score);
+				} return 100;
 			};
 
 			return (
@@ -670,16 +658,13 @@ class RelevanceMatch extends Component {
 						{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
 					</TableBody>
 				</TableRow>
-			) 
-;});
+			);
+		});
 	}
 
 
 	render() {
-		const {
-			isOportunitesModal, isModalOpen, isShowFavorites, inputSearchMobile,
-		} = this.state;
-		console.log('tem que descomentar', this.props.keywords);
+		const { isOportunitesModal, isModalOpen, inputSearchMobile } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -748,9 +733,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 									</Button>
 								</Form>
-								{/* <WrapperKeyword>
+								<WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword> */}
+								</WrapperKeyword>
 							</WrapperForm>
 						</WrapperHeadMobile>
 

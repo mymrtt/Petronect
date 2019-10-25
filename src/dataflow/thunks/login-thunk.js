@@ -17,6 +17,8 @@ export const loginUserThunk = (info) => (
 				'petronect_creds',
 				{
 					accessToken: response.data.Authorization,
+					userId: response.data.UserID,
+					name: response.data.name,
 					username: info.email,
 				},
 			);

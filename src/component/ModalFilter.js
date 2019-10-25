@@ -1,5 +1,5 @@
 // Libs
-import React, { Component, Fragment } from 'react';
+import React, { Component, div } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -7,8 +7,7 @@ import styled from 'styled-components';
 import closeIcon from '../assets/icon/close-blue.svg';
 
 // Modules
-// import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
-import { updateCard } from '../dataflow/modules/oportunities-modules';
+import { postKeywordThunk } from '../dataflow/thunks/opportunites-thunk';
 
 const mapStateToProps = (state) => ({
 	keywords: state.oportunities.cardFilter.keywords,
@@ -16,8 +15,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	updateCard: (info) => {
-		dispatch(updateCard(info));
+	postKeywordThunk: (info) => {
+		dispatch(postKeywordThunk(info));
 	},
 });
 
@@ -43,8 +42,8 @@ const FilterModal = styled.div`
 		z-index: 2;
 	}
 
-	@media (max-width: 768px) {
-	
+	@media (max-width: 960px) {
+		padding: 1rem;
 	}
 
 	@media (max-width: 648px) {
@@ -78,7 +77,7 @@ const CloseContainer = styled.div`
 	border-radius: 50%;
 	background-color: #fff;
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		top: -2rem;
 		${'' /* left: 32rem; */}
 	}
@@ -109,7 +108,6 @@ const InputBox = styled.span`
 	position: relative;
 	display: flex;
 	flex-direction: ${(props) => (props.alt ? 'row' : 'column')};
-	// justify-content: ${(props) => props.alt && 'space-between'};
 	width: 100%;
 	margin-top: ${(props) => props.last && '.5rem'};
 	@media (max-width: 960px) {
@@ -276,7 +274,6 @@ class ModalFilter extends Component {
 		super(props);
 		this.state = {
 			nameValue: '',
-
 			colors: [
 				'#DE8F33',
 				'#D65B85',
@@ -291,12 +288,10 @@ class ModalFilter extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
-		console.log(event.target.value);
 	}
 
 	handleColorOption = (color) => {
-		this.setState({ item: color });
-		console.log(color);
+		this.setState({ selectedColor: color });
 	}
 
 	handleCard = (event) => {
@@ -305,11 +300,22 @@ class ModalFilter extends Component {
 		if (!this.state.nameValue) {
 			this.setState({ emptyName: true });
 		} else {
-			this.props.updateCard({
-				cardName: this.state.nameValue,
-				cardColor: this.state.item,
+			this.props.postKeywordThunk({
+				name: this.state.nameValue.trim(),
+				color: this.state.selectedColor,
+				keywords: this.handleKeywordsObject(),
 			});
+
+			this.props.handleOpenModal();
 		}
+	}
+
+	handleKeywordsObject = () => {
+		let keywordsObject = this.props.keywords.map((item) => {
+			return { name: item };
+		});
+
+		return keywordsObject;
 	}
 
 	renderColorOption = () => {
@@ -325,12 +331,12 @@ class ModalFilter extends Component {
 	}
 
 	renderKeywordsList = () => this.props.keywords.map((keyword) => (
-		<Fragment
+		<div
 			key={keyword}
 			className='btn'
 		>
 			<KeywordText>{keyword}</KeywordText>
-		</Fragment>
+		</div>
 	))
 
 	render() {
@@ -338,7 +344,7 @@ class ModalFilter extends Component {
 			<Overlay>
 				<FilterModal>
 					<Header>
-						<Title modalTitle>Adicionar Filtro</Title>
+						<Title modalTitle>Adicionar Notificação</Title>
 						<CloseContainer onClick={this.props.handleOpenModal}>
 							<CloseButton>
 								<CloseImage src={closeIcon} />
@@ -386,7 +392,7 @@ class ModalFilter extends Component {
 						<Button
 							onClick={this.handleCard}
 						>
-							<Title>Adicionar Filtro</Title>
+							<Title>Adicionar Notificação</Title>
 						</Button>
 					</WrapperTagsColor>
 				</FilterModal>
