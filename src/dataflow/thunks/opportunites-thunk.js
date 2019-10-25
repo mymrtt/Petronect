@@ -63,8 +63,8 @@ export const getAllOpportunitiesThunk = () => (
 export const postKeywordThunk = (info) => (
 	async (dispatch) => {
 		try {
-			const { accessToken } = JSON.parse(Cookies.get('petronect_creds'));
-			const response = await postKeywordMiddleware(info, accessToken);
+			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
+			const response = await postKeywordMiddleware(info, accessToken, userId);
 
 			const keywordList = [];
 
