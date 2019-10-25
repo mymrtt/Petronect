@@ -295,12 +295,13 @@ const BtnCreateFilter = styled.button`
 
 const ImgSearch = styled.img`
 	display: none;
-	padding: 0 .85rem;
-	cursor: pointer;
+	
 
 	@media (max-width: 648px) {
 		padding: 0;
-    position: absolute;
+		padding: 0 .85rem;
+		cursor: pointer;
+    ${'' /* position: absolute; */}
 	}
 `;
 
@@ -733,9 +734,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 									</Button>
 								</Form>
-								<WrapperKeyword>
+								{/* <WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword>
+								</WrapperKeyword> */}
 							</WrapperForm>
 						</WrapperHeadMobile>
 
