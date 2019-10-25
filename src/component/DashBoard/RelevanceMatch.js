@@ -103,7 +103,7 @@ const WrapperHeadMobile = styled.div`
 
 const BoxHeader = styled.span`
 	width: 60%;
-  display: flex;
+  display: flex;	
 	align-items: center;
 	@media(max-width: 1024px) {
 		width: 40%;
@@ -124,24 +124,24 @@ const HeaderText = styled.p`
 `;
 
 const WrapperForm = styled.div`
-  max-width: 60%;
+  width: 60%;
 	padding-right: 1rem;
 	display: flex;
 	flex-direction: column;
 	flwx-wrap: wrap;
 	@media (max-width: 648px) {
-		width: 60%;
+		width: 100%;
 	}
 `;
 
 const Form = styled.div`
   width: 100%;
   display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
+
 	@media (max-width: 648px) {
-		padding-right: 1rem;
-		justify-content: flex-end;
+		padding-right: 1rem;;
 	}
 `;
 
@@ -157,7 +157,9 @@ const BoxInput = styled.div`
 `;
 
 const FormHead = styled.form`
-
+	@media(max-width: 648px) {
+		width: 100%;
+	}
 `;
 
 const TitleInput = styled.p`
@@ -208,6 +210,10 @@ const WrapperKeyword = styled.div`
 	align-items: flex-end;
 	border-radius: 0 0 16px 16px;
 	z-index: 2;
+
+	@media(max-width: 648px) {
+		width: 100%;
+	}
 `;
 
 const WrapInput = styled.div`
@@ -278,6 +284,10 @@ const BtnCreateFilter = styled.button`
 	outline: none;
 	border: none;
 	cursor: pointer;
+
+	@media(max-width: 648px) {
+		width: 100%;
+	}
 `;
 
 const ImgSearch = styled.img`
