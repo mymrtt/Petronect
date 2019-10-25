@@ -27,5 +27,3 @@ export const postKeywordMiddleware = (info, accessToken, userId) => axios({
 	},
 	data: info,
 });
-
-// export const postKeywordMiddleware = (info, accessToken, userId) => (console.log('userId----lalala', userId));
