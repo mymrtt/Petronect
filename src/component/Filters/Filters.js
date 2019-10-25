@@ -226,7 +226,13 @@ class Filters extends Component {
 					],
 				},
 			},
+			inputSearch: '',
 		};
+	}
+
+	handleSearchInput = (event) => {
+		this.setState({ inputSearch: event.target.value });
+		console.log(event.target.value);
 	}
 
 	renderCardsFilter = () => {
@@ -252,6 +258,7 @@ class Filters extends Component {
 			<ContainerSearchInput>
 				<SearchInput
 					placeholder={'Digite aqui para pesquisar'}
+					onChange={this.handleSearchInput}
 				/>
 				<Image magnifying src={magnifying} />
 			</ContainerSearchInput>
