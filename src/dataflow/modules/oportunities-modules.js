@@ -8,6 +8,8 @@ const OPORTUNITIES_LIST = 'petronect/oportunitiesList/OPORTUNITIES_LIST';
 const UPDATE_CARD = 'petronect/oportunities/UPDATE_CARD';
 const REMOVE_FAVORITE = 'petronect/oportunities/REMOVE_FAVORITE';
 const ADD_NOTIFICATION = 'petronect/keyword/ADD_NOTIFICATION';
+const ADD_ALL_NOTIFICATION = 'petronect/keyword/ADD_ALL_NOTIFICATION';
+const REMOVE_ALL_NOTIFICATION = 'petronect/keyword/REMOVE_ALL_NOTIFICATION'
 
 const initialState = {
 	favoriteList: [],
@@ -15,6 +17,7 @@ const initialState = {
 		keywords: [],
 	},
 	allKeywords: [],
+	allNotification: [],
 	oportunities: {},
 	// selectOportunity: [],
 };
@@ -70,6 +73,16 @@ export default function (state = initialState, action) {
 			...state,
 			allKeywords: state.allKeywords.concat([action.info]),
 		};
+	case ADD_ALL_NOTIFICATION:
+		return {
+			...state,
+			allNotification: action.info,
+		};
+	case REMOVE_ALL_NOTIFICATION:
+		return {
+			...state,
+			allNotification: [],
+		};
 	default:
 		return state;
 	}
@@ -112,5 +125,15 @@ export const updateCard = (info) => ({
 
 export const addNotification = (info) => ({
 	type: ADD_NOTIFICATION,
+	info,
+});
+
+export const getAllNotification = (info) => ({
+	type: ADD_ALL_NOTIFICATION,
+	info,
+});
+
+export const removeAllNotification = (info) => ({
+	type: REMOVE_ALL_NOTIFICATION,
 	info,
 });

@@ -1,5 +1,6 @@
 // Libs
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
 
@@ -12,6 +13,23 @@ import MenuResponsive from '../MenuResponsive';
 import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
+
+// Middlewares
+import { getAllKeywordThunk } from '../../dataflow/thunks/opportunites-thunk';
+import { removeAllNotification } from '../../dataflow/modules/oportunities-modules';
+
+const mapStateToProps = (state) => ({
+	allNotification: state.oportunities.allNotification,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getAllKeywordThunk: (info) => {
+		dispatch(getAllKeywordThunk(info));
+	},
+	removeAllNotification: (info) => {
+		dispatch(removeAllNotification(info));
+	},
+});
 
 const Container = styled.div`
 	width: 80%;
@@ -228,6 +246,10 @@ class Filters extends Component {
 		};
 	}
 
+	componentDidMount() {
+		this.props.getAllKeywordThunk();
+	}
+
 	renderCardsFilter = () => {
 		const { CardList } = this.state;
 
@@ -268,6 +290,7 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen } = this.state;
+		console.log('ooooooallNotification', this.props.allNotification)
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -305,4 +328,5 @@ class Filters extends Component {
 }
 
 
-export default Filters;
+// export default Filters;
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);
