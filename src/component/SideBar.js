@@ -298,7 +298,7 @@ class SideBar extends Component {
 							<Representative>Pedro Gualandi</Representative>
 						</BoxInfo>
 						<span>
-							<Button onClick={this.handleLogout}>Sair lala</Button>
+							<Button onClick={this.handleLogout}>Sair</Button>
 						</span>
 					</Contentinfo>
 				</WrapperInfo>
