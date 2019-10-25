@@ -14,7 +14,7 @@ import {
 import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
 
 // Images
-import shareIcon from '../../assets/icon/lupa.svg';
+import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
@@ -65,6 +65,7 @@ const Container = styled.div`
 		width: 95%;
 		height: auto;
 		margin-top: 3.5rem;
+		border-radius: 4px 4px 0 0 ;
 		${''}
 	}
 
@@ -105,13 +106,13 @@ const WrapperHeadMobile = styled.div`
 
 const BoxHeader = styled.span`
 	width: 60%;
-  display: flex;
+  display: flex;	
 	align-items: center;
 	@media(max-width: 1024px) {
-		width: 40%;
+		width: 45%;
 	}
-	@media(max-width: 960px) {
-		width: 52%;
+	@media(max-width: 648px) {
+		width: auto;
 	}
 `;
 
@@ -126,24 +127,24 @@ const HeaderText = styled.p`
 `;
 
 const WrapperForm = styled.div`
-  max-width: 60%;
+  width: 60%;
 	padding-right: 1rem;
 	display: flex;
 	flex-direction: column;
 	flwx-wrap: wrap;
 	@media (max-width: 648px) {
-		width: 55%;
+		width: 100%;
 	}
 `;
 
 const Form = styled.div`
   width: 100%;
   display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
+
 	@media (max-width: 648px) {
-		padding-right: 1rem;
-		justify-content: flex-end;
+		padding-right: 1rem;;
 	}
 `;
 
@@ -153,12 +154,15 @@ const BoxInput = styled.div`
 	align-items: center;
 
 	@media (max-width: 648px) {
-		width: 20%;
+		width: 75%;
+		justify-content: flex-end;
 	}
 `;
 
 const FormHead = styled.form`
-
+	@media(max-width: 648px) {
+		width: 100%;
+	}
 `;
 
 const TitleInput = styled.p`
@@ -181,12 +185,8 @@ const LabelBox = styled.label`
   display: flex;
   align-items: center;
 
-	@media (max-width: 648px) {
-    margin: 0;
-    padding: 0;
-		position: relative;
-    justify-content: center;
-		border-radius: 16px;
+	@media(max-width: 648px) {
+		width: 100%;
 	}
 `;
 
@@ -214,8 +214,8 @@ const WrapperKeyword = styled.div`
 	border-radius: 0 0 16px 16px;
 	z-index: 2;
 
-	@media(max-width: 768px) {
-		display: none;
+	@media(max-width: 648px) {
+		width: 100%;
 	}
 `;
 
@@ -287,11 +287,17 @@ const BtnCreateFilter = styled.button`
 	outline: none;
 	border: none;
 	cursor: pointer;
+
+	@media(max-width: 648px) {
+		width: 100%;
+	}
 `;
 
-const ImgShare = styled.img`
+const ImgSearch = styled.img`
+	display: none;
 	padding: 0 .85rem;
 	cursor: pointer;
+
 	@media (max-width: 648px) {
 		padding: 0;
     position: absolute;
@@ -385,7 +391,7 @@ const HeaderRow = styled.th`
 
 const TableRow = styled.tr`
   width: 100%;
-  height: 32px; 
+	padding:1rem 0;
 	display: flex;
 	align-items: center;
   border-radius: 4px;
@@ -460,6 +466,7 @@ class RelevanceMatch extends Component {
 			isOportunitesModal: false,
 			isShowFavorites: false,
 			inputSearch: false,
+			inputSearchMobile: false,
 			isModalOpen: false,
 		};
 	}
@@ -572,6 +579,14 @@ class RelevanceMatch extends Component {
 		</>
 	)
 
+	handleSearchMobile = () => {
+		this.setState({ inputSearchMobile: true });
+	}
+
+	resetInput = () => {
+		this.setState({ inputSearchMobile: false });
+	}
+
 	handleFavorite = (event, oportunityId) => {
 		event.stopPropagation();
 		this.props.putFavorite(oportunityId);
@@ -649,7 +664,7 @@ class RelevanceMatch extends Component {
 
 
 	render() {
-		const { isOportunitesModal, isModalOpen } = this.state;
+		const { isOportunitesModal, isModalOpen, inputSearchMobile } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -692,15 +707,18 @@ class RelevanceMatch extends Component {
 						{this.renderOportunity}
 						<WrapperHeadMobile>
 							<BoxHeader>
-								<HeaderText>Oportunidades</HeaderText>
+								<HeaderText
+									style={{display: inputSearchMobile ? 'none' : 'flex'}}
+								>Oportunidades</HeaderText>
 							</BoxHeader>
 							<WrapperForm>
 								<Form onSubmit={this.handleKeyPress}>
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
-										<LabelBox mobile>
-											<ImgShare src={shareIcon}/>
-										</LabelBox>
+										{this.state.inputSearchMobile && this.renderSearchInput() }
+										<ImgSearch src={searchIcon}
+											style={{display: inputSearchMobile ? 'none' : 'flex'}}
+											onClick={this.handleSearchMobile}/>
 									</BoxInput>
 									<Button
 										type="button"
@@ -715,9 +733,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 									</Button>
 								</Form>
-								<WrapperKeyword>
+								{/* <WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword>
+								</WrapperKeyword> */}
 							</WrapperForm>
 						</WrapperHeadMobile>
 
@@ -738,12 +756,11 @@ class RelevanceMatch extends Component {
 					<Fragment>
 						{ isOportunitesModal && this.renderModalOportunities() }
 						{ isModalOpen && this.renderModalFilter() }
-
 					</Fragment>
 				</Container>
 				<Footer />
 			</Fragment>
-  	);
+		);
 	}
 }
 

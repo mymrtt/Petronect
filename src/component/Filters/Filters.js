@@ -226,13 +226,35 @@ class Filters extends Component {
 					],
 				},
 			},
-			inputSearch: '',
+			searchText: '',
+			searchCard: false,
 		};
 	}
 
 	handleSearchInput = (event) => {
-		this.setState({ inputSearch: event.target.value });
+		this.setState({ searchText: event.target.value });
 		console.log(event.target.value);
+	}
+
+	handleSearchMagnifying = () => {
+		this.setState({ searchCard: true });
+	}
+
+	renderNewCardsFilter = () => {
+		const { CardList } = this.state;
+
+		return (
+			<ContainerFilters>
+				{ values(CardList).filter((card) => card.title.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => (
+					<CardFilter
+						key={card.title}
+						item={this.state.item}
+						card={card}
+						handleOpenModal={this.handleOpenModal}
+					/>
+				))}
+			</ContainerFilters>
+		);
 	}
 
 	renderCardsFilter = () => {
@@ -258,9 +280,10 @@ class Filters extends Component {
 			<ContainerSearchInput>
 				<SearchInput
 					placeholder={'Digite aqui para pesquisar'}
+					value={this.state.searchText}
 					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} />
+				<Image magnifying src={magnifying} onClick={this.handleSearchMagnifying} />
 			</ContainerSearchInput>
 		</WrapperSearch>
 	)
@@ -275,7 +298,7 @@ class Filters extends Component {
 	)
 
 	render() {
-		const { isModalOpen } = this.state;
+		const { isModalOpen, searchCard } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive />
@@ -284,7 +307,9 @@ class Filters extends Component {
 						<ContainerSearchMobile>
 							{this.renderWrapperSearch()}
 						</ContainerSearchMobile>
-						{this.renderCardsFilter()}
+						<Fragment>
+							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+						</Fragment>
 						<ContainerNotifications>
 							<ContainerSearch>
 								{this.renderWrapperSearch()}

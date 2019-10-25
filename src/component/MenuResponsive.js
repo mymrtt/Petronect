@@ -113,6 +113,7 @@ const ContainerDropdown = styled.div`
 	background-color: #fff;
 	border-bottom-right-radius: 6px;
 	border-bottom-left-radius: 6px;
+	z-index: 2;
 `;
 
 const DropboxText = styled.p`
