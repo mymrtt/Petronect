@@ -179,6 +179,7 @@ const ContainerFilters = styled.div`
 		flex-wrap: nowrap;
 		margin-left: .5rem;
 		width: 100%;
+		height: 85%;
 	}
 `;
 
