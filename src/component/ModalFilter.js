@@ -30,6 +30,7 @@ const Overlay = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: #40404040;
+	z-index: 2;
 `;
 
 const FilterModal = styled.div`
