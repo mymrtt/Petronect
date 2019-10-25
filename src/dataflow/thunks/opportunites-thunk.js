@@ -1,8 +1,7 @@
 // Libs
 import * as Cookies from 'js-cookie';
 
-import { getAllOpportunitesMiddleware, getOpportunityById } from '../middlewares/opportunites-middlewares';
-
+import { getAllOpportunitesMiddleware } from '../middlewares/opportunites-middlewares';
 import { oportunitiesList } from '../modules/oportunities-modules';
 
 // eslint-disable-next-line import/prefer-default-export
