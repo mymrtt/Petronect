@@ -250,6 +250,10 @@ class Filters extends Component {
 		this.props.getAllKeywordThunk();
 	}
 
+	componentWillUnmount() {
+		this.props.removeAllNotification();
+	}
+
 	renderCardsFilter = () => {
 		const { CardList } = this.state;
 
