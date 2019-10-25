@@ -19,11 +19,19 @@ export const getOpportunityById = (info) => axios({
 	},
 });
 
-export const postKeywordMiddleware = (info, accessToken, userId) => axios({
+export const postKeywordMiddleware = (userId, accessToken, info) => axios({
 	url: `${API_URL}/users/${userId}/keyword-filter`,
 	method: 'post',
 	headers: {
 		Authorization: accessToken,
 	},
 	data: info,
+});
+
+export const getAllKeywordMiddleware = (userId, accessToken) => axios({
+	url: `${API_URL}/users/${userId}/keyword-filter`,
+	method: 'get',
+	headers: {
+		Authorization: accessToken,
+	},
 });
