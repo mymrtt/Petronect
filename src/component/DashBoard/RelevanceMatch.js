@@ -109,7 +109,7 @@ const BoxHeader = styled.span`
 		width: 40%;
 	}
 	@media(max-width: 648px) {
-		width: 40%;
+		width: auto;
 	}
 `;
 
@@ -130,7 +130,7 @@ const WrapperForm = styled.div`
 	flex-direction: column;
 	flwx-wrap: wrap;
 	@media (max-width: 648px) {
-		width: 55%;
+		width: 60%;
 	}
 `;
 
@@ -151,7 +151,8 @@ const BoxInput = styled.div`
 	align-items: center;
 
 	@media (max-width: 648px) {
-		width: 20%;
+		width: 75%;
+		justify-content: flex-end;
 	}
 `;
 
@@ -180,7 +181,7 @@ const LabelBox = styled.label`
   align-items: center;
 
 	@media(max-width: 648px) {
-		width: 100px;
+		width: 100%;
 	}
 `;
 
@@ -583,7 +584,6 @@ class RelevanceMatch extends Component {
 
 	handleSearchMobile = () => {
 		this.setState({ inputSearchMobile: true });
-		console.log('entrou!!!', this.state.inputSearchMobile)
 	}
 
 	resetInput = () => {
@@ -667,7 +667,7 @@ class RelevanceMatch extends Component {
 
 	render() {
 		const {
-			isOportunitesModal, isModalOpen, isShowFavorites, inputSearchMobile
+			isOportunitesModal, isModalOpen, isShowFavorites, inputSearchMobile,
 		} = this.state;
 		console.log('tem que descomentar', this.props.keywords);
 		return (
@@ -712,7 +712,9 @@ class RelevanceMatch extends Component {
 						{this.renderOportunity}
 						<WrapperHeadMobile>
 							<BoxHeader>
-								<HeaderText>Oportunidades</HeaderText>
+								<HeaderText
+									style={{display: inputSearchMobile ? 'none' : 'flex'}}
+								>Oportunidades</HeaderText>
 							</BoxHeader>
 							<WrapperForm>
 								<Form onSubmit={this.handleKeyPress}>
@@ -720,7 +722,7 @@ class RelevanceMatch extends Component {
 										<TitleInput>Pesquisar</TitleInput>
 										{this.state.inputSearchMobile && this.renderSearchInput() }
 										<ImgSearch src={searchIcon}
-											style={{display: this.state.inputSearchMobile ? 'none' : 'flex'}}
+											style={{display: inputSearchMobile ? 'none' : 'flex'}}
 											onClick={this.handleSearchMobile}/>
 									</BoxInput>
 									<Button
