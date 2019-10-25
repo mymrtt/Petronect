@@ -29,7 +29,7 @@ export default function (state = initialState, action) {
 			},
 		};
 	case REMOVE_ITEM:
-		return {
+		return { 
 			...state,
 			cardFilter: {
 				...state.cardFilter,

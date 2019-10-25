@@ -40,12 +40,15 @@ const FilterModal = styled.div`
 	border-radius: 8px;
 	background: #fff;
 	@media (max-width: 960px) {
-		z-index: 1;
+		z-index: 2;
 	}
+
+	@media (max-width: 960px) {
+		padding: 1rem;
+	}
+
 	@media (max-width: 648px) {
-		padding: 0 1rem;
-		width: 92%;
-		height: 65%;
+		width: 30rem;
 	}
 `;
 
@@ -60,7 +63,6 @@ const Header = styled.div`
 
 const CloseContainer = styled.div`
 	position: absolute;
-	// right: .65rem;
 	left: 31.5rem;
 	bottom: 1.5rem;
 	width: 30px;
@@ -71,12 +73,13 @@ const CloseContainer = styled.div`
 	border: 0.5px solid #115680;
 	border-radius: 50%;
 	background-color: #fff;
-	@media (max-width: 640px) {
-    top: .5rem;
-    bottom: 0;
-		left: 16.5rem;
-    width: 35px;
-    height: 35px;
+
+	@media(max-width: 960px) {
+		top: -2rem;
+		left: 32rem;
+	}
+	@media (max-width: 648px) {
+		left: 27rem;
 	}
 `;
 
@@ -101,7 +104,6 @@ const InputBox = styled.span`
 	position: relative;
 	display: flex;
 	flex-direction: ${(props) => (props.alt ? 'row' : 'column')};
-	// justify-content: ${(props) => props.alt && 'space-between'};
 	width: 100%;
 	margin-top: ${(props) => props.last && '.5rem'};
 	@media (max-width: 960px) {
@@ -322,7 +324,7 @@ class ModalFilter extends Component {
 			<Overlay>
 				<FilterModal>
 					<Header>
-						<Title modalTitle>Adicionar Filtro</Title>
+						<Title modalTitle>Adicionar Notificação</Title>
 						<CloseContainer onClick={this.props.handleOpenModal}>
 							<CloseButton>
 								<CloseImage src={closeIcon} />
@@ -370,7 +372,7 @@ class ModalFilter extends Component {
 						<Button
 							onClick={this.handleCard}
 						>
-							<Title>Adicionar Filtro</Title>
+							<Title>Adicionar Notificação</Title>
 						</Button>
 					</WrapperTagsColor>
 				</FilterModal>

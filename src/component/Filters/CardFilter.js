@@ -5,6 +5,8 @@ import { values } from 'lodash';
 
 // Images
 import deleteIcon from '../../assets/icon/delete.svg';
+import searchIcon from '../../assets/icon/lupa-white.svg';
+import closeIcon from '../../assets/icon/close-blue.svg';
 
 const Container = styled.div`
 	margin-bottom: 1rem;
@@ -47,9 +49,11 @@ const WrapperCard = styled.div`
 	padding: 0 1rem;
 	height: 2rem;
 	display: flex;
-	align-items: center;
-	background-color: ${(props) => props.background};
 	justify-content: space-between;
+	align-items: center;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	background-color: ${(props) => props.background};
 `;
 
 const ContainerTags = styled.div`
@@ -74,17 +78,30 @@ const SuggestionsText = styled.p`
 	color: ${(props) => (props.suggestionsTitle ? '#8C8C8C' : '#404040')};
 `;
 
-const TagTitle = styled.p`
-	color: #fff;
-	font-size: 1rem;
-`;
+// const TagTitle = styled.p`
+// 	color: #fff;
+// 	font-size: 1rem;
+// `;
 
-const CardEdit = styled.div`
+const CardDelete = styled.div`
 	width: 20px;
 	height: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+
+const Title = styled.p`
+	color: ${(props) => (props.deleteTitle ? '#116EA0' : '#fff')};
+	font-size: .90rem;
+	font-weight: 600;
+`;
+
+const Text = styled.p`
+	font-size: 1rem;
+	font-weight: 200;
+	color: #959595;
+	margin-bottom: ${(props) => (props.deleteText ? '2rem' : '0')};
 `;
 
 const Image = styled.img`
@@ -94,15 +111,157 @@ const Image = styled.img`
 	}
 `;
 
+const ImageSeach = styled.img`
+	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
+	margin-left: .5rem;
+	@media (max-width: 640px) {
+		width: ${(props) => props.magnifying && '18px'};
+	}
+`;
+
+const Overlay = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #40404040;
+`;
+
+const ContainerDeleteModal = styled.div`
+	padding: 0 3rem;
+	width: 30rem;
+	display: flex;
+	flex-direction: column;
+	border: #115680 .5px solid;
+	border-radius: 8px;
+	background-color: #fff;
+	@media(max-width: 960px) {
+		z-index: 1;
+	}
+	@media(max-width: 648px) {
+		padding: 0 2rem;
+		// width: 22rem;
+		width: 95%;
+	}
+`;
+
+const DeleteModalHeader = styled.div`
+	position: relative;
+	margin-bottom: 2rem;
+	padding-top: 1.2rem;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+`;
+
+const CloseContainer = styled.div`
+	position: absolute;
+	left: 26rem;
+	bottom: 1.5rem;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0.5px solid #115680;
+	border-radius: 50%;
+	background-color: #fff;
+
+	@media(max-width: 425px) {
+		left: 21.5rem;
+	}
+	@media(max-width: 375px) {
+		left: 18.5rem;
+	}
+	@media(max-width: 320px) {
+		left: 15rem;
+	}
+`;
+
+const CloseButton = styled.button`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	color: #115680;
+	border: none;
+	background: transparent;
+	outline: none;
+	cursor: pointer;
+`;
+
+const CloseImage = styled.img`
+	width: 11px;
+`;
+
+const ContentDeleteModal = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+`;
+
+const ContainerDeleteButtons = styled.div`
+	padding: 1rem 0;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+`;
+
+const DeleteButton = styled.button`
+	width: 10rem;
+	height: 3rem;
+	color: ${(props) => (props.deleteConfirmation ? '#fff' : '#116EA0')};
+	font-size: .95rem;
+	font-weight: 600;
+	border: transparent;
+	border-radius: 4px;
+	background-color: ${(props) => (props.deleteConfirmation ? '#116EA0' : '#fff')};
+`;
+
 class CardFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isOpenDelete: false,
 		};
 	}
 
-	handleDeleteCard = () => {
-		console.log('chegou');
+	handleOpenDeleteModal = () => {
+		this.setState({ isOpenDelete: true });
+	}
+
+	handleCloseDeleteModal = () => {
+		this.setState({ isOpenDelete: false });
+	}
+
+
+	renderDeleteModal = () => {
+		return (
+			<Overlay>
+				<ContainerDeleteModal>
+					<DeleteModalHeader>
+						<Title deleteTitle>Deseja excluir o filtro "Sistemas offshore"?</Title>
+						<CloseContainer onClick={this.handleCloseDeleteModal}>
+							<CloseButton>
+								<CloseImage src={closeIcon} />
+							</CloseButton>
+						</CloseContainer>
+					</DeleteModalHeader>
+					<ContentDeleteModal>
+						<Text deleteText>Ao confirmar esta ação o filtro "Sistemas offshore" será excluído permanentemente do sistema.</Text>
+						<ContainerDeleteButtons>
+							<DeleteButton onClick={this.handleCloseDeleteModal}>Cancelar</DeleteButton>
+							<DeleteButton deleteConfirmation>Confirmar</DeleteButton>
+						</ContainerDeleteButtons>
+					</ContentDeleteModal>
+				</ContainerDeleteModal>
+			</Overlay>
+		);
 	}
 
 	render() {
@@ -115,10 +274,13 @@ class CardFilter extends Component {
 					<WrapperCard
 						background={this.props.item ? this.props.item : '#115680'}
 					>
-						<TagTitle>{card.title}</TagTitle>
-						<CardEdit onClick={this.handleDeleteCard}>
+						<Title tagTitle>{card.title}
+							<ImageSeach src={searchIcon} />
+						</Title>
+						<CardDelete onClick={this.handleOpenDeleteModal}>
 							<Image src={deleteIcon} />
-						</CardEdit>
+							{/* <Text>Excluir</Text> */}
+						</CardDelete>
 					</WrapperCard>
 					<ContainerTags>
 						{
@@ -133,6 +295,7 @@ class CardFilter extends Component {
 						}
 					</ContainerTags>
 				</Card>
+				{ this.state.isOpenDelete && this.renderDeleteModal()}
 			</Container>
 		);
 	}
