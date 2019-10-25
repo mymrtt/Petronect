@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
+
 
 // Components
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
+import Filters from '../Filters/Filters';
+
 
 const Container = styled.div`
 	width: 100vw;
@@ -48,7 +52,45 @@ const ContainerSidebar = styled.span`
 class DashBoard extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			currentScreen: 'match',
+			redirect: false,
+		};
+	}
+
+	componentDidMount() {
+		this.setState({
+			currentScreen: this.props.location.pathname,
+		})
+	}
+
+	componentDidUpdate(oldProps) {
+		if (oldProps.location.pathname !== this.props.location.pathname
+			&& this.props.location.pathname !== this.state.currentScreen) {
+			this.setState({
+				currentScreen: this.props.location.pathname,
+			})
+		}
+	}
+
+
+
+	renderCurrentScreen = () => {
+		switch(this.state.currentScreen) {
+			case '/notifications':
+				return <Filters />;
+			case '/match-relevancia':
+			default:
+				return <RelevanceMatch/>
+		};
+	}
+
+	redirect = () => {
+		return (
+			<Redirect
+				to={`/`}
+			/>
+		);
 	}
 
 	render() {
@@ -58,8 +100,9 @@ class DashBoard extends Component {
 					<ContainerSidebar>
 						<SideBar />
 					</ContainerSidebar>
-					<RelevanceMatch history={this.props.history}/>
+					{this.renderCurrentScreen()}
 				</Content>
+				{this.state.redirect && this.redirect()}
 			</Container>
 		);
 	}
