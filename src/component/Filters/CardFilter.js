@@ -221,6 +221,7 @@ const DeleteButton = styled.button`
 	border: transparent;
 	border-radius: 4px;
 	background-color: ${(props) => (props.deleteConfirmation ? '#116EA0' : '#fff')};
+	outline: none;
 `;
 
 class CardFilter extends Component {

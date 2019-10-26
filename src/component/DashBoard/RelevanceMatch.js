@@ -87,7 +87,7 @@ const WrapperHead = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: .75rem 0;
+	padding: 1rem 0;
 	@media (max-width: 648px) {
 		display: none;
 	}
@@ -97,7 +97,7 @@ const WrapperHeadMobile = styled.div`
 	display: none;
 	@media (max-width: 648px) {
 		width: 100%;
-		padding: .75rem 0;
+		padding: 1rem 0;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -153,10 +153,7 @@ const BoxInput = styled.div`
 
 	@media (max-width: 648px) {
 		width: 75%;
-		position: relative;
 		justify-content: flex-end;
-
-		background: red;
 	}
 `;
 
@@ -216,7 +213,7 @@ const WrapperKeyword = styled.div`
 	z-index: 2;
 
 	@media(max-width: 648px) {
-		width: 100%;
+		width: 70%;
 		position: absolute;
 	}
 `;
@@ -546,6 +543,7 @@ class RelevanceMatch extends Component {
 	}
 
 	resetInput = () => {
+		console.log("chegou")
 		this.setState({ inputSearch: false });
 	}
 
@@ -583,10 +581,6 @@ class RelevanceMatch extends Component {
 
 	handleSearchMobile = () => {
 		this.setState({ inputSearchMobile: true });
-	}
-
-	resetInput = () => {
-		this.setState({ inputSearchMobile: false });
 	}
 
 	handleFavorite = (event, oportunityId) => {
@@ -669,7 +663,9 @@ class RelevanceMatch extends Component {
 		const { isOportunitesModal, isModalOpen, inputSearchMobile } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive history={this.props.history} />
+				<MenuResponsive 
+					closeInput={this.resetInput}
+					history={this.props.history} />
 				<Container>
 					<Content>
 						<WrapperHead>

@@ -165,8 +165,11 @@ class MenuResponsive extends Component {
 	}
 
 	handleOpenDropdown = () => {
+		// eslint-disable-next-line no-console
+		console.log("chegou", this.props)
 		const { isOpenDropdown } = this.state;
 		this.setState({ isOpenDropdown: !isOpenDropdown });
+		this.props.closeInput();		
 	}
 
 	handleLogout = () => {
