@@ -294,7 +294,7 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen } = this.state;
-		console.log('filters history={this.props.history}', this.props.history)
+		
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history}/>
