@@ -1,5 +1,6 @@
 // Libs
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // Images
@@ -9,6 +10,12 @@ import attachIcon from '../../assets/icon/anexar.svg';
 import doubtIcon from '../../assets/icon/duvida.svg';
 import loadingIcon from '../../assets/icon/loading.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
+
+//Redux
+const mapStateToProps = (state) => ({
+	selectedOpportunity: state.opportunities.selectedOpportunity,
+})
+
 
 const Overlay = styled.div`
 	position: absolute;
@@ -25,14 +32,13 @@ const Overlay = styled.div`
 
 const Container = styled.div`
 	width: 42rem;
+	max-height: 85vh;
 	border: .5px solid #115680;
 	border-radius: 8px;
 	background: #fff;
 	z-index: 2;
 	margin: 0 0.625rem;
-	${'' /* @media	(max-width: 960px) {
-		width: 65%;
-	} */}
+	overflow: hidden scroll;
 `;
 
 const DatailsHeader = styled.div`
@@ -308,6 +314,7 @@ class DetailsOportunies extends Component {
 	)
 
 	render() {
+		const { selectedOpportunity } = this.props;
 		const { isDatailsOpen } = this.state;
 
 		return (
@@ -316,7 +323,7 @@ class DetailsOportunies extends Component {
 					<DatailsHeader>
 						<WrapperRelevance>
 							<Image star src={start} />
-							<TextHeader>85% Relevante</TextHeader>
+							<TextHeader>{selectedOpportunity.fit}% Relevante</TextHeader>
 						</WrapperRelevance>
 						<CloseContainer onClick={this.props.handleModalOportunities}>
 							<CloseButton>
@@ -328,15 +335,14 @@ class DetailsOportunies extends Component {
 						<InfoContainer>
 							<InfoWrap>
 								<Text title fontSize>Título e descrição</Text>
-								<Description>Contrato global - manilhas de carga</Description>
+								<Description>{selectedOpportunity.opportunityTitle}</Description>
 							</InfoWrap>
-
-							<Text padding='.55rem 0 0 0'>Licitação, Lei 13.303, Art. 28, CAPUT</Text>
-							<Text bold padding='1.44rem 0'>Petróleo Brasileiro S. A.</Text>
+							{/* <Text padding='.55rem 0 0 0'>Licitação, Lei 13.303, Art. 28, CAPUT</Text> */}
+							<Text bold padding='1.44rem 0'>{selectedOpportunity.company}</Text>
 							<InfoContentMobile>
 								<BoxInfo>
 									<Text title fontSize>Id</Text>
-									<Text bold>8916909924</Text>
+									<Text bold>{selectedOpportunity.opportunityId}</Text>
 								</BoxInfo>
 								<BoxInfo>
 									<Text title fontSize>Prazo</Text>
@@ -344,10 +350,10 @@ class DetailsOportunies extends Component {
 								</BoxInfo>
 							</InfoContentMobile>
 							<CategoryContainer>
-								<InfoWrap>
+								{/* <InfoWrap>
 									<Text title fontSize>Categoria</Text>
 									<Text bold>Remoção de material</Text>
-								</InfoWrap>
+								</InfoWrap> */}
 								<IconWrapMobile>
 									<BtnIcon>
 										<Image src={attachIcon} icon />
@@ -356,40 +362,30 @@ class DetailsOportunies extends Component {
 									{/* <Image src={doubtIcon} icon /> */}
 								</IconWrapMobile>
 							</CategoryContainer>
+							<Text title fontSize>Itens</Text>
+							{selectedOpportunity.items && selectedOpportunity.items.map(item => (
+								<>
+									<InfoWrap>
+										<Text bold>{item.id}</Text>
+										<Text bold>{item.title}</Text>
+									</InfoWrap>
 
-							<InfoWrap>
-								<Text title fontSize>Itens</Text>
-								<Text bold>0001</Text>
-								<Text bold>MANIFOLD PARA INSTRUMENTAÇÃO - EPP E ME</Text>
-							</InfoWrap>
-
-							<InfoWrap>
-								<Text>Quantidade: 1</Text>
-								<Text>Unidade de Fornecimento:</Text>
-							</InfoWrap>
-
-							<InfoWrap>
-								<Text bold>0002</Text>
-								<Text bold>MANIFOLD PARA INSTRUMENTAÇÃO - DEMAIS</Text>
-							</InfoWrap>
-
-							<InfoWrap>
-								<Text>Quantidade: 1</Text>
-								<Text>Unidade de Fornecimento:</Text>
-							</InfoWrap>
+									<InfoWrap>
+										<Text>Quantidade: {item.qty}</Text>
+										<Text>Unidade de Fornecimento: {item.unit}</Text>
+									</InfoWrap>
+								</>
+							))}
 						</InfoContainer>
 						<InfoContent>
-
 							<BoxInfo>
 								<Text title fontSize>Id</Text>
-								<Text bold>8916909924</Text>
+								<Text bold>{selectedOpportunity.opportunityId}</Text>
 							</BoxInfo>
-
 							<BoxInfo>
 								<Text title fontSize>Prazo</Text>
-								<Text bold>18/06/19 - 28/08/19</Text>
+								<Text bold>{selectedOpportunity.deadLineInitial} - {selectedOpportunity.deadLineLastOne}</Text>
 							</BoxInfo>
-
 							<IconWrap>
 								{/* <BtnIcon>
 									<Image src={shareIcon} icon />
@@ -417,4 +413,4 @@ class DetailsOportunies extends Component {
 	}
 }
 
-export default DetailsOportunies;
+export default connect(mapStateToProps, null)(DetailsOportunies);
