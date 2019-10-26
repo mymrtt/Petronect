@@ -146,6 +146,7 @@ const SearchInput = styled.input`
 
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
+	cursor: ${(props) => props.magnifying && 'pointer'};
 	@media (max-width: 640px) {
 		width: ${(props) => props.magnifying && '18px'};
 	}
@@ -233,7 +234,6 @@ class Filters extends Component {
 
 	handleSearchInput = (event) => {
 		this.setState({ searchText: event.target.value });
-		console.log(event.target.value);
 	}
 
 	handleSearchMagnifying = () => {
