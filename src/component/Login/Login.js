@@ -107,7 +107,7 @@ const InputBox = styled.span`
 		width: 100%;
 	}
 	@media (max-width: 478px) {
-		margin-top: ${(props) => props.last && '0rem'};
+		flex-direction: ${(props) => (props.lastResponsiveResponsive ? '0rem' : '.5rem')};
 	}
 `;
 
@@ -146,20 +146,24 @@ const IconInputPassword = styled.img`
 
 const Button = styled.button`
 	width: ${(props) => props.width};
+	${'' /* width: ${(props) => (props.backMargin ? '100%' : props.width)}; */}
 	height: 3rem;
-	margin-top: 2.5rem;
-	background: #115680;
-	box-shadow: 0px 3px 6px #00000029;
+	${'' /* margin-top: 2.5rem; */}
+	margin-top: ${(props) => (props.backMargin ? '1.5rem' : '2.5rem')};
+	background: ${(props) => (props.back ? '#FFF' : '#115680')};
+	color: ${(props) => (props.back ? 'none' : '0px 3px 6px #00000029')};
 	border: none;
 	border-radius: 4px;
 	outline: none;
 	text-align: center;
 	font: 600 1rem eurostile, sans serif;
+	text-align: ${(props) => (props.backLeft ? 'left' : 'center')};
 	letter-spacing: 0;
-	color: #FAFAFA;
+	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
 	cursor: pointer;
+    ${'' /* text-align: center; */}
 	@media (max-width: 960px) {
-		width: 100%;
+		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
 	}
 	@media (max-width: 450px) {
 		margin-top: .5rem;
@@ -174,7 +178,7 @@ const AltBox = styled.span`
 	margin-top: 3rem;
 	@media (max-width: 960px) {
 		margin-top: 1rem;
-		width: 60%;
+		width: 94%;
 	}
 	@media (max-width: 450px) {
 		margin-top: 0;
@@ -188,7 +192,7 @@ const Link = styled.p`
 	color: ${(props) => props.color || '#505050'} ;
 	text-decoration: ${(props) => (props.color ? 'underline' : 'none')} ;
 	cursor: pointer;
-	:last-child {
+	:last lastResponsive-child {
 		text-align: right;
 	}
 `;
@@ -280,13 +284,14 @@ const CreateBox = styled.div`
 		width: 50%;
 	}
 	@media(max-width: 960px) {
-		width: 75%;
+		width: 90%;
 	}
 	@media(max-width: 648px) {
+
 		padding: 2rem;
 	}
 	@media(max-width: 450px) {
-		width: 85%;
+		width: 100%;
 	}
 `;
 
@@ -332,6 +337,24 @@ const BackText = styled.div`
 	cursor: pointer;
 	font: 600 1.25rem Eurostile;
 	color: #116EA0;
+`;
+
+const ButtonsBox = styled.div`
+	display: flex;
+	justify-content: space-between;
+	@media (max-width: 450px) {
+		flex-wrap: column;
+		margin-top: 2.5rem;
+	}
+`;
+
+const Form = styled.form`
+	width: 95%;
+	@media (max-width: 450px) {
+		width: 100%;
+		flex-wrap: column;
+		margin-top: 2.5rem;
+	}
 `;
 
 class Login extends Component {
@@ -412,6 +435,7 @@ class Login extends Component {
 		return null;
 	}
 
+	
 	handleCreate = () => {
 		if (this.state.currentScreen !== 'create') {
 			this.setState({
@@ -419,7 +443,23 @@ class Login extends Component {
 			});
 		}
 	}
+	
+	handleRecoverPassword = () => {
+		if (this.state.currentScreen !== 'recoverPassword') {
+			this.setState({
+				currentScreen: 'recoverPassword',
+			});
+		}
+	}
 
+	handleBackLogin = () => {
+		if (this.state.currentScreen !== 'login') {
+			this.setState({
+				currentScreen: 'login',
+			});
+		}
+	}
+	
 	createSubmit = (ev) => {
 		ev.preventDefault();
 
@@ -464,7 +504,7 @@ class Login extends Component {
 					onChange={this.handleError}
 				/>
 			</InputBox>
-			<InputBox last width='55%'>
+			<InputBox last lastResponsive width='55%'>
 				<Label>Senha</Label>
 				<Input
 					ref={(node) => { this.loginPasswordRef = node; }}
@@ -481,12 +521,12 @@ class Login extends Component {
 				/>
 				{this.renderError()}
 			</InputBox>
-			<Button width='55%'>
+			<Button width='55%' widthLogin>
 				Entrar
 			</Button>
 			<AltBox>
 				<Link onClick={this.handleCreate} >Criar nova conta</Link>
-				<Link>Recuperar Senha</Link>
+				<Link onClick={this.handleRecoverPassword}>Recuperar Senha</Link>
 			</AltBox>
 		</InputContainer>
 		<LoginBox>
@@ -569,6 +609,44 @@ class Login extends Component {
 						</Button>
 					</form>)
 				}
+				<Button back backMargin width='100%' onClick={this.handleBackLogin}>
+			  	Voltar para o login
+				</Button>
+			</CreateBox>
+		</CreateContainer>
+	)
+
+	renderRecoverPassword = () => (
+		<CreateContainer>
+			<LogoCreate src={logoW} />
+			<CreateBox>
+				<Form>
+					<CreateTitle>
+						Recuperar Senha
+					</CreateTitle>
+					<InputBox last width='100%'>
+						<Label>Email</Label>
+						<Input
+							type={'email'}
+							placeholder={'nome@email.com'}
+						/>
+					</InputBox>
+					<InputBox last width='100%'>
+						<Label>Confirmar email</Label>
+						<Input
+							type={'email'}
+							placeholder={'nome@email.com'}
+						/>
+					</InputBox>
+					<ButtonsBox>
+						<Button back  width='45%' backLeft widthResponsive onClick={this.handleBackLogin}>
+							Voltar
+						</Button>
+						<Button width='45%' widthResponsive>
+							Enviar
+						</Button>
+					</ButtonsBox>
+				</Form>
 			</CreateBox>
 		</CreateContainer>
 	)
@@ -579,6 +657,8 @@ class Login extends Component {
 			return this.renderLogin();
 		case 'create':
 			return this.renderCreateAccount();
+		case 'recoverPassword':
+			return this.renderRecoverPassword();
 		case 'forgot':
 			return this.renderForgotPassword();
 		case 'password':
