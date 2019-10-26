@@ -10,8 +10,8 @@ import {
 	removeItem,
 	putFavorite,
 	removeFavorite,
-} from '../../dataflow/modules/oportunities-modules';
-import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
+} from '../../dataflow/modules/opportunities-modules';
+import { getAllOpportunitiesThunk, getOpportunityByIdThunk } from '../../dataflow/thunks/opportunities-thunk';
 
 // Images
 import shareIcon from '../../assets/icon/lupa.svg';
@@ -26,10 +26,10 @@ import Footer from '../Footer';
 import ModalFilter from '../ModalFilter';
 
 const mapStateToProps = (state) => ({
-	keywords: state.oportunities.cardFilter.keywords,
-	oportunities: state.oportunities.oportunities,
-	oportunitiesList: state.oportunities.oportunitiesList,
-	favoriteList: state.oportunities.favoriteList,
+	keywords: state.opportunities.cardFilter.keywords,
+	opportunities: state.opportunities.opportunities,
+	oportunitiesList: state.opportunities.oportunitiesList,
+	favoriteList: state.opportunities.favoriteList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -48,13 +48,12 @@ const mapDispatchToProps = (dispatch) => ({
 	getAllOpportunitiesThunk: (info) => {
 		dispatch(getAllOpportunitiesThunk(info));
 	},
-	// getOpportunityThunk: (info) => {
-	// 	dispatch(getOpportunityThunk(info))
-	// }
+	getOpportunityByIdThunk: (info) => {
+		dispatch(getOpportunityByIdThunk(info))
+	}
 });
 
 const Container = styled.div`
-	// width: 75vw;
 	width: 80%;
   border-radius: 0 4px 0 0;
   background: #fff;
@@ -64,13 +63,7 @@ const Container = styled.div`
 		width: 95%;
 		height: auto;
 		margin-top: 3.5rem;
-		${''}
 	}
-
-	${'' /* @media(max-width: 375px) {
-		width: 95%;
-		height: auto;
-	} */}
 `;
 
 const Content = styled.div`
@@ -571,21 +564,21 @@ class RelevanceMatch extends Component {
 		</>
 	)
 
-	handleFavorite = (event, oportunityId) => {
+	handleFavorite = (event, opportunityId) => {
 		event.stopPropagation();
-		this.props.putFavorite(oportunityId);
+		this.props.putFavorite(opportunityId);
 	}
 
-	handleDesfavor = (event, oportunityId) => {
+	handleDesfavor = (event, opportunityId) => {
 		event.stopPropagation();
-		this.props.removeFavorite(oportunityId);
+		this.props.removeFavorite(opportunityId);
 	}
 
-	handleModalOportunities = () => {
+	handleModalOportunities = (opportunity) => {
 		this.setState((prevState) => ({
 			isOportunitesModal: !prevState.isOportunitesModal,
 		}));
-		// this.props.getOpportunityThunk();
+		this.props.getOpportunityByIdThunk(opportunity);
 	}
 
 	renderModalOportunities = () => (
@@ -598,45 +591,37 @@ class RelevanceMatch extends Component {
 		}));
 	}
 
-	renderOportunityList = () => {
+	renderOpportunityList = () => {
 		let list = [];
 
 		if (this.state.isShowFavorites) {
-			list = this.props.favoriteList.map((item) => this.props.oportunities[item]);
+			list = this.props.favoriteList.map((item) => this.props.opportunities[item]);
 		} else {
-			list = values(this.props.oportunities);
+			list = values(this.props.opportunities);
 		}
 
 		return list.map((item) => {
-			const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0);
+			const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
 
 			const handleFavorite = (event) => {
 				if (isFavorite) {
-					this.handleDesfavor(event, item.oportunityId);
+					this.handleDesfavor(event, item.opportunityId);
 				} else {
-					this.handleFavorite(event, item.oportunityId);
+					this.handleFavorite(event, item.opportunityId);
 				}
 			};
 
-			const normalizeScore = (score) => {
-				if (score <= 1) {
-					return 1;
-				} if (score < 100) {
-					return 100 - (100 / score);
-				} return 100;
-			};
-
 			return (
-				<TableRow key={item} onClick={this.handleModalOportunities}>
+				<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
 					<TableBody
 						spanWidth
 						onClick={handleFavorite}
 					>
 						<img src={isFavorite ? start : startHover}/>
 					</TableBody>
-					<TableBody spanWidth>{Math.floor(normalizeScore(item.fit))}%</TableBody>
+					<TableBody spanWidth>{item.fit}%</TableBody>
 					<TableBody>{item.category}</TableBody>
-					<TableBody>{item.oportunityId}</TableBody>
+					<TableBody>{item.opportunityId}</TableBody>
 					<TableBody>{item.titleDescription}</TableBody>
 					<TableBody>
 						{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
@@ -688,7 +673,7 @@ class RelevanceMatch extends Component {
 								</Form>
 							</WrapperForm>
 						</WrapperHead>
-						{this.renderOportunity}
+						{this.renderOpportunity}
 						<WrapperHeadMobile>
 							<BoxHeader>
 								<HeaderText>Oportunidades</HeaderText>
@@ -704,7 +689,7 @@ class RelevanceMatch extends Component {
 									<Button
 										type="button"
 										value="1"
-										onClick={this.renderOportunity}
+										onClick={this.renderOpportunity}
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
@@ -731,7 +716,7 @@ class RelevanceMatch extends Component {
 								<TableHeader>Título e descrição</TableHeader>
 								<TableHeader>Prazo</TableHeader>
 							</HeaderRow>
-							{this.renderOportunityList()}
+							{this.renderOpportunityList()}
 						</Table>
 					</WrapperTable>
 					<Fragment>

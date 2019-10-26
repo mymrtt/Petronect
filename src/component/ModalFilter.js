@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import closeIcon from '../assets/icon/close-blue.svg';
 
 // Modules
-import { postKeywordThunk } from '../dataflow/thunks/opportunites-thunk';
+import { postKeywordThunk } from '../dataflow/thunks/opportunities-thunk';
 
 const mapStateToProps = (state) => ({
-	keywords: state.oportunities.cardFilter.keywords,
+	keywords: state.opportunities.cardFilter.keywords,
 	// cardFilter: state.card.cardFilter,
 });
 

@@ -9,11 +9,11 @@ import {
 import thunkMiddleware from 'redux-thunk';
 
 // Reducers
-import Oportunities from './dataflow/modules/oportunities-modules';
+import Oportunities from './dataflow/modules/opportunities-modules';
 import Login from './dataflow/modules/login-module';
 
 const reducers = combineReducers({
-	oportunities: Oportunities,
+	opportunities: Oportunities,
 	login: Login,
 });
 

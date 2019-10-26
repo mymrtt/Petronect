@@ -1,5 +1,6 @@
 // Libs
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // Images
@@ -9,6 +10,12 @@ import attachIcon from '../../assets/icon/anexar.svg';
 import doubtIcon from '../../assets/icon/duvida.svg';
 import loadingIcon from '../../assets/icon/loading.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
+
+//Redux
+const mapStateToProps = (state) => ({
+	selectedOpportunity: state.opportunities.selectedOpportunity,
+})
+
 
 const Overlay = styled.div`
 	position: absolute;
@@ -24,15 +31,39 @@ const Overlay = styled.div`
 `;
 
 const Container = styled.div`
+	position: relative;
 	width: 42rem;
+	max-height: 85vh;
 	border: .5px solid #115680;
 	border-radius: 8px;
 	background: #fff;
 	z-index: 2;
 	margin: 0 0.625rem;
-	${'' /* @media	(max-width: 960px) {
-		width: 65%;
-	} */}
+	padding: 0 0 0.5rem;
+
+	&:-webkit-scrollbar {
+		width: 30px;
+	}
+
+	&:-webkit-scrollbar-track {
+		background: #f1f1f1;  
+	}
+	
+	&:-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 4px;
+	}
+
+	&:-webkit-scrollbar-thumb:hover {
+		background: #555; 
+	}
+`;
+
+const SubContainer = styled.div`
+	width: 100%;
+	max-height: calc(85vh - 0.25rem);
+	padding-bottom: 0.25rem;
+	overflow: hidden auto;
 `;
 
 const DatailsHeader = styled.div`
@@ -64,7 +95,7 @@ const TextHeader = styled.p`
 const CloseContainer = styled.div`
 	position: absolute;
 	right: .65rem;
-	bottom: 1.5rem;
+	top: -1rem;
 	width: 40px;
 	height: 40px;
 	display: flex;
@@ -257,6 +288,8 @@ const ImageLoading = styled.img`
 }
 `;
 
+
+
 class DetailsOportunies extends Component {
 	constructor(props) {
 		super(props);
@@ -308,113 +341,105 @@ class DetailsOportunies extends Component {
 	)
 
 	render() {
+		const { selectedOpportunity } = this.props;
 		const { isDatailsOpen } = this.state;
 
 		return (
 			<Overlay onClick={this.props.handleModalOportunities}>
 				<Container onClick={this.handleStop}>
-					<DatailsHeader>
-						<WrapperRelevance>
-							<Image star src={start} />
-							<TextHeader>85% Relevante</TextHeader>
-						</WrapperRelevance>
-						<CloseContainer onClick={this.props.handleModalOportunities}>
-							<CloseButton>
-								<CloseImage src={closeIcon} />
-							</CloseButton>
-						</CloseContainer>
-					</DatailsHeader>
-					<DetailsOportuny>
-						<InfoContainer>
-							<InfoWrap>
-								<Text title fontSize>Título e descrição</Text>
-								<Description>Contrato global - manilhas de carga</Description>
-							</InfoWrap>
+					<CloseContainer onClick={this.props.handleModalOportunities}>
+						<CloseButton>
+							<CloseImage src={closeIcon} />
+						</CloseButton>
+					</CloseContainer>
+					<SubContainer>
+						<DatailsHeader>
+							<WrapperRelevance>
+								<Image star src={start} />
+								<TextHeader>{selectedOpportunity.fit}% Relevante</TextHeader>
+							</WrapperRelevance>
+						</DatailsHeader>
+						<DetailsOportuny>
+							<InfoContainer>
+								<InfoWrap>
+									<Text title fontSize>Título e descrição</Text>
+									<Description>{selectedOpportunity.opportunityTitle}</Description>
+								</InfoWrap>
+								{/* <Text padding='.55rem 0 0 0'>Licitação, Lei 13.303, Art. 28, CAPUT</Text> */}
+								<Text bold padding='1.44rem 0'>{selectedOpportunity.company}</Text>
+								<InfoContentMobile>
+									<BoxInfo>
+										<Text title fontSize>Id</Text>
+										<Text bold>{selectedOpportunity.opportunityId}</Text>
+									</BoxInfo>
+									<BoxInfo>
+										<Text title fontSize>Prazo</Text>
+										<Text bold>18/06/19 - 28/08/19</Text>
+									</BoxInfo>
+								</InfoContentMobile>
+								<CategoryContainer>
+									{/* <InfoWrap>
+										<Text title fontSize>Categoria</Text>
+										<Text bold>Remoção de material</Text>
+									</InfoWrap> */}
+									<IconWrapMobile>
+										<BtnIcon>
+											<Image src={attachIcon} icon />
+										</BtnIcon>
+										{/* <Image src={shareIcon} icon /> */}
+										{/* <Image src={doubtIcon} icon /> */}
+									</IconWrapMobile>
+								</CategoryContainer>
+								<Text title fontSize>Itens</Text>
+								{selectedOpportunity.items && selectedOpportunity.items.map(item => (
+									<>
+										<InfoWrap>
+											<Text bold>{item.id}</Text>
+											<Text bold>{item.title}</Text>
+										</InfoWrap>
 
-							<Text padding='.55rem 0 0 0'>Licitação, Lei 13.303, Art. 28, CAPUT</Text>
-							<Text bold padding='1.44rem 0'>Petróleo Brasileiro S. A.</Text>
-							<InfoContentMobile>
+										<InfoWrap>
+											<Text>Quantidade: {item.qty}</Text>
+											<Text>Unidade de Fornecimento: {item.unit}</Text>
+										</InfoWrap>
+									</>
+								))}
+							</InfoContainer>
+							<InfoContent>
 								<BoxInfo>
 									<Text title fontSize>Id</Text>
-									<Text bold>8916909924</Text>
+									<Text bold>{selectedOpportunity.opportunityId}</Text>
 								</BoxInfo>
 								<BoxInfo>
 									<Text title fontSize>Prazo</Text>
-									<Text bold>18/06/19 - 28/08/19</Text>
+									<Text bold>{selectedOpportunity.deadLineInitial} - {selectedOpportunity.deadLineLastOne}</Text>
 								</BoxInfo>
-							</InfoContentMobile>
-							<CategoryContainer>
-								<InfoWrap>
-									<Text title fontSize>Categoria</Text>
-									<Text bold>Remoção de material</Text>
-								</InfoWrap>
-								<IconWrapMobile>
+								<IconWrap>
+									{/* <BtnIcon>
+										<Image src={shareIcon} icon />
+									</BtnIcon> */}
 									<BtnIcon>
 										<Image src={attachIcon} icon />
 									</BtnIcon>
-									{/* <Image src={shareIcon} icon /> */}
-									{/* <Image src={doubtIcon} icon /> */}
-								</IconWrapMobile>
-							</CategoryContainer>
-
-							<InfoWrap>
-								<Text title fontSize>Itens</Text>
-								<Text bold>0001</Text>
-								<Text bold>MANIFOLD PARA INSTRUMENTAÇÃO - EPP E ME</Text>
-							</InfoWrap>
-
-							<InfoWrap>
-								<Text>Quantidade: 1</Text>
-								<Text>Unidade de Fornecimento:</Text>
-							</InfoWrap>
-
-							<InfoWrap>
-								<Text bold>0002</Text>
-								<Text bold>MANIFOLD PARA INSTRUMENTAÇÃO - DEMAIS</Text>
-							</InfoWrap>
-
-							<InfoWrap>
-								<Text>Quantidade: 1</Text>
-								<Text>Unidade de Fornecimento:</Text>
-							</InfoWrap>
-						</InfoContainer>
-						<InfoContent>
-
-							<BoxInfo>
-								<Text title fontSize>Id</Text>
-								<Text bold>8916909924</Text>
-							</BoxInfo>
-
-							<BoxInfo>
-								<Text title fontSize>Prazo</Text>
-								<Text bold>18/06/19 - 28/08/19</Text>
-							</BoxInfo>
-
-							<IconWrap>
-								{/* <BtnIcon>
-									<Image src={shareIcon} icon />
-								</BtnIcon> */}
-								<BtnIcon>
-									<Image src={attachIcon} icon />
-								</BtnIcon>
-								{/* <BtnIcon>
-									<Image src={doubtIcon} icon />
-								</BtnIcon> */}
-							</IconWrap>
-						</InfoContent>
-					</DetailsOportuny>
-					<BoxButton>
-						<ButtonDetails>
-							{ isDatailsOpen
-								? this.loadingItemModal()
-								: this.itemModal()
-							}
-						</ButtonDetails>
-					</BoxButton>
+									{/* <BtnIcon>
+										<Image src={doubtIcon} icon />
+									</BtnIcon> */}
+								</IconWrap>
+							</InfoContent>
+						</DetailsOportuny>
+						<BoxButton>
+							<ButtonDetails>
+								{ isDatailsOpen
+									? this.loadingItemModal()
+									: this.itemModal()
+								}
+							</ButtonDetails>
+						</BoxButton>
+					</SubContainer>
 				</Container>
 			</Overlay>
 		);
 	}
 }
 
-export default DetailsOportunies;
+export default connect(mapStateToProps, null)(DetailsOportunies);

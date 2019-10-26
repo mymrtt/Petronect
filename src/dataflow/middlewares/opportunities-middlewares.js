@@ -15,7 +15,7 @@ export const getOpportunityById = (info) => axios({
 	url: `${API_URL}/opportunities/${info.opportunityId}/`,
 	method: 'get',
 	headers: {
-		Authorization: `Bearer ${info.token}`,
+		Authorization: `Bearer ${info.accessToken}`,
 	},
 });
 
