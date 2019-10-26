@@ -15,11 +15,11 @@ import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
 // Redux
-import { getAllKeywordThunk } from '../../dataflow/thunks/opportunites-thunk';
-import { removeAllNotification } from '../../dataflow/modules/oportunities-modules';
+import { getAllKeywordThunk } from '../../dataflow/thunks/opportunities-thunk';
+import { removeAllNotification } from '../../dataflow/modules/opportunities-modules';
 
 const mapStateToProps = (state) => ({
-	allNotification: state.oportunities.allNotification,
+	allNotification: state.opportunities.allNotification,
 });
 
 const mapDispatchToProps = (dispatch) => ({

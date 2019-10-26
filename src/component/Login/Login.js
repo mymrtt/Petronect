@@ -495,7 +495,7 @@ class Login extends Component {
 					required
 					autoFocus
 					type='email'
-					placeholder={'Digite sua senha e-mail'}
+					placeholder={'Digite seu e-mail'}
 					error={this.props.error}
 					onChange={this.handleError}
 				/>
