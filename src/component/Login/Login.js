@@ -318,30 +318,6 @@ const CreateTitle = styled.h1`
 	};
 `;
 
-// const CreatedBox = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// 	align-items: center;
-// 	width: 30%;
-// 	min-width: 360px;
-// 	padding: 3rem 4rem;
-// 	background: #FFF;
-// 	box-shadow: 0px 1px 2px #0000001A;
-// 	border-radius: 4px;
-// 	transition: width 1s;
-
-// 	@media(max-width: 1440px) {
-// 		width: 50%;
-// 	}
-// 	@media(max-width: 768px) {
-// 		width: 75%;
-// 		padding: 2rem;
-// 	}
-// 	@media(max-width: 425px) {
-// 		width: 95%;
-// 	}
-// `;
-
 const CreatedText = styled.div`
 	width: 92.5%;
 	margin: 0 0 -1rem;
@@ -365,6 +341,7 @@ class Login extends Component {
 			currentScreen: 'login',
 			isCreated: false,
 			showPassword: true,
+			error: undefined,
 		};
 	}
 
@@ -390,7 +367,15 @@ class Login extends Component {
 
 		if (this.props.createSuccess === false) {
 			this.props.updateCreateSuccess(null);
-		} return null;
+		}
+
+		if (this.state.error) {
+			this.setState({
+				error: undefined,
+			});
+		}
+		
+		return null;
 	}
 
 	renderError = () => {
@@ -414,6 +399,16 @@ class Login extends Component {
 			);
 		}
 
+		if (this.state.error === 'passwordLength') {
+			return (
+				<LoginMessageError>
+					<TextError>
+					 	A senha deve conter no minimo 6 caracteres
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
 		return null;
 	}
 
@@ -428,14 +423,23 @@ class Login extends Component {
 	createSubmit = (ev) => {
 		ev.preventDefault();
 
-		this.props.createAccountThunk({
-			name: this.createNameRef.value,
-			email: this.createEmailRef.value,
-			password: this.createPasswordRef.value,
-		});
-		this.setState({
-			isCreated: true,
-		});
+		console.log(this.createPasswordRef.value.trim().length > 5);
+
+		if (this.createPasswordRef.value.trim().length > 5) {
+			// this.props.createAccountThunk({
+			// 	name: this.createNameRef.value,
+			// 	email: this.createEmailRef.value,
+			// 	password: this.createPasswordRef.value,
+			// });
+			this.setState({
+				isCreated: true,
+			});
+		} else {
+			this.setState({
+				error: 'passwordLength'
+			});
+		}
+
 	}
 
 	handleBackLogin = () => {
@@ -547,7 +551,7 @@ class Login extends Component {
 								type={this.state.showPassword ? 'password' : 'text'}
 								required
 								placeholder={'Digite sua senha'}
-								error={this.props.error}
+								error={this.props.error || this.state.error}
 								onChange={this.handleError}
 							/>
 							<IconInputPassword
