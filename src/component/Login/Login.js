@@ -146,6 +146,7 @@ const IconInputPassword = styled.img`
 
 const Button = styled.button`
 	width: ${(props) => props.width};
+	${'' /* width: ${(props) => (props.backMargin ? '100%' : props.width)}; */}
 	height: 3rem;
 	${'' /* margin-top: 2.5rem; */}
 	margin-top: ${(props) => (props.backMargin ? '1.5rem' : '2.5rem')};
@@ -156,10 +157,11 @@ const Button = styled.button`
 	outline: none;
 	text-align: center;
 	font: 600 1rem eurostile, sans serif;
-	text-align: ${(props) => (props.back ? 'left' : 'center')};
+	text-align: ${(props) => (props.backLeft ? 'left' : 'center')};
 	letter-spacing: 0;
 	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
 	cursor: pointer;
+    ${'' /* text-align: center; */}
 	@media (max-width: 960px) {
 		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
 	}
@@ -603,8 +605,8 @@ class Login extends Component {
 						</Button>
 					</form>)
 				}
-				<Button back backMargin width='100%' widthResponsive>
-			  	Voltar para login
+				<Button back backMargin width='100%' onClick={this.handleBackLogin}>
+			  	Voltar para o login
 				</Button>
 			</CreateBox>
 		</CreateContainer>
@@ -633,7 +635,7 @@ class Login extends Component {
 						/>
 					</InputBox>
 					<ButtonsBox>
-						<Button back  width='45%' widthResponsive>
+						<Button back  width='45%' backLeft widthResponsive onClick={this.handleBackLogin}>
 							Voltar
 						</Button>
 						<Button width='45%' widthResponsive>
