@@ -1,5 +1,6 @@
 // Libs
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
 
@@ -12,6 +13,23 @@ import MenuResponsive from '../MenuResponsive';
 import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
+
+// Redux
+import { getAllKeywordThunk } from '../../dataflow/thunks/opportunites-thunk';
+import { removeAllNotification } from '../../dataflow/modules/oportunities-modules';
+
+const mapStateToProps = (state) => ({
+	allNotification: state.oportunities.allNotification,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getAllKeywordThunk: (info) => {
+		dispatch(getAllKeywordThunk(info));
+	},
+	removeAllNotification: (info) => {
+		dispatch(removeAllNotification(info));
+	},
+});
 
 const Container = styled.div`
 	width: 80%;
@@ -229,6 +247,14 @@ class Filters extends Component {
 		};
 	}
 
+	componentDidMount() {
+		this.props.getAllKeywordThunk();
+	}
+
+	componentWillUnmount() {
+		this.props.removeAllNotification();
+	}
+
 	renderCardsFilter = () => {
 		const { CardList } = this.state;
 
@@ -269,9 +295,10 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen } = this.state;
+		console.log('filters history={this.props.history}', this.props.history)
 		return (
 			<Fragment>
-				<MenuResponsive />
+				<MenuResponsive history={this.props.history}/>
 				<Container>
 					<Content>
 						<ContainerSearchMobile>
@@ -306,4 +333,5 @@ class Filters extends Component {
 }
 
 
-export default Filters;
+// export default Filters;
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

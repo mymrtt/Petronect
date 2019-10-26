@@ -19,7 +19,6 @@ import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
 
-
 // Components
 import DetailsOportunities from './DetailsOportunities';
 import MenuResponsive from '../MenuResponsive';
@@ -670,7 +669,7 @@ class RelevanceMatch extends Component {
 		const { isOportunitesModal, isModalOpen, inputSearchMobile } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive />
+				<MenuResponsive history={this.props.history} />
 				<Container>
 					<Content>
 						<WrapperHead>
