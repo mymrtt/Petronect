@@ -1,12 +1,22 @@
 // Libs
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+
 import { values } from 'lodash';
 
 // Images
 import deleteIcon from '../../assets/icon/delete.svg';
 import searchIcon from '../../assets/icon/lupa-white.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
+
+import { deleteNotification } from '../../dataflow/middlewares/opportunites-middlewares';
+
+const mapDispatchToProps = (dispatch) => ({
+	deleteNotification: (info) => {
+		dispatch(deleteNotification(info));
+	},
+});
 
 const Container = styled.div`
 	margin-bottom: 1rem;
@@ -232,16 +242,27 @@ class CardFilter extends Component {
 		};
 	}
 
-	handleOpenDeleteModal = () => {
-		this.setState({ isOpenDelete: true });
+	handleOpenDeleteModal = (cardId) => {
+		this.setState({ isOpenDelete: true, selectedCard: cardId });
 	}
 
 	handleCloseDeleteModal = () => {
 		this.setState({ isOpenDelete: false });
 	}
 
+	removeNotification = async () => {
+    try {
+
+
+			await deleteNotification(this.state.selectedCard);
+			this.handleCloseDeleteModal();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 	renderDeleteModal = () => {
+		console.log("estado", this.state.selectedCard)
 		return (
 			<Overlay>
 				<ContainerDeleteModal>
@@ -257,7 +278,7 @@ class CardFilter extends Component {
 						<Text deleteText>Ao confirmar esta ação o filtro "Sistemas offshore" será excluído permanentemente do sistema.</Text>
 						<ContainerDeleteButtons>
 							<DeleteButton onClick={this.handleCloseDeleteModal}>Cancelar</DeleteButton>
-							<DeleteButton deleteConfirmation>Confirmar</DeleteButton>
+							<DeleteButton deleteConfirmation onClick={this.removeNotification}>Confirmar</DeleteButton>
 						</ContainerDeleteButtons>
 					</ContentDeleteModal>
 				</ContainerDeleteModal>
@@ -269,26 +290,27 @@ class CardFilter extends Component {
 		const { card } = this.props;
 		return (
 			<Container>
+	
 				<Card
-					background={this.props.item ? this.props.item : '#115680'}
+					background={this.props.card ? this.props.card : '#115680'}
 				>
 					<WrapperCard
-						background={this.props.item ? this.props.item : '#115680'}
+						background={this.props.card ? this.props.card : '#115680'}
 					>
-						<Title tagTitle>{card.title}
+						<Title tagTitle>{card.name}
 							<ImageSeach src={searchIcon} />
 						</Title>
-						<CardDelete onClick={this.handleOpenDeleteModal}>
+						<CardDelete onClick={() => this.handleOpenDeleteModal(card.keywordFilterId)}>
 							<Image src={deleteIcon} />
-							{/* <Text>Excluir</Text> */}
+							<Text>Excluir</Text>
 						</CardDelete>
 					</WrapperCard>
 					<ContainerTags>
 						{
-							values(card.tags).map((tag) => (
+							this.props.card.keywords.map((tag) => (
 								<SuggestionsTags
 									Tag
-									background={this.props.item ? `${this.props.item}30` : '#11568030'}
+									background={this.props.card.color ? `${this.props.card.color}30` : '#11568030'}
 									key={tag}>
 									<SuggestionsText suggestionsTags>{tag}</SuggestionsText>
 								</SuggestionsTags>
@@ -296,10 +318,10 @@ class CardFilter extends Component {
 						}
 					</ContainerTags>
 				</Card>
-				{ this.state.isOpenDelete && this.renderDeleteModal()}
+			{ this.state.isOpenDelete && this.renderDeleteModal()} 
 			</Container>
 		);
 	}
 }
 
-export default CardFilter;
+export default connect(null, mapDispatchToProps)(CardFilter);

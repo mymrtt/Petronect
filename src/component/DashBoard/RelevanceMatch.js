@@ -543,7 +543,6 @@ class RelevanceMatch extends Component {
 	}
 
 	resetInput = () => {
-		console.log("chegou")
 		this.setState({ inputSearch: false });
 	}
 

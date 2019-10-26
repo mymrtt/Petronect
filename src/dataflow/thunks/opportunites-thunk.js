@@ -3,7 +3,9 @@ import * as Cookies from 'js-cookie';
 
 import { getAllOpportunitesMiddleware, postKeywordMiddleware, getAllKeywordMiddleware } from '../middlewares/opportunites-middlewares';
 
-import { oportunitiesList, addNotification, removeAllKeywords, getAllNotification } from '../modules/oportunities-modules';
+import {
+ oportunitiesList, addNotification, removeAllKeywords, getAllNotification 
+} from '../modules/oportunities-modules';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getAllOpportunitiesThunk = () => (
@@ -87,7 +89,17 @@ export const getAllKeywordThunk = () => (
 			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
 			const response = await getAllKeywordMiddleware(userId, accessToken);
 
-			dispatch(getAllNotification(response.data));
+			const keywordsItem = [];
+
+			const getData = response.data.forEach((item,index) => {
+				console.log('item', item)
+				keywordsItem[index] = {
+					...item,
+					keywords: item.keywords.map(key => key.name),
+				};
+			});
+
+			dispatch(getAllNotification(keywordsItem));
 		} catch (err) {
 			console.log(err);
 		}
