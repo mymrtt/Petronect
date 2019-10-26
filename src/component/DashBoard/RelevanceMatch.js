@@ -149,13 +149,15 @@ const Form = styled.div`
 `;
 
 const BoxInput = styled.div`
-	position: relative;
 	display: flex;
 	align-items: center;
 
 	@media (max-width: 648px) {
 		width: 75%;
+		position: relative;
 		justify-content: flex-end;
+
+		background: red;
 	}
 `;
 
@@ -216,6 +218,7 @@ const WrapperKeyword = styled.div`
 
 	@media(max-width: 648px) {
 		width: 100%;
+		position: absolute;
 	}
 `;
 
@@ -404,7 +407,6 @@ const TableRow = styled.tr`
   }
 
 	@media(max-width: 960px) {
-		height: 64px;
 		flex-wrap: wrap;
 	}
 

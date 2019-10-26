@@ -56,7 +56,7 @@ const ImageMenu = styled.img`
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
-		margin-left: ${(props) => props.dropdown && '.5rem'};
+		margin-left: ${(props) => props.dropdown ? '.5rem' : '0'};
 		width: ${(props) => props.dropdown && '10px'};
 	}
 `;
