@@ -1,5 +1,6 @@
 // Libs
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 // Images
@@ -10,6 +11,14 @@ import dropdown from '../assets/icon/dropdown.svg';
 
 // Components
 import SideBar from './SideBar';
+
+import { logoutThunk } from '../dataflow/thunks/login-thunk';
+
+const mapDispatchToProps = (dispatch) => ({
+	logoutThunk: (info) => {
+		dispatch(logoutThunk(info));
+	},
+});
 
 const Container = styled.div`
 	display: none;
@@ -23,6 +32,7 @@ const Container = styled.div`
 		padding: 0 1.3rem;
 		height: 3rem;
     background-color: #fff;
+	}
 `;
 
 const WrapperLogoTablet = styled.div`
@@ -145,7 +155,7 @@ class MenuResponsive extends Component {
 
 	renderMenu = () => (
 		<ContainerSidebar>
-			<SideBar handleMenuOpen={this.handleMenuOpen} />
+			<SideBar handleMenuOpen={this.handleMenuOpen} history={this.props.history}/>
 		</ContainerSidebar>
 	)
 
@@ -160,12 +170,16 @@ class MenuResponsive extends Component {
 		this.setState({ isOpenDropdown: !isOpenDropdown });
 	}
 
+	handleLogout = () => {
+		this.props.logoutThunk({history: this.props.history});
+	}
+
 	renderDropdown = () => {
 		return (
 			<ContainerDropdown>
 				<DropboxText textOrg>Snowball Solutions</DropboxText>
 				<DropboxText>Pedro Gualandi</DropboxText>
-				<DropboxButton>Sair</DropboxButton>
+				<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
 			</ContainerDropdown>
 		);
 	}
@@ -195,4 +209,4 @@ class MenuResponsive extends Component {
 	}
 }
 
-export default MenuResponsive;
+export default connect(null, mapDispatchToProps)(MenuResponsive);

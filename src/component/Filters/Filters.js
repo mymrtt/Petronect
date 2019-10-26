@@ -1,5 +1,6 @@
 // Libs
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
 
@@ -12,6 +13,23 @@ import MenuResponsive from '../MenuResponsive';
 import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
+
+// Redux
+import { getAllKeywordThunk } from '../../dataflow/thunks/opportunities-thunk';
+import { removeAllNotification } from '../../dataflow/modules/opportunities-modules';
+
+const mapStateToProps = (state) => ({
+	allNotification: state.opportunities.allNotification,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getAllKeywordThunk: (info) => {
+		dispatch(getAllKeywordThunk(info));
+	},
+	removeAllNotification: (info) => {
+		dispatch(removeAllNotification(info));
+	},
+});
 
 const Container = styled.div`
 	width: 80%;
@@ -232,29 +250,12 @@ class Filters extends Component {
 		};
 	}
 
-	handleSearchInput = (event) => {
-		this.setState({ searchText: event.target.value });
+	componentDidMount() {
+		this.props.getAllKeywordThunk();
 	}
 
-	handleSearchMagnifying = () => {
-		this.setState({ searchCard: true });
-	}
-
-	renderNewCardsFilter = () => {
-		const { CardList } = this.state;
-
-		return (
-			<ContainerFilters>
-				{ values(CardList).filter((card) => card.title.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => (
-					<CardFilter
-						key={card.title}
-						item={this.state.item}
-						card={card}
-						handleOpenModal={this.handleOpenModal}
-					/>
-				))}
-			</ContainerFilters>
-		);
+	componentWillUnmount() {
+		this.props.removeAllNotification();
 	}
 
 	renderCardsFilter = () => {
@@ -301,7 +302,7 @@ class Filters extends Component {
 		const { isModalOpen, searchCard } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive />
+				<MenuResponsive history={this.props.history}/>
 				<Container>
 					<Content>
 						<ContainerSearchMobile>
@@ -338,4 +339,5 @@ class Filters extends Component {
 }
 
 
-export default Filters;
+// export default Filters;
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

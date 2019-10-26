@@ -15,15 +15,23 @@ export const getOpportunityById = (info) => axios({
 	url: `${API_URL}/opportunities/${info.opportunityId}/`,
 	method: 'get',
 	headers: {
-		Authorization: `Bearer ${info.token}`,
+		Authorization: `Bearer ${info.accessToken}`,
 	},
 });
 
-export const postKeywordMiddleware = (info, accessToken, userId) => axios({
+export const postKeywordMiddleware = (userId, accessToken, info) => axios({
 	url: `${API_URL}/users/${userId}/keyword-filter`,
 	method: 'post',
 	headers: {
 		Authorization: accessToken,
 	},
 	data: info,
+});
+
+export const getAllKeywordMiddleware = (userId, accessToken) => axios({
+	url: `${API_URL}/users/${userId}/keyword-filter`,
+	method: 'get',
+	headers: {
+		Authorization: accessToken,
+	},
 });

@@ -5,9 +5,12 @@ const REMOVE_ITEM = 'petronect/keyword/REMOVE_ITEM';
 const REMOVE_ALL_KEYWORDS = 'petronect/keyword/REMOVE_ALL_KEYWORDS';
 const PUT_FAVORITE = 'petronect/favorite/PUT_FAVORITE';
 const OPORTUNITIES_LIST = 'petronect/oportunitiesList/OPORTUNITIES_LIST';
-const UPDATE_CARD = 'petronect/oportunities/UPDATE_CARD';
-const REMOVE_FAVORITE = 'petronect/oportunities/REMOVE_FAVORITE';
+const UPDATE_CARD = 'petronect/opportunities/UPDATE_CARD';
+const REMOVE_FAVORITE = 'petronect/opportunities/REMOVE_FAVORITE';
 const ADD_NOTIFICATION = 'petronect/keyword/ADD_NOTIFICATION';
+const UPDATE_SELECTED_OPPORTUNITY = 'petronect/keyword/UPDATE_SELECTED_OPPORTUNITY'
+const ADD_ALL_NOTIFICATION = 'petronect/keyword/ADD_ALL_NOTIFICATION';
+const REMOVE_ALL_NOTIFICATION = 'petronect/keyword/REMOVE_ALL_NOTIFICATION'
 
 const initialState = {
 	favoriteList: [],
@@ -15,8 +18,9 @@ const initialState = {
 		keywords: [],
 	},
 	allKeywords: [],
-	oportunities: {},
-	// selectOportunity: [],
+	opportunities: {},
+	selectedOpportunity: {},
+	allNotification: [],
 };
 
 export default function (state = initialState, action) {
@@ -46,7 +50,7 @@ export default function (state = initialState, action) {
 	case OPORTUNITIES_LIST:
 		return {
 			...state,
-			oportunities: action.info,
+			opportunities: action.info,
 		};
 	case PUT_FAVORITE:
 		return {
@@ -69,6 +73,21 @@ export default function (state = initialState, action) {
 		return {
 			...state,
 			allKeywords: state.allKeywords.concat([action.info]),
+		};
+	case UPDATE_SELECTED_OPPORTUNITY:
+		return {
+			...state,
+			selectedOpportunity: action.info,
+		}
+	case ADD_ALL_NOTIFICATION:
+		return {
+			...state,
+			allNotification: action.info,
+		};
+	case REMOVE_ALL_NOTIFICATION:
+		return {
+			...state,
+			allNotification: [],
 		};
 	default:
 		return state;
@@ -112,5 +131,19 @@ export const updateCard = (info) => ({
 
 export const addNotification = (info) => ({
 	type: ADD_NOTIFICATION,
+	info,
+});
+
+export const updateSelectedOpportunity = (info) => ({
+	type: UPDATE_SELECTED_OPPORTUNITY,
+	info,
+})
+export const getAllNotification = (info) => ({
+	type: ADD_ALL_NOTIFICATION,
+	info,
+});
+
+export const removeAllNotification = (info) => ({
+	type: REMOVE_ALL_NOTIFICATION,
 	info,
 });
