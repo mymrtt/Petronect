@@ -31,6 +31,7 @@ const Overlay = styled.div`
 `;
 
 const Container = styled.div`
+	position: relative;
 	width: 42rem;
 	max-height: 85vh;
 	border: .5px solid #115680;
@@ -38,7 +39,31 @@ const Container = styled.div`
 	background: #fff;
 	z-index: 2;
 	margin: 0 0.625rem;
-	overflow: hidden scroll;
+	padding: 0 0 0.5rem;
+
+	&:-webkit-scrollbar {
+		width: 30px;
+	}
+
+	&:-webkit-scrollbar-track {
+		background: #f1f1f1;  
+	}
+	
+	&:-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 4px;
+	}
+
+	&:-webkit-scrollbar-thumb:hover {
+		background: #555; 
+	}
+`;
+
+const SubContainer = styled.div`
+	width: 100%;
+	max-height: calc(85vh - 0.25rem);
+	padding-bottom: 0.25rem;
+	overflow: hidden auto;
 `;
 
 const DatailsHeader = styled.div`
@@ -70,7 +95,7 @@ const TextHeader = styled.p`
 const CloseContainer = styled.div`
 	position: absolute;
 	right: .65rem;
-	bottom: 1.5rem;
+	top: -1rem;
 	width: 40px;
 	height: 40px;
 	display: flex;
@@ -263,6 +288,8 @@ const ImageLoading = styled.img`
 }
 `;
 
+
+
 class DetailsOportunies extends Component {
 	constructor(props) {
 		super(props);
@@ -320,93 +347,95 @@ class DetailsOportunies extends Component {
 		return (
 			<Overlay onClick={this.props.handleModalOportunities}>
 				<Container onClick={this.handleStop}>
-					<DatailsHeader>
-						<WrapperRelevance>
-							<Image star src={start} />
-							<TextHeader>{selectedOpportunity.fit}% Relevante</TextHeader>
-						</WrapperRelevance>
-						<CloseContainer onClick={this.props.handleModalOportunities}>
-							<CloseButton>
-								<CloseImage src={closeIcon} />
-							</CloseButton>
-						</CloseContainer>
-					</DatailsHeader>
-					<DetailsOportuny>
-						<InfoContainer>
-							<InfoWrap>
-								<Text title fontSize>Título e descrição</Text>
-								<Description>{selectedOpportunity.opportunityTitle}</Description>
-							</InfoWrap>
-							{/* <Text padding='.55rem 0 0 0'>Licitação, Lei 13.303, Art. 28, CAPUT</Text> */}
-							<Text bold padding='1.44rem 0'>{selectedOpportunity.company}</Text>
-							<InfoContentMobile>
+					<CloseContainer onClick={this.props.handleModalOportunities}>
+						<CloseButton>
+							<CloseImage src={closeIcon} />
+						</CloseButton>
+					</CloseContainer>
+					<SubContainer>
+						<DatailsHeader>
+							<WrapperRelevance>
+								<Image star src={start} />
+								<TextHeader>{selectedOpportunity.fit}% Relevante</TextHeader>
+							</WrapperRelevance>
+						</DatailsHeader>
+						<DetailsOportuny>
+							<InfoContainer>
+								<InfoWrap>
+									<Text title fontSize>Título e descrição</Text>
+									<Description>{selectedOpportunity.opportunityTitle}</Description>
+								</InfoWrap>
+								{/* <Text padding='.55rem 0 0 0'>Licitação, Lei 13.303, Art. 28, CAPUT</Text> */}
+								<Text bold padding='1.44rem 0'>{selectedOpportunity.company}</Text>
+								<InfoContentMobile>
+									<BoxInfo>
+										<Text title fontSize>Id</Text>
+										<Text bold>{selectedOpportunity.opportunityId}</Text>
+									</BoxInfo>
+									<BoxInfo>
+										<Text title fontSize>Prazo</Text>
+										<Text bold>18/06/19 - 28/08/19</Text>
+									</BoxInfo>
+								</InfoContentMobile>
+								<CategoryContainer>
+									{/* <InfoWrap>
+										<Text title fontSize>Categoria</Text>
+										<Text bold>Remoção de material</Text>
+									</InfoWrap> */}
+									<IconWrapMobile>
+										<BtnIcon>
+											<Image src={attachIcon} icon />
+										</BtnIcon>
+										{/* <Image src={shareIcon} icon /> */}
+										{/* <Image src={doubtIcon} icon /> */}
+									</IconWrapMobile>
+								</CategoryContainer>
+								<Text title fontSize>Itens</Text>
+								{selectedOpportunity.items && selectedOpportunity.items.map(item => (
+									<>
+										<InfoWrap>
+											<Text bold>{item.id}</Text>
+											<Text bold>{item.title}</Text>
+										</InfoWrap>
+
+										<InfoWrap>
+											<Text>Quantidade: {item.qty}</Text>
+											<Text>Unidade de Fornecimento: {item.unit}</Text>
+										</InfoWrap>
+									</>
+								))}
+							</InfoContainer>
+							<InfoContent>
 								<BoxInfo>
 									<Text title fontSize>Id</Text>
 									<Text bold>{selectedOpportunity.opportunityId}</Text>
 								</BoxInfo>
 								<BoxInfo>
 									<Text title fontSize>Prazo</Text>
-									<Text bold>18/06/19 - 28/08/19</Text>
+									<Text bold>{selectedOpportunity.deadLineInitial} - {selectedOpportunity.deadLineLastOne}</Text>
 								</BoxInfo>
-							</InfoContentMobile>
-							<CategoryContainer>
-								{/* <InfoWrap>
-									<Text title fontSize>Categoria</Text>
-									<Text bold>Remoção de material</Text>
-								</InfoWrap> */}
-								<IconWrapMobile>
+								<IconWrap>
+									{/* <BtnIcon>
+										<Image src={shareIcon} icon />
+									</BtnIcon> */}
 									<BtnIcon>
 										<Image src={attachIcon} icon />
 									</BtnIcon>
-									{/* <Image src={shareIcon} icon /> */}
-									{/* <Image src={doubtIcon} icon /> */}
-								</IconWrapMobile>
-							</CategoryContainer>
-							<Text title fontSize>Itens</Text>
-							{selectedOpportunity.items && selectedOpportunity.items.map(item => (
-								<>
-									<InfoWrap>
-										<Text bold>{item.id}</Text>
-										<Text bold>{item.title}</Text>
-									</InfoWrap>
-
-									<InfoWrap>
-										<Text>Quantidade: {item.qty}</Text>
-										<Text>Unidade de Fornecimento: {item.unit}</Text>
-									</InfoWrap>
-								</>
-							))}
-						</InfoContainer>
-						<InfoContent>
-							<BoxInfo>
-								<Text title fontSize>Id</Text>
-								<Text bold>{selectedOpportunity.opportunityId}</Text>
-							</BoxInfo>
-							<BoxInfo>
-								<Text title fontSize>Prazo</Text>
-								<Text bold>{selectedOpportunity.deadLineInitial} - {selectedOpportunity.deadLineLastOne}</Text>
-							</BoxInfo>
-							<IconWrap>
-								{/* <BtnIcon>
-									<Image src={shareIcon} icon />
-								</BtnIcon> */}
-								<BtnIcon>
-									<Image src={attachIcon} icon />
-								</BtnIcon>
-								{/* <BtnIcon>
-									<Image src={doubtIcon} icon />
-								</BtnIcon> */}
-							</IconWrap>
-						</InfoContent>
-					</DetailsOportuny>
-					<BoxButton>
-						<ButtonDetails>
-							{ isDatailsOpen
-								? this.loadingItemModal()
-								: this.itemModal()
-							}
-						</ButtonDetails>
-					</BoxButton>
+									{/* <BtnIcon>
+										<Image src={doubtIcon} icon />
+									</BtnIcon> */}
+								</IconWrap>
+							</InfoContent>
+						</DetailsOportuny>
+						<BoxButton>
+							<ButtonDetails>
+								{ isDatailsOpen
+									? this.loadingItemModal()
+									: this.itemModal()
+								}
+							</ButtonDetails>
+						</BoxButton>
+					</SubContainer>
 				</Container>
 			</Overlay>
 		);

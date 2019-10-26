@@ -1,16 +1,21 @@
 // Libs
 import * as Cookies from 'js-cookie';
 
-import { getAllOpportunitesMiddleware, postKeywordMiddleware, getOpportunityById } from '../middlewares/opportunities-middlewares';
+import {
+	getAllOpportunitesMiddleware,
+	postKeywordMiddleware,
+	getOpportunityById,
+	getAllKeywordMiddleware,
+} from '../middlewares/opportunities-middlewares';
 
 import {
 	oportunitiesList,
 	addNotification,
 	removeAllKeywords,
 	updateSelectedOpportunity,
+	getAllNotification,
 } from '../modules/opportunities-modules';
 
-// eslint-disable-next-line import/prefer-default-export
 export const getAllOpportunitiesThunk = () => (
 	async (dispatch, getState) => {
 		try {
@@ -68,7 +73,6 @@ export const getOpportunityByIdThunk = (info) => (
 				}))
 			};
 
-			console.log(response, opportunity);
 			dispatch(updateSelectedOpportunity(opportunity));
 		} catch (err) {
 			console.log(err);
@@ -79,18 +83,31 @@ export const getOpportunityByIdThunk = (info) => (
 export const postKeywordThunk = (info) => (
 	async (dispatch) => {
 		try {
-			const { accessToken } = JSON.parse(Cookies.get('petronect_creds'));
-			await postKeywordMiddleware(info, accessToken);
+			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
+			await postKeywordMiddleware(userId, accessToken, info);
 
 			const keywordList = [];
 
-			const keywordItem = info.keywords.forEach((item) => {
+			info.keywords.forEach((item) => {
 				keywordList.push(item.name);
 			});
 
 			await dispatch(addNotification({ ...info, keywordList }));
 
 			dispatch(removeAllKeywords());
+		} catch (err) {
+			console.log(err);
+		}
+	}
+);
+
+export const getAllKeywordThunk = () => (
+	async (dispatch) => {
+		try {
+			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
+			const response = await getAllKeywordMiddleware(userId, accessToken);
+
+			dispatch(getAllNotification(response.data));
 		} catch (err) {
 			console.log(err);
 		}

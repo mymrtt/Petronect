@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 // Images
 import LogoImg from '../assets/img/LogoPNE.png';
@@ -15,6 +16,14 @@ import TaxImg from '../assets/icon/icon_menu-justificativa.svg';
 import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
+
+import { logoutThunk } from '../dataflow/thunks/login-thunk';
+
+const mapDispatchToProps = (dispatch) => ({
+	logoutThunk: (info) => {
+		dispatch(logoutThunk(info));
+	},
+});
 
 const Container = styled.div`
 	// width: 280px;
@@ -252,6 +261,10 @@ class SideBar extends Component {
 		};
 	}
 
+	handleLogout = () => {
+		this.props.logoutThunk({history: this.props.history});
+	}
+
 	render() {
 		return (
 			<Container>
@@ -285,7 +298,7 @@ class SideBar extends Component {
 							<Representative>Pedro Gualandi</Representative>
 						</BoxInfo>
 						<span>
-							<Button>Sair</Button>
+							<Button onClick={this.handleLogout}>Sair</Button>
 						</span>
 					</Contentinfo>
 				</WrapperInfo>
@@ -295,4 +308,5 @@ class SideBar extends Component {
 }
 
 
-export default SideBar;
+// export default SideBar;
+export default connect(null, mapDispatchToProps)(SideBar);

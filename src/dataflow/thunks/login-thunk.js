@@ -42,4 +42,15 @@ export const createAccountThunk = (info) => (
 	}
 );
 
+export const logoutThunk = (info) => (
+	async () => {
+		try {
+			await Cookies.remove('petronect_creds');
+			info.history.replace('/');
+		} catch (err) {
+			console.log('error', err);
+		}
+	}
+);
+
 export default null;
