@@ -164,6 +164,7 @@ const SearchInput = styled.input`
 
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
+	cursor: ${(props) => props.magnifying && 'pointer'};
 	@media (max-width: 640px) {
 		width: ${(props) => props.magnifying && '18px'};
 	}
@@ -197,6 +198,7 @@ const ContainerFilters = styled.div`
 		flex-wrap: nowrap;
 		margin-left: .5rem;
 		width: 100%;
+		height: 85%;
 	}
 `;
 
@@ -207,7 +209,7 @@ class Filters extends Component {
 			isModalOpen: false,
 			CardList: {
 				card1: {
-					title: 'Sistema de offshore',
+					title: 'Sistema de offshore   aquiiiii',
 					tags: [
 						'instrumental',
 						'montagem',
@@ -243,6 +245,8 @@ class Filters extends Component {
 					],
 				},
 			},
+			searchText: '',
+			searchCard: false,
 		};
 	}
 
@@ -255,18 +259,26 @@ class Filters extends Component {
 	}
 
 	renderCardsFilter = () => {
-		const { CardList } = this.state;
+		// const { CardList } = this.state;
 
 		return (
 			<ContainerFilters>
-				{ values(CardList).map((card) => (
+				{/* { values(CardList).map((card) => (
 					<CardFilter
 						key={card.title}
 						item={this.state.item}
 						card={card}
 						handleOpenModal={this.handleOpenModal}
 					/>
-				))}
+				))} */}
+				{this.props.allNotification.map((card) => {
+					return 	<CardFilter
+						key={card.keywordFilterId}
+						// item={this.state.item}
+						card={card}
+						handleOpenModal={this.handleOpenModal}
+					/>
+				})}
 			</ContainerFilters>
 		);
 	}
@@ -277,8 +289,10 @@ class Filters extends Component {
 			<ContainerSearchInput>
 				<SearchInput
 					placeholder={'Digite aqui para pesquisar'}
+					value={this.state.searchText}
+					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} />
+				<Image magnifying src={magnifying} onClick={this.handleSearchMagnifying} />
 			</ContainerSearchInput>
 		</WrapperSearch>
 	)
@@ -293,8 +307,7 @@ class Filters extends Component {
 	)
 
 	render() {
-		const { isModalOpen } = this.state;
-		
+		const { isModalOpen, searchCard } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history}/>
@@ -303,7 +316,9 @@ class Filters extends Component {
 						<ContainerSearchMobile>
 							{this.renderWrapperSearch()}
 						</ContainerSearchMobile>
-						{this.renderCardsFilter()}
+						<Fragment>
+							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+						</Fragment>
 						<ContainerNotifications>
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
@@ -311,15 +326,15 @@ class Filters extends Component {
 							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
 							<NotificationsItem>
 								<Label labelNotifications>E-mail</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={100} />
 							</NotificationsItem>
 							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>Push</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={0} />
 							</NotificationsItem>
 							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>SMS</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={0} />
 							</NotificationsItem>
 						</ContainerNotifications>
 						{ isModalOpen && this.renderModalFilter() }

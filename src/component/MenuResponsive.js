@@ -66,7 +66,7 @@ const ImageMenu = styled.img`
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
-		margin-left: ${(props) => props.dropdown && '.5rem'};
+		margin-left: ${(props) => props.dropdown ? '.5rem' : '0'};
 		width: ${(props) => props.dropdown && '10px'};
 	}
 `;
@@ -123,6 +123,7 @@ const ContainerDropdown = styled.div`
 	background-color: #fff;
 	border-bottom-right-radius: 6px;
 	border-bottom-left-radius: 6px;
+	z-index: 2;
 `;
 
 const DropboxText = styled.p`
@@ -165,8 +166,11 @@ class MenuResponsive extends Component {
 	}
 
 	handleOpenDropdown = () => {
+		// eslint-disable-next-line no-console
+		console.log("chegou", this.props)
 		const { isOpenDropdown } = this.state;
 		this.setState({ isOpenDropdown: !isOpenDropdown });
+		this.props.closeInput();		
 	}
 
 	handleLogout = () => {
