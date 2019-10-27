@@ -8,9 +8,9 @@ const OPORTUNITIES_LIST = 'petronect/oportunitiesList/OPORTUNITIES_LIST';
 const UPDATE_CARD = 'petronect/opportunities/UPDATE_CARD';
 const REMOVE_FAVORITE = 'petronect/opportunities/REMOVE_FAVORITE';
 const ADD_NOTIFICATION = 'petronect/keyword/ADD_NOTIFICATION';
-const UPDATE_SELECTED_OPPORTUNITY = 'petronect/keyword/UPDATE_SELECTED_OPPORTUNITY'
+const UPDATE_SELECTED_OPPORTUNITY = 'petronect/keyword/UPDATE_SELECTED_OPPORTUNITY';
 const ADD_ALL_NOTIFICATION = 'petronect/keyword/ADD_ALL_NOTIFICATION';
-const REMOVE_ALL_NOTIFICATION = 'petronect/keyword/REMOVE_ALL_NOTIFICATION'
+const REMOVE_ALL_NOTIFICATION = 'petronect/keyword/REMOVE_ALL_NOTIFICATION';
 
 const initialState = {
 	favoriteList: [],

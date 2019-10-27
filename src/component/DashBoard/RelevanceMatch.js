@@ -79,7 +79,7 @@ const WrapperHead = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: .75rem 0;
+	padding: 1rem 0;
 	@media (max-width: 648px) {
 		display: none;
 	}
@@ -89,7 +89,7 @@ const WrapperHeadMobile = styled.div`
 	display: none;
 	@media (max-width: 648px) {
 		width: 100%;
-		padding: .75rem 0;
+		padding: 1rem 0;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -140,7 +140,6 @@ const Form = styled.div`
 `;
 
 const BoxInput = styled.div`
-	position: relative;
 	display: flex;
 	align-items: center;
 
@@ -206,7 +205,8 @@ const WrapperKeyword = styled.div`
 	z-index: 2;
 
 	@media(max-width: 648px) {
-		width: 100%;
+		width: 70%;
+		position: absolute;
 	}
 `;
 
@@ -286,12 +286,12 @@ const BtnCreateFilter = styled.button`
 
 const ImgSearch = styled.img`
 	display: none;
-	padding: 0 .85rem;
-	cursor: pointer;
 
 	@media (max-width: 648px) {
 		padding: 0;
-    position: absolute;
+		padding: 0 .85rem;
+		cursor: pointer;
+    ${'' /* position: absolute; */}
 	}
 `;
 
@@ -394,7 +394,6 @@ const TableRow = styled.tr`
   }
 
 	@media(max-width: 960px) {
-		height: 64px;
 		flex-wrap: wrap;
 	}
 
@@ -570,6 +569,10 @@ class RelevanceMatch extends Component {
 		</>
 	)
 
+	handleSearchMobile = () => {
+		this.setState({ inputSearchMobile: true });
+	}
+
 	handleFavorite = (event, opportunityId) => {
 		event.stopPropagation();
 		this.props.putFavorite(opportunityId);
@@ -617,6 +620,14 @@ class RelevanceMatch extends Component {
 				}
 			};
 
+			const normalizeScore = (score) => {
+				if (score <= 1) {
+					return 1;
+				} if (score < 100) {
+					return 100 - (100 / score);
+				} return 100;
+			};
+
 			return (
 				<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
 					<TableBody
@@ -642,7 +653,9 @@ class RelevanceMatch extends Component {
 		const { isOportunitesModal, isModalOpen, inputSearchMobile } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive history={this.props.history} />
+				<MenuResponsive 
+					closeInput={this.resetInput}
+					history={this.props.history} />
 				<Container>
 					<Content>
 						<WrapperHead>

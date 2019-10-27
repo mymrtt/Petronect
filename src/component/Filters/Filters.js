@@ -209,7 +209,7 @@ class Filters extends Component {
 			isModalOpen: false,
 			CardList: {
 				card1: {
-					title: 'Sistema de offshore',
+					title: 'Sistema de offshore   aquiiiii',
 					tags: [
 						'instrumental',
 						'montagem',
@@ -259,18 +259,26 @@ class Filters extends Component {
 	}
 
 	renderCardsFilter = () => {
-		const { CardList } = this.state;
+		// const { CardList } = this.state;
 
 		return (
 			<ContainerFilters>
-				{ values(CardList).map((card) => (
+				{/* { values(CardList).map((card) => (
 					<CardFilter
 						key={card.title}
 						item={this.state.item}
 						card={card}
 						handleOpenModal={this.handleOpenModal}
 					/>
-				))}
+				))} */}
+				{this.props.allNotification.map((card) => {
+					return 	<CardFilter
+						key={card.keywordFilterId}
+						// item={this.state.item}
+						card={card}
+						handleOpenModal={this.handleOpenModal}
+					/>
+				})}
 			</ContainerFilters>
 		);
 	}

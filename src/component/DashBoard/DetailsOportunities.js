@@ -5,17 +5,16 @@ import styled from 'styled-components';
 
 // Images
 import start from '../../assets/icon/estrela.svg';
-import shareIcon from '../../assets/icon/compartilhar.svg';
+// import shareIcon from '../../assets/icon/compartilhar.svg';
 import attachIcon from '../../assets/icon/anexar.svg';
-import doubtIcon from '../../assets/icon/duvida.svg';
+// import doubtIcon from '../../assets/icon/duvida.svg';
 import loadingIcon from '../../assets/icon/loading.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
 
-//Redux
+// Redux
 const mapStateToProps = (state) => ({
 	selectedOpportunity: state.opportunities.selectedOpportunity,
-})
-
+});
 
 const Overlay = styled.div`
 	position: absolute;
@@ -295,8 +294,6 @@ const ImageLoading = styled.img`
     }
 }
 `;
-
-
 
 class DetailsOportunies extends Component {
 	constructor(props) {

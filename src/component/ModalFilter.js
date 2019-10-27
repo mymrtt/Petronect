@@ -200,7 +200,7 @@ const WrapperTagsColor = styled.div`
 // `;
 
 const ContainerTagsColor = styled.div`
-	margin: .8rem 0;
+	margin: .5rem;
 	height: 4rem;
 	display: flex;
 	justify-content: space-between;
@@ -274,6 +274,7 @@ class ModalFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			selectedColor: false,
 			nameValue: '',
 			colors: [
 				'#DE8F33',
@@ -293,6 +294,10 @@ class ModalFilter extends Component {
 
 	handleColorOption = (color) => {
 		this.setState({ selectedColor: color });
+	}
+
+	handleselectedColor = () => {
+		this.setState({ selectedColor: true });
 	}
 
 	handleCard = (event) => {
@@ -326,6 +331,7 @@ class ModalFilter extends Component {
 			<TagColor
 				key={color}
 				backgroundColor={color}
+				style={{border: this.state.selectedColor ? 'red' : 'none'}}
 				onClick={() => this.handleColorOption(color)}
 			/>
 		));
