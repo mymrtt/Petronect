@@ -8,11 +8,11 @@ import deleteIcon from '../../assets/icon/delete.svg';
 import searchIcon from '../../assets/icon/lupa-white.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
 
-import { deleteNotification } from '../../dataflow/middlewares/opportunities-middlewares';
+import { deleteKeywordThunk } from '../../dataflow/thunks/opportunities-thunk';
 
 const mapDispatchToProps = (dispatch) => ({
-	deleteNotification: (info) => {
-		dispatch(deleteNotification(info));
+	deleteKeywordThunk: (info) => {
+		dispatch(deleteKeywordThunk(info));
 	},
 });
 
@@ -74,7 +74,7 @@ const ContainerTags = styled.div`
 
 const SuggestionsTags = styled.span`
 	margin-right: 1rem;
-	margin-bottom: ${(props) => props.Tag && '.3rem'};
+	margin-bottom: ${(props) => props.tag && '.3rem'};
 	padding: .2rem .4rem;
 	border-radius: 10px;
 	background-color: ${(props) => props.background};
@@ -250,13 +250,9 @@ class CardFilter extends Component {
 		this.setState({ isOpenDelete: false });
 	}
 
-	removeNotification = async () => {
-		try {
-			await deleteNotification(this.state.selectedCard);
-			this.handleCloseDeleteModal();
-		} catch (err) {
-			console.log(err);
-		}
+	removeNotification = () => {
+		this.props.deleteKeywordThunk(this.state.selectedCard);
+		this.handleCloseDeleteModal();
 	};
 
 	renderDeleteModal = () => {
@@ -297,7 +293,7 @@ class CardFilter extends Component {
 						<Title tagTitle>{card.name}
 							<ImageSeach src={searchIcon} />
 						</Title>
-						<CardDelete onClick={() => this.handleOpenDeleteModal(card.keywordFilterId)}>
+						<CardDelete onClick={() => this.handleOpenDeleteModal(card.filterId)}>
 							<Image src={deleteIcon} />
 						</CardDelete>
 					</WrapperCard>
@@ -305,10 +301,10 @@ class CardFilter extends Component {
 						{
 							card.keywords.map((tag) => (
 								<SuggestionsTags
-									Tag
+									tag
 									background={card.color ? `${card.color}30` : '#11568030'}
 									key={tag.name}>
-									<SuggestionsText suggestionsTags>{tag.name}</SuggestionsText>
+									<SuggestionsText suggestionsTags>{tag}</SuggestionsText>
 								</SuggestionsTags>
 							))
 						}

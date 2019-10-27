@@ -6,6 +6,7 @@ import {
 	postKeywordMiddleware,
 	getOpportunityById,
 	getAllKeywordMiddleware,
+	deleteNotificationMiddleware,
 } from '../middlewares/opportunities-middlewares';
 
 import {
@@ -14,6 +15,7 @@ import {
 	removeAllKeywords,
 	updateSelectedOpportunity,
 	getAllNotification,
+	deleteNotification,
 } from '../modules/opportunities-modules';
 
 export const getAllOpportunitiesThunk = () => (
@@ -45,9 +47,7 @@ export const getAllOpportunitiesThunk = () => (
 			});
 
 			dispatch(oportunitiesList(opportunities));
-		} catch (err) {
-			console.log(err);
-		}
+		} catch (err) {}
 	}
 );
 
@@ -74,9 +74,7 @@ export const getOpportunityByIdThunk = (info) => (
 			};
 
 			dispatch(updateSelectedOpportunity(opportunity));
-		} catch (err) {
-			console.log(err);
-		}
+		} catch (err) {}
 	}
 );
 
@@ -95,9 +93,7 @@ export const postKeywordThunk = (info) => (
 			await dispatch(addNotification({ ...info, keywordList }));
 
 			dispatch(removeAllKeywords());
-		} catch (err) {
-			console.log(err);
-		}
+		} catch (err) {}
 	}
 );
 
@@ -107,20 +103,38 @@ export const getAllKeywordThunk = () => (
 			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
 			const response = await getAllKeywordMiddleware(userId, accessToken);
 
-			const keywordsItem = [];
+			const keywordsItem = {};
 
-			response.data.forEach((item, index) => {
-				keywordsItem[index] = {
-					...item,
-					keywords: item.keywords.map((key) => key.name),
+			response.data.forEach(item => {
+				const { keywordFilterId, keywords, ...rest } = item;
+				keywordsItem[keywordFilterId] = {
+					filterId: keywordFilterId,
+					...rest,
+					keywords: keywords.map((key) => key.name),
 				};
 			});
 
 			dispatch(getAllNotification(keywordsItem));
-		} catch (err) {
+		} catch (err) {}
+	}
+);
+
+export const deleteKeywordThunk = (info) => (
+	async (dispatch) => {
+		try {
+			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
+
+			await deleteNotificationMiddleware({
+				filterId: info,
+				accessToken,
+				userId,
+			});
+
+			dispatch(deleteNotification(info));
+		} catch(err) {
 			console.log(err);
 		}
 	}
-);
+)
 
 export default null;

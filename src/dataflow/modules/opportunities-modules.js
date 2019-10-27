@@ -1,16 +1,17 @@
-import { without } from 'lodash';
+import { without, omit } from 'lodash';
 
-const ADD_ITEM = 'petronect/keyword/ADD_ITEM';
-const REMOVE_ITEM = 'petronect/keyword/REMOVE_ITEM';
-const REMOVE_ALL_KEYWORDS = 'petronect/keyword/REMOVE_ALL_KEYWORDS';
-const PUT_FAVORITE = 'petronect/favorite/PUT_FAVORITE';
-const OPORTUNITIES_LIST = 'petronect/oportunitiesList/OPORTUNITIES_LIST';
-const UPDATE_CARD = 'petronect/opportunities/UPDATE_CARD';
-const REMOVE_FAVORITE = 'petronect/opportunities/REMOVE_FAVORITE';
-const ADD_NOTIFICATION = 'petronect/keyword/ADD_NOTIFICATION';
-const UPDATE_SELECTED_OPPORTUNITY = 'petronect/keyword/UPDATE_SELECTED_OPPORTUNITY';
-const ADD_ALL_NOTIFICATION = 'petronect/keyword/ADD_ALL_NOTIFICATION';
-const REMOVE_ALL_NOTIFICATION = 'petronect/keyword/REMOVE_ALL_NOTIFICATION';
+export const ADD_ITEM = 'petronect/keyword/ADD_ITEM';
+export const REMOVE_ITEM = 'petronect/keyword/REMOVE_ITEM';
+export const REMOVE_ALL_KEYWORDS = 'petronect/keyword/REMOVE_ALL_KEYWORDS';
+export const PUT_FAVORITE = 'petronect/favorite/PUT_FAVORITE';
+export const OPORTUNITIES_LIST = 'petronect/oportunitiesList/OPORTUNITIES_LIST';
+export const UPDATE_CARD = 'petronect/opportunities/UPDATE_CARD';
+export const REMOVE_FAVORITE = 'petronect/opportunities/REMOVE_FAVORITE';
+export const ADD_NOTIFICATION = 'petronect/keyword/ADD_NOTIFICATION';
+export const UPDATE_SELECTED_OPPORTUNITY = 'petronect/keyword/UPDATE_SELECTED_OPPORTUNITY';
+export const ADD_ALL_NOTIFICATION = 'petronect/keyword/ADD_ALL_NOTIFICATION';
+export const REMOVE_ALL_NOTIFICATION = 'petronect/keyword/REMOVE_ALL_NOTIFICATION';
+export const DELETE_NOTIFICATION = 'petronect/keyword/DELETE_NOTIFICATION';
 
 const initialState = {
 	favoriteList: [],
@@ -89,6 +90,12 @@ export default function (state = initialState, action) {
 			...state,
 			allNotification: [],
 		};
+	case DELETE_NOTIFICATION:
+		console.log(action.info)
+		return {
+			...state,
+			allNotification: omit(state.allNotification, action.info),
+		};
 	default:
 		return state;
 	}
@@ -147,3 +154,8 @@ export const removeAllNotification = (info) => ({
 	type: REMOVE_ALL_NOTIFICATION,
 	info,
 });
+
+export const deleteNotification = (info) => ({
+	type: DELETE_NOTIFICATION,
+	info,
+})
