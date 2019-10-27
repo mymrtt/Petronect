@@ -8,11 +8,18 @@ import deleteIcon from '../../assets/icon/delete.svg';
 import searchIcon from '../../assets/icon/lupa-white.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
 
-import { deleteKeywordThunk } from '../../dataflow/thunks/opportunities-thunk';
+import { deleteKeywordThunk, getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunities-thunk';
+import { updateCard } from '../../dataflow/modules/opportunities-modules';
 
 const mapDispatchToProps = (dispatch) => ({
 	deleteKeywordThunk: (info) => {
 		dispatch(deleteKeywordThunk(info));
+	},
+	updateCard: (info) => {
+		dispatch(updateCard(info));
+	},
+	getAllOpportunitiesThunk: () => {
+		dispatch(getAllOpportunitiesThunk());
 	},
 });
 
@@ -255,6 +262,14 @@ class CardFilter extends Component {
 		this.handleCloseDeleteModal();
 	};
 
+	handleSearch = () => {
+		this.props.updateCard({
+			keywords: this.props.card.keywords,
+		});
+		this.props.history.replace('/match');
+		this.props.getAllOpportunitiesThunk();
+	}
+
 	renderDeleteModal = () => {
 		return (
 			<Overlay>
@@ -290,8 +305,9 @@ class CardFilter extends Component {
 					<WrapperCard
 						background={card.color ? card.color : '#115680'}
 					>
-						<Title tagTitle>{card.name}
-							<ImageSeach src={searchIcon} />
+						<Title tagTitle>
+							{card.name}
+							<ImageSeach src={searchIcon} onClick={this.handleSearch} />
 						</Title>
 						<CardDelete onClick={() => this.handleOpenDeleteModal(card.filterId)}>
 							<Image src={deleteIcon} />

@@ -66,9 +66,7 @@ export default function (state = initialState, action) {
 	case UPDATE_CARD:
 		return {
 			...state,
-			cardFilter: {
-				...action.info,
-			},
+			cardFilter: action.info,
 		};
 	case ADD_NOTIFICATION:
 		return {
