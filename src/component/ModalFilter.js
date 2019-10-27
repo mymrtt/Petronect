@@ -30,11 +30,11 @@ const Overlay = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: #40404040;
+	z-index: 2;
 `;
 
 const FilterModal = styled.div`
-	padding: 0 1.5rem;
-	padding-bottom: 1.5rem;
+	padding: 1rem;
 	width: 35rem;
 	border: .5px solid #115680;
 	border-radius: 8px;
@@ -48,8 +48,12 @@ const FilterModal = styled.div`
 	}
 
 	@media (max-width: 648px) {
-		width: 30rem;
+		width: 90%;
 	}
+
+	${'' /* @media (max-width: 510px) {
+		width: 20rem;
+	} */}
 `;
 
 const Header = styled.div`
@@ -63,8 +67,8 @@ const Header = styled.div`
 
 const CloseContainer = styled.div`
 	position: absolute;
-	left: 31.5rem;
-	bottom: 1.5rem;
+	right: -1.25rem;
+	top: -2rem;
 	width: 30px;
 	height: 30px;
 	display: flex;
@@ -76,10 +80,11 @@ const CloseContainer = styled.div`
 
 	@media(max-width: 960px) {
 		top: -2rem;
-		left: 32rem;
+		${'' /* left: 32rem; */}
 	}
 	@media (max-width: 648px) {
-		left: 27rem;
+		top: 0;
+		right: 0;
 	}
 `;
 
@@ -195,10 +200,22 @@ const WrapperTagsColor = styled.div`
 // `;
 
 const ContainerTagsColor = styled.div`
-	margin: .8rem 0;
+	margin: .5rem;
 	height: 4rem;
 	display: flex;
 	justify-content: space-between;
+
+	${'' /* @media(max-width: 768px) {
+		height: auto;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+	} */}
+
+	@media(max-width: 520px) {
+    height: auto
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+	}
 `;
 
 // const SuggestionsTags = styled.span`
@@ -213,8 +230,12 @@ const TagColor = styled.div`
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
-	background-color: ${(props) => props.backgroundColor}
+	background-color: ${(props) => props.backgroundColor};
 	cursor: pointer;
+
+	@media(max-width: 520px) {
+		margin: .5rem;
+	}
 `;
 
 const Wraptext = styled.ul`
@@ -253,6 +274,7 @@ class ModalFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			selectedColor: false,
 			nameValue: '',
 			colors: [
 				'#DE8F33',
@@ -272,6 +294,10 @@ class ModalFilter extends Component {
 
 	handleColorOption = (color) => {
 		this.setState({ selectedColor: color });
+	}
+
+	handleselectedColor = () => {
+		this.setState({ selectedColor: true });
 	}
 
 	handleCard = (event) => {
@@ -305,6 +331,7 @@ class ModalFilter extends Component {
 			<TagColor
 				key={color}
 				backgroundColor={color}
+				style={{border: this.state.selectedColor ? 'red' : 'none'}}
 				onClick={() => this.handleColorOption(color)}
 			/>
 		));

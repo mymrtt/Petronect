@@ -23,7 +23,7 @@ export const getAllOpportunitiesThunk = () => (
 			const { accessToken } = JSON.parse(Cookies.get('petronect_creds'));
 			const response = await getAllOpportunitesMiddleware({ keywords, accessToken });
 
-			const  normalizeScore = (score) => {
+			const normalizeScore = (score) => {
 				if (score <= 1) {
 					return 1;
 				} if (score < 100) {
@@ -56,7 +56,7 @@ export const getOpportunityByIdThunk = (info) => (
 		try {
 			const { accessToken } = JSON.parse(Cookies.get('petronect_creds'));
 			const response = await getOpportunityById({
-				opportunityId: info.opportunityId, 
+				opportunityId: info.opportunityId,
 				accessToken,
 			});
 
@@ -65,12 +65,12 @@ export const getOpportunityByIdThunk = (info) => (
 				opportunityId: response.data._id,
 				opportunityTitle: response.data._source.OPPORT_DESCR,
 				company: response.data._source.COMPANY_DESC,
-				items: response.data._source.ITEMS.map(item => ({
+				items: response.data._source.ITEMS.map((item) => ({
 					id: item.EXLIN,
 					title: item.ITEM_DESC,
 					qty: item.QUANTITY,
 					unit: item.UNIT,
-				}))
+				})),
 			};
 
 			dispatch(updateSelectedOpportunity(opportunity));
@@ -78,7 +78,7 @@ export const getOpportunityByIdThunk = (info) => (
 			console.log(err);
 		}
 	}
-)
+);
 
 export const postKeywordThunk = (info) => (
 	async (dispatch) => {

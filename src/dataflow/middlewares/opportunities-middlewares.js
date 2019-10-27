@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as Cookies from 'js-cookie';
 
 const API_URL = 'http://petronect-app-core-api-homolog-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api';
 
@@ -35,3 +36,14 @@ export const getAllKeywordMiddleware = (userId, accessToken) => axios({
 		Authorization: accessToken,
 	},
 });
+
+export const deleteNotification = (keywordFilterId) => {
+	const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
+	return axios({
+		method: 'delete',
+		headers: {
+			Authorization: accessToken,
+		},
+		url: `${API_URL}/users/${userId}/keyword-filter/${keywordFilterId}`,
+	});
+};

@@ -43,7 +43,8 @@ const Content = styled.div`
 
 const ContainerSidebar = styled.span`
 	display: flex;
-	width: 25vw;
+	// width: 25vw;
+	width: 22vw;
 	@media (max-width: 960px) {
 		display: none;
 	}
@@ -61,7 +62,7 @@ class DashBoard extends Component {
 	componentDidMount() {
 		this.setState({
 			currentScreen: this.props.location.pathname,
-		})
+		});
 	}
 
 	componentDidUpdate(oldProps) {
@@ -69,29 +70,26 @@ class DashBoard extends Component {
 			&& this.props.location.pathname !== this.state.currentScreen) {
 			this.setState({
 				currentScreen: this.props.location.pathname,
-			})
+			});
 		}
 	}
 
 
-
 	renderCurrentScreen = () => {
-		switch(this.state.currentScreen) {
-			case '/notifications':
-				return <Filters history={this.props.history}/>;
-			case '/match-relevancia':
-			default:
-				return <RelevanceMatch history={this.props.history}/>
-		};
+		switch (this.state.currentScreen) {
+		case '/notifications':
+			return <Filters history={this.props.history}/>;
+		case '/match-relevancia':
+		default:
+			return <RelevanceMatch history={this.props.history}/>;
+		}
 	}
 
-	redirect = () => {
-		return (
-			<Redirect
-				to={`/`}
-			/>
-		);
-	}
+	redirect = () => (
+		<Redirect
+			to={'/'}
+		/>
+	)
 
 	render() {
 		return (

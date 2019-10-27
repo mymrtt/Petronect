@@ -61,6 +61,7 @@ const InputContainer = styled.form`
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
 	@media (max-width: 960px) {
+		margin: 1rem 0;
 		padding: 2rem;
 		width: 85%;
 		height: min-content;
@@ -174,7 +175,8 @@ const AltBox = styled.span`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 52.5%;
+	// width: 52.5%;
+	width: 64%;
 	margin-top: 3rem;
 	@media (max-width: 960px) {
 		margin-top: 1rem;
@@ -284,6 +286,7 @@ const CreateBox = styled.div`
 		width: 50%;
 	}
 	@media(max-width: 960px) {
+		margin: 1rem 0;
 		width: 90%;
 	}
 	@media(max-width: 648px) {
@@ -488,7 +491,7 @@ class Login extends Component {
 	renderLogin = () => <>
 		<InputContainer onSubmit={this.loginSubmit}>
 			<Logo src={logo} />
-			<InputBox width='55%'>
+			<InputBox width='65%'>
 				<Label>E-mail</Label>
 				<Input
 					ref={(node) => { this.loginEmailRef = node; }}
@@ -500,7 +503,7 @@ class Login extends Component {
 					onChange={this.handleError}
 				/>
 			</InputBox>
-			<InputBox last lastResponsive width='55%'>
+			<InputBox last lastResponsive width='65%'>
 				<Label>Senha</Label>
 				<Input
 					ref={(node) => { this.loginPasswordRef = node; }}
@@ -517,7 +520,7 @@ class Login extends Component {
 				/>
 				{this.renderError()}
 			</InputBox>
-			<Button width='55%' widthLogin>
+			<Button width='65%' widthLogin>
 				Entrar
 			</Button>
 			<AltBox>
