@@ -683,8 +683,7 @@ class RelevanceMatch extends Component {
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
-										}
-										}
+										}}
 									>
 										<img src={this.state.hoverFavorites ? startHover : start}/>
 										Favoritos

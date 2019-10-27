@@ -10,13 +10,14 @@ import hidePassword from '../../assets/icon/login-hide-password.svg';
 import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 
 // Redux
-import { loginUserThunk, createAccountThunk } from '../../dataflow/thunks/login-thunk';
+import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
 import { updateError, updateCreateSuccess } from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
 	error: state.login.error,
 	createSuccess: state.login.createSuccess,
+	recoverSuccess: state.login.recoverSuccess,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -31,6 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	updateCreateSuccess: (info) => {
 		dispatch(updateCreateSuccess(info));
+	},
+	sendRecoverPassword: (info) => {
+		dispatch(sendRecoverPassword(info));
 	},
 });
 
@@ -147,22 +151,17 @@ const IconInputPassword = styled.img`
 
 const Button = styled.button`
 	width: ${(props) => props.width};
-	${'' /* width: ${(props) => (props.backMargin ? '100%' : props.width)}; */}
 	height: 3rem;
-	${'' /* margin-top: 2.5rem; */}
 	margin-top: ${(props) => (props.backMargin ? '1.5rem' : '2.5rem')};
 	background: ${(props) => (props.back ? '#FFF' : '#115680')};
-	color: ${(props) => (props.back ? 'none' : '0px 3px 6px #00000029')};
 	border: none;
 	border-radius: 4px;
 	outline: none;
-	text-align: center;
 	font: 600 1rem eurostile, sans serif;
 	text-align: ${(props) => (props.backLeft ? 'left' : 'center')};
 	letter-spacing: 0;
 	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
 	cursor: pointer;
-    ${'' /* text-align: center; */}
 	@media (max-width: 960px) {
 		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
 	}
@@ -175,7 +174,6 @@ const AltBox = styled.span`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	// width: 52.5%;
 	width: 64%;
 	margin-top: 3rem;
 	@media (max-width: 960px) {
@@ -326,30 +324,6 @@ const CreateTitle = styled.h1`
 	};
 `;
 
-// const CreatedBox = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// 	align-items: center;
-// 	width: 30%;
-// 	min-width: 360px;
-// 	padding: 3rem 4rem;
-// 	background: #FFF;
-// 	box-shadow: 0px 1px 2px #0000001A;
-// 	border-radius: 4px;
-// 	transition: width 1s;
-
-// 	@media(max-width: 1440px) {
-// 		width: 50%;
-// 	}
-// 	@media(max-width: 768px) {
-// 		width: 75%;
-// 		padding: 2rem;
-// 	}
-// 	@media(max-width: 425px) {
-// 		width: 95%;
-// 	}
-// `;
-
 const CreatedText = styled.div`
 	width: 92.5%;
 	margin: 0 0 -1rem;
@@ -384,6 +358,25 @@ const Form = styled.form`
 	}
 `;
 
+const Back = styled.span`
+	display: flex;
+	align-items: center;
+	width: 45%;
+	height: 3rem;
+	margin-top: 2.5rem;
+	background: #FFF;
+	font: 600 1rem eurostile, sans serif;
+	text-align: left;
+	color: #115680;
+	cursor: pointer;
+	@media (max-width: 960px) {
+		width: 45%;
+	}
+	@media (max-width: 450px) {
+		margin-top: .5rem;
+	}
+`;
+
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -391,6 +384,7 @@ class Login extends Component {
 			currentScreen: 'login',
 			isCreated: false,
 			showPassword: true,
+			error: undefined,
 		};
 	}
 
@@ -416,34 +410,17 @@ class Login extends Component {
 
 		if (this.props.createSuccess === false) {
 			this.props.updateCreateSuccess(null);
-		} return null;
-	}
-
-	renderError = () => {
-		if (this.props.error) {
-			return (
-				<LoginMessageError>
-					<TextError>
-						Endereço de email e/ou senha incorretos
-					</TextError>
-				</LoginMessageError>
-			);
 		}
 
-		if (this.props.createSuccess === false) {
-			return (
-				<LoginMessageError>
-					<TextError>
-					 	Usuário já cadastrado
-					</TextError>
-				</LoginMessageError>
-			);
+		if (this.state.error) {
+			this.setState({
+				error: undefined,
+			});
 		}
-
+		
 		return null;
 	}
 
-	
 	handleCreate = () => {
 		if (this.state.currentScreen !== 'create') {
 			this.setState({
@@ -471,14 +448,21 @@ class Login extends Component {
 	createSubmit = (ev) => {
 		ev.preventDefault();
 
-		this.props.createAccountThunk({
-			name: this.createNameRef.value,
-			email: this.createEmailRef.value,
-			password: this.createPasswordRef.value,
-		});
-		this.setState({
-			isCreated: true,
-		});
+		if (this.createPasswordRef.value.trim().length > 5) {
+			this.props.createAccountThunk({
+				name: this.createNameRef.value,
+				email: this.createEmailRef.value,
+				password: this.createPasswordRef.value.trim(),
+			});
+			this.setState({
+				isCreated: true,
+			});
+		} else {
+			this.setState({
+				error: 'passwordLength'
+			});
+		}
+
 	}
 
 	handleBackLogin = () => {
@@ -486,6 +470,45 @@ class Login extends Component {
 			currentScreen: 'login',
 			isCreated: false,
 		});
+	}
+
+	handleSubmitRecover = (ev) => {
+		ev.preventDefault();
+		this.props.sendRecoverPassword(this.inputRecover.value);
+	}
+
+	renderError = () => {
+		if (this.props.error) {
+			return (
+				<LoginMessageError>
+					<TextError>
+						Endereço de email e/ou senha incorretos
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		if (this.props.createSuccess === false) {
+			return (
+				<LoginMessageError>
+					<TextError>
+					 	Usuário já cadastrado
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		if (this.state.error === 'passwordLength') {
+			return (
+				<LoginMessageError>
+					<TextError>
+					 	A senha deve conter no minimo 6 caracteres
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		return null;
 	}
 
 	renderLogin = () => <>
@@ -590,7 +613,7 @@ class Login extends Component {
 								type={this.state.showPassword ? 'password' : 'text'}
 								required
 								placeholder={'Digite sua senha'}
-								error={this.props.error}
+								error={this.props.error || this.state.error}
 								onChange={this.handleError}
 							/>
 							<IconInputPassword
@@ -619,33 +642,48 @@ class Login extends Component {
 		<CreateContainer>
 			<LogoCreate src={logoW} />
 			<CreateBox>
-				<Form>
-					<CreateTitle>
-						Recuperar Senha
-					</CreateTitle>
-					<InputBox last width='100%'>
-						<Label>Email</Label>
-						<Input
-							type={'email'}
-							placeholder={'nome@email.com'}
-						/>
-					</InputBox>
-					<InputBox last width='100%'>
-						<Label>Confirmar email</Label>
-						<Input
-							type={'email'}
-							placeholder={'nome@email.com'}
-						/>
-					</InputBox>
-					<ButtonsBox>
-						<Button back  width='45%' backLeft widthResponsive onClick={this.handleBackLogin}>
-							Voltar
-						</Button>
-						<Button width='45%' widthResponsive>
-							Enviar
-						</Button>
-					</ButtonsBox>
-				</Form>
+				{this.props.recoverSuccess
+				? (<>
+						<CreateTitle>
+							Sucesso! Verifique seu caixa de email.
+						</CreateTitle>
+						<CreatedText>
+							Foi enviado para seu email o link para a troca de senha. Por favor, verifique sua caixa de email, para efetuar a troca de senha!
+						</CreatedText>
+						<BackText onClick={this.handleBackLogin}>
+							Voltar para o Login
+						</BackText>
+					</>)
+				: (<Form onSubmit={this.handleSubmitRecover}>
+						<CreateTitle>
+							Recuperar Senha
+						</CreateTitle>
+						<InputBox last width='100%'>
+							<Label>Email</Label>
+							<Input
+								type='email'
+								required
+								ref={(node) => this.inputRecover = node}
+								placeholder={'nome@email.com'}
+							/>
+						</InputBox>
+						{/* <InputBox last width='100%'>
+							<Label>Confirmar email</Label>
+							<Input
+								type={'email'}
+								placeholder={'nome@email.com'}
+							/>
+						</InputBox> */}
+						<ButtonsBox>
+							<Back onClick={this.handleBackLogin}>
+								Voltar
+							</Back>
+							<Button width='45%' widthResponsive>
+								Enviar
+							</Button>
+						</ButtonsBox>
+					</Form>)
+				}
 			</CreateBox>
 		</CreateContainer>
 	)
