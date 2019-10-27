@@ -27,3 +27,14 @@ export const createAccountMiddleware = (info) => axios({
 		password: info.password,
 	},
 });
+
+export const sendRecoverPasswordMiddleware = (info) => axios({
+	url: `${API_URL}/password-reset-request`,
+	method: 'post',
+	header: {
+		'Content-Type': 'application/json',
+	},
+	data: {
+		email: info,
+	},
+});

@@ -107,9 +107,20 @@ export const getAllKeywordThunk = () => (
 			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
 			const response = await getAllKeywordMiddleware(userId, accessToken);
 
-			dispatch(getAllNotification(response.data));
+			const keywordsItem = [];
+
+			response.data.forEach((item, index) => {
+				keywordsItem[index] = {
+					...item,
+					keywords: item.keywords.map((key) => key.name),
+				};
+			});
+
+			dispatch(getAllNotification(keywordsItem));
 		} catch (err) {
 			console.log(err);
 		}
 	}
 );
+
+export default null;
