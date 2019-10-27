@@ -318,15 +318,15 @@ class Filters extends Component {
 							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
 							<NotificationsItem>
 								<Label labelNotifications>E-mail</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={100} />
 							</NotificationsItem>
 							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>Push</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={0} />
 							</NotificationsItem>
 							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>SMS</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={0} />
 							</NotificationsItem>
 						</ContainerNotifications>
 						{ isModalOpen && this.renderModalFilter() }

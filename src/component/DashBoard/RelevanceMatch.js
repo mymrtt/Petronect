@@ -49,8 +49,8 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(getAllOpportunitiesThunk(info));
 	},
 	getOpportunityByIdThunk: (info) => {
-		dispatch(getOpportunityByIdThunk(info))
-	}
+		dispatch(getOpportunityByIdThunk(info));
+	},
 });
 
 const Container = styled.div`
@@ -683,7 +683,7 @@ class RelevanceMatch extends Component {
 						<WrapperHeadMobile>
 							<BoxHeader>
 								<HeaderText
-									style={{display: inputSearchMobile ? 'none' : 'flex'}}
+									style={{ display: inputSearchMobile ? 'none' : 'flex' }}
 								>Oportunidades</HeaderText>
 							</BoxHeader>
 							<WrapperForm>
@@ -692,7 +692,7 @@ class RelevanceMatch extends Component {
 										<TitleInput>Pesquisar</TitleInput>
 										{this.state.inputSearchMobile && this.renderSearchInput() }
 										<ImgSearch src={searchIcon}
-											style={{display: inputSearchMobile ? 'none' : 'flex'}}
+											style={{ display: inputSearchMobile ? 'none' : 'flex' }}
 											onClick={this.handleSearchMobile}/>
 									</BoxInput>
 									<Button
