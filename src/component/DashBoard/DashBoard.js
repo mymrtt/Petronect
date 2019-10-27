@@ -43,7 +43,8 @@ const Content = styled.div`
 
 const ContainerSidebar = styled.span`
 	display: flex;
-	width: 25vw;
+	// width: 25vw;
+	width: 22vw;
 	@media (max-width: 960px) {
 		display: none;
 	}

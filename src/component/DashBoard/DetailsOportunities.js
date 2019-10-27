@@ -64,6 +64,14 @@ const SubContainer = styled.div`
 	max-height: calc(85vh - 0.25rem);
 	padding-bottom: 0.25rem;
 	overflow: hidden auto;
+	::-webkit-scrollbar {
+    width: 3px;
+    background-color: #8c8c8c;
+	}
+	::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #115680;
+	}
 `;
 
 const DatailsHeader = styled.div`
