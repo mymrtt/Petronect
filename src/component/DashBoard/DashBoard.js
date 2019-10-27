@@ -96,7 +96,9 @@ class DashBoard extends Component {
 			<Container>
 				<Content>
 					<ContainerSidebar>
-						<SideBar history={this.props.history}/>
+						<SideBar
+							currentScreen={this.state.currentScreen}
+							history={this.props.history}/>
 					</ContainerSidebar>
 					{this.renderCurrentScreen()}
 				</Content>

@@ -281,7 +281,7 @@ class SideBar extends Component {
 								<MenuItem
 									key={item.text}
 									disable={item.disable}
-									selected={item.text === this.state.selectedItem}
+									selected={item.route === this.props.currentScreen}
 									to={item.route}
 								>
 									<IconSideBar src={item.iconSelected} />
