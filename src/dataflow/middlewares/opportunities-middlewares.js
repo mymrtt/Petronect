@@ -37,13 +37,10 @@ export const getAllKeywordMiddleware = (userId, accessToken) => axios({
 	},
 });
 
-export const deleteNotification = (keywordFilterId) => {
-	const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
-	return axios({
-		method: 'delete',
-		headers: {
-			Authorization: accessToken,
-		},
-		url: `${API_URL}/users/${userId}/keyword-filter/${keywordFilterId}`,
-	});
-};
+export const deleteNotificationMiddleware = (info) => axios({
+	url: `${API_URL}/users/${info.userId}/keyword-filter/${info.filterId}`,
+	method: 'delete',
+	headers: {
+		Authorization: info.accessToken,
+	},
+});

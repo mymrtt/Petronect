@@ -259,7 +259,7 @@ class Filters extends Component {
 	}
 
 	renderCardsFilter = () => {
-		// const { CardList } = this.state;
+		const { allNotification } = this.props;
 
 		return (
 			<ContainerFilters>
@@ -271,10 +271,9 @@ class Filters extends Component {
 						handleOpenModal={this.handleOpenModal}
 					/>
 				))} */}
-				{this.props.allNotification.map((card) => {
+				{values(allNotification).map((card) => {
 					return 	<CardFilter
 						key={card.keywordFilterId}
-						// item={this.state.item}
 						card={card}
 						handleOpenModal={this.handleOpenModal}
 					/>
