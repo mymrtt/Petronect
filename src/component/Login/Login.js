@@ -141,7 +141,6 @@ const Input = styled.input`
 	background: #FAFAFA 0% 0% no-repeat padding-box;
 	border: 1px solid ${(props) => (props.error ? '#D53B40' : '#7FBA4C')};
 	border-radius: 4px;
-	outline: none;
 	::placeholder {
 		font: 300 1rem Open Sans, sans serif;
 		letter-spacing: 0;
@@ -165,7 +164,6 @@ const Button = styled.button`
 	background: ${(props) => (props.back ? '#FFF' : '#115680')};
 	border: none;
 	border-radius: 4px;
-	outline: none;
 	font: 600 1rem eurostile, sans serif;
 	${'' /* text-align: ${(props) => (props.backLeft ? 'left' : 'center')}; */}
 	text-align: center;
