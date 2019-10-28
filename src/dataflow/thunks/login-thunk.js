@@ -7,13 +7,15 @@ import {
 	updateError,
 	updateCreateSuccess,
 	updateRecoverSuccess,
+	verifyEmailExisting,
 } from '../modules/login-module';
 
 // Middlewares
 import {
 	loginUserMiddleware,
 	createAccountMiddleware,
-	sendRecoverPasswordMiddleware,
+	// sendRecoverPasswordMiddleware,
+	verifyEmailExistingMiddleware,
 } from '../middlewares/login-middleware';
 
 
@@ -31,7 +33,7 @@ export const loginUserThunk = (info) => (
 					username: info.email,
 				},
 			);
-			info.history.replace('/dashboard');
+			info.history.replace('/match-relevancia');
 		} catch (err) {
 			dispatch(updateError(true));
 		}
@@ -62,10 +64,35 @@ export const logoutThunk = (info) => (
 export const sendRecoverPassword = (info) => (
 	async (dispatch) => {
 		try {
-			await sendRecoverPasswordMiddleware(info);
-			dispatch(updateRecoverSuccess(true));
-		} catch (err) {}
+			let lalala = '';
+			const responseEmail = await verifyEmailExistingMiddleware(info);
+			lalala = responseEmail.data;
+
+			if (lalala) {
+				await verifyEmailExistingMiddleware(info);
+				dispatch(updateRecoverSuccess(true));
+			}
+			dispatch(verifyEmailExisting(responseEmail.data));
+			// await sendRecoverPasswordMiddleware(info);
+		} catch (err) {
+		}
 	}
 );
+
+// export const verifyEmailExistingThunk = (info) => (
+// 	async (dispatch) => {
+// 		try {
+// 			const dataEmail = '';
+// 			const response = await verifyEmailExistingMiddleware(info);
+// 			console.log('que', response.data)
+// 			dataEmail = response.data;
+// 			console.log('oi qu haha', dataEmail)
+// 			dispatch(verifyEmailExisting('truenjh'))
+// 			console.log('que', response.data)
+// 		} catch (err) {
+// 			console.log('error', err.response)
+// 		}
+// 	}
+// );
 
 export default null;
