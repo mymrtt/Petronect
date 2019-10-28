@@ -1,7 +1,6 @@
 import axios from 'axios';
-import * as Cookies from 'js-cookie';
 
-const API_URL = 'http://petronect-app-core-api-homolog-env.us-east-1.elasticbeanstalk.com/petronect-app-core-api';
+const API_URL = 'https://premium.petronextlab.io/petronect-app-core-api';
 
 export const getAllOpportunitesMiddleware = (info) => axios({
 	url: `${API_URL}/opportunities/search`,

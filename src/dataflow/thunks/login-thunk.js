@@ -1,11 +1,22 @@
+/* eslint-disable no-empty */
 // Libs
 import * as Cookies from 'js-cookie';
 
 // Actions
-import { updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting } from '../modules/login-module';
+import {
+	updateError,
+	updateCreateSuccess,
+	updateRecoverSuccess,
+	verifyEmailExisting,
+} from '../modules/login-module';
 
 // Middlewares
-import { loginUserMiddleware, createAccountMiddleware, sendRecoverPasswordMiddleware, verifyEmailExistingMiddleware } from '../middlewares/login-middleware';
+import {
+	loginUserMiddleware,
+	createAccountMiddleware,
+	sendRecoverPasswordMiddleware,
+	verifyEmailExistingMiddleware,
+} from '../middlewares/login-middleware';
 
 
 export const loginUserThunk = (info) => (
@@ -46,9 +57,7 @@ export const logoutThunk = (info) => (
 		try {
 			Cookies.remove('petronect_creds');
 			info.history.replace('/');
-		} catch (err) {
-			console.log('error', err);
-		}
+		} catch (err) {}
 	}
 );
 
@@ -67,24 +76,5 @@ export const sendRecoverPassword = (info) => (
 		}
 	}
 );
-
-// export const sendRecoverPassword = (info) => (
-// 	async (dispatch) => {
-// 		try {
-// 			let lalala = '';
-// 			const responseEmail = await verifyEmailExistingMiddleware(info);
-// 			lalala = responseEmail.data;
-
-// 			if (responseEmail.data) {
-// 				await verifyEmailExistingMiddleware(info);
-// 				dispatch(updateRecoverSuccess(true));
-// 				dispatch(verifyEmailExisting(null));
-// 			}
-// 				dispatch(verifyEmailExisting(responseEmail.data));
-// 				// await sendRecoverPasswordMiddleware(info);
-// 			} catch (err) {
-// 		}
-// 	}
-// );
 
 export default null;

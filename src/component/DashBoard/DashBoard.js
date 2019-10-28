@@ -71,20 +71,6 @@ class DashBoard extends Component {
 	}
 
 	componentDidMount() {
-		try {
-			const response = Cookies.get('petronect_creds');
-
-			if (!(JSON.parse(response)) || !response) {
-				this.props.history.replace('/');
-			} else {
-				this.props.history.replace('/match-relevancia');
-				this.handleNameUser();
-			}
-			return null;
-		} catch (err) {
-			this.props.history.replace('/');
-		}
-
 		this.setState({
 			currentScreen: this.props.location.pathname,
 		});
@@ -105,21 +91,6 @@ class DashBoard extends Component {
 			});
 		}
 	}
-
-	getToken = () => {
-		try {
-			const response = Cookies.get('petronect_creds');
-
-			if (!(JSON.parse(response)) || !response) {
-				this.props.history.replace('/');
-			} else {
-				this.props.history.replace('/match-relevancia');
-			}
-			return null;
-		} catch (err) {
-			this.props.history.replace('/');
-		}
-	};
 
 	renderCurrentScreen = () => {
 		switch (this.state.currentScreen) {
