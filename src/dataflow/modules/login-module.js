@@ -1,11 +1,13 @@
 const UPDATE_ERROR = 'petronect/search/ADD_ITEM';
 const UPDATE_CREATE_SUCCESS = 'petronect/search/UPDATE_CREATE_SUCCESS';
 const UPDATE_RECOVER_SUCCESS = 'petronect/search/UPDATE_RECOVER_SUCCESS';
+const VERIFY_EMAIL_EXISTING = 'petronect/search/VERIFY_EMAIL_EXISTING';
 
 const initialState = {
 	error: '',
 	createSuccess: null,
 	recoverSuccess: null,
+	verifyEmailExisting: '',
 };
 
 export default function (state = initialState, action) {
@@ -24,7 +26,12 @@ export default function (state = initialState, action) {
 		return {
 			...state,
 			recoverSuccess: action.info,
-		}
+		};
+	case VERIFY_EMAIL_EXISTING:
+		return {
+			...state,
+			verifyEmailExisting: action.info,
+		};
 	default:
 		return state;
 	}
@@ -43,4 +50,9 @@ export const updateCreateSuccess = (info) => ({
 export const updateRecoverSuccess = (info) => ({
 	type: UPDATE_RECOVER_SUCCESS,
 	info,
-})
+});
+
+export const verifyEmailExisting = (info) => ({
+	type: VERIFY_EMAIL_EXISTING,
+	info,
+});

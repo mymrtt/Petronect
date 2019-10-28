@@ -18,6 +18,7 @@ const mapStateToProps = (state) => ({
 	error: state.login.error,
 	createSuccess: state.login.createSuccess,
 	recoverSuccess: state.login.recoverSuccess,
+	verifyEmailExisting: state.login.verifyEmailExisting,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -495,7 +496,10 @@ class Login extends Component {
 	handleSubmitRecover = (ev) => {
 		ev.preventDefault();
 		this.props.sendRecoverPassword(this.inputRecover.value);
+		console.log('verifyEmailExisting akkaka', this.props.verifyEmailExisting)
 		// this.props.recoverSuccess
+
+		// this.props.verifyEmailExistingThunk(this.inputRecover.value);
 	}
 
 	renderError = () => {
@@ -689,6 +693,7 @@ class Login extends Component {
 								placeholder={'nome@email.com'}
 							/>
 						</InputBox>
+						{/* {!this.props.verifyEmailExisting && <TextError>Por favor, digite um email valido!</TextError>} */}
 						{/* <InputBox last width='100%'>
 							<Label>Confirmar email</Label>
 							<Input
@@ -730,7 +735,8 @@ class Login extends Component {
 	}
 
 	render() {
-		console.log('his.props.recoverSuccess', this.props.recoverSuccess)
+		// console.log('his.props.recoverSuccess', this.props.recoverSuccess)
+		console.log('verifyEmailExisting akkaka', this.props.verifyEmailExisting)
 		return (
 			<Container screen={this.state.screen}>
 				{this.renderCurrentScreen()}

@@ -2,10 +2,10 @@
 import * as Cookies from 'js-cookie';
 
 // Actions
-import { updateError, updateCreateSuccess, updateRecoverSuccess } from '../modules/login-module';
+import { updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting } from '../modules/login-module';
 
 // Middlewares
-import { loginUserMiddleware, createAccountMiddleware, sendRecoverPasswordMiddleware } from '../middlewares/login-middleware';
+import { loginUserMiddleware, createAccountMiddleware, sendRecoverPasswordMiddleware, verifyEmailExistingMiddleware } from '../middlewares/login-middleware';
 
 
 export const loginUserThunk = (info) => (
@@ -32,7 +32,7 @@ export const loginUserThunk = (info) => (
 export const createAccountThunk = (info) => (
 	async (dispatch) => {
 		try {
-			// await createAccountMiddleware(info);
+			await createAccountMiddleware(info);
 
 			dispatch(updateCreateSuccess(true));
 		} catch (err) {
@@ -56,12 +56,39 @@ export const sendRecoverPassword = (info) => (
 	async (dispatch) => {
 		try {
 			console.log(info)
-			await sendRecoverPasswordMiddleware(info);
-			dispatch(updateRecoverSuccess(true))
+			let lalala = '';
+			console.log('bouuu', lalala)
+			const responseEmail = await verifyEmailExistingMiddleware(info);
+			lalala = responseEmail.data
+
+			if (lalala) {
+				console.log('passou')
+				const response = await verifyEmailExistingMiddleware(info);
+				dispatch(updateRecoverSuccess(true))
+			} 
+			console.log('oi qu haha lala nao passou', lalala)
+			dispatch(verifyEmailExisting(responseEmail.data))
+			// await sendRecoverPasswordMiddleware(info);
 		} catch (err) {
 			console.log(err)
 		}
 	}
-)
+);
+
+// export const verifyEmailExistingThunk = (info) => (
+// 	async (dispatch) => {
+// 		try {
+// 			const dataEmail = '';
+// 			const response = await verifyEmailExistingMiddleware(info);
+// 			console.log('que', response.data)
+// 			dataEmail = response.data;
+// 			console.log('oi qu haha', dataEmail)
+// 			dispatch(verifyEmailExisting('truenjh'))
+// 			console.log('que', response.data)
+// 		} catch (err) {
+// 			console.log('error', err.response)
+// 		}
+// 	}
+// );
 
 export default null;
