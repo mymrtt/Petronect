@@ -50,10 +50,6 @@ const FilterModal = styled.div`
 	@media (max-width: 648px) {
 		width: 90%;
 	}
-
-	${'' /* @media (max-width: 510px) {
-		width: 20rem;
-	} */}
 `;
 
 const Header = styled.div`
@@ -232,6 +228,9 @@ const TagColor = styled.div`
 	border-radius: 50%;
 	background-color: ${(props) => props.backgroundColor};
 	cursor: pointer;
+	${props => props.selectedColor && `
+		border: solid 4px #116EA0;
+	`}
 
 	@media(max-width: 520px) {
 		margin: .5rem;
@@ -251,30 +250,29 @@ const Wraptext = styled.ul`
 const TagText = styled.p`
 	font-size: .85rem;
 	color: #8C8C8C;
-	margin-right: 1rem;
+	margin: 0.5rem 0.5rem 0 0;
 `;
 
 const KeywordText = styled.li`
 	width: auto;
 	height: 20px;
 	margin: 0.5rem 0.35rem 0 0;
-	padding: 0 .5rem;
+	padding: 0.5rem .5rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
-	background: #01B0B7;
-	${''}
+	background: ${props => props.color}30;
 	border-radius: 10px;
 	list-style:none;
 	font-size: .85rem;
-	color: #404040;
+	color: #40404090;
 `;
 
 class ModalFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedColor: false,
+			selectedColor: '#DE8F33',
 			nameValue: '',
 			colors: [
 				'#DE8F33',
@@ -293,6 +291,7 @@ class ModalFilter extends Component {
 	}
 
 	handleColorOption = (color) => {
+		console.log(color)
 		this.setState({ selectedColor: color });
 	}
 
@@ -325,25 +324,20 @@ class ModalFilter extends Component {
 	}
 
 	renderColorOption = () => {
-		const { colors } = this.state;
+		const { colors, selectedColor } = this.state;
 
 		return colors.map((color) => (
 			<TagColor
 				key={color}
 				backgroundColor={color}
-				style={{border: this.state.selectedColor ? 'red' : 'none'}}
+				selectedColor={selectedColor === color}
 				onClick={() => this.handleColorOption(color)}
 			/>
 		));
 	}
 
 	renderKeywordsList = () => this.props.keywords.map((keyword) => (
-		<div
-			key={keyword}
-			className='btn'
-		>
-			<KeywordText>{keyword}</KeywordText>
-		</div>
+		<KeywordText color={this.state.selectedColor}>{keyword}</KeywordText>
 	))
 
 	render() {
@@ -379,18 +373,6 @@ class ModalFilter extends Component {
 							{this.renderKeywordsList()}
 						</Wraptext>
 					</InputBox>
-					{/* <WrapperTexts suggestions>
-						<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
-						<SuggestionsTags>
-							<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-						</SuggestionsTags>
-						<SuggestionsTags>
-							<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
-						</SuggestionsTags>
-						<SuggestionsTags>
-							<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-						</SuggestionsTags>
-					</WrapperTexts> */}
 					<WrapperTagsColor>
 						<Label>Escolha uma cor</Label>
 						<ContainerTagsColor>

@@ -298,7 +298,6 @@ const ImgSearch = styled.img`
 		padding: 0;
 		padding: 0 .85rem;
 		cursor: pointer;
-    ${'' /* position: absolute; */}
 	}
 `;
 
@@ -426,19 +425,19 @@ const TableRow = styled.tr`
 	}
 `;
 
-const BoxTableBody = styled.div`	
-		display: flex;
-		width: auto;
+// const BoxTableBody = styled.div`
+// 		display: flex;
+// 		width: auto;
 
-	@media(max-width: 420px) {
-		height: 100%;
-		flex-direction: column-reverse;
-		justify-content: space-between;
-	}
+// 	@media(max-width: 420px) {
+// 		height: 100%;
+// 		flex-direction: column-reverse;
+// 		justify-content: space-between;
+// 	}
 
-	@media(min-width: 768px) {
-	}
-`;
+// 	@media(min-width: 768px) {
+// 	}
+// `;
 
 const TableHeader = styled.td`
   width: ${(props) => (props.boxWidth ? '100px' : '100%')};
@@ -561,33 +560,33 @@ class RelevanceMatch extends Component {
 
 	renderSearchInput = () => (
 		<>
-		<FormHead onSubmit= {this.handleKeyPress}>
-			<LabelBox
-				borderRadius= {this.state.inputSearch ? '16px 16px 0 0' : '1rem'}
-			>
-				<InputHead
-					ref={(node) => { this.inputSearch = node; }}
-					onFocus= {this.handleInputSearch}
-					placeholder= "Digite aqui para pesquisar"
-				/>
-				<AddKeyword
-				>+</AddKeyword>
-			</LabelBox>
-		</FormHead>
-		{this.state.inputSearch && (
-			<WrapperKeyword>
-				<Wraptext>
-					{this.props.keywords.length > 0 && this.renderList() }
-				</Wraptext>
-				<ContainerText>
-					{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave. </TextNull>}
-				</ContainerText>
-				<BtnCreateFilter onClick={this.handleOpenModal}>
-					<ImgFilter src={FilterImg}/>
-					Salvar Filtro
-				</BtnCreateFilter>
-			</WrapperKeyword>
-		)}
+			<FormHead onSubmit={this.handleKeyPress}>
+				<LabelBox
+					borderRadius={this.state.inputSearch ? '16px 16px 0 0' : '1rem'}
+				>
+					<InputHead
+						ref={(node) => { this.inputSearch = node; }}
+						onFocus={this.handleInputSearch}
+						placeholder="Digite aqui para pesquisar"
+					/>
+					<AddKeyword
+					>+</AddKeyword>
+				</LabelBox>
+			</FormHead>
+			{this.state.inputSearch && (
+				<WrapperKeyword>
+					<Wraptext>
+						{this.props.keywords.length > 0 && this.renderList()}
+					</Wraptext>
+					<ContainerText>
+						{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave. </TextNull>}
+					</ContainerText>
+					<BtnCreateFilter onClick={this.handleOpenModal}>
+						<ImgFilter src={FilterImg} />
+						Salvar Filtro
+					</BtnCreateFilter>
+				</WrapperKeyword>
+			)}
 		</>
 	)
 
@@ -642,21 +641,13 @@ class RelevanceMatch extends Component {
 				}
 			};
 
-			const normalizeScore = (score) => {
-				if (score <= 1) {
-					return 1;
-				} if (score < 100) {
-					return 100 - (100 / score);
-				} return 100;
-			};
-
 			return (
 				<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
 					<TableBody
 						spanWidth
 						onClick={handleFavorite}
 					>
-						<img src={isFavorite ? start : startHover}/>
+						<img src={isFavorite ? start : startHover} />
 					</TableBody>
 					<TableBody spanWidth>{item.fit}%</TableBody>
 					<TableBody>{item.category}</TableBody>
@@ -676,6 +667,7 @@ class RelevanceMatch extends Component {
 		return (
 			<Fragment>
 				<MenuResponsive
+					currentScreen={this.props.currentScreen}
 					closeInput={this.resetInput}
 					history={this.props.history} />
 				<Container>
@@ -700,13 +692,13 @@ class RelevanceMatch extends Component {
 									<Button
 										type="button"
 										value="1"
-										onClick = {this.handleOpotunity}
+										onClick={this.handleOpotunity}
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
 										}}
 									>
-										<img src={this.state.hoverFavorites ? startHover : start}/>
+										<img src={this.state.hoverFavorites ? startHover : start} />
 										Favoritos
 									</Button>
 								</Form>
@@ -733,7 +725,7 @@ class RelevanceMatch extends Component {
 										</WrapInput>
 										<ImgSearch src={searchIcon}
 											style={{ display: inputSearchMobile ? 'none' : 'flex' }}
-											onClick={this.handleSearchMobile}/>
+											onClick={this.handleSearchMobile} />
 									</BoxInput>
 									<Button
 										type="button"
@@ -745,7 +737,7 @@ class RelevanceMatch extends Component {
 										}
 										}
 									>
-										<img src={this.state.hoverFavorites ? startHover : start}/>
+										<img src={this.state.hoverFavorites ? startHover : start} />
 									</Button>
 								</Form>
 								{/* <WrapperKeyword>
@@ -758,7 +750,7 @@ class RelevanceMatch extends Component {
 					<WrapperTable>
 						<Table>
 							<HeaderRow>
-								<TableHeader boxWidth><img src={start}/></TableHeader>
+								<TableHeader boxWidth><img src={start} /></TableHeader>
 								<TableHeader boxWidth>Fit</TableHeader>
 								<TableHeader>Categoria</TableHeader>
 								<TableHeader>Id</TableHeader>
@@ -769,8 +761,8 @@ class RelevanceMatch extends Component {
 						</Table>
 					</WrapperTable>
 					<Fragment>
-						{ isOportunitesModal && this.renderModalOportunities() }
-						{ isModalOpen && this.renderModalFilter() }
+						{isOportunitesModal && this.renderModalOportunities()}
+						{isModalOpen && this.renderModalFilter()}
 					</Fragment>
 				</Container>
 				<Footer />

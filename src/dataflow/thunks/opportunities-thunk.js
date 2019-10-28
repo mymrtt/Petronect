@@ -123,7 +123,7 @@ export const deleteKeywordThunk = (info) => (
 	async (dispatch) => {
 		try {
 			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
-
+			
 			await deleteNotificationMiddleware({
 				filterId: info,
 				accessToken,
