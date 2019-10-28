@@ -90,7 +90,7 @@ const ContainerNotifications = styled.div`
 	}
 	@media(max-width: 648px) {
 		margin-bottom: 4rem;
-		padding-top: 1rem;
+		// padding-top: 6rem;
 		padding-left: .5rem;
 		width: 100%;
 		height: 100%;
@@ -195,10 +195,11 @@ const ContainerFilters = styled.div`
 		// min-height: 85%;
 	}
 	@media(max-width: 648px) {
-		flex-wrap: nowrap;
 		margin-left: .5rem;
+		padding-bottom: 1rem;
 		width: 100%;
 		height: 85%;
+		flex-wrap: nowrap;
 	}
 `;
 
@@ -269,7 +270,7 @@ class Filters extends Component {
 						card={card}
 						history={this.props.history}
 						handleOpenModal={this.handleOpenModal}
-					/>
+					/>;
 				})}
 			</ContainerFilters>
 		);
