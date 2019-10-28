@@ -1,11 +1,20 @@
+/* eslint-disable no-empty */
 // Libs
 import * as Cookies from 'js-cookie';
 
 // Actions
-import { updateError, updateCreateSuccess, updateRecoverSuccess } from '../modules/login-module';
+import {
+	updateError,
+	updateCreateSuccess,
+	updateRecoverSuccess,
+} from '../modules/login-module';
 
 // Middlewares
-import { loginUserMiddleware, createAccountMiddleware, sendRecoverPasswordMiddleware } from '../middlewares/login-middleware';
+import {
+	loginUserMiddleware,
+	createAccountMiddleware,
+	sendRecoverPasswordMiddleware,
+} from '../middlewares/login-middleware';
 
 
 export const loginUserThunk = (info) => (
@@ -46,22 +55,17 @@ export const logoutThunk = (info) => (
 		try {
 			Cookies.remove('petronect_creds');
 			info.history.replace('/');
-		} catch (err) {
-			console.log('error', err);
-		}
+		} catch (err) {}
 	}
 );
 
 export const sendRecoverPassword = (info) => (
 	async (dispatch) => {
 		try {
-			console.log(info)
 			await sendRecoverPasswordMiddleware(info);
-			dispatch(updateRecoverSuccess(true))
-		} catch (err) {
-			console.log(err)
-		}
+			dispatch(updateRecoverSuccess(true));
+		} catch (err) {}
 	}
-)
+);
 
 export default null;

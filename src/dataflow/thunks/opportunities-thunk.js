@@ -1,3 +1,5 @@
+/* eslint-disable no-empty */
+/* eslint-disable no-underscore-dangle */
 // Libs
 import * as Cookies from 'js-cookie';
 
@@ -105,7 +107,7 @@ export const getAllKeywordThunk = () => (
 
 			const keywordsItem = {};
 
-			response.data.forEach(item => {
+			response.data.forEach((item) => {
 				const { keywordFilterId, keywords, ...rest } = item;
 				keywordsItem[keywordFilterId] = {
 					filterId: keywordFilterId,
@@ -123,7 +125,7 @@ export const deleteKeywordThunk = (info) => (
 	async (dispatch) => {
 		try {
 			const { accessToken, userId } = JSON.parse(Cookies.get('petronect_creds'));
-			
+
 			await deleteNotificationMiddleware({
 				filterId: info,
 				accessToken,
@@ -131,10 +133,8 @@ export const deleteKeywordThunk = (info) => (
 			});
 
 			dispatch(deleteNotification(info));
-		} catch(err) {
-			console.log(err);
-		}
+		} catch (err) {}
 	}
-)
+);
 
 export default null;

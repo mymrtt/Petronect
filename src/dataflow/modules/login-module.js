@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
 		return {
 			...state,
 			recoverSuccess: action.info,
-		}
+		};
 	default:
 		return state;
 	}
@@ -43,4 +43,4 @@ export const updateCreateSuccess = (info) => ({
 export const updateRecoverSuccess = (info) => ({
 	type: UPDATE_RECOVER_SUCCESS,
 	info,
-})
+});
