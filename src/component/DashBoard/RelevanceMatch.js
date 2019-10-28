@@ -348,6 +348,10 @@ const Button = styled.button`
 	}
 `;
 
+const FavoriteImage = styled.img`
+	margin-right: .4rem;
+`;
+
 const ContainerMessageOpportunity = styled.div`
 	padding-top: 10rem;
 	height: 50%;
@@ -740,7 +744,7 @@ class RelevanceMatch extends Component {
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
 										}}
 									>
-										<img src={this.state.hoverFavorites ? startHover : start} />
+										<FavoriteImage src={this.state.hoverFavorites ? startHover : start} />
 										Favoritos
 									</Button>
 								</Form>

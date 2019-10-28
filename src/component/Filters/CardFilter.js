@@ -8,6 +8,7 @@ import deleteIcon from '../../assets/icon/delete.svg';
 import searchIcon from '../../assets/icon/lupa-white.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
 
+// Redux
 import { deleteKeywordThunk, getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunities-thunk';
 import { updateCard } from '../../dataflow/modules/opportunities-modules';
 
@@ -93,11 +94,6 @@ const SuggestionsText = styled.p`
 	color: ${(props) => (props.suggestionsTitle ? '#8C8C8C' : '#404040')};
 `;
 
-// const TagTitle = styled.p`
-// 	color: #fff;
-// 	font-size: 1rem;
-// `;
-
 const CardDelete = styled.div`
 	width: 20px;
 	height: 20px;
@@ -108,12 +104,12 @@ const CardDelete = styled.div`
 
 const Title = styled.p`
 	color: ${(props) => (props.deleteTitle ? '#116EA0' : '#fff')};
-	font-size: .90rem;
+	font-size: 1rem;
 	font-weight: 600;
 `;
 
 const Text = styled.p`
-	font-size: 1rem;
+	font-size: .90rem;
 	font-weight: 200;
 	color: #959595;
 	margin-bottom: ${(props) => (props.deleteText ? '2rem' : '0')};
@@ -275,7 +271,7 @@ class CardFilter extends Component {
 			<Overlay>
 				<ContainerDeleteModal>
 					<DeleteModalHeader>
-						<Title deleteTitle>Deseja excluir o filtro {this.props.card.name} ?</Title>
+						<Title deleteTitle>Deseja excluir o filtro {this.props.card.name}?</Title>
 						<CloseContainer onClick={this.handleCloseDeleteModal}>
 							<CloseButton>
 								<CloseImage src={closeIcon} />
