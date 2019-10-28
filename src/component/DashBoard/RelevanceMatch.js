@@ -723,8 +723,6 @@ class RelevanceMatch extends Component {
 								<Form onSubmit={this.handleKeyPress}>
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
-										{/* {this.state.inputSearchMobile && this.renderSearchInput() } */}
-
 										<WrapInput>
 											{this.state.inputSearchMobile && this.renderSearchInput()}
 											{this.state.inputSearch
