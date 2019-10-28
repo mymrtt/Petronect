@@ -41,20 +41,17 @@ const Container = styled.div`
 	padding: 0 0 0.5rem;
 
 	&:-webkit-scrollbar {
-		width: 30px;
+  width: 5px;
 	}
-
 	&:-webkit-scrollbar-track {
-		background: #f1f1f1;  
+		background: #fff; 
 	}
-	
 	&:-webkit-scrollbar-thumb {
-		background: #888;
 		border-radius: 4px;
+		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
 	}
-
 	&:-webkit-scrollbar-thumb:hover {
-		background: #555; 
+		background: #000; 
 	}
 `;
 

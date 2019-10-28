@@ -75,11 +75,11 @@ const Content = styled.div`
 
 const WrapperHead = styled.div`
   width: 100%;
-  height: 100%;
+  height: 12%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 1rem 0;
+	padding: 1.25rem 0;
 	@media (max-width: 648px) {
 		display: none;
 	}
@@ -145,6 +145,7 @@ const BoxInput = styled.div`
 
 	@media (max-width: 648px) {
 		width: 75%;
+		position: relative;
 		justify-content: flex-end;
 	}
 `;
@@ -205,13 +206,19 @@ const WrapperKeyword = styled.div`
 	z-index: 2;
 
 	@media(max-width: 648px) {
-		width: 70%;
+		width: 100%;
 		position: absolute;
 	}
 `;
 
 const WrapInput = styled.div`
 	z-index: 2;
+
+	@media(max-width: 648px) {
+		width: 100%;
+		${'' /* display: flex;
+		justify-content: flex-end; */}
+	}
 `;
 
 const ListKeyword = styled.div`
@@ -225,11 +232,11 @@ const KeywordText = styled.li`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background: #01B0B7;
+	background: #01B0B730;
 	border-radius: 10px;
 	list-style:none;
 	font-size: .85rem;
-	color: #404040;
+	color: #40404090;
 	word-break: break-all;
 `;
 
@@ -342,12 +349,27 @@ const Button = styled.button`
 
 const WrapperTable = styled.div`
   width: 100%;
+	height: 90%;
 	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	background: #fff;
+	overflow: scroll;
+	
+	::-webkit-scrollbar {
+  width: 5px;
+	}
+	::-webkit-scrollbar-track {
+		background: #fff; 
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #000; 
+	}
 
 	@media(max-width: 960px) {
 	}
@@ -665,7 +687,6 @@ class RelevanceMatch extends Component {
 													onClick={this.resetInput}
 												></Overlay>
 											}
-
 										</WrapInput>
 									</BoxInput>
 									<Button
@@ -694,7 +715,14 @@ class RelevanceMatch extends Component {
 								<Form onSubmit={this.handleKeyPress}>
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
-										{this.state.inputSearchMobile && this.renderSearchInput()}
+										<WrapInput>
+											{this.state.inputSearchMobile && this.renderSearchInput()}
+											{this.state.inputSearch
+												&& <Overlay
+													onClick={this.resetInput}
+												></Overlay>
+											}
+										</WrapInput>
 										<ImgSearch src={searchIcon}
 											style={{ display: inputSearchMobile ? 'none' : 'flex' }}
 											onClick={this.handleSearchMobile} />
