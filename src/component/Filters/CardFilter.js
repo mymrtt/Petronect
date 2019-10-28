@@ -237,6 +237,18 @@ const DeleteButton = styled.button`
 	outline: none;
 `;
 
+const ContainerHeaderItems = styled.div`
+	width: 55%;
+	display: flex;
+	align-items: center;
+`;
+
+const WrapperHeaderItems = styled.div`
+	margin-left: 2rem;
+	width: 100%;
+	display: flex;
+`;
+
 class CardFilter extends Component {
 	constructor(props) {
 		super(props);
@@ -303,11 +315,19 @@ class CardFilter extends Component {
 					>
 						<Title tagTitle>
 							{card.name}
-							<ImageSeach src={searchIcon} onClick={this.handleSearch} />
 						</Title>
-						<CardDelete onClick={() => this.handleOpenDeleteModal(card.filterId)}>
-							<Image src={deleteIcon} />
-						</CardDelete>
+						<ContainerHeaderItems>
+							<WrapperHeaderItems>
+								<ImageSeach src={searchIcon} onClick={this.handleSearch} />
+								<Title>Buscar</Title>
+							</WrapperHeaderItems>
+							<WrapperHeaderItems>
+								<CardDelete onClick={() => this.handleOpenDeleteModal(card.filterId)}>
+									<Image src={deleteIcon} />
+									<Title>Excluir</Title>
+								</CardDelete>
+							</WrapperHeaderItems>
+						</ContainerHeaderItems>
 					</WrapperCard>
 					<ContainerTags>
 						{
