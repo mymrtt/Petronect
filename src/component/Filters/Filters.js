@@ -263,18 +263,11 @@ class Filters extends Component {
 
 		return (
 			<ContainerFilters>
-				{/* { values(CardList).map((card) => (
-					<CardFilter
-						key={card.title}
-						item={this.state.item}
-						card={card}
-						handleOpenModal={this.handleOpenModal}
-					/>
-				))} */}
 				{values(allNotification).map((card) => {
 					return 	<CardFilter
 						key={card.keywordFilterId}
 						card={card}
+						history={this.props.history}
 						handleOpenModal={this.handleOpenModal}
 					/>
 				})}
@@ -309,7 +302,7 @@ class Filters extends Component {
 		const { isModalOpen, searchCard } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive history={this.props.history}/>
+				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
 					<Content>
 						<ContainerSearchMobile>
