@@ -18,10 +18,10 @@ import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
 import { logoutThunk } from '../dataflow/thunks/login-thunk';
-import { updateCreateSuccess } from '../dataflow/modules/login-module';
+import { get } from 'http';
 
 const mapStateToProps = (state) => ({
-	// selectedOpportunity: state.opportunities.selectedOpportunity,
+	nameUser: state.login.nameUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -42,6 +42,9 @@ const Container = styled.div`
   background: #FFF;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
+	@media(max-width: 768px) {
+		border-radius: 0;
+	}
 `;
 
 const NavBar = styled.div`
@@ -180,26 +183,27 @@ const BoxInfo = styled.div`
 `;
 
 const InfoItem = styled.p`
-	padding: 1rem 0;
+	display: none;
+	${'' /* padding: 1rem 0;
   color: #000;
   font-size: .875rem;
-  font-weight: 900;
+  font-weight: 900; */}
 `;
 
 const Representative = styled.p`
+	font: 500 Eurostile, sans-serif;
   color: #000;
   font-size: .875rem;
   font-weight: 100;
 `;
 
 const Button = styled.button`
-  width: 58px;
-  height: 20px;
+	width: 75px;
+	height: 25px;
   background: #dbe9f1;
   border-radius: 10px;
   border-style: none; 
   cursor: pointer;
-	outline: none;
 `;
 
 class SideBar extends Component {
@@ -271,6 +275,7 @@ class SideBar extends Component {
 	}
 
 	render() {
+		const { nameUser } = this.props;
 		return (
 			<Container>
 				<NavBar>
@@ -300,7 +305,7 @@ class SideBar extends Component {
 					<Contentinfo>
 						<BoxInfo>
 							<InfoItem>Snowball Solutions</InfoItem>
-							<Representative>Pedro Gualandi</Representative>
+							<Representative>{nameUser}</Representative>
 						</BoxInfo>
 						<span>
 							<Button onClick={this.handleLogout}>Sair</Button>
@@ -312,6 +317,4 @@ class SideBar extends Component {
 	}
 }
 
-
-// export default SideBar;
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

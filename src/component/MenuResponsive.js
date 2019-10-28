@@ -14,6 +14,10 @@ import SideBar from './SideBar';
 
 import { logoutThunk } from '../dataflow/thunks/login-thunk';
 
+const mapStateToProps = (state) => ({
+	nameUser: state.login.nameUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	logoutThunk: (info) => {
 		dispatch(logoutThunk(info));
@@ -60,6 +64,7 @@ const ImageMenu = styled.img`
 	@media(max-width: 960px) {
 		padding-bottom: .3rem;
 		display: flex;	
+
 	}
 `;
 
@@ -99,7 +104,6 @@ const ImageMenuMobile = styled.img`
 const ContainerUser = styled.div`
 	width: 40%;
 	display: flex;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	@media(max-width: 648px) {
@@ -127,7 +131,9 @@ const ContainerDropdown = styled.div`
 `;
 
 const DropboxText = styled.p`
+	display: ${(props) => (props.displayNone ? 'none' : 'block')};
 	padding-bottom: 1rem;
+	font: 500 Eurostile, sans-serif;
 	font-size: 1.3rem;
 	font-weight: ${(props) => (props.textOrg ? '600' : '200')};
 `;
@@ -142,6 +148,15 @@ const DropboxButton = styled.button`
 	border-radius: 21px;
 	border: transparent;
 	background-color: #DBE9F1;
+	cursor: pointer;
+`;
+
+const Overlay = styled.div` 
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
 `;
 
 class MenuResponsive extends Component {
@@ -166,8 +181,7 @@ class MenuResponsive extends Component {
 	}
 
 	handleOpenDropdown = () => {
-		// eslint-disable-next-line no-console
-		console.log("chegou", this.props)
+		console.log("chegou", this.props.closeInput)
 		const { isOpenDropdown } = this.state;
 		this.setState({ isOpenDropdown: !isOpenDropdown });
 		this.props.closeInput();		
@@ -178,10 +192,11 @@ class MenuResponsive extends Component {
 	}
 
 	renderDropdown = () => {
+		const { nameUser } = this.props;
 		return (
 			<ContainerDropdown>
-				<DropboxText textOrg>Snowball Solutions</DropboxText>
-				<DropboxText>Pedro Gualandi</DropboxText>
+				<DropboxText textOrg displayNone>Snowball Solutions</DropboxText>
+				<DropboxText>{nameUser}</DropboxText>
 				<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
 			</ContainerDropdown>
 		);
@@ -189,6 +204,7 @@ class MenuResponsive extends Component {
 
 	render() {
 		const { isMenuOpen, isOpenDropdown } = this.state;
+		const { nameUser } = this.props;
 		return (
 			<Container>
 				<WrapperLogoTablet menu>
@@ -198,11 +214,16 @@ class MenuResponsive extends Component {
 				<WrapperLogoTablet>
 					<Image logoTablet src={logoWhite} />
 				</WrapperLogoTablet>
-				{ isMenuOpen && this.renderMenu() }
+				{ isMenuOpen && (
+					<>
+						<Overlay onClick={this.props.closedMenu}/>
+						{this.renderMenu()}
+					</>
+				)}
 				<MenuMobile>
 					<ImageMenuMobile src={logoMobile} />
 					<ContainerUser onClick={this.handleOpenDropdown}>
-						<Text>Pedro Gualandi</Text>
+						<Text>{nameUser}</Text>
 						<Image dropdown src={dropdown} onClick={this.handleOpenDropdown} />
 					</ContainerUser>
 				</MenuMobile>
@@ -212,4 +233,4 @@ class MenuResponsive extends Component {
 	}
 }
 
-export default connect(null, mapDispatchToProps)(MenuResponsive);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuResponsive);
