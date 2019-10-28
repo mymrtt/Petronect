@@ -12,13 +12,13 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Redux
 import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
-import { updateError, updateCreateSuccess, updateRecoverSuccess } from '../../dataflow/modules/login-module';
+import { updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting } from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
 	error: state.login.error,
 	createSuccess: state.login.createSuccess,
 	recoverSuccess: state.login.recoverSuccess,
-	verifyEmailExisting: state.login.verifyEmailExisting,
+	isEmailExisting: state.login.verifyEmailExisting,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,6 +39,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	updateRecoverSuccess: (info) => {
 		dispatch(updateRecoverSuccess(info));
+	},
+	verifyEmailExisting: (info) => {
+		dispatch(verifyEmailExisting(info));
 	},
 });
 
@@ -423,6 +426,10 @@ class Login extends Component {
 			this.props.updateCreateSuccess(null);
 		}
 
+		if (this.props.isEmailExisting === false) {
+			this.props.verifyEmailExisting(true);
+		}
+
 		if (this.state.error) {
 			this.setState({
 				error: undefined,
@@ -451,7 +458,6 @@ class Login extends Component {
 	}
 
 	handleBackLogin = () => {
-		console.log('hiiii 1')
 		if (this.state.currentScreen !== 'login') {
 			this.props.updateRecoverSuccess(false);
 			this.setState({
@@ -481,20 +487,18 @@ class Login extends Component {
 	}
 
 	handleBackLoginRecover = () => {
-		//aquiiiiiiiiiiii
-
-		console.log('oiiiii 2')
 		this.props.updateRecoverSuccess(false);
+		this.props.verifyEmailExisting(true);
+
 		this.setState({
 			currentScreen: 'login',
-			// isCreated: false,
+			isCreated: false,
 		});
 	}
 
 	handleSubmitRecover = (ev) => {
 		ev.preventDefault();
 		this.props.sendRecoverPassword(this.inputRecover.value);
-		console.log('verifyEmailExisting akkaka', this.props.verifyEmailExisting)
 		// this.props.recoverSuccess
 
 		// this.props.verifyEmailExistingThunk(this.inputRecover.value);
@@ -526,6 +530,16 @@ class Login extends Component {
 				<LoginMessageError>
 					<TextError>
 					 	A senha deve conter no minimo 6 caracteres
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		if (!this.props.isEmailExisting) {
+			return (
+				<LoginMessageError>
+					<TextError>
+						Por favor, digite um email valido!
 					</TextError>
 				</LoginMessageError>
 			);
@@ -674,7 +688,7 @@ class Login extends Component {
 						<CreatedText>
 							Foi enviado para seu email o link para a troca de senha. Por favor, verifique sua caixa de email, para efetuar a troca de senha!
 						</CreatedText>
-						<BackText onClick={this.handleBackLogin}>
+						<BackText onClick={this.handleBackLoginRecover}>
 							Voltar para o Login
 						</BackText>
 					</>)
@@ -687,11 +701,13 @@ class Login extends Component {
 							<Input
 								type='email'
 								required
+								error={!this.props.isEmailExisting}
 								ref={(node) => this.inputRecover = node}
 								placeholder={'nome@email.com'}
+								onChange={this.handleError}
 							/>
+						{this.renderError()}
 						</InputBox>
-						{/* {!this.props.verifyEmailExisting && <TextError>Por favor, digite um email valido!</TextError>} */}
 						{/* <InputBox last width='100%'>
 							<Label>Confirmar email</Label>
 							<Input
@@ -733,8 +749,6 @@ class Login extends Component {
 	}
 
 	render() {
-		// console.log('his.props.recoverSuccess', this.props.recoverSuccess)
-		console.log('verifyEmailExisting akkaka', this.props.verifyEmailExisting)
 		return (
 			<Container screen={this.state.screen}>
 				{this.renderCurrentScreen()}

@@ -291,7 +291,6 @@ class ModalFilter extends Component {
 	}
 
 	handleColorOption = (color) => {
-		console.log(color)
 		this.setState({ selectedColor: color });
 	}
 
