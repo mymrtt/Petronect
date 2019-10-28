@@ -77,7 +77,7 @@ export default function (state = initialState, action) {
 		return {
 			...state,
 			selectedOpportunity: action.info,
-		}
+		};
 	case ADD_ALL_NOTIFICATION:
 		return {
 			...state,
@@ -89,7 +89,6 @@ export default function (state = initialState, action) {
 			allNotification: [],
 		};
 	case DELETE_NOTIFICATION:
-		console.log(action.info)
 		return {
 			...state,
 			allNotification: omit(state.allNotification, action.info),
@@ -142,7 +141,7 @@ export const addNotification = (info) => ({
 export const updateSelectedOpportunity = (info) => ({
 	type: UPDATE_SELECTED_OPPORTUNITY,
 	info,
-})
+});
 export const getAllNotification = (info) => ({
 	type: ADD_ALL_NOTIFICATION,
 	info,
@@ -156,4 +155,4 @@ export const removeAllNotification = (info) => ({
 export const deleteNotification = (info) => ({
 	type: DELETE_NOTIFICATION,
 	info,
-})
+});
