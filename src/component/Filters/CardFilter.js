@@ -205,7 +205,6 @@ const CloseButton = styled.button`
 	color: #115680;
 	border: none;
 	background: transparent;
-	outline: none;
 	cursor: pointer;
 `;
 
@@ -236,9 +235,7 @@ const DeleteButton = styled.button`
 	border: transparent;
 	border-radius: 4px;
 	cursor: pointer;
-	outline: none;
 	background-color: ${(props) => (props.deleteConfirmation ? '#116EA0' : '#fff')};
-	outline: none;
 `;
 
 class CardFilter extends Component {
