@@ -1,5 +1,5 @@
 {
-  "parser": "eslint",
+  "parser": "babel-eslint",
   "plugins": [
     "react"
   ],

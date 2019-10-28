@@ -32,7 +32,7 @@ export const loginUserThunk = (info) => (
 export const createAccountThunk = (info) => (
 	async (dispatch) => {
 		try {
-			await createAccountMiddleware(info);
+			// await createAccountMiddleware(info);
 
 			dispatch(updateCreateSuccess(true));
 		} catch (err) {
