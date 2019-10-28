@@ -12,12 +12,13 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Redux
 import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
-import { updateError, updateCreateSuccess } from '../../dataflow/modules/login-module';
+import { updateError, updateCreateSuccess, updateRecoverSuccess } from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
 	error: state.login.error,
 	createSuccess: state.login.createSuccess,
 	recoverSuccess: state.login.recoverSuccess,
+	verifyEmailExisting: state.login.verifyEmailExisting,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -36,6 +37,9 @@ const mapDispatchToProps = (dispatch) => ({
 	sendRecoverPassword: (info) => {
 		dispatch(sendRecoverPassword(info));
 	},
+	updateRecoverSuccess: (info) => {
+		dispatch(updateRecoverSuccess(info));
+	},
 });
 
 // Styled
@@ -45,11 +49,16 @@ const Container = styled.div`
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		flex-direction: ${(props) => !(props.screen === 'create') && 'column-reverse'};
 		justify-content: center;
 		align-items: center;
 	}
+	@media (max-width: 650px) {
+		padding: 0 2rem;
+	}
+
+
 	@media (max-width: 450px) {
 		padding: 1rem;
 	}
@@ -94,7 +103,7 @@ const LogoCreate = styled.img`
 	top: 10%; */}
 	width: 20%;
 	min-width: 275px;
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		padding: 2rem;
     width: 30%;
 	}
@@ -108,7 +117,7 @@ const InputBox = styled.span`
 	width: ${(props) => props.width};
 	margin-top: ${(props) => props.last && '.5rem'};
 	
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		width: 100%;
 	}
 	@media (max-width: 478px) {
@@ -156,7 +165,8 @@ const Button = styled.button`
 	border: none;
 	border-radius: 4px;
 	font: 600 1rem eurostile, sans serif;
-	text-align: ${(props) => (props.backLeft ? 'left' : 'center')};
+	${'' /* text-align: ${(props) => (props.backLeft ? 'left' : 'center')}; */}
+	text-align: center;
 	letter-spacing: 0;
 	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
 	cursor: pointer;
@@ -243,11 +253,12 @@ const LoginMessageError = styled.span`
 	position: absolute;
 	right: 0;
 	bottom: -1.5rem;
+
 	@media	(max-width: 960px) {
-		width: 55%;
+		${'' /* width: 55%; */}
 	}
 	@media (max-width: 450px) {
-		width: 85%;
+		${'' /* width: 85%; */}
 	}
 `;
 
@@ -295,7 +306,7 @@ const CreateBox = styled.div`
 `;
 
 const TermsText = styled.p`
-	width: 90%;
+	${'' /* width: 90%; */}
 	margin: 1.5rem 0 -1rem;
 	font: 400 0.875rem Eurostile;
 	letter-spacing: 0;
@@ -356,20 +367,22 @@ const Form = styled.form`
 	}
 `;
 
-const Back = styled.span`
+const ButtonBack = styled.span`
 	display: flex;
 	align-items: center;
-	width: 45%;
+	${'' /* width: 45%; */}
+	justify-content: ${(props) => (props.createAccount ? 'center' : 'start')};
+	width: ${(props) => (props.createAccount ? '100%' : '45%')};
 	height: 3rem;
-	margin-top: 2.5rem;
+	margin-top: ${(props) => (props.createAccount ? '1rem' : '2.5rem')};
 	background: #FFF;
 	font: 600 1rem eurostile, sans serif;
 	text-align: left;
 	color: #115680;
 	cursor: pointer;
-	@media (max-width: 960px) {
+	${'' /* @media (max-width: 960px) {
 		width: 45%;
-	}
+	} */}
 	@media (max-width: 450px) {
 		margin-top: .5rem;
 	}
@@ -423,10 +436,12 @@ class Login extends Component {
 		if (this.state.currentScreen !== 'create') {
 			this.setState({
 				currentScreen: 'create',
+				error: undefined,
 			});
+			this.props.updateError(false);
 		}
 	}
-	
+
 	handleRecoverPassword = () => {
 		if (this.state.currentScreen !== 'recoverPassword') {
 			this.setState({
@@ -436,13 +451,16 @@ class Login extends Component {
 	}
 
 	handleBackLogin = () => {
+		console.log('hiiii 1')
 		if (this.state.currentScreen !== 'login') {
+			this.props.updateRecoverSuccess(false);
 			this.setState({
 				currentScreen: 'login',
+				isCreated: false,
 			});
 		}
 	}
-	
+
 	createSubmit = (ev) => {
 		ev.preventDefault();
 
@@ -457,22 +475,29 @@ class Login extends Component {
 			});
 		} else {
 			this.setState({
-				error: 'passwordLength'
+				error: 'passwordLength',
 			});
 		}
-
 	}
 
-	handleBackLogin = () => {
+	handleBackLoginRecover = () => {
+		//aquiiiiiiiiiiii
+
+		console.log('oiiiii 2')
+		this.props.updateRecoverSuccess(false);
 		this.setState({
 			currentScreen: 'login',
-			isCreated: false,
+			// isCreated: false,
 		});
 	}
 
 	handleSubmitRecover = (ev) => {
 		ev.preventDefault();
 		this.props.sendRecoverPassword(this.inputRecover.value);
+		console.log('verifyEmailExisting akkaka', this.props.verifyEmailExisting)
+		// this.props.recoverSuccess
+
+		// this.props.verifyEmailExistingThunk(this.inputRecover.value);
 	}
 
 	renderError = () => {
@@ -627,16 +652,17 @@ class Login extends Component {
 						<Button width='100%'>
 							Concordar e criar conta
 						</Button>
+						<ButtonBack createAccount onClick={this.handleBackLogin}>
+							Voltar para o login
+						</ButtonBack>
 					</form>)
 				}
-				<Button back backMargin width='100%' onClick={this.handleBackLogin}>
-			  	Voltar para o login
-				</Button>
 			</CreateBox>
 		</CreateContainer>
 	)
 
 	renderRecoverPassword = () => (
+		// this.state.isCreated && this.props.createSuccess
 		<CreateContainer>
 			<LogoCreate src={logoW} />
 			<CreateBox>
@@ -665,6 +691,7 @@ class Login extends Component {
 								placeholder={'nome@email.com'}
 							/>
 						</InputBox>
+						{/* {!this.props.verifyEmailExisting && <TextError>Por favor, digite um email valido!</TextError>} */}
 						{/* <InputBox last width='100%'>
 							<Label>Confirmar email</Label>
 							<Input
@@ -673,9 +700,9 @@ class Login extends Component {
 							/>
 						</InputBox> */}
 						<ButtonsBox>
-							<Back onClick={this.handleBackLogin}>
+							<ButtonBack onClick={this.handleBackLoginRecover}>
 								Voltar
-							</Back>
+							</ButtonBack>
 							<Button width='45%' widthResponsive>
 								Enviar
 							</Button>
@@ -706,6 +733,8 @@ class Login extends Component {
 	}
 
 	render() {
+		// console.log('his.props.recoverSuccess', this.props.recoverSuccess)
+		console.log('verifyEmailExisting akkaka', this.props.verifyEmailExisting)
 		return (
 			<Container screen={this.state.screen}>
 				{this.renderCurrentScreen()}

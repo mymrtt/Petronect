@@ -38,3 +38,8 @@ export const sendRecoverPasswordMiddleware = (info) => axios({
 		email: info,
 	},
 });
+
+export const verifyEmailExistingMiddleware = (info) => axios({
+	url: `${API_URL}/email-exists?email=${info}`,
+	method: 'get',
+});
