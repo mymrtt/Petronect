@@ -8,7 +8,7 @@ const initialState = {
 	error: '',
 	createSuccess: null,
 	recoverSuccess: null,
-	verifyEmailExisting: '',
+	verifyEmailExisting: true,
 	nameUser: '',
 };
 

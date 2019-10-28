@@ -55,38 +55,34 @@ export const logoutThunk = (info) => (
 export const sendRecoverPassword = (info) => (
 	async (dispatch) => {
 		try {
-			console.log(info)
-			let lalala = '';
-			console.log('bouuu', lalala)
 			const responseEmail = await verifyEmailExistingMiddleware(info);
-			lalala = responseEmail.data
 
-			if (lalala) {
-				console.log('passou')
-				const response = await verifyEmailExistingMiddleware(info);
-				dispatch(updateRecoverSuccess(true))
-			} 
-			console.log('oi qu haha lala nao passou', lalala)
-			dispatch(verifyEmailExisting(responseEmail.data))
-			// await sendRecoverPasswordMiddleware(info);
-		} catch (err) {
-			console.log(err)
+			if (responseEmail.data) {
+				await sendRecoverPasswordMiddleware(info);
+				dispatch(updateRecoverSuccess(true));
+				dispatch(verifyEmailExisting(null));
+			}
+				dispatch(verifyEmailExisting(responseEmail.data));
+			} catch (err) {
 		}
 	}
 );
 
-// export const verifyEmailExistingThunk = (info) => (
+// export const sendRecoverPassword = (info) => (
 // 	async (dispatch) => {
 // 		try {
-// 			const dataEmail = '';
-// 			const response = await verifyEmailExistingMiddleware(info);
-// 			console.log('que', response.data)
-// 			dataEmail = response.data;
-// 			console.log('oi qu haha', dataEmail)
-// 			dispatch(verifyEmailExisting('truenjh'))
-// 			console.log('que', response.data)
-// 		} catch (err) {
-// 			console.log('error', err.response)
+// 			let lalala = '';
+// 			const responseEmail = await verifyEmailExistingMiddleware(info);
+// 			lalala = responseEmail.data;
+
+// 			if (responseEmail.data) {
+// 				await verifyEmailExistingMiddleware(info);
+// 				dispatch(updateRecoverSuccess(true));
+// 				dispatch(verifyEmailExisting(null));
+// 			}
+// 				dispatch(verifyEmailExisting(responseEmail.data));
+// 				// await sendRecoverPasswordMiddleware(info);
+// 			} catch (err) {
 // 		}
 // 	}
 // );

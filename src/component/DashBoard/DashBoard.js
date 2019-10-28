@@ -94,7 +94,6 @@ class DashBoard extends Component {
 
 	handleNameUser = () => {
 		const { name } = JSON.parse(Cookies.get('petronect_creds'));
-		console.log('aquiiii', name)
 		this.props.getNameUser(name);
 	}
 
@@ -110,7 +109,6 @@ class DashBoard extends Component {
 	getToken = () => {
 		try {
 			const response = Cookies.get('petronect_creds');
-			console.log(response)
 
 			if (!(JSON.parse(response)) || !response) {
 				this.props.history.replace('/');

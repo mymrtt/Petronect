@@ -63,19 +63,11 @@ class Footer extends Component {
 	}
 
 	handleChangeColorMath = () => {
-		// const { isBackgroundMath } = this.state;
 		this.setState({ isBackgroundMath: true });
-		console.log(this.setState({
-			isBackgroundMath: true,
-		}), 'math');
 	}
 
 	handleChangeColorNot = () => {
-		// const { isBackgroundNot } = this.state;
 		this.setState({ isBackgroundNot: true });
-		console.log(this.setState({
-			isBackgroundNot: true,
-		}), 'not');
 	}
 
 	render() {

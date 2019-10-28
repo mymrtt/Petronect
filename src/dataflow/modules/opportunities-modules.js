@@ -89,7 +89,6 @@ export default function (state = initialState, action) {
 			allNotification: [],
 		};
 	case DELETE_NOTIFICATION:
-		console.log(action.info)
 		return {
 			...state,
 			allNotification: omit(state.allNotification, action.info),
