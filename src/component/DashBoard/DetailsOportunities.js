@@ -218,7 +218,6 @@ const InfoContentMobile = styled.div`
 const IconWrapMobile = styled.span`
 	display: none;
 	@media (max-width: 648px) {
-		${'' /* width: 22%; */}
 		display: flex;
 		justify-content: space-between;
 	}
@@ -396,7 +395,7 @@ class DetailsOportunies extends Component {
 									</IconWrapMobile>
 								</CategoryContainer>
 								<Text title fontSize>Itens</Text>
-								{selectedOpportunity.items && selectedOpportunity.items.map(item => (
+								{selectedOpportunity.items && selectedOpportunity.items.map((item) => (
 									<>
 										<InfoWrap>
 											<Text bold>{item.id}</Text>

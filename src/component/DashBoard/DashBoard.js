@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
+import * as Cookies from 'js-cookie';
 
 
 // Components
@@ -60,6 +61,19 @@ class DashBoard extends Component {
 	}
 
 	componentDidMount() {
+		try {
+			const response = Cookies.get('petronect_creds');
+
+			if (!(JSON.parse(response)) || !response) {
+				this.props.history.replace('/');
+			} else {
+				this.props.history.replace('/match-relevancia');
+			}
+			return null;
+		} catch (err) {
+			this.props.history.replace('/');
+		}
+
 		this.setState({
 			currentScreen: this.props.location.pathname,
 		});
@@ -74,11 +88,26 @@ class DashBoard extends Component {
 		}
 	}
 
+	getToken = () => {
+		try {
+			const response = Cookies.get('petronect_creds');
+			console.log(response)
+
+			if (!(JSON.parse(response)) || !response) {
+				this.props.history.replace('/');
+			} else {
+				this.props.history.replace('/match-relevancia');
+			}
+			return null;
+		} catch (err) {
+			this.props.history.replace('/');
+		}
+	};
 
 	renderCurrentScreen = () => {
 		switch (this.state.currentScreen) {
 		case '/notifications':
-			return <Filters history={this.props.history}/>;
+			return <Filters history={this.props.history} currentScreen={this.props.currentScreen}/>;
 		case '/match-relevancia':
 		default:
 			return <RelevanceMatch history={this.props.history}/>;

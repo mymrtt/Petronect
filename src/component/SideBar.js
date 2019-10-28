@@ -135,7 +135,6 @@ const MenuItem = styled(Link)`
   font-weight: 900;
   padding-left: 1rem;
   background-color: ${(props) => (props.selected ? '#116EA015' : 'transparent')};
-  color: #116ea0;
   border-radius: 18px 0 0 18px;
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};

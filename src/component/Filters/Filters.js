@@ -302,7 +302,7 @@ class Filters extends Component {
 		const { isModalOpen, searchCard } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive history={this.props.history}/>
+				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
 					<Content>
 						<ContainerSearchMobile>
