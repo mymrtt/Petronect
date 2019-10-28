@@ -66,7 +66,7 @@ const ImageMenu = styled.img`
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
 	@media (max-width: 640px) {
-		margin-left: ${(props) => props.dropdown ? '.5rem' : '0'};
+		margin-left: ${(props) => (props.dropdown ? '.5rem' : '0')};
 		width: ${(props) => props.dropdown && '10px'};
 	}
 `;
@@ -166,26 +166,22 @@ class MenuResponsive extends Component {
 	}
 
 	handleOpenDropdown = () => {
-		// eslint-disable-next-line no-console
-		console.log("chegou", this.props)
 		const { isOpenDropdown } = this.state;
 		this.setState({ isOpenDropdown: !isOpenDropdown });
-		this.props.closeInput();		
+		this.props.closeInput();
 	}
 
 	handleLogout = () => {
-		this.props.logoutThunk({history: this.props.history});
+		this.props.logoutThunk({ history: this.props.history });
 	}
 
-	renderDropdown = () => {
-		return (
-			<ContainerDropdown>
-				<DropboxText textOrg>Snowball Solutions</DropboxText>
-				<DropboxText>Pedro Gualandi</DropboxText>
-				<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
-			</ContainerDropdown>
-		);
-	}
+	renderDropdown = () => (
+		<ContainerDropdown>
+			<DropboxText textOrg>Snowball Solutions</DropboxText>
+			<DropboxText>Pedro Gualandi</DropboxText>
+			<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
+		</ContainerDropdown>
+	)
 
 	render() {
 		const { isMenuOpen, isOpenDropdown } = this.state;
