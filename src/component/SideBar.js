@@ -18,12 +18,18 @@ import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
 import { logoutThunk } from '../dataflow/thunks/login-thunk';
+import { updateCreateSuccess } from '../dataflow/modules/login-module';
+
+const mapStateToProps = (state) => ({
+	// selectedOpportunity: state.opportunities.selectedOpportunity,
+});
 
 const mapDispatchToProps = (dispatch) => ({
 	logoutThunk: (info) => {
 		dispatch(logoutThunk(info));
 	},
 });
+
 
 const Container = styled.div`
 	// width: 280px;
@@ -308,4 +314,4 @@ class SideBar extends Component {
 
 
 // export default SideBar;
-export default connect(null, mapDispatchToProps)(SideBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
