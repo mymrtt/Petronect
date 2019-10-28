@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import * as Cookies from 'js-cookie';
@@ -9,6 +10,15 @@ import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
 import Filters from '../Filters/Filters';
 
+import {
+	getNameUser,
+} from '../../dataflow/modules/login-module';
+
+const mapDispatchToProps = (dispatch) => ({
+	getNameUser: (info) => {
+		dispatch(getNameUser(info));
+	},
+});
 
 const Container = styled.div`
 	width: 100vw;
@@ -68,6 +78,7 @@ class DashBoard extends Component {
 				this.props.history.replace('/');
 			} else {
 				this.props.history.replace('/match-relevancia');
+				this.handleNameUser();
 			}
 			return null;
 		} catch (err) {
@@ -77,6 +88,14 @@ class DashBoard extends Component {
 		this.setState({
 			currentScreen: this.props.location.pathname,
 		});
+
+		this.handleNameUser();
+	}
+
+	handleNameUser = () => {
+		const { name } = JSON.parse(Cookies.get('petronect_creds'));
+		console.log('aquiiii', name)
+		this.props.getNameUser(name);
 	}
 
 	componentDidUpdate(oldProps) {
@@ -137,4 +156,4 @@ class DashBoard extends Component {
 	}
 }
 
-export default DashBoard;
+export default connect(null, mapDispatchToProps)(DashBoard);

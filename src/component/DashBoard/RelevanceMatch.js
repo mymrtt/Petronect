@@ -18,6 +18,7 @@ import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
+import DeletTag from '../../assets/icon/delete.svg'  
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -151,9 +152,7 @@ const BoxInput = styled.div`
 `;
 
 const FormHead = styled.form`
-	@media(max-width: 648px) {
-		width: 100%;
-	}
+	
 `;
 
 const TitleInput = styled.p`
@@ -185,8 +184,8 @@ const InputHead = styled.input`
 	width: 85%;
 	height: 95%;
   border:none;
-	outline: none;
 	font-size: 0.875rem;
+	outline: none;
 	
 	@media(max-width: 960px) {
 		font-size: 0.75rem;
@@ -200,7 +199,8 @@ const WrapperKeyword = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	background: #fff;
-	border: 0.5px solid #116EA0;
+	border: solid #116EA0;
+	border-width: 0 1px 1px 1px;
 	align-items: flex-end;
 	border-radius: 0 0 16px 16px;
 	z-index: 2;
@@ -223,6 +223,7 @@ const WrapInput = styled.div`
 
 const ListKeyword = styled.div`
 	position: relative;
+	margin: .35rem
 `;
 
 const KeywordText = styled.li`
@@ -255,15 +256,12 @@ const TextNull = styled.p`
 `;
 
 const ClosedKeyword = styled.button`
-	width: 15px;
-	height: 15px;
 	position: absolute;
 	top: -.125rem;
 	right: 0;
-	background: #FFFFFF;
-	opacity: 0.3;
-	border: 0.5px solid #115680;
-	border-radius: 19px;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
 `;
 
 const Overlay = styled.div` 
@@ -283,7 +281,6 @@ const BtnCreateFilter = styled.button`
 	opacity: 1;
 	font: Regular 14px/46px Eurostile;
 	color: #FFFFFF;
-	outline: none;
 	border: none;
 	cursor: pointer;
 
@@ -309,7 +306,7 @@ const AddKeyword = styled.button`
 	color: #116EA0;
 	font-size: 1.35rem;
 	border: none;
-	outline: none;
+	cursor: pointer;
 `;
 
 const ImgFilter = styled.img`
@@ -321,7 +318,6 @@ const Wraptext = styled.ul`
 	height: auto;
 	display: flex;
 	flex-wrap: wrap;
-	padding: .5rem;
 `;
 
 const Button = styled.button`
@@ -337,7 +333,6 @@ const Button = styled.button`
   color: {this.state.favorites ? "red" : "blue"};
   font-size: .875rem;
 	cursor: pointer;
-	outline: none;
 
 	@media(max-width: 960px) {
 		width: 85px;
@@ -566,7 +561,7 @@ class RelevanceMatch extends Component {
 				key={keyword}
 			>
 				<KeywordText>{keyword}</KeywordText>
-				<ClosedKeyword onClick={handleClick}>X</ClosedKeyword>
+				<ClosedKeyword onClick={handleClick}><img src={DeletTag}/></ClosedKeyword>
 			</ListKeyword>
 		);
 	});
@@ -713,6 +708,7 @@ class RelevanceMatch extends Component {
 		return (
 			<Fragment>
 				<MenuResponsive
+					closedMenu={this.resetInput}
 					currentScreen={this.props.currentScreen}
 					closeInput={this.resetInput}
 					history={this.props.history} />

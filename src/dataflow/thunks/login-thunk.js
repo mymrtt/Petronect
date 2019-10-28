@@ -22,7 +22,7 @@ export const loginUserThunk = (info) => (
 					username: info.email,
 				},
 			);
-			info.history.replace('/dashboard');
+			info.history.replace('/match-relevancia');
 		} catch (err) {
 			dispatch(updateError(true));
 		}
