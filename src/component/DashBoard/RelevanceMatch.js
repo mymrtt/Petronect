@@ -277,7 +277,7 @@ const BtnCreateFilter = styled.button`
 	width: 251px;
 	height: 33px;
 	background: #116EA0;
-	border-radius: 0px 0px 16px 16px;
+	border-radius: 0px 0px 15px 15px;
 	opacity: 1;
 	font: Regular 14px/46px Eurostile;
 	color: #FFFFFF;
@@ -404,7 +404,7 @@ const HeaderRow = styled.th`
 	}
 `;
 
-const TableRow = styled.tr`
+const TableRow = styled.div`
   width: 100%;
 	padding: 1rem 0;
 	display: flex;
@@ -428,7 +428,7 @@ const TableRow = styled.tr`
 	}
 `;
 
-const Table = styled.table`
+const Table = styled.div`
   width: 100%;
   background: #fff;
   border-radius: 5px;
@@ -452,7 +452,7 @@ const Table = styled.table`
 // 	}
 // `;
 
-const TableHeader = styled.td`
+const TableHeader = styled.div`
   width: ${(props) => (props.boxWidth ? '100px' : '100%')};
   padding-left: 1rem;
 	margin-right: 1rem;
@@ -461,7 +461,7 @@ const TableHeader = styled.td`
   font-weight: 500;
 `;
 
-const TableBody = styled.td`
+const TableBody = styled.p`
 	width: ${(props) => (props.spanWidth ? '65px' : '80%')};
   padding-left: 1rem;
 	margin-right: 1rem;
@@ -474,8 +474,10 @@ const TableBody = styled.td`
 		display: ${(props) => (props.displayNone ? 'none' : 'static')}
 	}
 
-	@media(max-width: 420px) {
+	@media(max-width: 648px) {
 		display: ${(props) => (props.displayNone ? 'none' : 'static')}
+		width: auto;
+		margin:.25rem;
 	}
 `;
 
@@ -700,9 +702,9 @@ class RelevanceMatch extends Component {
 										<img src={isFavorite ? start : startHover} />
 									</TableBody>
 									<TableBody spanWidth>{item.fit}%</TableBody>
-									<TableBody>{item.company}</TableBody>
-									<TableBody>{item.opportunityId}</TableBody>
-									<TableBody>{item.titleDescription}</TableBody>
+									<TableBody >{item.company}</TableBody>
+									<TableBody displayNone>{item.opportunityId}</TableBody>
+									<TableBody >{item.titleDescription}</TableBody>
 									<TableBody>
 										{item.deadLineInitial}
 									</TableBody>
