@@ -75,20 +75,28 @@ class NotificationsBar extends Component {
 	renderValues = () => {
 		const { value } = this.state;
 
-		if (value > 0 && value < 31) {
-			return <Text>Semanal</Text>;
-		}
-		if (value > 30 && value < 71) {
-			return <Text>Diária</Text>;
-		}
-		if (value > 70) {
+		if (value >= 0 && value <= 25) {
+			return <Text>Nunca</Text>;
+		} if (value > 26 && value <= 50) {
 			return <Text>Mensal</Text>;
-		}
-		return <Text>Nunca</Text>;
+		} if (value > 50 && value <= 75) {
+			return <Text>Semanal</Text>;
+		} if (value > 76 && value <= 100) {
+			return <Text>Diária</Text>;
+		} return null;
 	}
 
 	handleChangeValue = (event) => {
-		this.setState({ value: event.target.value });
+		const { value } = event.target;
+		if (value >= 0 && value <= 25) {
+			this.setState({ value: 0 });
+		} else if (value > 26 && value <= 50) {
+			this.setState({ value: 33.33 });
+		} else if (value > 50 && value <= 75) {
+			this.setState({ value: 66.66 });
+		} else if (value > 76 && value <= 100) {
+			this.setState({ value: 100 });
+		} return null;
 	}
 
 	render() {
