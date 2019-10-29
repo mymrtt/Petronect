@@ -36,6 +36,7 @@ const Container = styled.div`
 		padding: 0 1.3rem;
 		height: 3rem;
     background-color: #fff;
+		z-index: 2;
 	}
 `;
 
@@ -164,6 +165,7 @@ class MenuResponsive extends Component {
 		super(props);
 		this.state = {
 			isMenuOpen: false,
+			isMenuClosed: false,
 			isOpenDropdown: false,
 		};
 	}
@@ -212,7 +214,7 @@ class MenuResponsive extends Component {
 				</WrapperLogoTablet>
 				{ isMenuOpen && (
 					<>
-						<Overlay onClick={this.props.closedMenu}/>
+						<Overlay onClick={this.handleMenuOpen}/>
 						{this.renderMenu()}
 					</>
 				)}

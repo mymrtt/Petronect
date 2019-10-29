@@ -643,7 +643,7 @@ class RelevanceMatch extends Component {
 				<Table>
 					<HeaderRow>
 						<TableHeader boxWidth><img src={start} /></TableHeader>
-						<TableHeader boxWidth>Fit</TableHeader>
+						<TableHeader boxWidth>Relevância</TableHeader>
 						<TableHeader>Empresa</TableHeader>
 						<TableHeader>Id</TableHeader>
 						<TableHeader>Título e Descrição</TableHeader>
