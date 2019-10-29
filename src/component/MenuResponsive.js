@@ -36,7 +36,7 @@ const Container = styled.div`
 		padding: 0 1.3rem;
 		height: 3rem;
     background-color: #fff;
-		z-index: 2;
+		z-index: 3;
 	}
 `;
 
@@ -126,9 +126,12 @@ const ContainerDropdown = styled.div`
 	width: 100%;
 	height: 12rem;
 	background-color: #fff;
-	border-bottom-right-radius: 6px;
-	border-bottom-left-radius: 6px;
+	border-radius: 0px 0px 8px 8px;
 	z-index: 2;
+	@media(max-width: 648px) {
+		border: #707070 solid .5px;
+		box-shadow: 0px 3px 6px #00000029
+	}
 `;
 
 const DropboxText = styled.p`
@@ -197,8 +200,8 @@ class MenuResponsive extends Component {
 
 	renderDropdown = () => (
 		<ContainerDropdown>
-			<DropboxText textOrg>Snowball Solutions</DropboxText>
-			<DropboxText>Pedro Gualandi</DropboxText>
+			<DropboxText textOrg displayNone>Snowball Solutions</DropboxText>
+			<DropboxText>{this.props.nameUser}</DropboxText>
 			<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
 		</ContainerDropdown>
 	)
