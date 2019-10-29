@@ -108,9 +108,8 @@ const CloseContainer = styled.div`
 	border: 0.5px solid #E6E6E6;
 	border-radius: 50%;
 	background-color: #DBE9F1;
+	z-index: 2;
 	@media (max-width: 648px) {
-		position: relative;
-		bottom: 0.44rem;
 		background-color: #FFF;
 		border-color: #115680;
 	}
@@ -123,7 +122,6 @@ const CloseButton = styled.button`
 	color: #115680;
 	border: none;
 	background: transparent;
-	outline: none;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -135,7 +133,7 @@ const CloseImage = styled.img`
 
 const DetailsOportuny = styled.div`
 	max-width: 900px;
-	padding: 1.5rem 3.5rem 0 3.5rem;
+	padding: .75rem 3.5rem 0 3.5rem;
 	display: flex;
 	@media (max-width: 648px) {
 		padding: 1.5rem 1.8rem 0 1rem;
@@ -164,11 +162,8 @@ const CategoryContainer = styled.div`
 `;
 
 const InfoWrap = styled.span`
+	width: 95%;
 	padding-bottom: .7rem;
-	${'' /* @media (max-width: 648px) {
-		display: flex;
-		flexDirection: row; */}
-	}
 `;
 
 const Description = styled.p`
@@ -198,9 +193,6 @@ const IconWrap = styled.span`
 	width: 100%;
 	display: flex;
 	justify-content: flex-start;
-	${'' /* @media (max-width: 648px) {
-		width: 27%;
-	} */}
 `;
 
 const InfoContentMobile = styled.div`
@@ -218,9 +210,6 @@ const IconWrapMobile = styled.span`
 		display: flex;
 		justify-content: space-between;
 	}
-	${'' /* @media (max-width: 545px) {
-		width: 30%;
-	} */}
 `;
 
 const BtnIcon = styled.button`
@@ -370,12 +359,12 @@ class DetailsOportunies extends Component {
 								<Text bold padding='1.44rem 0'>{selectedOpportunity.company}</Text>
 								<InfoContentMobile>
 									<BoxInfo>
-										<Text title fontSize>Id</Text>
+										<Text title fontSize>Número</Text>
 										<Text bold>{selectedOpportunity.opportunityId}</Text>
 									</BoxInfo>
 									<BoxInfo>
 										<Text title fontSize>Prazo</Text>
-										<Text bold>18/06/19 - 28/08/19</Text>
+										<Text bold>18/06/19 à 28/08/19</Text>
 									</BoxInfo>
 								</InfoContentMobile>
 								<CategoryContainer>
@@ -408,12 +397,12 @@ class DetailsOportunies extends Component {
 							</InfoContainer>
 							<InfoContent>
 								<BoxInfo>
-									<Text title fontSize>Id</Text>
+									<Text title fontSize>Número</Text>
 									<Text bold>{selectedOpportunity.opportunityId}</Text>
 								</BoxInfo>
 								<BoxInfo>
 									<Text title fontSize>Prazo</Text>
-									<Text bold>{selectedOpportunity.deadLineInitial} - {selectedOpportunity.deadLineLastOne}</Text>
+									<Text bold>{selectedOpportunity.deadLineInitial} à {selectedOpportunity.deadLineLastOne}</Text>
 								</BoxInfo>
 								<IconWrap>
 									{/* <BtnIcon>

@@ -36,6 +36,7 @@ const Container = styled.div`
 		padding: 0 1.3rem;
 		height: 3rem;
     background-color: #fff;
+		z-index: 3;
 	}
 `;
 
@@ -107,7 +108,7 @@ const ContainerUser = styled.div`
 	justify-content: center;
 	align-items: center;
 	@media(max-width: 648px) {
-		width: 38%;
+		width: 20%;
 	}
 `;
 
@@ -125,9 +126,12 @@ const ContainerDropdown = styled.div`
 	width: 100%;
 	height: 12rem;
 	background-color: #fff;
-	border-bottom-right-radius: 6px;
-	border-bottom-left-radius: 6px;
+	border-radius: 0px 0px 8px 8px;
 	z-index: 2;
+	@media(max-width: 648px) {
+		border: #707070 solid .5px;
+		box-shadow: 0px 3px 6px #00000029
+	}
 `;
 
 const DropboxText = styled.p`
@@ -164,6 +168,7 @@ class MenuResponsive extends Component {
 		super(props);
 		this.state = {
 			isMenuOpen: false,
+			isMenuClosed: false,
 			isOpenDropdown: false,
 		};
 	}
@@ -212,7 +217,7 @@ class MenuResponsive extends Component {
 				</WrapperLogoTablet>
 				{ isMenuOpen && (
 					<>
-						<Overlay onClick={this.props.closedMenu}/>
+						<Overlay onClick={this.handleMenuOpen}/>
 						{this.renderMenu()}
 					</>
 				)}
