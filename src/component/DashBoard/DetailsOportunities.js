@@ -322,7 +322,6 @@ class DetailsOportunies extends Component {
 	loadingItemModal = () => (
 		<>
 			{/* <ImageLoading icono src={loadingIcon}/> */}
-			{/* <TextButton>Carregando</TextButton> */}
 			<TextButton>Fechar</TextButton>
 		</>
 	)

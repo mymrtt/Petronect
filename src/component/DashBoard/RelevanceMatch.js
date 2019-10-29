@@ -508,7 +508,7 @@ class RelevanceMatch extends Component {
 
 	handleKeyPress = (event) => {
 		event.preventDefault();
-		const keyword = this.inputSearch.value.replace(' ', '').trim();
+		const keyword = this.inputSearch.value.trim();
 		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
@@ -747,6 +747,7 @@ class RelevanceMatch extends Component {
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
+										disable
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
