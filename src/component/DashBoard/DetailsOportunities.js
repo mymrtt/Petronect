@@ -8,7 +8,7 @@ import start from '../../assets/icon/estrela.svg';
 // import shareIcon from '../../assets/icon/compartilhar.svg';
 import attachIcon from '../../assets/icon/anexar.svg';
 // import doubtIcon from '../../assets/icon/duvida.svg';
-import loadingIcon from '../../assets/icon/loading.svg';
+// import loadingIcon from '../../assets/icon/loading.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
 
 // Redux
@@ -141,7 +141,7 @@ const DetailsOportuny = styled.div`
 `;
 
 const InfoContainer = styled.div`
-	width: 70%;
+	width: 68%;
 	height: 80%;
 	display: flex;
 	flex-direction: column;
@@ -175,7 +175,7 @@ const Description = styled.p`
 const Text = styled.p`
 	padding: ${(props) => (props.padding ? props.padding : '0 0 0.25rem 0')};
 	color: ${(props) => (props.title ? '#8C8C8C' : '#404040')};
-	font-weight: ${(props) => (props.bold ? 600 : 400)};
+	font-weight: ${(props) => (props.bold ? 500 : 400)};
 	font-size: ${(props) => (props.fontSize ? '1rem' : '0.90rem')};
 	@media	(max-width: 648px) {
 		padding: ${(props) => (props.padding ? props.padding : '0 0 0 0')};
@@ -183,7 +183,7 @@ const Text = styled.p`
 `;
 
 const InfoContent = styled.div`
-	width: 30%;
+	width: 32%;
 	@media (max-width: 648px) {
 		display: none;
 	}
@@ -218,6 +218,7 @@ const BtnIcon = styled.button`
 	outline: none;
 	cursor: pointer;
 	margin-right: 1.5rem;
+	opacity: .5;
 	@media (max-width: 648px) {
 		margin-right: 0;
 	}
@@ -254,6 +255,7 @@ const ButtonDetails = styled.button`
 	outline: none;
 	box-shadow: 0px 3px 6px #00000029;
 	border-radius: 4px;
+	cursor: pointer;
 `;
 
 const TextButton = styled.p`
@@ -263,22 +265,22 @@ const TextButton = styled.p`
 	color: #FAFAFA;
 `;
 
-const ImageLoading = styled.img` 
-	margin-right: 1rem;
-	animation-name: spin;
-	animation-duration: 4000ms;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-}
-@keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
-}
-`;
+// const ImageLoading = styled.img` 
+// 	margin-right: 1rem;
+// 	animation-name: spin;
+// 	animation-duration: 4000ms;
+// 	animation-iteration-count: infinite;
+// 	animation-timing-function: linear;
+// }
+// @keyframes spin {
+//     from {
+//         transform:rotate(0deg);
+//     }
+//     to {
+//         transform:rotate(360deg);
+//     }
+// }
+// `;
 
 class DetailsOportunies extends Component {
 	constructor(props) {
@@ -319,8 +321,8 @@ class DetailsOportunies extends Component {
 
 	loadingItemModal = () => (
 		<>
-			<ImageLoading icono src={loadingIcon}/>
-			<TextButton>Carregando</TextButton>
+			{/* <ImageLoading icono src={loadingIcon}/> */}
+			<TextButton>Fechar</TextButton>
 		</>
 	)
 
@@ -329,6 +331,26 @@ class DetailsOportunies extends Component {
 			<TextButton>Enviar uma oferta</TextButton>
 		</>
 	)
+
+	formatDate = (date) => {
+		if (date) {
+			return date
+				.split('-')
+				.reverse()
+				.join('/');
+		} return null;
+	}
+	
+	showFiles = () => {
+		const { selectedOpportunity } = this.props;
+		if (selectedOpportunity.files) {
+			return (
+				<BtnIcon>
+					<Image src={attachIcon} icon />
+				</BtnIcon>
+			);
+		}
+	}
 
 	render() {
 		const { selectedOpportunity } = this.props;
@@ -402,15 +424,13 @@ class DetailsOportunies extends Component {
 								</BoxInfo>
 								<BoxInfo>
 									<Text title fontSize>Prazo</Text>
-									<Text bold>{selectedOpportunity.deadLineInitial} à {selectedOpportunity.deadLineLastOne}</Text>
+									<Text bold>{this.formatDate(selectedOpportunity.deadLineInitial)} - {this.formatDate(selectedOpportunity.deadLineLastOne)}</Text>
 								</BoxInfo>
 								<IconWrap>
 									{/* <BtnIcon>
 										<Image src={shareIcon} icon />
 									</BtnIcon> */}
-									<BtnIcon>
-										<Image src={attachIcon} icon />
-									</BtnIcon>
+									{this.showFiles()}
 									{/* <BtnIcon>
 										<Image src={doubtIcon} icon />
 									</BtnIcon> */}
@@ -418,7 +438,7 @@ class DetailsOportunies extends Component {
 							</InfoContent>
 						</DetailsOportuny>
 						<BoxButton>
-							<ButtonDetails>
+							<ButtonDetails onClick={this.props.handleModalOportunities}>
 								{ isDatailsOpen
 									? this.loadingItemModal()
 									: this.itemModal()

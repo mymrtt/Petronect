@@ -95,10 +95,10 @@ class DashBoard extends Component {
 	renderCurrentScreen = () => {
 		switch (this.state.currentScreen) {
 		case '/notifications':
-			return <Filters history={this.props.history} currentScreen={this.props.currentScreen}/>;
+			return <Filters history={this.props.history} currentScreen={this.state.currentScreen}/>;
 		case '/match-relevancia':
 		default:
-			return <RelevanceMatch history={this.props.history}/>;
+			return <RelevanceMatch history={this.props.history} currentScreen={this.state.currentScreen}/>;
 		}
 	}
 
