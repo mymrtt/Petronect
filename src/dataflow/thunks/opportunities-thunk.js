@@ -42,6 +42,7 @@ export const getAllOpportunitiesThunk = () => (
 					opportunityId: item._id,
 					fit: Math.floor(normalizeScore(item._score)),
 					company: item._source.COMPANY_DESC,
+					files: item._source.ANEXOS,
 					titleDescription: item._source.OPPORT_DESCR,
 					deadLineInitial: item._source.OPEN_DATE,
 					deadLineLastOne: item._source.END_DATE,
