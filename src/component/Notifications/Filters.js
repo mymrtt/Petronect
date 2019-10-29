@@ -66,6 +66,19 @@ const Content = styled.div`
 		flex-direction: column;
 		border-radius: 4px;
 		overflow-y: scroll;
+		::-webkit-scrollbar {
+		width: 5px;
+		}
+		::-webkit-scrollbar-track {
+			background: #fff; 
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: 4px;
+			background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: #000; 
+		}
 	}
 `;
 
