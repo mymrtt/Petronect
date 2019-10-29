@@ -505,7 +505,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-						Endereço de email e/ou senha incorretos
+						Endereço de e-mail e/ou senha incorretos
 					</TextError>
 				</LoginMessageError>
 			);
@@ -535,7 +535,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-						Por favor, digite um email valido!
+						Por favor, digite um e-mail valido!
 					</TextError>
 				</LoginMessageError>
 			);
@@ -603,10 +603,10 @@ class Login extends Component {
 					// Quando deu sucesso em criar conta
 					? (<>
 						<CreateTitle>
-							Sucesso! Verifique seu caixa de email.
+							Sucesso! Verifique seu caixa de e-mail.
 						</CreateTitle>
 						<CreatedText>
-							Sua conta foi criado com secesso. Por favor, verifique sua caixa de email, para efetuar confirmar a criação da conta!
+							Sua conta foi criado com secesso. Por favor, verifique sua caixa de e-mail, para efetuar confirmar a criação da conta!
 						</CreatedText>
 						<BackText onClick={this.handleBackLogin}>
 							Voltar para o Login

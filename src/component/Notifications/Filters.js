@@ -39,6 +39,7 @@ const Container = styled.div`
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
+		position: fixed;
 		width: 100%;
     display: flex;
     justify-content: center;
@@ -220,6 +221,31 @@ class Filters extends Component {
 		this.props.removeAllNotification();
 	}
 
+	handleSearchInput = (event) => {
+		this.setState({ searchText: event.target.value });
+	}
+
+	handleSearchCard = () => {
+		this.setState({ searchCard: true });
+	}
+
+	renderNewCardsFilter = () => {
+		const { allNotification } = this.props;
+
+		return (
+			<ContainerFilters>
+				{values(allNotification).filter((card) => card.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => {
+					return 	<CardFilter
+						key={card.keywordFilterId}
+						card={card}
+						history={this.props.history}
+						handleOpenModal={this.handleOpenModal}
+					/>;
+				})}
+			</ContainerFilters>
+		);
+	}
+
 	renderCardsFilter = () => {
 		const { allNotification } = this.props;
 
@@ -246,7 +272,7 @@ class Filters extends Component {
 					value={this.state.searchText}
 					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} onClick={this.handleSearchMagnifying} />
+				<Image magnifying src={magnifying} onClick={this.handleSearchCard} />
 			</ContainerSearchInput>
 		</WrapperSearch>
 	)
