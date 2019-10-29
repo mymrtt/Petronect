@@ -330,8 +330,8 @@ class DetailsOportunies extends Component {
 
 	loadingItemModal = () => (
 		<>
-			<ImageLoading icono src={loadingIcon}/>
-			<TextButton>Carregando</TextButton>
+			{/* <ImageLoading icono src={loadingIcon}/> */}
+			<TextButton>Fechar</TextButton>
 		</>
 	)
 
@@ -429,7 +429,7 @@ class DetailsOportunies extends Component {
 							</InfoContent>
 						</DetailsOportuny>
 						<BoxButton>
-							<ButtonDetails>
+							<ButtonDetails onClick={this.props.handleModalOportunities}>
 								{ isDatailsOpen
 									? this.loadingItemModal()
 									: this.itemModal()

@@ -280,7 +280,7 @@ class CardFilter extends Component {
 			<Overlay>
 				<ContainerDeleteModal>
 					<DeleteModalHeader>
-						<Title deleteTitle>Deseja excluir o filtro {this.props.card.name}?</Title>
+						<Title deleteTitle>Deseja excluir a notificação {this.props.card.name}?</Title>
 						<CloseContainer onClick={this.handleCloseDeleteModal}>
 							<CloseButton>
 								<CloseImage src={closeIcon} />
@@ -288,7 +288,7 @@ class CardFilter extends Component {
 						</CloseContainer>
 					</DeleteModalHeader>
 					<ContentDeleteModal>
-						<Text deleteText>Ao confirmar esta ação o filtro "{this.props.card.name}" será excluído permanentemente do sistema.</Text>
+						<Text deleteText>Ao confirmar esta ação a notificação "{this.props.card.name}" será excluído permanentemente do sistema.</Text>
 						<ContainerDeleteButtons>
 							<DeleteButton onClick={this.handleCloseDeleteModal}>Cancelar</DeleteButton>
 							<DeleteButton deleteConfirmation onClick={this.removeNotification}>Confirmar</DeleteButton>

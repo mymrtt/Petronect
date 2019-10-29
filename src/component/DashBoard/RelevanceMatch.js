@@ -10,6 +10,7 @@ import {
 	removeItem,
 	putFavorite,
 	removeFavorite,
+	removeAllKeywords,
 } from '../../dataflow/modules/opportunities-modules';
 import { getAllOpportunitiesThunk, getOpportunityByIdThunk } from '../../dataflow/thunks/opportunities-thunk';
 
@@ -18,7 +19,7 @@ import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
-import DeletTag from '../../assets/icon/delete.svg'  
+import DeletTag from '../../assets/icon/delete.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -51,6 +52,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	getOpportunityByIdThunk: (info) => {
 		dispatch(getOpportunityByIdThunk(info));
+	},
+	removeAllKeywords: (info) => {
+		dispatch(removeAllKeywords(info));
 	},
 });
 
@@ -506,7 +510,7 @@ class RelevanceMatch extends Component {
 
 	handleKeyPress = (event) => {
 		event.preventDefault();
-		const keyword = this.inputSearch.value.replace(' ', '').trim();
+		const keyword = this.inputSearch.value.trim();
 		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
