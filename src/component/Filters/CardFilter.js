@@ -300,8 +300,8 @@ class CardFilter extends Component {
 							{card.name}
 						</Title>
 						<ContainerHeaderItems>
-							<WrapperHeaderItems>
-								<Image src={searchIcon} onClick={this.handleSearch} />
+							<WrapperHeaderItems onClick={this.handleSearch}>
+								<Image src={searchIcon} />
 								<Title>Buscar</Title>
 							</WrapperHeaderItems>
 							<WrapperHeaderItems onClick={() => this.handleOpenDeleteModal(card.filterId)}>

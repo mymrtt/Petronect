@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 // Images
-import { get } from 'http';
 import LogoImg from '../assets/img/LogoPNE.png';
 import RelevanceImg from '../assets/icon/icon_menu-Relevancia.svg';
 import FilterImg from '../assets/icon/icon_menu.svg';
@@ -90,9 +89,16 @@ const ImageMenuTablet = styled.img`
 	display: none;
 	@media (max-width: 960px) {
 		padding-bottom: .3rem;
-		width: 35%;
+		width: 20%;
 		display: flex;
 	}
+`;
+
+const MenuTabletText = styled.p`
+	margin-left: 0.1rem;
+	font-size: .85rem;
+	color: #115680;
+	text-transform: uppercase;
 `;
 
 const BoxMenu = styled.div`
@@ -138,7 +144,7 @@ const MenuItem = styled(Link)`
   height: 55px;
   display: flex;
   align-items: center;
-  list-style: none;
+	text-decoration: none;
   font-size: .875rem;
   color: #116EA0;
   font-weight: 900;
@@ -284,6 +290,7 @@ class SideBar extends Component {
 					</BoxLogo>
 					<WrapperTablet>
 						<ImageMenuTablet src={menuHamburger} onClick={this.props.handleMenuOpen} />
+						<MenuTabletText>menu</MenuTabletText>
 					</WrapperTablet>
 					<BoxMenu>
 						<MenuList>
