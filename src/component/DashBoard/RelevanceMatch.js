@@ -277,7 +277,7 @@ const BtnCreateFilter = styled.button`
 	width: 251px;
 	height: 33px;
 	background: #116EA0;
-	border-radius: 0px 0px 16px 16px;
+	border-radius: 0px 0px 15px 15px;
 	opacity: 1;
 	font: Regular 14px/46px Eurostile;
 	color: #FFFFFF;
@@ -358,6 +358,7 @@ const ContainerMessageOpportunity = styled.div`
 const TextMessageOpportunity = styled.p`
 	font-size: 1.3rem;
 	color: #115680;
+	text-align: center;
 	@media(max-width: 640px) {
 		font-size: 1rem;
 	}
@@ -369,12 +370,11 @@ const TextMessageOpportunity = styled.p`
 const WrapperTable = styled.div`
 	position: relative;
   width: 100%;
+	height: 75vh;
 	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
 	align-items: center;
-  width: 100%;
-	padding: 0 1rem;
 	background: #fff;
 	overflow: scroll;
 	
@@ -393,16 +393,6 @@ const WrapperTable = styled.div`
 	}
 `;
 
-const Table = styled.table`
-  width: 100%;
-  background: #fff;
-  border-radius: 5px;
-
-  >:nth-child(odd) {
-    background: #F7F7F7; 
-  }
-`;
-
 const HeaderRow = styled.th`
   width: 100%;
   height: 32px; 
@@ -416,7 +406,7 @@ const HeaderRow = styled.th`
 	}
 `;
 
-const TableRow = styled.tr`
+const TableRow = styled.div`
   width: 100%;
 	padding: 1rem 0;
 	display: flex;
@@ -440,6 +430,16 @@ const TableRow = styled.tr`
 	}
 `;
 
+const Table = styled.div`
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+
+  >:nth-child(odd) {
+    background: #F7F7F7; 
+  }
+`;
+
 // const BoxTableBody = styled.div`
 // 		display: flex;
 // 		width: auto;
@@ -454,7 +454,7 @@ const TableRow = styled.tr`
 // 	}
 // `;
 
-const TableHeader = styled.td`
+const TableHeader = styled.div`
   width: ${(props) => (props.boxWidth ? '100px' : '100%')};
   padding-left: 1rem;
 	margin-right: 1rem;
@@ -463,7 +463,7 @@ const TableHeader = styled.td`
   font-weight: 500;
 `;
 
-const TableBody = styled.td`
+const TableBody = styled.p`
 	width: ${(props) => (props.spanWidth ? '65px' : '80%')};
   padding-left: 1rem;
 	margin-right: 1rem;
@@ -476,13 +476,16 @@ const TableBody = styled.td`
 		display: ${(props) => (props.displayNone ? 'none' : 'static')}
 	}
 
-	@media(max-width: 420px) {
+	@media(max-width: 648px) {
 		display: ${(props) => (props.displayNone ? 'none' : 'static')}
+		width: auto;
+		margin:.25rem;
 	}
 `;
 
 const ResultText = styled.p`
-
+	padding-left: 1.5rem;
+	margin-bottom: .25rem;
 	align-self: flex-start;
 	font: 300 0.75rem Eurostile;
 `;
@@ -512,7 +515,7 @@ class RelevanceMatch extends Component {
 
 	handleKeyPress = (event) => {
 		event.preventDefault();
-		const keyword = this.inputSearch.value.replace(' ', '').trim();
+		const keyword = this.inputSearch.value.trim();
 		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
@@ -642,7 +645,7 @@ class RelevanceMatch extends Component {
 	)
 
 	renderHeader = (list) => (
-		<WrapperTable>
+		<Fragment>
 			<ResultText>
 				{list.length} Resultado{list.length > 1 && 's'}
 			</ResultText>
@@ -657,7 +660,7 @@ class RelevanceMatch extends Component {
 					<TableHeader>Data Final</TableHeader>
 				</HeaderRow>
 			</Table>
-		</WrapperTable>
+		</Fragment>
 	);
 
 	renderOpportunityList = () => {
@@ -701,9 +704,9 @@ class RelevanceMatch extends Component {
 										<img src={isFavorite ? start : startHover} />
 									</TableBody>
 									<TableBody spanWidth>{item.fit}%</TableBody>
-									<TableBody>{item.company}</TableBody>
-									<TableBody>{item.opportunityId}</TableBody>
-									<TableBody>{item.titleDescription}</TableBody>
+									<TableBody >{item.company}</TableBody>
+									<TableBody displayNone>{item.opportunityId}</TableBody>
+									<TableBody >{item.titleDescription}</TableBody>
 									<TableBody>
 										{item.deadLineInitial}
 									</TableBody>
@@ -751,6 +754,7 @@ class RelevanceMatch extends Component {
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
+										disabled
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',

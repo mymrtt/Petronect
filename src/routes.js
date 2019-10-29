@@ -9,7 +9,6 @@ import PrivateRoute from './PrivateRoute';
 // Components
 import Login from './component/Login/Login';
 import Dashboard from './component/DashBoard/DashBoard';
-import Filters from './component/Notifications/Index';
 
 const RoutesConfig = () => (
 	<BrowserRouter>

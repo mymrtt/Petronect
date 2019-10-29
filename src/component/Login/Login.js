@@ -168,7 +168,6 @@ const Button = styled.button`
 	border: none;
 	border-radius: 4px;
 	font: 600 1rem eurostile, sans serif;
-	${'' /* text-align: ${(props) => (props.backLeft ? 'left' : 'center')}; */}
 	text-align: center;
 	letter-spacing: 0;
 	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
@@ -373,7 +372,6 @@ const Form = styled.form`
 const ButtonBack = styled.span`
 	display: flex;
 	align-items: center;
-	${'' /* width: 45%; */}
 	justify-content: ${(props) => (props.createAccount ? 'center' : 'start')};
 	width: ${(props) => (props.createAccount ? '100%' : '45%')};
 	height: 3rem;
@@ -383,9 +381,6 @@ const ButtonBack = styled.span`
 	text-align: left;
 	color: #115680;
 	cursor: pointer;
-	${'' /* @media (max-width: 960px) {
-		width: 45%;
-	} */}
 	@media (max-width: 450px) {
 		margin-top: .5rem;
 	}
@@ -463,6 +458,7 @@ class Login extends Component {
 			this.setState({
 				currentScreen: 'login',
 				isCreated: false,
+				error: '',
 			});
 		}
 	}
@@ -509,7 +505,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-						Endereço de email e/ou senha incorretos
+						Endereço de e-mail e/ou senha incorretos
 					</TextError>
 				</LoginMessageError>
 			);
@@ -539,7 +535,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-						Por favor, digite um email valido!
+						Por favor, digite um e-mail valido!
 					</TextError>
 				</LoginMessageError>
 			);
@@ -592,7 +588,7 @@ class Login extends Component {
 			<Img src={imagemPrincpal} />
 			<TextBox>
 				<Text>
-					Defina seus filtros, receba contratos selecionados e esqueça como listas de mil itens.
+					Defina suas notificações, receba contratos selecionados e esqueça como listas de mil itens.
 				</Text>
 				<Link onClick={this.handleCreate} color={'#AADF00'}>Criar nova conta</Link>
 			</TextBox>
@@ -607,10 +603,10 @@ class Login extends Component {
 					// Quando deu sucesso em criar conta
 					? (<>
 						<CreateTitle>
-							Sucesso! Verifique seu caixa de email.
+							Sucesso! Verifique seu caixa de e-mail.
 						</CreateTitle>
 						<CreatedText>
-							Sua conta foi criado com secesso. Por favor, verifique sua caixa de email, para efetuar confirmar a criação da conta!
+							Sua conta foi criado com secesso. Por favor, verifique sua caixa de e-mail, para efetuar confirmar a criação da conta!
 						</CreatedText>
 						<BackText onClick={this.handleBackLogin}>
 							Voltar para o Login

@@ -39,7 +39,9 @@ const Container = styled.div`
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
+		position: fixed;
 		width: 100%;
+		height: 41rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,6 +67,19 @@ const Content = styled.div`
 		flex-direction: column;
 		border-radius: 4px;
 		overflow-y: scroll;
+		::-webkit-scrollbar {
+		width: 5px;
+		}
+		::-webkit-scrollbar-track {
+			background: #fff; 
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: 4px;
+			background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: #000; 
+		}
 	}
 `;
 
@@ -93,7 +108,7 @@ const ContainerNotifications = styled.div`
 		// padding-top: 6rem;
 		padding-left: .5rem;
 		width: 100%;
-		height: 100%;
+		height: 100rem;
 		border-left: 0;
 	}
 `;
@@ -136,6 +151,7 @@ const WrapperSearch = styled.div`
 	@media(max-width: 648px) {
 		padding-bottom: .60rem;
 		width: 100%;
+		height: 5rem;
 	}
 `;
 
@@ -220,6 +236,31 @@ class Filters extends Component {
 		this.props.removeAllNotification();
 	}
 
+	handleSearchInput = (event) => {
+		this.setState({ searchText: event.target.value });
+	}
+
+	handleSearchCard = () => {
+		this.setState({ searchCard: true });
+	}
+
+	renderNewCardsFilter = () => {
+		const { allNotification } = this.props;
+
+		return (
+			<ContainerFilters>
+				{values(allNotification).filter((card) => card.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => {
+					return 	<CardFilter
+						key={card.keywordFilterId}
+						card={card}
+						history={this.props.history}
+						handleOpenModal={this.handleOpenModal}
+					/>;
+				})}
+			</ContainerFilters>
+		);
+	}
+
 	renderCardsFilter = () => {
 		const { allNotification } = this.props;
 
@@ -246,7 +287,7 @@ class Filters extends Component {
 					value={this.state.searchText}
 					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} onClick={this.handleSearchMagnifying} />
+				<Image magnifying src={magnifying} onClick={this.handleSearchCard} />
 			</ContainerSearchInput>
 		</WrapperSearch>
 	)
@@ -262,6 +303,7 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen, searchCard } = this.state;
+		console.log(this.props.currentScreen);
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>

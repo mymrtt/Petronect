@@ -1,5 +1,5 @@
 // Libs
-import React, { Component, div } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -314,6 +314,10 @@ class ModalFilter extends Component {
 		}
 	}
 
+	handleStop = (event) => {
+		event.stopPropagation();
+	}
+
 	handleKeywordsObject = () => {
 		let keywordsObject = this.props.keywords.map((item) => {
 			return { name: item };
@@ -341,8 +345,8 @@ class ModalFilter extends Component {
 
 	render() {
 		return (
-			<Overlay>
-				<FilterModal>
+			<Overlay onClick={this.props.handleOpenModal}>
+				<FilterModal onClick={this.handleStop}>
 					<Header>
 						<Title modalTitle>Adicionar Notificação</Title>
 						<CloseContainer onClick={this.props.handleOpenModal}>
