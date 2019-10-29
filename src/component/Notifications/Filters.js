@@ -94,7 +94,7 @@ const ContainerNotifications = styled.div`
 		// padding-top: 6rem;
 		padding-left: .5rem;
 		width: 100%;
-		height: 100%;
+		height: 100rem;
 		border-left: 0;
 	}
 `;
@@ -137,6 +137,7 @@ const WrapperSearch = styled.div`
 	@media(max-width: 648px) {
 		padding-bottom: .60rem;
 		width: 100%;
+		height: 5rem;
 	}
 `;
 
