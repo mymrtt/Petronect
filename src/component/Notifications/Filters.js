@@ -41,7 +41,7 @@ const Container = styled.div`
 	@media (max-width: 648px) {
 		position: fixed;
 		width: 100%;
-		height: 41rem;
+		// height: 41rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,8 +104,9 @@ const ContainerNotifications = styled.div`
 		width: 45%;
 	}
 	@media(max-width: 648px) {
-		margin-bottom: 4rem;
-		// padding-top: 6rem;
+		// margin-bottom: 4rem;
+		margin-top: 1rem;
+    margin-bottom: 3rem;
 		padding-left: .5rem;
 		width: 100%;
 		height: 100%;
@@ -215,6 +216,21 @@ const ContainerFilters = styled.div`
 		width: 100%;
 		// min-height: 100%;
 		flex-wrap: nowrap;
+		overflow-y: scroll;
+
+		::-webkit-scrollbar {
+			width: 2px;
+			}
+			::-webkit-scrollbar-track {
+				background: #fff; 
+			}
+			::-webkit-scrollbar-thumb {
+				border-radius: 4px;
+				background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+			}
+			::-webkit-scrollbar-thumb:hover {
+				background: #000; 
+			}
 	}
 `;
 
