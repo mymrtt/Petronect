@@ -107,7 +107,7 @@ const ContainerUser = styled.div`
 	justify-content: center;
 	align-items: center;
 	@media(max-width: 648px) {
-		width: 38%;
+		width: 20%;
 	}
 `;
 

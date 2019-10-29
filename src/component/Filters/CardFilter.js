@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 // Images
 import deleteIcon from '../../assets/icon/delete.svg';
-import searchIcon from '../../assets/icon/lupa-white.svg';
+import searchIcon from '../../assets/icon/search.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
 
 // Redux
@@ -122,13 +122,13 @@ const Image = styled.img`
 	}
 `;
 
-const ImageSeach = styled.img`
-	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
-	margin-left: .5rem;
-	@media (max-width: 640px) {
-		width: ${(props) => props.magnifying && '18px'};
-	}
-`;
+// const ImageSeach = styled.img`
+// 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
+// 	margin-left: .5rem;
+// 	@media (max-width: 640px) {
+// 		width: ${(props) => props.magnifying && '18px'};
+// 	}
+// `;
 
 const Overlay = styled.div`
 	position: absolute;
@@ -315,7 +315,7 @@ class CardFilter extends Component {
 						</Title>
 						<ContainerHeaderItems>
 							<WrapperHeaderItems>
-								<ImageSeach src={searchIcon} onClick={this.handleSearch} />
+								<Image src={searchIcon} onClick={this.handleSearch} />
 								<Title>Buscar</Title>
 							</WrapperHeaderItems>
 							<WrapperHeaderItems>

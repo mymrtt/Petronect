@@ -316,7 +316,7 @@ class Filters extends Component {
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
 							</ContainerSearch>
-							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
+							<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
 							<NotificationsItem>
 								<Label labelNotifications>E-mail</Label>
 								<NotificationsBar min={0} max={100} />
