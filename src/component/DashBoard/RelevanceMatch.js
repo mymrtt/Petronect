@@ -378,7 +378,7 @@ const WrapperTable = styled.div`
 	flex-direction: column;
 	align-items: center;
 	background: #fff;
-	overflow: scroll;
+	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	
 	::-webkit-scrollbar {
