@@ -3,7 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-import ReactScrollbar from 'react-scrollbar';
 
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
@@ -37,7 +36,7 @@ const Container = styled.div`
 	@media (max-width: 960px) {
 		width: 95%;
 		height: 100vh;
-		// overflow-y: scroll;
+		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
 		position: fixed;
@@ -71,20 +70,20 @@ const Content = styled.div`
 		padding-top: .60rem;
 		flex-direction: column;
 		border-radius: 4px;
-		// overflow-y: scroll;
-		// ::-webkit-scrollbar {
-		// width: 5px;
-		// }
-		// ::-webkit-scrollbar-track {
-		// 	background: #fff; 
-		// }
-		// ::-webkit-scrollbar-thumb {
-		// 	border-radius: 4px;
-		// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-		// }
-		// ::-webkit-scrollbar-thumb:hover {
-		// 	background: #000; 
-		// }
+		overflow-y: scroll;
+		::-webkit-scrollbar {
+		width: 5px;
+		}
+		::-webkit-scrollbar-track {
+			background: #fff; 
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: 4px;
+			background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: #000; 
+		}
 	}
 `;
 
@@ -212,21 +211,21 @@ const ContainerFilters = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-		// overflow-y: scroll;
+	overflow-y: scroll;
 
-		// ::-webkit-scrollbar {
-		// 	width: 3px;
-		// }
-		// ::-webkit-scrollbar-track {
-		// 	background: #fff; 
-		// }
-		// ::-webkit-scrollbar-thumb {
-		// 	border-radius: 4px;
-		// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-		// }
-		// ::-webkit-scrollbar-thumb:hover {
-		// 	background: #000; 
-		// }
+	::-webkit-scrollbar {
+		width: 3px;
+	}
+	::-webkit-scrollbar-track {
+		background: #fff; 
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #000; 
+	}
 
 	@media(max-width: 960px) {
 		padding: 0;
@@ -331,40 +330,33 @@ class Filters extends Component {
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
-					<ReactScrollbar
-						speed={0.8}
-						horizontal={false}
-						smoothScrolling
-						stopScrollPropagation
-					>
-						<Content>
-							<ContainerSearchMobile>
+					<Content>
+						<ContainerSearchMobile>
+							{this.renderWrapperSearch()}
+						</ContainerSearchMobile>
+						<Fragment>
+							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+						</Fragment>
+						<ContainerNotifications>
+							<ContainerSearch>
 								{this.renderWrapperSearch()}
-							</ContainerSearchMobile>
-							<Fragment>
-								{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
-							</Fragment>
-							<ContainerNotifications>
-								<ContainerSearch>
-									{this.renderWrapperSearch()}
-								</ContainerSearch>
-								<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
-								<NotificationsItem>
-									<Label labelNotifications>E-mail</Label>
-									<NotificationsBar min={0} max={100} />
-								</NotificationsItem>
-								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-									<Label labelNotifications>Push</Label>
-									<NotificationsBar min={0} max={0} />
-								</NotificationsItem>
-								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-									<Label labelNotifications>SMS</Label>
-									<NotificationsBar min={0} max={0} />
-								</NotificationsItem>
-							</ContainerNotifications>
-							{ isModalOpen && this.renderModalFilter() }
-						</Content>
-					</ReactScrollbar>
+							</ContainerSearch>
+							<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
+							<NotificationsItem>
+								<Label labelNotifications>E-mail</Label>
+								<NotificationsBar min={0} max={100} />
+							</NotificationsItem>
+							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+								<Label labelNotifications>Push</Label>
+								<NotificationsBar min={0} max={0} />
+							</NotificationsItem>
+							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+								<Label labelNotifications>SMS</Label>
+								<NotificationsBar min={0} max={0} />
+							</NotificationsItem>
+						</ContainerNotifications>
+						{ isModalOpen && this.renderModalFilter() }
+					</Content>
 				</Container>
 				<Footer />
 			</Fragment>
