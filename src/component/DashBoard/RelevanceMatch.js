@@ -10,7 +10,6 @@ import {
 	removeItem,
 	putFavorite,
 	removeFavorite,
-	removeAllKeywords,
 } from '../../dataflow/modules/opportunities-modules';
 import { getAllOpportunitiesThunk, getOpportunityByIdThunk } from '../../dataflow/thunks/opportunities-thunk';
 
@@ -52,9 +51,6 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	getOpportunityByIdThunk: (info) => {
 		dispatch(getOpportunityByIdThunk(info));
-	},
-	removeAllKeywords: (info) => {
-		dispatch(removeAllKeywords(info));
 	},
 });
 
@@ -646,7 +642,8 @@ class RelevanceMatch extends Component {
 			<WrapperTable>
 				<Table>
 					<HeaderRow>
-						<TableHeader boxWidth><img src={start} /></TableHeader>
+						{/* Vai voltar na outra sprint */}
+						{/* <TableHeader boxWidth><img src={start} /></TableHeader> */}
 						<TableHeader boxWidth>Fit</TableHeader>
 						<TableHeader>Empresa</TableHeader>
 						<TableHeader>Id</TableHeader>
@@ -686,12 +683,13 @@ class RelevanceMatch extends Component {
 
 					return (
 						<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
-							<TableBody
+						{/* vai voltar para outra sprint */}
+							{/* <TableBody
 								spanWidth
 								onClick={handleFavorite}
 							>
 								<img src={isFavorite ? start : startHover} />
-							</TableBody>
+							</TableBody> */}
 							<TableBody spanWidth>{item.fit}%</TableBody>
 							<TableBody>{item.category}</TableBody>
 							<TableBody>{item.opportunityId}</TableBody>
@@ -735,7 +733,8 @@ class RelevanceMatch extends Component {
 											}
 										</WrapInput>
 									</BoxInput>
-									<Button
+									{/* Vai ficar para a próxima sprint*/}
+									{/* <Button
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
@@ -746,7 +745,7 @@ class RelevanceMatch extends Component {
 									>
 										<FavoriteImage src={this.state.hoverFavorites ? startHover : start} />
 										Favoritos
-									</Button>
+									</Button> */}
 								</Form>
 							</WrapperForm>
 						</WrapperHead>
