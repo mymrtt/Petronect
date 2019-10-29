@@ -94,17 +94,9 @@ const SuggestionsText = styled.p`
 	color: ${(props) => (props.suggestionsTitle ? '#8C8C8C' : '#404040')};
 `;
 
-const CardDelete = styled.div`
-	width: 20px;
-	height: 20px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-
 const Title = styled.p`
 	color: ${(props) => (props.deleteTitle ? '#116EA0' : '#fff')};
-	font-size: 1rem;
+	font-size: .90rem;
 	font-weight: 600;
 `;
 
@@ -116,7 +108,7 @@ const Text = styled.p`
 `;
 
 const Image = styled.img`
-
+	margin-right: .2rem;
 `;
 
 const Overlay = styled.div`
@@ -224,15 +216,20 @@ const DeleteButton = styled.button`
 `;
 
 const ContainerHeaderItems = styled.div`
-	width: 55%;
+	// width: 50%;
 	display: flex;
 	align-items: center;
+	// @media(max-width: 1024px) {
+		// width: 75%;
+	// }
 `;
 
 const WrapperHeaderItems = styled.div`
-	margin-left: 2rem;
+	margin-left: .5rem;
 	width: 100%;
 	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
 class CardFilter extends Component {
@@ -307,11 +304,9 @@ class CardFilter extends Component {
 								<Image src={searchIcon} onClick={this.handleSearch} />
 								<Title>Buscar</Title>
 							</WrapperHeaderItems>
-							<WrapperHeaderItems>
-								<CardDelete onClick={() => this.handleOpenDeleteModal(card.filterId)}>
-									<Image src={deleteIcon} />
-									<Title>Excluir</Title>
-								</CardDelete>
+							<WrapperHeaderItems onClick={() => this.handleOpenDeleteModal(card.filterId)}>
+								<Image src={deleteIcon} />
+								<Title>Excluir</Title>
 							</WrapperHeaderItems>
 						</ContainerHeaderItems>
 					</WrapperCard>

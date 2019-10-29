@@ -62,7 +62,8 @@ const Container = styled.div`
 	@media(max-width: 960px) {
 		border-radius: 4px 4px 0 0;
 		width: 95%;
-		height: auto;
+		// height: auto;
+		height: 90vh;
 		margin-top: 3.5rem;
 	}
 `;
