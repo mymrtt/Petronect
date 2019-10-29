@@ -146,6 +146,7 @@ const BoxInput = styled.div`
 
 	@media (max-width: 648px) {
 		width: 75%;
+		position: relative;
 		justify-content: flex-end;
 	}
 `;
@@ -205,7 +206,7 @@ const WrapperKeyword = styled.div`
 	z-index: 2;
 
 	@media(max-width: 648px) {
-		width: 70%;
+		width: 100%;
 		position: absolute;
 	}
 `;
@@ -642,7 +643,7 @@ class RelevanceMatch extends Component {
 				<Table>
 					<HeaderRow>
 						<TableHeader boxWidth><img src={start} /></TableHeader>
-						<TableHeader boxWidth>Fit</TableHeader>
+						<TableHeader boxWidth>Relevância</TableHeader>
 						<TableHeader>Empresa</TableHeader>
 						<TableHeader>Id</TableHeader>
 						<TableHeader>Título e Descrição</TableHeader>

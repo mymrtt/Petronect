@@ -36,6 +36,7 @@ const Container = styled.div`
 		padding: 0 1.3rem;
 		height: 3rem;
     background-color: #fff;
+		z-index: 2;
 	}
 `;
 
