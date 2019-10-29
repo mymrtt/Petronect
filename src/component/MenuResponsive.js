@@ -194,7 +194,7 @@ class MenuResponsive extends Component {
 
 	renderDropdown = () => (
 		<ContainerDropdown>
-			<DropboxText textOrg>Snowball Solutions</DropboxText>
+			{/* <DropboxText textOrg>Snowball Solutions</DropboxText> */}
 			<DropboxText>{this.props.nameUser}</DropboxText>
 			<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
 		</ContainerDropdown>
