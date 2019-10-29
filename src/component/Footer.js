@@ -57,17 +57,23 @@ class Footer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isBackgroundMath: false,
+			isBackgroundMath: true,
 			isBackgroundNot: false,
 		};
 	}
 
 	handleChangeColorMath = () => {
-		this.setState({ isBackgroundMath: true });
+		this.setState({
+			isBackgroundMath: true,
+			isBackgroundNot: false,
+		});
 	}
 
 	handleChangeColorNot = () => {
-		this.setState({ isBackgroundNot: true });
+		this.setState({
+			isBackgroundNot: true,
+			isBackgroundMath: false,
+		});
 	}
 
 	render() {
