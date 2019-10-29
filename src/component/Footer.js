@@ -1,5 +1,5 @@
 // Libs
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -19,9 +19,6 @@ const FooterMobile = styled.div`
 		background-color: #fff;
 		border: #0000001A solid 1px;
 	}
-	@media (max-width: 648px) {
-		width: 100%;
-	}
 `;
 
 const Image = styled.img`
@@ -33,7 +30,7 @@ const Image = styled.img`
 const FooterMobileItem = styled.div`
 	display: none;
 	@media (max-width: 648px) {
-		margin: 0 .60rem;
+		// margin: 0 .60rem;
 		display: flex;
 		width: 50%;
 		height: 2.2rem;
@@ -49,25 +46,49 @@ const FooterMobileItem = styled.div`
 const FooterMobileText = styled(Link)`
 	@media (max-width: 648px) {
 		margin-left: 0.4rem;
-		font-size: .80rem;
+		font-size: .75rem;
 		font-weight: 900;
 		color: #116ea0;
 		white-space: nowrap;
 	}
 `;
 
-const Footer = () => (
-	<FooterMobile>
-		<FooterMobileItem>
-			<Image src={RelevanceImg} />
-			<FooterMobileText to="/match-relevancia">Match Relevância</FooterMobileText>
-		</FooterMobileItem>
-		<FooterMobileItem>
-			<Image src={FilterImg} />
-			<FooterMobileText to="/filters-and-notifications">Filtros e notificações</FooterMobileText>
-		</FooterMobileItem>
-	</FooterMobile>
-);
+class Footer extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isBackgroundMath: false,
+			isBackgroundNot: false,
+		};
+	}
 
+	handleChangeColorMath = () => {
+		this.setState({ isBackgroundMath: true });
+	}
 
+	handleChangeColorNot = () => {
+		this.setState({ isBackgroundNot: true });
+	}
+
+	render() {
+		return (
+			<FooterMobile>
+				<FooterMobileItem
+					style={{ backgroundColor: this.state.isBackgroundMath ? '#116EA015' : '#fff' }}
+					onClick={this.handleChangeColorMath}
+				>
+					<Image src={RelevanceImg} />
+					<FooterMobileText to="/match-relevancia">Match Relevância</FooterMobileText>
+				</FooterMobileItem>
+				<FooterMobileItem
+					style={{ backgroundColor: this.state.isBackgroundNot ? '#116EA015' : '#fff' }}
+					onClick={this.handleChangeColorNot}
+				>
+					<Image src={FilterImg} />
+					<FooterMobileText to="/notifications">Notificações</FooterMobileText>
+				</FooterMobileItem>
+			</FooterMobile>
+		);
+	}
+}
 export default Footer;

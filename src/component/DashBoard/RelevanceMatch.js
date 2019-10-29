@@ -1,11 +1,8 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-// import { Link } from 'react-router-dom';
 
 // Modules
 import {
@@ -13,15 +10,15 @@ import {
 	removeItem,
 	putFavorite,
 	removeFavorite,
-} from '../../dataflow/modules/oportunities-modules';
-import { getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunites-thunk';
+} from '../../dataflow/modules/opportunities-modules';
+import { getAllOpportunitiesThunk, getOpportunityByIdThunk } from '../../dataflow/thunks/opportunities-thunk';
 
 // Images
-import shareIcon from '../../assets/icon/lupa.svg';
+import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
-
+import DeletTag from '../../assets/icon/delete.svg'  
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -30,10 +27,10 @@ import Footer from '../Footer';
 import ModalFilter from '../ModalFilter';
 
 const mapStateToProps = (state) => ({
-	keywords: state.oportunities.cardFilter.keywords,
-	oportunities: state.oportunities.oportunities,
-	oportunitiesList: state.oportunities.oportunitiesList,
-	favoriteList: state.oportunities.favoriteList,
+	keywords: state.opportunities.cardFilter.keywords,
+	opportunities: state.opportunities.opportunities,
+	oportunitiesList: state.opportunities.oportunitiesList,
+	favoriteList: state.opportunities.favoriteList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -52,29 +49,26 @@ const mapDispatchToProps = (dispatch) => ({
 	getAllOpportunitiesThunk: (info) => {
 		dispatch(getAllOpportunitiesThunk(info));
 	},
+	getOpportunityByIdThunk: (info) => {
+		dispatch(getOpportunityByIdThunk(info));
+	},
 });
 
 const Container = styled.div`
-  width: 75vw;
-  border-radius: 0 4px 0 0 ;
+	width: 80%;
+  border-radius: 0 4px 0 0;
   background: #fff;
 
 	@media(max-width: 960px) {
+		border-radius: 4px 4px 0 0;
 		width: 95%;
 		height: auto;
-		margin-top: 1.5rem;
-		${'' /* overflow-y: scroll; */}
+		margin-top: 3.5rem;
 	}
-
-	${'' /* @media(max-width: 375px) {
-		width: 95%;
-		height: auto;
-	} */}
 `;
 
 const Content = styled.div`
   width: 100%;
-  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,10 +76,11 @@ const Content = styled.div`
 
 const WrapperHead = styled.div`
   width: 100%;
-  height: 100%;
+  height: 12%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding: 1.25rem 0;
 	@media (max-width: 648px) {
 		display: none;
 	}
@@ -95,7 +90,7 @@ const WrapperHeadMobile = styled.div`
 	display: none;
 	@media (max-width: 648px) {
 		width: 100%;
-		padding-top: .75rem;
+		padding: 1rem 0;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -103,13 +98,13 @@ const WrapperHeadMobile = styled.div`
 
 const BoxHeader = styled.span`
 	width: 60%;
-  display: flex;
+  display: flex;	
 	align-items: center;
 	@media(max-width: 1024px) {
-		width: 40%;
+		width: 45%;
 	}
-	@media(max-width: 960px) {
-		width: 52%;
+	@media(max-width: 648px) {
+		width: auto;
 	}
 `;
 
@@ -124,39 +119,40 @@ const HeaderText = styled.p`
 `;
 
 const WrapperForm = styled.div`
-  max-width: 60%;
+  width: 60%;
 	padding-right: 1rem;
 	display: flex;
 	flex-direction: column;
 	flwx-wrap: wrap;
 	@media (max-width: 648px) {
-		width: 55%;
+		width: 100%;
 	}
 `;
 
 const Form = styled.div`
   width: 100%;
   display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
+
 	@media (max-width: 648px) {
-		padding-right: 1rem;
-		justify-content: flex-end;
+		padding-right: 1rem;;
 	}
 `;
 
 const BoxInput = styled.div`
-	position: relative;
 	display: flex;
 	align-items: center;
 
 	@media (max-width: 648px) {
-		width: 20%;
+		width: 75%;
+		position: relative;
+		justify-content: flex-end;
 	}
 `;
 
 const FormHead = styled.form`
-
+	
 `;
 
 const TitleInput = styled.p`
@@ -178,14 +174,9 @@ const LabelBox = styled.label`
   border: solid #116EA0 .5px;
   display: flex;
   align-items: center;
-	z-index: 5;
 
-	@media (max-width: 648px) {
-    margin: 0;
-    padding: 0;
-		position: relative;
-    justify-content: center;
-		border-radius: 16px;
+	@media(max-width: 648px) {
+		width: 100%;
 	}
 `;
 
@@ -193,8 +184,8 @@ const InputHead = styled.input`
 	width: 85%;
 	height: 95%;
   border:none;
-	outline: none;
 	font-size: 0.875rem;
+	outline: none;
 	
 	@media(max-width: 960px) {
 		font-size: 0.75rem;
@@ -208,58 +199,78 @@ const WrapperKeyword = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	background: #fff;
-	border: 0.5px solid #116EA0;
+	border: solid #116EA0;
+	border-width: 0 1px 1px 1px;
 	align-items: flex-end;
 	border-radius: 0 0 16px 16px;
 	z-index: 2;
 
-	@media(max-width: 768px) {
-		display: none;
+	@media(max-width: 648px) {
+		width: 100%;
+		position: absolute;
 	}
 `;
 
 const WrapInput = styled.div`
 	z-index: 2;
+
+	@media(max-width: 648px) {
+		width: 100%;
+		${'' /* display: flex;
+		justify-content: flex-end; */}
+	}
 `;
 
 const ListKeyword = styled.div`
 	position: relative;
+	margin: .35rem
 `;
 
 const KeywordText = styled.li`
 	width: auto;
-	height: 20px;
 	margin: 0.5rem 0.35rem 0 0;
-	padding: 0 .5rem;
+	padding: .25rem .25rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background: #01B0B7;
+	background: #01B0B730;
 	border-radius: 10px;
 	list-style:none;
 	font-size: .85rem;
-	color: #404040;
+	color: #40404090;
+	word-break: break-all;
+`;
+
+const ContainerText = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+const TextNull = styled.p`
+	padding-bottom: 1rem;
+	font-size: .85rem;
+	// color: #404040;
+	color: #115680;
 `;
 
 const ClosedKeyword = styled.button`
-	width: 15px;
-	height: 15px;
 	position: absolute;
 	top: -.125rem;
 	right: 0;
-	background: #FFFFFF;
-	opacity: 0.3;
-	border: 0.5px solid #115680;
-	border-radius: 19px;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
 `;
 
 const Overlay = styled.div` 
-	${'' /* width: 100vw;
+	width: 100vw;
 	height: 100vh;
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: -2; */}
+	z-index: -2;
 `;
 
 const BtnCreateFilter = styled.button`
@@ -270,17 +281,21 @@ const BtnCreateFilter = styled.button`
 	opacity: 1;
 	font: Regular 14px/46px Eurostile;
 	color: #FFFFFF;
-	outline: none;
 	border: none;
 	cursor: pointer;
+
+	@media(max-width: 648px) {
+		width: 100%;
+	}
 `;
 
-const ImgShare = styled.img`
-	padding: 0 .85rem;
-	cursor: pointer;
+const ImgSearch = styled.img`
+	display: none;
+
 	@media (max-width: 648px) {
 		padding: 0;
-    position: absolute;
+		padding: 0 .85rem;
+		cursor: pointer;
 	}
 `;
 
@@ -291,7 +306,7 @@ const AddKeyword = styled.button`
 	color: #116EA0;
 	font-size: 1.35rem;
 	border: none;
-	outline: none;
+	cursor: pointer;
 `;
 
 const ImgFilter = styled.img`
@@ -303,7 +318,6 @@ const Wraptext = styled.ul`
 	height: auto;
 	display: flex;
 	flex-wrap: wrap;
-	padding: .5rem;
 `;
 
 const Button = styled.button`
@@ -319,7 +333,6 @@ const Button = styled.button`
   color: {this.state.favorites ? "red" : "blue"};
   font-size: .875rem;
 	cursor: pointer;
-	outline: none;
 
 	@media(max-width: 960px) {
 		width: 85px;
@@ -330,14 +343,48 @@ const Button = styled.button`
 	}
 `;
 
+const FavoriteImage = styled.img`
+	margin-right: .4rem;
+`;
+
+const ContainerMessageOpportunity = styled.div`
+	padding-top: 10rem;
+	height: 50%;
+	display: flex;
+	justify-content: center;
+`;
+
+const TextMessageOpportunity = styled.p`
+	font-size: 1.3rem;
+	color: #115680;
+	@media(max-width: 640px) {
+		font-size: 1rem;
+	}
+`;
+
 const WrapperTable = styled.div`
   width: 100%;
+	// height: 90%;
 	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	background: #fff;
+	overflow: scroll;
+	
+	::-webkit-scrollbar {
+  width: 5px;
+	}
+	::-webkit-scrollbar-track {
+		background: #fff; 
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #000; 
+	}
 
 	@media(max-width: 960px) {
 	}
@@ -346,16 +393,17 @@ const WrapperTable = styled.div`
 	}
 `;
 
-const Table = styled.div`
+const Table = styled.table`
   width: 100%;
   background: #fff;
   border-radius: 5px;
+	${''}
   >:nth-child(odd) {
     background: #F7F7F7; 
   }
 `;
 
-const HeaderRow = styled.div`
+const HeaderRow = styled.th`
   width: 100%;
   height: 32px; 
 	display: flex;
@@ -368,9 +416,10 @@ const HeaderRow = styled.div`
 	}
 `;
 
-const TableRow = styled.div`
+const TableRow = styled.tr`
   width: 100%;
-  height: 32px; 
+	padding: 1rem 0;
+	padding-left: 1rem;
 	display: flex;
 	align-items: center;
   border-radius: 4px;
@@ -382,13 +431,32 @@ const TableRow = styled.div`
   }
 
 	@media(max-width: 960px) {
-		height: 64px;
 		flex-wrap: wrap;
+	}
+
+	@media(max-width: 420px) {
+		flex-wrap: wrap;
+		align-items: flex-end;
+		padding: .5rem 0;
 	}
 `;
 
-const TableHeader = styled.span`
-  width: ${(props) => (props.boxWidth ? '100	px' : '100%')};
+// const BoxTableBody = styled.div`
+// 		display: flex;
+// 		width: auto;
+
+// 	@media(max-width: 420px) {
+// 		height: 100%;
+// 		flex-direction: column-reverse;
+// 		justify-content: space-between;
+// 	}
+
+// 	@media(min-width: 768px) {
+// 	}
+// `;
+
+const TableHeader = styled.td`
+  width: ${(props) => (props.boxWidth ? '100px' : '100%')};
   padding-left: 1rem;
 	margin-right: 1rem;
   text-align: left;
@@ -396,8 +464,8 @@ const TableHeader = styled.span`
   font-weight: 500;
 `;
 
-const TableBody = styled.span`
-	width: ${(props) => (props.spanWidth ? '65px' : '80%')};;
+const TableBody = styled.td`
+	width: ${(props) => (props.spanWidth ? '65px' : '80%')};
   padding-left: 1rem;
 	margin-right: 1rem;
   text-align: left;
@@ -406,6 +474,11 @@ const TableBody = styled.span`
 
 	@media(max-width: 960px) {
 		width: auto;
+		display: ${(props) => (props.displayNone ? 'none' : 'static')}
+	}
+
+	@media(max-width: 420px) {
+		display: ${(props) => (props.displayNone ? 'none' : 'static')}
 	}
 `;
 
@@ -420,12 +493,9 @@ class RelevanceMatch extends Component {
 			isOportunitesModal: false,
 			isShowFavorites: false,
 			inputSearch: false,
+			inputSearchMobile: false,
 			isModalOpen: false,
 		};
-	}
-
-	componentDidMount() {
-		this.props.getAllOpportunitiesThunk(this.state.opportunities);
 	}
 
 	hoverFavorites = () => {
@@ -437,30 +507,37 @@ class RelevanceMatch extends Component {
 	handleKeyPress = (event) => {
 		event.preventDefault();
 		const keyword = this.inputSearch.value.replace(' ', '').trim();
-		const alreadyExisting = this.props.keywords.filter(item => item === keyword).length > 0;
+		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
 			this.props.addItem(keyword);
+			this.props.getAllOpportunitiesThunk();
 		}
 		this.inputSearch.value = '';
-	}	
-
-	handleKeyClick = (event) => {
-		if (event) {
-			event.preventDefault();
-			this.props.addItem(this.state.keywords);
-		}
+		this.setState({
+			textNull: false,
+		});
 	}
 
 	handleClick = (event) => {
 		event.preventDefault();
 		this.props.addList();
+		// this.setState({
+		// 	textNull: false,
+		// });
 	}
 
 	handleOpenModal = () => {
-		this.resetInput()
 		const { isModalOpen } = this.state;
-		this.setState({ isModalOpen: !isModalOpen });
+		if (this.props.keywords.length === 0) {
+			this.setState({ textNull: true });
+		} else {
+			this.resetInput();
+			this.setState({
+				isModalOpen: !isModalOpen,
+				textNull: false,
+			});
+		}
 	}
 
 	renderModalFilter = () => (
@@ -476,6 +553,7 @@ class RelevanceMatch extends Component {
 	renderList = () => this.props.keywords.map((keyword) => {
 		const handleClick = () => {
 			this.props.removeItem(keyword);
+			this.props.getAllOpportunitiesThunk();
 		};
 
 		return (
@@ -483,9 +561,9 @@ class RelevanceMatch extends Component {
 				key={keyword}
 			>
 				<KeywordText>{keyword}</KeywordText>
-				<ClosedKeyword onClick={handleClick}>X</ClosedKeyword> 
+				<ClosedKeyword onClick={handleClick}><img src={DeletTag}/></ClosedKeyword>
 			</ListKeyword>
-		)
+		);
 	});
 
 	handleInputSearch = () => {
@@ -496,116 +574,147 @@ class RelevanceMatch extends Component {
 		this.setState({ inputSearch: false });
 	}
 
-	handleSearchInput = () => (
+	renderSearchInput = () => (
 		<>
-		<FormHead onSubmit= {this.handleKeyPress}>
-			<LabelBox 
-				borderRadius= {this.state.inputSearch ? '16px 16px 0 0' : '1rem'}
-			>
-				<InputHead
-					ref={(node) => { this.inputSearch = node; }}
-					onFocus= {this.handleInputSearch}
-					placeholder= "Digite aqui para pesquisar"
-				/>
-				<AddKeyword
-				>+</AddKeyword>
-			</LabelBox>
-		</FormHead>
-		{this.state.inputSearch && (			
-			<WrapperKeyword>
-				<Wraptext>
-					{this.props.keywords.length > 0 && this.renderList() }
-				</Wraptext>
-				<BtnCreateFilter onClick={this.handleOpenModal}>
-					<ImgFilter src={FilterImg}/>
-					Salvar Filtro
-				</BtnCreateFilter>
-			</WrapperKeyword>
-		)}
+			<FormHead onSubmit={this.handleKeyPress}>
+				<LabelBox
+					borderRadius={this.state.inputSearch ? '16px 16px 0 0' : '1rem'}
+				>
+					<InputHead
+						ref={(node) => { this.inputSearch = node; }}
+						onFocus={this.handleInputSearch}
+						placeholder="Digite aqui para pesquisar"
+					/>
+					<AddKeyword
+					>+</AddKeyword>
+				</LabelBox>
+			</FormHead>
+			{this.state.inputSearch && (
+				<WrapperKeyword>
+					<Wraptext>
+						{this.props.keywords.length > 0 && this.renderList()}
+					</Wraptext>
+					<ContainerText>
+						{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave.</TextNull>}
+					</ContainerText>
+					<BtnCreateFilter onClick={this.handleOpenModal}>
+						<ImgFilter src={FilterImg} />
+						Salvar Notificação
+					</BtnCreateFilter>
+				</WrapperKeyword>
+			)}
 		</>
 	)
 
-	handleFavorite = (event, oportunityId) => {
-		event.stopPropagation();
-		this.props.putFavorite(oportunityId);
+	handleSearchMobile = () => {
+		this.setState({ inputSearchMobile: true });
 	}
 
-	handleDesfavor  = (event, oportunityId) => {
+	handleFavorite = (event, opportunityId) => {
 		event.stopPropagation();
-		this.props.removeFavorite(oportunityId);
+		this.props.putFavorite(opportunityId);
 	}
 
-	handleModalOportunities = () => {
-		const { isOportunitesModal } = this.state;
-		this.setState({ isOportunitesModal: !isOportunitesModal });
+	handleDesfavor = (event, opportunityId) => {
+		event.stopPropagation();
+		this.props.removeFavorite(opportunityId);
+	}
+
+	handleModalOportunities = (opportunity) => {
+		this.setState((prevState) => ({
+			isOportunitesModal: !prevState.isOportunitesModal,
+		}));
+		this.props.getOpportunityByIdThunk(opportunity);
 	}
 
 	renderModalOportunities = () => (
 		<DetailsOportunities handleModalOportunities={this.handleModalOportunities} />
 	)
 
-	showFavorites = () => {
-		const { oportunities } = this.props;
-
-		const filterFaves = values(oportunities).filter((item) => item.favorite);
-
-		this.setState({ filterFaves });
-		console.log('oioio', filterFaves);
-	}
-
 	handleOpotunity = () => {
-		const { isShowFavorites } = this.state;
-
-		this.setState({ isShowFavorites: !isShowFavorites });
-		console.log('favorito', this.state.isShowFavorites);
+		this.setState((prevState) => ({
+			isShowFavorites: !prevState.isShowFavorites,
+		}));
 	}
-  
-	render() {
-		const {
-			isOportunitesModal, isShowFavorites, inputShare, isModalOpen,
-		} = this.state;
-  	return (
+
+	renderHeader = () => {
+		return (
+			<WrapperTable>
+				<Table>
+					<HeaderRow>
+						<TableHeader boxWidth><img src={start} /></TableHeader>
+						<TableHeader boxWidth>Fit</TableHeader>
+						<TableHeader>Empresa</TableHeader>
+						<TableHeader>Id</TableHeader>
+						<TableHeader>Título e Descrição</TableHeader>
+						<TableHeader>Prazo</TableHeader>
+					</HeaderRow>
+				</Table>
+			</WrapperTable>
+		);
+	}
+
+	renderOpportunityList = () => {
+		let list = [];
+
+		if (this.state.isShowFavorites) {
+			list = this.props.favoriteList.map((item) => this.props.opportunities[item]);
+		} else {
+			list = values(this.props.opportunities);
+		}
+
+		return !(values(this.props.opportunities).length > 0 && this.props.keywords.length > 0) ? <ContainerMessageOpportunity>
+			<TextMessageOpportunity>Pesquise por uma palavra-chave para visualizar oportunidades.</TextMessageOpportunity>
+		</ContainerMessageOpportunity> : (
 			<Fragment>
-				<MenuResponsive />
+				{ this.renderHeader() }
+
+				{ list.map((item) => {
+					const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
+
+					const handleFavorite = (event) => {
+						if (isFavorite) {
+							this.handleDesfavor(event, item.opportunityId);
+						} else {
+							this.handleFavorite(event, item.opportunityId);
+						}
+					};
+
+					return (
+						<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
+							<TableBody
+								spanWidth
+								onClick={handleFavorite}
+							>
+								<img src={isFavorite ? start : startHover} />
+							</TableBody>
+							<TableBody spanWidth>{item.fit}%</TableBody>
+							<TableBody>{item.category}</TableBody>
+							<TableBody>{item.opportunityId}</TableBody>
+							<TableBody>{item.titleDescription}</TableBody>
+							<TableBody>
+								{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
+							</TableBody>
+						</TableRow>
+					);
+				})}
+			</Fragment>
+		);
+	};
+
+
+	render() {
+		const { isOportunitesModal, isModalOpen, inputSearchMobile } = this.state;
+		return (
+			<Fragment>
+				<MenuResponsive
+					closedMenu={this.resetInput}
+					currentScreen={this.props.currentScreen}
+					closeInput={this.resetInput}
+					history={this.props.history} />
 				<Container>
 					<Content>
 						<WrapperHead>
-							<BoxHeader>
-								<HeaderText>Oportunidades selecionadas</HeaderText>
-							</BoxHeader>
-							<WrapperForm>
-								<Form onSubmit={this.handleKeyPress}>
-									<BoxInput>
-										<TitleInput>Pesquisar</TitleInput>
-										<WrapInput>
-
-											{this.handleSearchInput()}
-											{this.state.inputSearch &&
-												<Overlay
-													onClick={this.resetInput}
-												></Overlay>
-											}
-
-										</WrapInput>
-									</BoxInput>
-									<Button
-										type="button"
-										value="1"
-										onClick = {this.handleOpotunity}
-										style={{
-											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
-											color: this.state.hoverFavorites ? '#fff' : '#404040',
-										}
-										}
-									>
-										<img src={this.state.hoverFavorites ? startHover : start}/>
-										Favoritos
-									</Button>
-								</Form>
-							</WrapperForm>
-						</WrapperHead>
-						{this.renderOportunity}
-						<WrapperHeadMobile>
 							<BoxHeader>
 								<HeaderText>Oportunidades</HeaderText>
 							</BoxHeader>
@@ -613,84 +722,95 @@ class RelevanceMatch extends Component {
 								<Form onSubmit={this.handleKeyPress}>
 									<BoxInput>
 										<TitleInput>Pesquisar</TitleInput>
-										<LabelBox mobile>
-											<ImgShare src={shareIcon}/>
-										</LabelBox>
+										<WrapInput>
+											{this.renderSearchInput()}
+											{this.state.inputSearch
+												&& <Overlay
+													onClick={this.resetInput}
+												></Overlay>
+											}
+										</WrapInput>
 									</BoxInput>
 									<Button
 										type="button"
 										value="1"
-										onClick={this.renderOportunity}
+										onClick={this.handleOpotunity}
+										style={{
+											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
+											color: this.state.hoverFavorites ? '#fff' : '#404040',
+										}}
+									>
+										<FavoriteImage src={this.state.hoverFavorites ? startHover : start} />
+										Favoritos
+									</Button>
+								</Form>
+							</WrapperForm>
+						</WrapperHead>
+						{this.renderOpportunity}
+						<WrapperHeadMobile>
+							<BoxHeader>
+								<HeaderText
+									style={{ display: inputSearchMobile ? 'none' : 'flex' }}
+								>Oportunidades</HeaderText>
+							</BoxHeader>
+							<WrapperForm>
+								<Form onSubmit={this.handleKeyPress}>
+									<BoxInput>
+										<TitleInput>Pesquisar</TitleInput>
+										{/* {this.state.inputSearchMobile && this.renderSearchInput()} */}
+										<WrapInput>
+											{this.state.inputSearchMobile && this.renderSearchInput()}
+											{this.state.inputSearch
+												&& <Overlay
+													onClick={this.resetInput}
+												></Overlay>
+											}
+										</WrapInput>
+										<ImgSearch src={searchIcon}
+											style={{ display: inputSearchMobile ? 'none' : 'flex' }}
+											onClick={this.handleSearchMobile} />
+									</BoxInput>
+									<Button
+										type="button"
+										value="1"
+										onClick={this.renderOpportunity}
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
 										}
 										}
 									>
-										<img src={this.state.hoverFavorites ? startHover : start}/>
+										<img src={this.state.hoverFavorites ? startHover : start} />
 									</Button>
 								</Form>
-								<WrapperKeyword>
+								{/* <WrapperKeyword>
 									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword>
+								</WrapperKeyword> */}
 							</WrapperForm>
 						</WrapperHeadMobile>
-
 					</Content>
-					<WrapperTable>
+					{/* <WrapperTable>
 						<Table>
 							<HeaderRow>
-								<TableHeader boxWidth><img src={start}/></TableHeader>
+								<TableHeader boxWidth><img src={start} /></TableHeader>
 								<TableHeader boxWidth>Fit</TableHeader>
 								<TableHeader>Categoria</TableHeader>
 								<TableHeader>Id</TableHeader>
 								<TableHeader>Título e descrição</TableHeader>
 								<TableHeader>Prazo</TableHeader>
 							</HeaderRow>
-
-							<Fragment>
-								{isShowFavorites ? this.renderOportunity() : null}
-							</Fragment>
-
-
-							{values(this.props.oportunities).map((item) => {
-								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.oportunityId).length === 0)
-
-								const handleFavorite = (event) => {
-									if (isFavorite) {
-										this.handleDesfavor(event, item.oportunityId);
-									} else {
-										this.handleFavorite(event, item.oportunityId);
-									}
-								}
-								return (
-								<TableRow key={item} onClick={this.handleModalOportunities}>
-									<TableBody
-										spanWidth
-										onClick={handleFavorite}
-									>
-										<img src={isFavorite ? start : startHover}/>
-									</TableBody>
-									<TableBody spanWidth>{item.fit}</TableBody>
-									<TableBody>{item.category}</TableBody>
-									<TableBody>{item.oportunityId}</TableBody>
-									<TableBody>{item.titleDescription}</TableBody>
-									<TableBody>
-										{item.deadLineInitial}
-										{item.deadLineLastOne}
-									</TableBody>
-								</TableRow>
-							)})}
-						</Table>
-					</WrapperTable>
+							</Table>
+						</WrapperTable> */}
+						
+					{this.renderOpportunityList()}
 					<Fragment>
-						{ isOportunitesModal && this.renderModalOportunities() }
-						{ isModalOpen && this.renderModalFilter() }
+						{isOportunitesModal && this.renderModalOportunities()}
+						{isModalOpen && this.renderModalFilter()}
 					</Fragment>
 				</Container>
 				<Footer />
 			</Fragment>
-  	);
+		);
 	}
 }
 

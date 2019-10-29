@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 // Images
 import LogoImg from '../assets/img/LogoPNE.png';
@@ -16,6 +17,20 @@ import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
+import { logoutThunk } from '../dataflow/thunks/login-thunk';
+import { get } from 'http';
+
+const mapStateToProps = (state) => ({
+	nameUser: state.login.nameUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	logoutThunk: (info) => {
+		dispatch(logoutThunk(info));
+	},
+});
+
+
 const Container = styled.div`
 	// width: 280px;
 	width: 100%;
@@ -24,9 +39,12 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
+  background: #FFF;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
+	@media(max-width: 768px) {
+		border-radius: 0;
+	}
 `;
 
 const NavBar = styled.div`
@@ -41,7 +59,7 @@ const NavBar = styled.div`
 
 const BoxLogo = styled.figure`
   width: 100%;
-  height: 15%;
+	height: 15vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,12 +97,13 @@ const ImageMenuTablet = styled.img`
 
 const BoxMenu = styled.div`
   width: 100%;
-  height: 40%;
+	// height: 40%;
+	height: 300px;
   display: flex;
 	justify-content: flex-end;
 	
 	@media (max-width: 1024px) {
-		height: 60%;
+		height: 65%;
 	}
 	@media (max-width: 375px) {
 		height: 100%;
@@ -125,7 +144,6 @@ const MenuItem = styled(Link)`
   font-weight: 900;
   padding-left: 1rem;
   background-color: ${(props) => (props.selected ? '#116EA015' : 'transparent')};
-  color: #116ea0;
   border-radius: 18px 0 0 18px;
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};
@@ -139,11 +157,11 @@ const MenuItem = styled(Link)`
 
 const WrapperInfo = styled.div`
   width: 80%;
-	height: 12%;
+	height: 18%;
   display: flex;
   align-items: center;
   justify-centent: center;
-  border-top: solid #000 1px;
+  border-top: solid #EBEBEB 1px;
 
 	@media(max-width: 375px) {
 		display: none;
@@ -165,26 +183,27 @@ const BoxInfo = styled.div`
 `;
 
 const InfoItem = styled.p`
-	padding: 1rem 0;
+	display: none;
+	${'' /* padding: 1rem 0;
   color: #000;
   font-size: .875rem;
-  font-weight: 900;
+  font-weight: 900; */}
 `;
 
 const Representative = styled.p`
+	font: 500 Eurostile, sans-serif;
   color: #000;
   font-size: .875rem;
   font-weight: 100;
 `;
 
 const Button = styled.button`
-  width: 58px;
-  height: 20px;
+	width: 75px;
+	height: 25px;
   background: #dbe9f1;
   border-radius: 10px;
   border-style: none; 
   cursor: pointer;
-	outline: none;
 `;
 
 class SideBar extends Component {
@@ -202,8 +221,8 @@ class SideBar extends Component {
 				{
 					disable: false,
 					iconSelected: FilterImg,
-					text: 'Filtros e notificações',
-					route: '/filters-and-notifications',
+					text: 'Notificações',
+					route: '/notifications',
 				},
 				{
 					disable: true,
@@ -251,7 +270,12 @@ class SideBar extends Component {
 		};
 	}
 
+	handleLogout = () => {
+		this.props.logoutThunk({history: this.props.history});
+	}
+
 	render() {
+		const { nameUser } = this.props;
 		return (
 			<Container>
 				<NavBar>
@@ -267,7 +291,7 @@ class SideBar extends Component {
 								<MenuItem
 									key={item.text}
 									disable={item.disable}
-									selected={item.text === this.state.selectedItem}
+									selected={item.route === this.props.currentScreen}
 									to={item.route}
 								>
 									<IconSideBar src={item.iconSelected} />
@@ -281,10 +305,10 @@ class SideBar extends Component {
 					<Contentinfo>
 						<BoxInfo>
 							<InfoItem>Snowball Solutions</InfoItem>
-							<Representative>Pedro Gualandi</Representative>
+							<Representative>{nameUser}</Representative>
 						</BoxInfo>
 						<span>
-							<Button>Sair</Button>
+							<Button onClick={this.handleLogout}>Sair</Button>
 						</span>
 					</Contentinfo>
 				</WrapperInfo>
@@ -293,5 +317,4 @@ class SideBar extends Component {
 	}
 }
 
-
-export default SideBar;
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

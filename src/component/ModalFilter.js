@@ -1,5 +1,5 @@
 // Libs
-import React, { Component, Fragment } from 'react';
+import React, { Component, div } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -7,16 +7,16 @@ import styled from 'styled-components';
 import closeIcon from '../assets/icon/close-blue.svg';
 
 // Modules
-import { updateCard } from '../dataflow/modules/keywordsFilter-modules';
+import { postKeywordThunk } from '../dataflow/thunks/opportunities-thunk';
 
 const mapStateToProps = (state) => ({
-	keywords: state.oportunities.cardFilter.keywords,
+	keywords: state.opportunities.cardFilter.keywords,
 	// cardFilter: state.card.cardFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	updateCard: (info) => {
-		dispatch(updateCard(info));
+	postKeywordThunk: (info) => {
+		dispatch(postKeywordThunk(info));
 	},
 });
 
@@ -30,22 +30,25 @@ const Overlay = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: #40404040;
+	z-index: 2;
 `;
 
 const FilterModal = styled.div`
-	padding: 0 1.5rem;
-	padding-bottom: 1.5rem;
+	padding: 1rem;
 	width: 35rem;
 	border: .5px solid #115680;
 	border-radius: 8px;
 	background: #fff;
 	@media (max-width: 960px) {
-		z-index: 1;
+		z-index: 2;
 	}
+
+	@media (max-width: 960px) {
+		padding: 1rem;
+	}
+
 	@media (max-width: 648px) {
-		padding: 0 1rem;
-		width: 92%;
-		height: 65%;
+		width: 90%;
 	}
 `;
 
@@ -60,9 +63,8 @@ const Header = styled.div`
 
 const CloseContainer = styled.div`
 	position: absolute;
-	// right: .65rem;
-	left: 31.5rem;
-	bottom: 1.5rem;
+	right: -1.25rem;
+	top: -2rem;
 	width: 30px;
 	height: 30px;
 	display: flex;
@@ -71,12 +73,14 @@ const CloseContainer = styled.div`
 	border: 0.5px solid #115680;
 	border-radius: 50%;
 	background-color: #fff;
-	@media (max-width: 640px) {
-    top: .5rem;
-    bottom: 0;
-		left: 16.5rem;
-    width: 35px;
-    height: 35px;
+
+	@media(max-width: 960px) {
+		top: -2rem;
+		${'' /* left: 32rem; */}
+	}
+	@media (max-width: 648px) {
+		top: 0;
+		right: 0;
 	}
 `;
 
@@ -101,7 +105,6 @@ const InputBox = styled.span`
 	position: relative;
 	display: flex;
 	flex-direction: ${(props) => (props.alt ? 'row' : 'column')};
-	// justify-content: ${(props) => props.alt && 'space-between'};
 	width: 100%;
 	margin-top: ${(props) => props.last && '.5rem'};
 	@media (max-width: 960px) {
@@ -158,6 +161,19 @@ const Input = styled.input`
 	}
 `;
 
+const TextErrorBox = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
+
+const TextError = styled.p`
+	font: 500 .80rem eurostile, sans serif;
+	color: #D53B40;
+	@media (max-width: 960px) {
+		margin: .1rem 0;
+	}
+`;
+
 const Button = styled.button`
 	padding: 1rem;
 	width: 100%;
@@ -180,10 +196,22 @@ const WrapperTagsColor = styled.div`
 // `;
 
 const ContainerTagsColor = styled.div`
-	margin: .8rem 0;
+	margin: .5rem;
 	height: 4rem;
 	display: flex;
 	justify-content: space-between;
+
+	${'' /* @media(max-width: 768px) {
+		height: auto;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+	} */}
+
+	@media(max-width: 520px) {
+    height: auto
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+	}
 `;
 
 // const SuggestionsTags = styled.span`
@@ -198,8 +226,15 @@ const TagColor = styled.div`
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
-	background-color: ${(props) => props.backgroundColor}
+	background-color: ${(props) => props.backgroundColor};
 	cursor: pointer;
+	${props => props.selectedColor && `
+		border: solid 4px #116EA0;
+	`}
+
+	@media(max-width: 520px) {
+		margin: .5rem;
+	}
 `;
 
 const Wraptext = styled.ul`
@@ -215,31 +250,30 @@ const Wraptext = styled.ul`
 const TagText = styled.p`
 	font-size: .85rem;
 	color: #8C8C8C;
-	margin-right: 1rem;
+	margin: 0.5rem 0.5rem 0 0;
 `;
 
 const KeywordText = styled.li`
 	width: auto;
 	height: 20px;
 	margin: 0.5rem 0.35rem 0 0;
-	padding: 0 .5rem;
+	padding: 0.5rem .5rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
-	background: #01B0B7;
-	${''}
+	background: ${props => props.color}30;
 	border-radius: 10px;
 	list-style:none;
 	font-size: .85rem;
-	color: #404040;
+	color: #40404090;
 `;
 
 class ModalFilter extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			selectedColor: '#DE8F33',
 			nameValue: '',
-
 			colors: [
 				'#DE8F33',
 				'#D65B85',
@@ -254,42 +288,55 @@ class ModalFilter extends Component {
 
 	handleChangeName = (event) => {
 		this.setState({ nameValue: event.target.value });
-		console.log(event.target.value);
 	}
 
 	handleColorOption = (color) => {
-		this.setState({ item: color });
-		console.log(color);
+		this.setState({ selectedColor: color });
 	}
 
+	handleselectedColor = () => {
+		this.setState({ selectedColor: true });
+	}
 
 	handleCard = (event) => {
 		event.stopPropagation();
-		this.props.updateCard({
-			cardName: this.state.nameValue,
-			cardColor: this.state.item,
+
+		if (!this.state.nameValue) {
+			this.setState({ emptyName: true });
+		} else {
+			this.props.postKeywordThunk({
+				name: this.state.nameValue.trim(),
+				color: this.state.selectedColor,
+				keywords: this.handleKeywordsObject(),
+			});
+
+			this.props.handleOpenModal();
+		}
+	}
+
+	handleKeywordsObject = () => {
+		let keywordsObject = this.props.keywords.map((item) => {
+			return { name: item };
 		});
+
+		return keywordsObject;
 	}
 
 	renderColorOption = () => {
-		const { colors } = this.state;
+		const { colors, selectedColor } = this.state;
 
 		return colors.map((color) => (
 			<TagColor
 				key={color}
 				backgroundColor={color}
+				selectedColor={selectedColor === color}
 				onClick={() => this.handleColorOption(color)}
 			/>
 		));
 	}
 
 	renderKeywordsList = () => this.props.keywords.map((keyword) => (
-		<Fragment
-			key={keyword}
-			className='btn'
-		>
-			<KeywordText>{keyword}</KeywordText>
-		</Fragment>
+		<KeywordText color={this.state.selectedColor}>{keyword}</KeywordText>
 	))
 
 	render() {
@@ -297,7 +344,7 @@ class ModalFilter extends Component {
 			<Overlay>
 				<FilterModal>
 					<Header>
-						<Title modalTitle>Adicionar Filtro</Title>
+						<Title modalTitle>Adicionar Notificação</Title>
 						<CloseContainer onClick={this.props.handleOpenModal}>
 							<CloseButton>
 								<CloseImage src={closeIcon} />
@@ -311,6 +358,9 @@ class ModalFilter extends Component {
 							onChange={this.handleChangeName}
 							value={this.state.nameValue}
 						/>
+						<TextErrorBox>
+							{this.state.emptyName && <TextError>Por favor digite um nome</TextError>}
+						</TextErrorBox>
 					</InputBox>
 					<InputBox last>
 						{/* <Label>Digite as tags relacionadas</Label>
@@ -322,18 +372,6 @@ class ModalFilter extends Component {
 							{this.renderKeywordsList()}
 						</Wraptext>
 					</InputBox>
-					{/* <WrapperTexts suggestions>
-						<SuggestionsText suggestionsTitle>Sugestões:</SuggestionsText>
-						<SuggestionsTags>
-							<SuggestionsText suggestionsTags>montagem</SuggestionsText>
-						</SuggestionsTags>
-						<SuggestionsTags>
-							<SuggestionsText suggestionsTags>Instrumental</SuggestionsText>
-						</SuggestionsTags>
-						<SuggestionsTags>
-							<SuggestionsText suggestionsTags>elétrica</SuggestionsText>
-						</SuggestionsTags>
-					</WrapperTexts> */}
 					<WrapperTagsColor>
 						<Label>Escolha uma cor</Label>
 						<ContainerTagsColor>
@@ -342,7 +380,7 @@ class ModalFilter extends Component {
 						<Button
 							onClick={this.handleCard}
 						>
-							<Title>Adicionar Filtro</Title>
+							<Title>Adicionar Notificação</Title>
 						</Button>
 					</WrapperTagsColor>
 				</FilterModal>

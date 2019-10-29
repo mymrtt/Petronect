@@ -1,5 +1,6 @@
 // Libs
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
 
@@ -13,15 +14,32 @@ import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
+// Redux
+import { getAllKeywordThunk } from '../../dataflow/thunks/opportunities-thunk';
+import { removeAllNotification } from '../../dataflow/modules/opportunities-modules';
+
+const mapStateToProps = (state) => ({
+	allNotification: state.opportunities.allNotification,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	getAllKeywordThunk: (info) => {
+		dispatch(getAllKeywordThunk(info));
+	},
+	removeAllNotification: (info) => {
+		dispatch(removeAllNotification(info));
+	},
+});
+
 const Container = styled.div`
+	width: 80%;
 	@media (max-width: 960px) {
-		width: 95vw;
-		height: 100%;
+		width: 95%;
+		height: 100vh;
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
 		width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,22 +50,18 @@ const Container = styled.div`
 const Content = styled.div`
 	padding-top: 1.3rem;
 	padding-right: 1rem;
-  width: 75vw;
 	height: 95vh;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
   border-radius: 0 4px 0 0;
 	background-color: #fff;
-	@media (max-width: 960px) {
+	@media(max-width: 960px) {
 		width: 95vw;
-		// height: 100%;
-		// overflow-y: scroll;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		margin-top: 6rem;
 		padding-top: .60rem;
-		// height: auto;
 		flex-direction: column;
 		border-radius: 4px;
 		overflow-y: scroll;
@@ -67,19 +81,19 @@ const AddFilterTitle = styled.p`
 const ContainerNotifications = styled.div`
 	padding-left: 1rem;
 	width: 25%;
-	height: 70vh
+	height: 70vh;
 	display: flex;
 	flex-direction: column;
 	border-left: 1px solid #0000001A;
-	@media (max-width: 960px) {
+	@media(max-width: 960px) {
 		width: 45%;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		margin-bottom: 4rem;
-		padding-top: 1rem;
+		// padding-top: 6rem;
 		padding-left: .5rem;
 		width: 100%;
-		height: 45vh;
+		height: 100%;
 		border-left: 0;
 	}
 `;
@@ -92,7 +106,7 @@ const ContainerSearchInput = styled.div`
 	align-items: center;
 	border: .5px solid #116EA0;
 	border-radius: 16px;
-	@media (max-width: 640px) {
+	@media(max-width: 640px) {
     margin-left: .5rem;
 		height: 2.5rem;
     width: 100%;
@@ -119,7 +133,7 @@ const WrapperSearch = styled.div`
 	padding-bottom: 2rem;
 	width: 100%;
 
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		padding-bottom: .60rem;
 		width: 100%;
 	}
@@ -127,7 +141,7 @@ const WrapperSearch = styled.div`
 
 const NotificationsItem = styled.div`
 	margin-bottom: 1rem;
-	padding: .45rem .80rem .80rem;
+	padding: .45rem .80rem 1rem;
 	display: flex;
 	flex-direction: column;
 	border: .5px solid #E6E6E6;
@@ -143,14 +157,14 @@ const SearchInput = styled.input`
 	height: 1rem;
 	border: transparent;
 	outline: none;
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		width: 85%;
-		height: 2rem;
 	}
 `;
 
 const Image = styled.img`
 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
+	cursor: ${(props) => props.magnifying && 'pointer'};
 	@media (max-width: 640px) {
 		width: ${(props) => props.magnifying && '18px'};
 	}
@@ -174,14 +188,18 @@ const ContainerFilters = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	@media (max-width: 960px) {
+	@media(max-width: 960px) {
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
+		// min-height: 85%;
 	}
-	@media (max-width: 648px) {
+	@media(max-width: 648px) {
 		margin-left: .5rem;
-    width: 100%;
+		padding-bottom: 1rem;
+		width: 100%;
+		height: 85%;
+		flex-wrap: nowrap;
 	}
 `;
 
@@ -192,7 +210,7 @@ class Filters extends Component {
 			isModalOpen: false,
 			CardList: {
 				card1: {
-					title: 'Sistema de offshore',
+					title: 'Sistema de offshore   aquiiiii',
 					tags: [
 						'instrumental',
 						'montagem',
@@ -228,34 +246,46 @@ class Filters extends Component {
 					],
 				},
 			},
+			searchText: '',
+			searchCard: false,
 		};
 	}
 
+	componentDidMount() {
+		this.props.getAllKeywordThunk();
+	}
+
+	componentWillUnmount() {
+		this.props.removeAllNotification();
+	}
+
 	renderCardsFilter = () => {
-		const { CardList } = this.state;
+		const { allNotification } = this.props;
 
 		return (
 			<ContainerFilters>
-				{ values(CardList).map((card) => (
-					<CardFilter
-						key={card.title}
-						item={this.state.item}
+				{values(allNotification).map((card) => {
+					return 	<CardFilter
+						key={card.keywordFilterId}
 						card={card}
+						history={this.props.history}
 						handleOpenModal={this.handleOpenModal}
-					/>
-				))}
+					/>;
+				})}
 			</ContainerFilters>
 		);
 	}
 
 	renderWrapperSearch = () => (
 		<WrapperSearch>
-			<AddFilterTitle searchTitle smallTitle>Pesquisar filtro</AddFilterTitle>
+			<AddFilterTitle searchTitle smallTitle>Pesquisar Notificação</AddFilterTitle>
 			<ContainerSearchInput>
 				<SearchInput
 					placeholder={'Digite aqui para pesquisar'}
+					value={this.state.searchText}
+					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} />
+				<Image magnifying src={magnifying} onClick={this.handleSearchMagnifying} />
 			</ContainerSearchInput>
 		</WrapperSearch>
 	)
@@ -270,16 +300,18 @@ class Filters extends Component {
 	)
 
 	render() {
-		const { isModalOpen } = this.state;
+		const { isModalOpen, searchCard } = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive />
+				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
 					<Content>
 						<ContainerSearchMobile>
 							{this.renderWrapperSearch()}
 						</ContainerSearchMobile>
-						{this.renderCardsFilter()}
+						<Fragment>
+							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+						</Fragment>
 						<ContainerNotifications>
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
@@ -287,15 +319,15 @@ class Filters extends Component {
 							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
 							<NotificationsItem>
 								<Label labelNotifications>E-mail</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={100} />
 							</NotificationsItem>
-							<NotificationsItem>
+							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>Push</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={0} />
 							</NotificationsItem>
-							<NotificationsItem>
+							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
 								<Label labelNotifications>SMS</Label>
-								<NotificationsBar />
+								<NotificationsBar min={0} max={0} />
 							</NotificationsItem>
 						</ContainerNotifications>
 						{ isModalOpen && this.renderModalFilter() }
@@ -308,4 +340,5 @@ class Filters extends Component {
 }
 
 
-export default Filters;
+// export default Filters;
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

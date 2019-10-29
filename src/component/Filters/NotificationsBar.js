@@ -97,8 +97,8 @@ class NotificationsBar extends Component {
 				<Proceed>
 					<Slider
 						type="range"
-						min="0"
-						max="100"
+						min={this.props.min}
+						max={this.props.max}
 						value={this.state.value}
 						onChange={this.handleChangeValue}
 					/>
