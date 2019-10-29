@@ -370,6 +370,7 @@ const TextMessageOpportunity = styled.p`
 const WrapperTable = styled.div`
 	position: relative;
   width: 100%;
+	height: 75vh;
 	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
