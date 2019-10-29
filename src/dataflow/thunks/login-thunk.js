@@ -71,8 +71,8 @@ export const sendRecoverPassword = (info) => (
 				dispatch(updateRecoverSuccess(true));
 				dispatch(verifyEmailExisting(null));
 			}
-				dispatch(verifyEmailExisting(responseEmail.data));
-			} catch (err) {
+			dispatch(verifyEmailExisting(responseEmail.data));
+		} catch (err) {
 		}
 	}
 );
