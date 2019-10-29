@@ -65,7 +65,7 @@ class DashBoard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentScreen: 'match',
+			currentScreen: 'match-relevancia',
 			redirect: false,
 		};
 	}

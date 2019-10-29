@@ -116,19 +116,8 @@ const Text = styled.p`
 `;
 
 const Image = styled.img`
-	width: ${(props) => (props.logoTablet ? '25%' : '18px')};
-	@media (max-width: 640px) {
-		width: ${(props) => props.magnifying && '18px'};
-	}
-`;
 
-// const ImageSeach = styled.img`
-// 	width: ${(props) => (props.logoTablet ? '25%' : '15px')};
-// 	margin-left: .5rem;
-// 	@media (max-width: 640px) {
-// 		width: ${(props) => props.magnifying && '18px'};
-// 	}
-// `;
+`;
 
 const Overlay = styled.div`
 	position: absolute;
@@ -271,7 +260,7 @@ class CardFilter extends Component {
 		this.props.updateCard({
 			keywords: this.props.card.keywords,
 		});
-		this.props.history.replace('/match');
+		this.props.history.replace('/match-relevancia');
 		this.props.getAllOpportunitiesThunk();
 	}
 

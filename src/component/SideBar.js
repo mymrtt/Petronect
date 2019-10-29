@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 // Images
+import { get } from 'http';
 import LogoImg from '../assets/img/LogoPNE.png';
 import RelevanceImg from '../assets/icon/icon_menu-Relevancia.svg';
 import FilterImg from '../assets/icon/icon_menu.svg';
@@ -18,7 +19,6 @@ import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
 import { logoutThunk } from '../dataflow/thunks/login-thunk';
-import { get } from 'http';
 
 const mapStateToProps = (state) => ({
 	nameUser: state.login.nameUser,
@@ -271,7 +271,7 @@ class SideBar extends Component {
 	}
 
 	handleLogout = () => {
-		this.props.logoutThunk({history: this.props.history});
+		this.props.logoutThunk({ history: this.props.history });
 	}
 
 	render() {
