@@ -251,7 +251,6 @@ const ContainerText = styled.div`
 const TextNull = styled.p`
 	padding-bottom: 1rem;
 	font-size: .85rem;
-	// color: #404040;
 	color: #115680;
 `;
 
@@ -352,6 +351,9 @@ const ContainerMessageOpportunity = styled.div`
 	height: 50%;
 	display: flex;
 	justify-content: center;
+	@media(max-width: 960px) {
+		padding: 3rem 0;
+	}
 `;
 
 const TextMessageOpportunity = styled.p`
@@ -359,6 +361,9 @@ const TextMessageOpportunity = styled.p`
 	color: #115680;
 	@media(max-width: 640px) {
 		font-size: 1rem;
+	}
+	@media(max-width: 425px) {
+		font-size: .75rem;
 	}
 `;
 
