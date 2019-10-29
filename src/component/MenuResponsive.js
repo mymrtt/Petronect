@@ -126,9 +126,12 @@ const ContainerDropdown = styled.div`
 	width: 100%;
 	height: 12rem;
 	background-color: #fff;
-	border-bottom-right-radius: 6px;
-	border-bottom-left-radius: 6px;
+	border-radius: 0px 0px 8px 8px;
 	z-index: 2;
+	@media(max-width: 648px) {
+		border: #707070 solid .5px;
+		box-shadow: 0px 3px 6px #00000029
+	}
 `;
 
 const DropboxText = styled.p`
