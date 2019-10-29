@@ -359,12 +359,12 @@ class DetailsOportunies extends Component {
 								<Text bold padding='1.44rem 0'>{selectedOpportunity.company}</Text>
 								<InfoContentMobile>
 									<BoxInfo>
-										<Text title fontSize>Id</Text>
+										<Text title fontSize>Número</Text>
 										<Text bold>{selectedOpportunity.opportunityId}</Text>
 									</BoxInfo>
 									<BoxInfo>
 										<Text title fontSize>Prazo</Text>
-										<Text bold>18/06/19 - 28/08/19</Text>
+										<Text bold>18/06/19 à 28/08/19</Text>
 									</BoxInfo>
 								</InfoContentMobile>
 								<CategoryContainer>
@@ -397,12 +397,12 @@ class DetailsOportunies extends Component {
 							</InfoContainer>
 							<InfoContent>
 								<BoxInfo>
-									<Text title fontSize>Id</Text>
+									<Text title fontSize>Número</Text>
 									<Text bold>{selectedOpportunity.opportunityId}</Text>
 								</BoxInfo>
 								<BoxInfo>
 									<Text title fontSize>Prazo</Text>
-									<Text bold>{selectedOpportunity.deadLineInitial} - {selectedOpportunity.deadLineLastOne}</Text>
+									<Text bold>{selectedOpportunity.deadLineInitial} à {selectedOpportunity.deadLineLastOne}</Text>
 								</BoxInfo>
 								<IconWrap>
 									{/* <BtnIcon>

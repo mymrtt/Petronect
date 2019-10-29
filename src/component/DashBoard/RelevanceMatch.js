@@ -18,7 +18,7 @@ import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
-import DeletTag from '../../assets/icon/delete.svg'  
+import DeletTag from '../../assets/icon/delete.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -62,7 +62,8 @@ const Container = styled.div`
 	@media(max-width: 960px) {
 		border-radius: 4px 4px 0 0;
 		width: 95%;
-		height: auto;
+		// height: auto;
+		height: 90vh;
 		margin-top: 3.5rem;
 	}
 `;
@@ -632,6 +633,21 @@ class RelevanceMatch extends Component {
 		}));
 	}
 
+	renderHeader = () => (
+		<WrapperTable>
+			<Table>
+				<HeaderRow>
+					<TableHeader boxWidth><img src={start} /></TableHeader>
+					<TableHeader boxWidth>Fit</TableHeader>
+					<TableHeader>Empresa</TableHeader>
+					<TableHeader>Id</TableHeader>
+					<TableHeader>Título e Descrição</TableHeader>
+					<TableHeader>Prazo</TableHeader>
+				</HeaderRow>
+			</Table>
+		</WrapperTable>
+	)
+
 	renderHeader = () => {
 		return (
 			<WrapperTable>
@@ -785,19 +801,6 @@ class RelevanceMatch extends Component {
 							</WrapperForm>
 						</WrapperHeadMobile>
 					</Content>
-					{/* <WrapperTable>
-						<Table>
-							<HeaderRow>
-								<TableHeader boxWidth><img src={start} /></TableHeader>
-								<TableHeader boxWidth>Fit</TableHeader>
-								<TableHeader>Categoria</TableHeader>
-								<TableHeader>Id</TableHeader>
-								<TableHeader>Título e descrição</TableHeader>
-								<TableHeader>Prazo</TableHeader>
-							</HeaderRow>
-							</Table>
-						</WrapperTable> */}
-						
 					{this.renderOpportunityList()}
 					<Fragment>
 						{isOportunitesModal && this.renderModalOportunities()}

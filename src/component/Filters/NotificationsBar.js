@@ -75,11 +75,14 @@ class NotificationsBar extends Component {
 	renderValues = () => {
 		const { value } = this.state;
 
-		if (value > 0 && value < 51) {
+		if (value > 0 && value < 31) {
 			return <Text>Semanal</Text>;
 		}
-		if (value > 50) {
+		if (value > 30 && value < 71) {
 			return <Text>Diária</Text>;
+		}
+		if (value > 70) {
+			return <Text>Mensal</Text>;
 		}
 		return <Text>Nunca</Text>;
 	}
