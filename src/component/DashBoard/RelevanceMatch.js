@@ -373,8 +373,6 @@ const WrapperTable = styled.div`
   display: flex;
 	flex-direction: column;
 	align-items: center;
-  width: 100%;
-	padding: 0 1rem;
 	background: #fff;
 	overflow: scroll;
 	
@@ -391,16 +389,6 @@ const WrapperTable = styled.div`
 	::-webkit-scrollbar-thumb:hover {
 		background: #000; 
 	}
-`;
-
-const Table = styled.table`
-  width: 100%;
-  background: #fff;
-  border-radius: 5px;
-
-  >:nth-child(odd) {
-    background: #F7F7F7; 
-  }
 `;
 
 const HeaderRow = styled.th`
@@ -438,6 +426,16 @@ const TableRow = styled.tr`
 		align-items: flex-end;
 		padding: .5rem 0;
 	}
+`;
+
+const Table = styled.table`
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+
+  >:nth-child(odd) {
+    background: #F7F7F7; 
+  }
 `;
 
 // const BoxTableBody = styled.div`
@@ -482,7 +480,8 @@ const TableBody = styled.td`
 `;
 
 const ResultText = styled.p`
-
+	padding-left: 1.5rem;
+	margin-bottom: .25rem;
 	align-self: flex-start;
 	font: 300 0.75rem Eurostile;
 `;
@@ -512,7 +511,7 @@ class RelevanceMatch extends Component {
 
 	handleKeyPress = (event) => {
 		event.preventDefault();
-		const keyword = this.inputSearch.value.replace(' ', '').trim();
+		const keyword = this.inputSearch.value.trim();
 		const alreadyExisting = this.props.keywords.filter((item) => item === keyword).length > 0;
 		if (keyword.length > 0 && !alreadyExisting) {
 			event.preventDefault();
@@ -642,7 +641,7 @@ class RelevanceMatch extends Component {
 	)
 
 	renderHeader = (list) => (
-		<WrapperTable>
+		<Fragment>
 			<ResultText>
 				{list.length} Resultado{list.length > 1 && 's'}
 			</ResultText>
@@ -657,7 +656,7 @@ class RelevanceMatch extends Component {
 					<TableHeader>Data Final</TableHeader>
 				</HeaderRow>
 			</Table>
-		</WrapperTable>
+		</Fragment>
 	);
 
 	renderOpportunityList = () => {
@@ -751,6 +750,7 @@ class RelevanceMatch extends Component {
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
+										disable
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',

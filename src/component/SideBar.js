@@ -17,6 +17,7 @@ import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
+// Redux
 import { logoutThunk } from '../dataflow/thunks/login-thunk';
 
 const mapStateToProps = (state) => ({
@@ -31,7 +32,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 const Container = styled.div`
-	// width: 280px;
 	width: 100%;
   height: 100%;
   display: flex;

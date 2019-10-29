@@ -175,7 +175,10 @@ class MenuResponsive extends Component {
 
 	renderMenu = () => (
 		<ContainerSidebar>
-			<SideBar handleMenuOpen={this.handleMenuOpen} history={this.props.history}/>
+			<SideBar
+				handleMenuOpen={this.handleMenuOpen}
+				history={this.props.history}
+				currentScreen={this.props.currentScreen}/>
 		</ContainerSidebar>
 	)
 
@@ -206,6 +209,7 @@ class MenuResponsive extends Component {
 	render() {
 		const { isMenuOpen, isOpenDropdown } = this.state;
 		const { nameUser } = this.props;
+
 		return (
 			<Container>
 				<WrapperLogoTablet menu>
