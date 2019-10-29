@@ -386,16 +386,6 @@ const WrapperTable = styled.div`
 	}
 `;
 
-const Table = styled.table`
-  width: 100%;
-  background: #fff;
-  border-radius: 5px;
-
-  >:nth-child(odd) {
-    background: #F7F7F7; 
-  }
-`;
-
 const HeaderRow = styled.th`
   width: 100%;
   height: 32px; 
@@ -631,7 +621,6 @@ class RelevanceMatch extends Component {
 
 	renderHeader = () => {
 		return (
-<<<<<<< HEAD
 			<HeaderRow>
 				<TableHeader boxWidth><img src={start} /></TableHeader>
 				<TableHeader boxWidth>Fit</TableHeader>
@@ -640,20 +629,6 @@ class RelevanceMatch extends Component {
 				<TableHeader>Título e Descrição</TableHeader>
 				<TableHeader>Prazo</TableHeader>
 			</HeaderRow>
-=======
-			<WrapperTable>
-				<Table>
-					<HeaderRow>
-						<TableHeader boxWidth><img src={start} /></TableHeader>
-						<TableHeader boxWidth>Relevância</TableHeader>
-						<TableHeader>Empresa</TableHeader>
-						<TableHeader>Id</TableHeader>
-						<TableHeader>Título e Descrição</TableHeader>
-						<TableHeader>Prazo</TableHeader>
-					</HeaderRow>
-				</Table>
-			</WrapperTable>
->>>>>>> 6f003a0943228d295411681218d0630bd63bec47
 		);
 	}
 
