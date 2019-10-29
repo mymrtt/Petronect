@@ -62,8 +62,8 @@ const Container = styled.div`
 	@media(max-width: 960px) {
 		border-radius: 4px 4px 0 0;
 		width: 95%;
-		// height: auto;
-		height: 90vh;
+		max-height: 100vh;
+		height: 100%;
 		margin-top: 3.5rem;
 	}
 `;
@@ -348,7 +348,8 @@ const FavoriteImage = styled.img`
 `;
 
 const ContainerMessageOpportunity = styled.div`
-	height: 80%;
+	max-height: 80vh;
+	height: 80vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -371,6 +372,7 @@ const WrapperTable = styled.div`
 	position: relative;
   width: 100%;
 	height: 75vh;
+	max-height: 75vh;
 	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
