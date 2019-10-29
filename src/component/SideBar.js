@@ -178,7 +178,7 @@ const Contentinfo = styled.div`
  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 `;
 
 const BoxInfo = styled.div`

@@ -8,7 +8,7 @@ import * as Cookies from 'js-cookie';
 // Components
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
-import Filters from '../Filters/Filters';
+import Filters from '../Notifications/Filters';
 
 import {
 	getNameUser,
