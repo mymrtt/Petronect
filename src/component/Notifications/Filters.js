@@ -41,6 +41,7 @@ const Container = styled.div`
 	@media (max-width: 648px) {
 		position: fixed;
 		width: 100%;
+		height: 41rem;
     display: flex;
     justify-content: center;
     align-items: center;
