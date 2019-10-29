@@ -379,6 +379,7 @@ const WrapperTable = styled.div`
 	align-items: center;
 	background: #fff;
 	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 	
 	::-webkit-scrollbar {
   width: 5px;
