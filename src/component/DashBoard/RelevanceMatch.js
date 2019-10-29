@@ -62,7 +62,8 @@ const Container = styled.div`
 	@media(max-width: 960px) {
 		border-radius: 4px 4px 0 0;
 		width: 95%;
-		height: auto;
+		// height: auto;
+		height: 90vh;
 		margin-top: 3.5rem;
 	}
 `;
@@ -110,7 +111,7 @@ const BoxHeader = styled.span`
 
 const HeaderText = styled.p`
   padding: 0 1.5rem;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: bold;
 	color: #116EA0;
 	@media(max-width: 1024px) {
@@ -348,10 +349,10 @@ const FavoriteImage = styled.img`
 `;
 
 const ContainerMessageOpportunity = styled.div`
-	padding-top: 10rem;
-	height: 50%;
+	height: 80%;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 `;
 
 const TextMessageOpportunity = styled.p`
@@ -364,6 +365,8 @@ const TextMessageOpportunity = styled.p`
 
 const WrapperTable = styled.div`
 	position: relative;
+  width: 100%;
+	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -385,19 +388,13 @@ const WrapperTable = styled.div`
 	::-webkit-scrollbar-thumb:hover {
 		background: #000; 
 	}
-
-	@media(max-width: 960px) {
-	}
-
-	@media(max-width: 648px) {
-	}
 `;
 
 const Table = styled.table`
   width: 100%;
   background: #fff;
   border-radius: 5px;
-	${''}
+
   >:nth-child(odd) {
     background: #F7F7F7; 
   }
@@ -419,7 +416,6 @@ const HeaderRow = styled.th`
 const TableRow = styled.tr`
   width: 100%;
 	padding: 1rem 0;
-	padding-left: 1rem;
 	display: flex;
 	align-items: center;
   border-radius: 4px;
@@ -680,40 +676,41 @@ class RelevanceMatch extends Component {
 			)
 			: (
 				<Fragment>
-					{this.renderHeader(list)}
+					<WrapperTable>
+						{this.renderHeader()}
+						{list.map((item) => {
+							const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
 
-					{list.map((item) => {
-						const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
+							const handleFavorite = (event) => {
+								if (isFavorite) {
+									this.handleDesfavor(event, item.opportunityId);
+								} else {
+									this.handleFavorite(event, item.opportunityId);
+								}
+							};
 
-						const handleFavorite = (event) => {
-							if (isFavorite) {
-								this.handleDesfavor(event, item.opportunityId);
-							} else {
-								this.handleFavorite(event, item.opportunityId);
-							}
-						};
-
-						return (
-							<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
-								<TableBody
-									spanWidth
-									onClick={handleFavorite}
-								>
-									<img src={isFavorite ? start : startHover} />
-								</TableBody>
-								<TableBody spanWidth>{item.fit}%</TableBody>
-								<TableBody>{item.company}</TableBody>
-								<TableBody>{item.opportunityId}</TableBody>
-								<TableBody>{item.titleDescription}</TableBody>
-								<TableBody>
-									{item.deadLineInitial}
-								</TableBody>
-								<TableBody>
-									{item.deadLineLastOne}
-								</TableBody>
-							</TableRow>
-						);
-					})}
+							return (
+								<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
+									<TableBody
+										spanWidth
+										onClick={handleFavorite}
+									>
+										<img src={isFavorite ? start : startHover} />
+									</TableBody>
+									<TableBody spanWidth>{item.fit}%</TableBody>
+									<TableBody>{item.company}</TableBody>
+									<TableBody>{item.opportunityId}</TableBody>
+									<TableBody>{item.titleDescription}</TableBody>
+									<TableBody>
+										{item.deadLineInitial}
+									</TableBody>
+									<TableBody>
+										{item.deadLineLastOne}
+									</TableBody>
+								</TableRow>
+							);
+						})}
+					</WrapperTable>
 				</Fragment>
 			);
 	};
