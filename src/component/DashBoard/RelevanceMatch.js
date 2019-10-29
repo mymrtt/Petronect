@@ -358,6 +358,7 @@ const ContainerMessageOpportunity = styled.div`
 const TextMessageOpportunity = styled.p`
 	font-size: 1.3rem;
 	color: #115680;
+	text-align: center;
 	@media(max-width: 640px) {
 		font-size: 1rem;
 	}
@@ -750,7 +751,7 @@ class RelevanceMatch extends Component {
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
-										disable
+										disabled
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
