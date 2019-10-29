@@ -40,11 +40,15 @@ const Container = styled.div`
 	}
 	@media (max-width: 648px) {
 		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		width: 100%;
 		// height: 41rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+		align-items: center;
 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 	}
 `;
@@ -140,6 +144,7 @@ const ContainerSearchMobile = styled.div`
 	display: none;
 	@media(max-width: 648px) {
 		width: 100%;
+		height: 5rem;
 		display: flex;
 		justify-content: center;
 	}
@@ -200,11 +205,28 @@ const Label = styled.label`
 
 const ContainerFilters = styled.div`
 	width: 90%;
+	height: 100%;
 	padding: 0 1rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
+	overflow-y: scroll;
+
+	::-webkit-scrollbar {
+		width: 3px;
+	}
+	::-webkit-scrollbar-track {
+		background: #fff; 
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #000; 
+	}
+
 	@media(max-width: 960px) {
 		padding: 0;
 		align-items: flex-start;
@@ -216,21 +238,6 @@ const ContainerFilters = styled.div`
 		width: 100%;
 		// min-height: 100%;
 		flex-wrap: nowrap;
-		overflow-y: scroll;
-
-		::-webkit-scrollbar {
-			width: 2px;
-			}
-			::-webkit-scrollbar-track {
-				background: #fff; 
-			}
-			::-webkit-scrollbar-thumb {
-				border-radius: 4px;
-				background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-			}
-			::-webkit-scrollbar-thumb:hover {
-				background: #000; 
-			}
 	}
 `;
 
