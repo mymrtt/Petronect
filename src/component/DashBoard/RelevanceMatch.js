@@ -631,6 +631,7 @@ class RelevanceMatch extends Component {
 
 	renderHeader = () => {
 		return (
+<<<<<<< HEAD
 			<HeaderRow>
 				<TableHeader boxWidth><img src={start} /></TableHeader>
 				<TableHeader boxWidth>Fit</TableHeader>
@@ -639,6 +640,20 @@ class RelevanceMatch extends Component {
 				<TableHeader>Título e Descrição</TableHeader>
 				<TableHeader>Prazo</TableHeader>
 			</HeaderRow>
+=======
+			<WrapperTable>
+				<Table>
+					<HeaderRow>
+						<TableHeader boxWidth><img src={start} /></TableHeader>
+						<TableHeader boxWidth>Relevância</TableHeader>
+						<TableHeader>Empresa</TableHeader>
+						<TableHeader>Id</TableHeader>
+						<TableHeader>Título e Descrição</TableHeader>
+						<TableHeader>Prazo</TableHeader>
+					</HeaderRow>
+				</Table>
+			</WrapperTable>
+>>>>>>> 6f003a0943228d295411681218d0630bd63bec47
 		);
 	}
 

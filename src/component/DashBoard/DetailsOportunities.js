@@ -108,9 +108,8 @@ const CloseContainer = styled.div`
 	border: 0.5px solid #E6E6E6;
 	border-radius: 50%;
 	background-color: #DBE9F1;
+	z-index: 2;
 	@media (max-width: 648px) {
-		position: relative;
-		bottom: 0.44rem;
 		background-color: #FFF;
 		border-color: #115680;
 	}
@@ -123,7 +122,6 @@ const CloseButton = styled.button`
 	color: #115680;
 	border: none;
 	background: transparent;
-	outline: none;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
