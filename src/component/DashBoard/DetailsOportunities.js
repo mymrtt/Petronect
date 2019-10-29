@@ -133,7 +133,7 @@ const CloseImage = styled.img`
 
 const DetailsOportuny = styled.div`
 	max-width: 900px;
-	padding: 1.5rem 3.5rem 0 3.5rem;
+	padding: .75rem 3.5rem 0 3.5rem;
 	display: flex;
 	@media (max-width: 648px) {
 		padding: 1.5rem 1.8rem 0 1rem;
@@ -162,11 +162,8 @@ const CategoryContainer = styled.div`
 `;
 
 const InfoWrap = styled.span`
+	width: 95%;
 	padding-bottom: .7rem;
-	${'' /* @media (max-width: 648px) {
-		display: flex;
-		flexDirection: row; */}
-	}
 `;
 
 const Description = styled.p`
@@ -196,9 +193,6 @@ const IconWrap = styled.span`
 	width: 100%;
 	display: flex;
 	justify-content: flex-start;
-	${'' /* @media (max-width: 648px) {
-		width: 27%;
-	} */}
 `;
 
 const InfoContentMobile = styled.div`
@@ -216,9 +210,6 @@ const IconWrapMobile = styled.span`
 		display: flex;
 		justify-content: space-between;
 	}
-	${'' /* @media (max-width: 545px) {
-		width: 30%;
-	} */}
 `;
 
 const BtnIcon = styled.button`
