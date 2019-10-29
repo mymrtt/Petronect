@@ -262,6 +262,7 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen, searchCard } = this.state;
+		console.log(this.props.currentScreen);
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>

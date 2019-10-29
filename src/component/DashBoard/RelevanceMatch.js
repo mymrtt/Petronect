@@ -677,7 +677,7 @@ class RelevanceMatch extends Component {
 			: (
 				<Fragment>
 					<WrapperTable>
-						{this.renderHeader()}
+						{this.renderHeader(list)}
 						{list.map((item) => {
 							const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
 

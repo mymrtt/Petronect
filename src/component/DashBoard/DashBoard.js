@@ -8,7 +8,7 @@ import * as Cookies from 'js-cookie';
 // Components
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
-import Filters from '../Filters/Filters';
+import Filters from '../Notifications/Filters';
 
 import {
 	getNameUser,
@@ -95,10 +95,10 @@ class DashBoard extends Component {
 	renderCurrentScreen = () => {
 		switch (this.state.currentScreen) {
 		case '/notifications':
-			return <Filters history={this.props.history} currentScreen={this.props.currentScreen}/>;
+			return <Filters history={this.props.history} currentScreen={this.state.currentScreen}/>;
 		case '/match-relevancia':
 		default:
-			return <RelevanceMatch history={this.props.history}/>;
+			return <RelevanceMatch history={this.props.history} currentScreen={this.state.currentScreen}/>;
 		}
 	}
 
