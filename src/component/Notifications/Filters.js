@@ -108,7 +108,7 @@ const ContainerNotifications = styled.div`
 		// padding-top: 6rem;
 		padding-left: .5rem;
 		width: 100%;
-		height: 100rem;
+		height: 100%;
 		border-left: 0;
 	}
 `;
@@ -213,7 +213,7 @@ const ContainerFilters = styled.div`
 		margin-left: .5rem;
 		padding-bottom: 1rem;
 		width: 100%;
-		height: 100%;
+		// min-height: 100%;
 		flex-wrap: nowrap;
 	}
 `;
