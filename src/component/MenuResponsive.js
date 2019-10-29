@@ -164,6 +164,7 @@ class MenuResponsive extends Component {
 		super(props);
 		this.state = {
 			isMenuOpen: false,
+			isMenuClosed: false,
 			isOpenDropdown: false,
 		};
 	}
@@ -212,7 +213,7 @@ class MenuResponsive extends Component {
 				</WrapperLogoTablet>
 				{ isMenuOpen && (
 					<>
-						<Overlay onClick={this.props.closedMenu}/>
+						<Overlay onClick={this.handleMenuOpen}/>
 						{this.renderMenu()}
 					</>
 				)}

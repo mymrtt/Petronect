@@ -146,7 +146,6 @@ const BoxInput = styled.div`
 
 	@media (max-width: 648px) {
 		width: 75%;
-		position: relative;
 		justify-content: flex-end;
 	}
 `;
@@ -206,7 +205,7 @@ const WrapperKeyword = styled.div`
 	z-index: 2;
 
 	@media(max-width: 648px) {
-		width: 100%;
+		width: 70%;
 		position: absolute;
 	}
 `;

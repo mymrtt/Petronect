@@ -108,6 +108,7 @@ const CloseContainer = styled.div`
 	border: 0.5px solid #E6E6E6;
 	border-radius: 50%;
 	background-color: #DBE9F1;
+	z-index: 2;
 	@media (max-width: 648px) {
 		position: relative;
 		bottom: 0.44rem;
