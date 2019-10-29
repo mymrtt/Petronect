@@ -1,11 +1,22 @@
+/* eslint-disable no-empty */
 // Libs
 import * as Cookies from 'js-cookie';
 
 // Actions
-import { updateError, updateCreateSuccess } from '../modules/login-module';
+import {
+	updateError,
+	updateCreateSuccess,
+	updateRecoverSuccess,
+	verifyEmailExisting,
+} from '../modules/login-module';
 
 // Middlewares
-import { loginUserMiddleware, createAccountMiddleware } from '../middlewares/login-middleware';
+import {
+	loginUserMiddleware,
+	createAccountMiddleware,
+	sendRecoverPasswordMiddleware,
+	verifyEmailExistingMiddleware,
+} from '../middlewares/login-middleware';
 
 
 export const loginUserThunk = (info) => (
@@ -17,10 +28,12 @@ export const loginUserThunk = (info) => (
 				'petronect_creds',
 				{
 					accessToken: response.data.Authorization,
+					userId: response.data.UserID,
+					name: response.data.name,
 					username: info.email,
 				},
 			);
-			info.history.replace('/dashboard');
+			info.history.replace('/match-relevancia');
 		} catch (err) {
 			dispatch(updateError(true));
 		}
@@ -34,8 +47,32 @@ export const createAccountThunk = (info) => (
 
 			dispatch(updateCreateSuccess(true));
 		} catch (err) {
-			// console.log(err);
 			dispatch(updateCreateSuccess(false));
+		}
+	}
+);
+
+export const logoutThunk = (info) => (
+	async () => {
+		try {
+			Cookies.remove('petronect_creds');
+			info.history.replace('/');
+		} catch (err) {}
+	}
+);
+
+export const sendRecoverPassword = (info) => (
+	async (dispatch) => {
+		try {
+			const responseEmail = await verifyEmailExistingMiddleware(info);
+
+			if (responseEmail.data) {
+				await sendRecoverPasswordMiddleware(info);
+				dispatch(updateRecoverSuccess(true));
+				dispatch(verifyEmailExisting(null));
+			}
+			dispatch(verifyEmailExisting(responseEmail.data));
+		} catch (err) {
 		}
 	}
 );

@@ -10,13 +10,15 @@ import hidePassword from '../../assets/icon/login-hide-password.svg';
 import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 
 // Redux
-import { loginUserThunk, createAccountThunk } from '../../dataflow/thunks/login-thunk';
+import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
-import { updateError } from '../../dataflow/modules/login-module';
+import { updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting } from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
 	error: state.login.error,
 	createSuccess: state.login.createSuccess,
+	recoverSuccess: state.login.recoverSuccess,
+	isEmailExisting: state.login.verifyEmailExisting,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,6 +31,18 @@ const mapDispatchToProps = (dispatch) => ({
 	createAccountThunk: (info) => {
 		dispatch(createAccountThunk(info));
 	},
+	updateCreateSuccess: (info) => {
+		dispatch(updateCreateSuccess(info));
+	},
+	sendRecoverPassword: (info) => {
+		dispatch(sendRecoverPassword(info));
+	},
+	updateRecoverSuccess: (info) => {
+		dispatch(updateRecoverSuccess(info));
+	},
+	verifyEmailExisting: (info) => {
+		dispatch(verifyEmailExisting(info));
+	},
 });
 
 // Styled
@@ -38,14 +52,18 @@ const Container = styled.div`
 	min-height: 100vh;
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
-	@media (max-width: 768px) {
-		padding-bottom: 2rem;
+	@media (max-width: 960px) {
+		flex-direction: ${(props) => !(props.screen === 'create') && 'column-reverse'};
+		justify-content: center;
 		align-items: center;
-		flex-direction: column-reverse;
 	}
+	@media (max-width: 650px) {
+		padding: 0 2rem;
+	}
+
+
 	@media (max-width: 450px) {
 		padding: 1rem;
-		justify-content: flex-end;
 	}
 `;
 
@@ -58,10 +76,11 @@ const InputContainer = styled.form`
 	height: 90vh;
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
+		margin: 1rem 0;
 		padding: 2rem;
 		width: 85%;
-		height: 80vh;
+		height: min-content;
 		border-radius: 6px;
 	}
 	@media (max-width: 450px) {
@@ -78,20 +97,18 @@ const Logo = styled.img`
 	margin: 1rem 0;
 	@media (max-width: 450px) {
 		width: 55%;
+		min-width: 180px;
 	}
 `;
 
 const LogoCreate = styled.img`
-	position: absolute;
-	top: 10%;
-	width: 10vw;
+	${'' /* position: absolute;
+	top: 10%; */}
 	width: 20%;
-	@media(max-width: 768px) {
+	min-width: 275px;
+	@media(max-width: 960px) {
 		padding: 2rem;
     width: 30%;
-	}
-	@media(max-width: 648px) {
-    width: 55%;
 	}
 `;
 
@@ -103,12 +120,11 @@ const InputBox = styled.span`
 	width: ${(props) => props.width};
 	margin-top: ${(props) => props.last && '.5rem'};
 	
-	@media (max-width: 768px) {
-		width: 60%;
+	@media (max-width: 960px) {
+		width: 100%;
 	}
-	
-	@media (max-width: 450px) {
-		width: 90%;
+	@media (max-width: 478px) {
+		flex-direction: ${(props) => (props.lastResponsiveResponsive ? '0rem' : '.5rem')};
 	}
 `;
 
@@ -128,8 +144,6 @@ const Input = styled.input`
 	background: #FAFAFA 0% 0% no-repeat padding-box;
 	border: 1px solid ${(props) => (props.error ? '#D53B40' : '#7FBA4C')};
 	border-radius: 4px;
-	outline: none;
-
 	::placeholder {
 		font: 300 1rem Open Sans, sans serif;
 		letter-spacing: 0;
@@ -149,23 +163,20 @@ const IconInputPassword = styled.img`
 const Button = styled.button`
 	width: ${(props) => props.width};
 	height: 3rem;
-	margin-top: 2.5rem;
-	background: #115680;
-	box-shadow: 0px 3px 6px #00000029;
+	margin-top: ${(props) => (props.backMargin ? '1.5rem' : '2.5rem')};
+	background: ${(props) => (props.back ? '#FFF' : '#115680')};
 	border: none;
 	border-radius: 4px;
-	outline: none;
-	text-align: center;
 	font: 600 1rem eurostile, sans serif;
+	text-align: center;
 	letter-spacing: 0;
-	color: #FAFAFA;
+	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
 	cursor: pointer;
-
-	@media (max-width: 768px) {
-		width: 100%;
+	@media (max-width: 960px) {
+		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
 	}
 	@media (max-width: 450px) {
-		width: 90%;
+		margin-top: .5rem;
 	}
 `;
 
@@ -173,11 +184,11 @@ const AltBox = styled.span`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 52.5%;
+	width: 64%;
 	margin-top: 3rem;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		margin-top: 1rem;
-		width: 60%;
+		width: 94%;
 	}
 	@media (max-width: 450px) {
 		margin-top: 0;
@@ -191,6 +202,9 @@ const Link = styled.p`
 	color: ${(props) => props.color || '#505050'} ;
 	text-decoration: ${(props) => (props.color ? 'underline' : 'none')} ;
 	cursor: pointer;
+	:last lastResponsive-child {
+		text-align: right;
+	}
 `;
 
 const LoginBox = styled.div`
@@ -201,9 +215,9 @@ const LoginBox = styled.div`
 	width: 60%;
 	height: 90vh;
 	border-radius: 0 0 6px 6px;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		width: 95%;
-    height: 65vh;
+    height: 40vh;
 		justify-content: space-evenly;
 		flex-direction: row-reverse;
 	}
@@ -214,14 +228,14 @@ const LoginBox = styled.div`
 
 const Img = styled.img`
 	width: 60%;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
     width: 50%;
 	}
 `;
 
 const TextBox = styled.span`
 	width: 60%;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
     width: 35%;
 	}
 `;
@@ -232,7 +246,7 @@ const Text = styled.p`
 	letter-spacing: 0.18px;
 	line-height: 2rem;
 	color: #FFFFFF;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		margin: 0;
 	}
 `;
@@ -242,19 +256,18 @@ const LoginMessageError = styled.span`
 	right: 0;
 	bottom: -1.5rem;
 
-	@media	(max-width: 768px) {
-		width: 55%;
+	@media	(max-width: 960px) {
+		${'' /* width: 55%; */}
 	}
 	@media (max-width: 450px) {
-		width: 85%;
+		${'' /* width: 85%; */}
 	}
 `;
 
 const TextError = styled.p`
 	font: 500 .80rem eurostile, sans serif;
 	color: #D53B40;
-
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		margin: .1rem 0;
 	}
 `;
@@ -268,41 +281,46 @@ const CreateContainer = styled.div`
 	width: 100%;
 `;
 
-const CreateBox = styled.form`
+const CreateBox = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 30%;
-	min-width: 360px;
 	padding: 3rem 4rem;
 	background: #FFF;
 	box-shadow: 0px 1px 2px #0000001A;
 	border-radius: 4px;
 	transition: width 1s; 
-
 	@media(max-width: 1440px) {
 		width: 50%;
 	}
-	@media(max-width: 768px) {
-		width: 75%;
+	@media(max-width: 960px) {
+		margin: 1rem 0;
+		width: 90%;
 	}
 	@media(max-width: 648px) {
+
 		padding: 2rem;
+	}
+	@media(max-width: 450px) {
+		width: 100%;
 	}
 `;
 
 const TermsText = styled.p`
-	width: 90%;
+	${'' /* width: 90%; */}
 	margin: 1.5rem 0 -1rem;
 	font: 400 0.875rem Eurostile;
 	letter-spacing: 0;
 	color: #505050;
-
 	strong {
 		text-decoration: underline;
 	}
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 100%;
+	}
+	@media(max-width: 450px) {
+		margin-bottom: 1rem;
 	}
 `;
 
@@ -312,33 +330,9 @@ const CreateTitle = styled.h1`
 	font: 700 1.5rem Eurostile;
 	letter-spacing: 0;
 	color: #116EA0;
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		font-size: 1.3rem;
-	}
-`;
-
-const CreatedBox = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 30%;
-	min-width: 360px;
-	padding: 3rem 4rem;
-	background: #FFF;
-	box-shadow: 0px 1px 2px #0000001A;
-	border-radius: 4px;
-	transition: width 1s; 
-
-	@media(max-width: 1440px) {
-		width: 50%;
-	}
-	@media(max-width: 768px) {
-		width: 75%;
-		padding: 2rem;
-	}
-	@media(max-width: 425px) {
-		width: 95%;
-	}
+	};
 `;
 
 const CreatedText = styled.div`
@@ -357,6 +351,41 @@ const BackText = styled.div`
 	color: #116EA0;
 `;
 
+const ButtonsBox = styled.div`
+	display: flex;
+	justify-content: space-between;
+	@media (max-width: 450px) {
+		flex-wrap: column;
+		margin-top: 2.5rem;
+	}
+`;
+
+const Form = styled.form`
+	width: 95%;
+	@media (max-width: 450px) {
+		width: 100%;
+		flex-wrap: column;
+		margin-top: 2.5rem;
+	}
+`;
+
+const ButtonBack = styled.span`
+	display: flex;
+	align-items: center;
+	justify-content: ${(props) => (props.createAccount ? 'center' : 'start')};
+	width: ${(props) => (props.createAccount ? '100%' : '45%')};
+	height: 3rem;
+	margin-top: ${(props) => (props.createAccount ? '1rem' : '2.5rem')};
+	background: #FFF;
+	font: 600 1rem eurostile, sans serif;
+	text-align: left;
+	color: #115680;
+	cursor: pointer;
+	@media (max-width: 450px) {
+		margin-top: .5rem;
+	}
+`;
+
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -364,6 +393,7 @@ class Login extends Component {
 			currentScreen: 'login',
 			isCreated: false,
 			showPassword: true,
+			error: undefined,
 		};
 	}
 
@@ -385,7 +415,89 @@ class Login extends Component {
 	handleError = () => {
 		if (this.props.error) {
 			this.props.updateError(false);
-		} return null;
+		}
+
+		if (this.props.createSuccess === false) {
+			this.props.updateCreateSuccess(null);
+		}
+
+		if (this.props.isEmailExisting === false) {
+			this.props.verifyEmailExisting(true);
+		}
+
+		if (this.state.error) {
+			this.setState({
+				error: undefined,
+			});
+		}
+		
+		return null;
+	}
+
+	handleCreate = () => {
+		if (this.state.currentScreen !== 'create') {
+			this.setState({
+				currentScreen: 'create',
+				error: undefined,
+			});
+			this.props.updateError(false);
+		}
+	}
+
+	handleRecoverPassword = () => {
+		if (this.state.currentScreen !== 'recoverPassword') {
+			this.setState({
+				currentScreen: 'recoverPassword',
+			});
+		}
+	}
+
+	handleBackLogin = () => {
+		if (this.state.currentScreen !== 'login') {
+			this.props.updateRecoverSuccess(false);
+			this.setState({
+				currentScreen: 'login',
+				isCreated: false,
+				error: '',
+			});
+		}
+	}
+
+	createSubmit = (ev) => {
+		ev.preventDefault();
+
+		if (this.createPasswordRef.value.trim().length > 5) {
+			this.props.createAccountThunk({
+				name: this.createNameRef.value,
+				email: this.createEmailRef.value,
+				password: this.createPasswordRef.value.trim(),
+			});
+			this.setState({
+				isCreated: true,
+			});
+		} else {
+			this.setState({
+				error: 'passwordLength',
+			});
+		}
+	}
+
+	handleBackLoginRecover = () => {
+		this.props.updateRecoverSuccess(false);
+		this.props.verifyEmailExisting(true);
+
+		this.setState({
+			currentScreen: 'login',
+			isCreated: false,
+		});
+	}
+
+	handleSubmitRecover = (ev) => {
+		ev.preventDefault();
+		this.props.sendRecoverPassword(this.inputRecover.value);
+		// this.props.recoverSuccess
+
+		// this.props.verifyEmailExistingThunk(this.inputRecover.value);
 	}
 
 	renderError = () => {
@@ -393,7 +505,37 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-						Endereço de email e/ou senha incorretos
+						Endereço de e-mail e/ou senha incorretos
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		if (this.props.createSuccess === false) {
+			return (
+				<LoginMessageError>
+					<TextError>
+					 	Usuário já cadastrado
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		if (this.state.error === 'passwordLength') {
+			return (
+				<LoginMessageError>
+					<TextError>
+					 	A senha deve conter no minimo 6 caracteres
+					</TextError>
+				</LoginMessageError>
+			);
+		}
+
+		if (!this.props.isEmailExisting) {
+			return (
+				<LoginMessageError>
+					<TextError>
+						Por favor, digite um e-mail valido!
 					</TextError>
 				</LoginMessageError>
 			);
@@ -402,49 +544,22 @@ class Login extends Component {
 		return null;
 	}
 
-	handleCreate = () => {
-		if (this.state.currentScreen !== 'create') {
-			this.setState({
-				currentScreen: 'create',
-			});
-		}
-	}
-
-	createSubmit = (ev) => {
-		ev.preventDefault();
-
-		this.props.createAccountThunk({
-			name: this.createNameRef.value,
-			email: this.createEmailRef.value,
-			password: this.createPasswordRef.value,
-		});
-		this.setState({
-			isCreated: true,
-		});
-	}
-
-	handleBackLogin = () => {
-		this.setState({
-			currentScreen: 'login',
-		});
-	}
-
 	renderLogin = () => <>
 		<InputContainer onSubmit={this.loginSubmit}>
 			<Logo src={logo} />
-			<InputBox width='55%'>
+			<InputBox width='65%'>
 				<Label>E-mail</Label>
 				<Input
 					ref={(node) => { this.loginEmailRef = node; }}
 					required
 					autoFocus
 					type='email'
-					placeholder={'Digite sua senha e-mail'}
+					placeholder={'Digite seu e-mail'}
 					error={this.props.error}
 					onChange={this.handleError}
 				/>
 			</InputBox>
-			<InputBox last width='55%'>
+			<InputBox last lastResponsive width='65%'>
 				<Label>Senha</Label>
 				<Input
 					ref={(node) => { this.loginPasswordRef = node; }}
@@ -461,19 +576,19 @@ class Login extends Component {
 				/>
 				{this.renderError()}
 			</InputBox>
-			<Button width='55%'>
+			<Button width='65%' widthLogin>
 				Entrar
 			</Button>
 			<AltBox>
 				<Link onClick={this.handleCreate} >Criar nova conta</Link>
-				<Link>Recuperar Senha</Link>
+				<Link onClick={this.handleRecoverPassword}>Recuperar Senha</Link>
 			</AltBox>
 		</InputContainer>
 		<LoginBox>
 			<Img src={imagemPrincpal} />
 			<TextBox>
 				<Text>
-					Defina seus filtros, receba contratos selecionados e esqueça como listas de mil itens.
+					Defina suas notificações, receba contratos selecionados e esqueça como listas de mil itens.
 				</Text>
 				<Link onClick={this.handleCreate} color={'#AADF00'}>Criar nova conta</Link>
 			</TextBox>
@@ -485,13 +600,13 @@ class Login extends Component {
 			<LogoCreate src={logoW} />
 			<CreateBox>
 				{this.state.isCreated && this.props.createSuccess
-				// Quando deu sucesso em criar conta
+					// Quando deu sucesso em criar conta
 					? (<>
 						<CreateTitle>
-							Sucesso! Verifique seu caixa de email.
+							Sucesso! Verifique seu caixa de e-mail.
 						</CreateTitle>
 						<CreatedText>
-							Sua conta foi criado com secesso. Por favor, verifique sua caixa de email, para efetuar confirmar a criação da conta!
+							Sua conta foi criado com secesso. Por favor, verifique sua caixa de e-mail, para efetuar confirmar a criação da conta!
 						</CreatedText>
 						<BackText onClick={this.handleBackLogin}>
 							Voltar para o Login
@@ -523,7 +638,6 @@ class Login extends Component {
 								error={this.props.error}
 								onChange={this.handleError}
 							/>
-							{this.renderError()}
 						</InputBox>
 						<InputBox last width='100%'>
 							<Label>Senha</Label>
@@ -532,7 +646,7 @@ class Login extends Component {
 								type={this.state.showPassword ? 'password' : 'text'}
 								required
 								placeholder={'Digite sua senha'}
-								error={this.props.error}
+								error={this.props.error || this.state.error}
 								onChange={this.handleError}
 							/>
 							<IconInputPassword
@@ -540,6 +654,7 @@ class Login extends Component {
 								src={this.state.showPassword ? showPassword : hidePassword}
 								onClick={this.showPassword}
 							/>
+						{this.renderError()}
 						</InputBox>
 						<TermsText>
 							Clique abaixo para concordar com nossos <strong>Termos de Serviço</strong> e se inscrever.
@@ -547,7 +662,64 @@ class Login extends Component {
 						<Button width='100%'>
 							Concordar e criar conta
 						</Button>
+						<ButtonBack createAccount onClick={this.handleBackLogin}>
+							Voltar para o login
+						</ButtonBack>
 					</form>)
+				}
+			</CreateBox>
+		</CreateContainer>
+	)
+
+	renderRecoverPassword = () => (
+		// this.state.isCreated && this.props.createSuccess
+		<CreateContainer>
+			<LogoCreate src={logoW} />
+			<CreateBox>
+				{this.props.recoverSuccess
+				? (<>
+						<CreateTitle>
+							Sucesso! Verifique seu caixa de email.
+						</CreateTitle>
+						<CreatedText>
+							Foi enviado para seu email o link para a troca de senha. Por favor, verifique sua caixa de email, para efetuar a troca de senha!
+						</CreatedText>
+						<BackText onClick={this.handleBackLoginRecover}>
+							Voltar para o Login
+						</BackText>
+					</>)
+				: (<Form onSubmit={this.handleSubmitRecover}>
+						<CreateTitle>
+							Recuperar Senha
+						</CreateTitle>
+						<InputBox last width='100%'>
+							<Label>Email</Label>
+							<Input
+								type='email'
+								required
+								error={!this.props.isEmailExisting}
+								ref={(node) => this.inputRecover = node}
+								placeholder={'nome@email.com'}
+								onChange={this.handleError}
+							/>
+						{this.renderError()}
+						</InputBox>
+						{/* <InputBox last width='100%'>
+							<Label>Confirmar email</Label>
+							<Input
+								type={'email'}
+								placeholder={'nome@email.com'}
+							/>
+						</InputBox> */}
+						<ButtonsBox>
+							<ButtonBack onClick={this.handleBackLoginRecover}>
+								Voltar
+							</ButtonBack>
+							<Button width='45%' widthResponsive>
+								Enviar
+							</Button>
+						</ButtonsBox>
+					</Form>)
 				}
 			</CreateBox>
 		</CreateContainer>
@@ -559,6 +731,8 @@ class Login extends Component {
 			return this.renderLogin();
 		case 'create':
 			return this.renderCreateAccount();
+		case 'recoverPassword':
+			return this.renderRecoverPassword();
 		case 'forgot':
 			return this.renderForgotPassword();
 		case 'password':
@@ -572,7 +746,7 @@ class Login extends Component {
 
 	render() {
 		return (
-			<Container>
+			<Container screen={this.state.screen}>
 				{this.renderCurrentScreen()}
 			</Container>
 		);

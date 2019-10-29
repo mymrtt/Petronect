@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 // Images
 import LogoImg from '../assets/img/LogoPNE.png';
@@ -16,17 +17,33 @@ import ClarificationImg from '../assets/icon/icon_menu-hitorico.svg';
 import NotificationImg from '../assets/icon/icon_menu-notificação.svg';
 import menuHamburger from '../assets/icon/menu_hamburger_blue.svg';
 
+// Redux
+import { logoutThunk } from '../dataflow/thunks/login-thunk';
+
+const mapStateToProps = (state) => ({
+	nameUser: state.login.nameUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	logoutThunk: (info) => {
+		dispatch(logoutThunk(info));
+	},
+});
+
+
 const Container = styled.div`
-	// width: 280px;
 	width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
+  background: #FFF;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
+	@media(max-width: 768px) {
+		border-radius: 0;
+	}
 `;
 
 const NavBar = styled.div`
@@ -41,12 +58,12 @@ const NavBar = styled.div`
 
 const BoxLogo = styled.figure`
   width: 100%;
-  height: 15%;
+	height: 15vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		display: none;
 	}
 `;
@@ -57,7 +74,7 @@ const ImgLogo = styled.img`
 
 const WrapperTablet = styled.div`
 	display: none;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		padding-left: 1.8rem
 		width: auto;
 		height: 20vh;
@@ -70,21 +87,29 @@ const WrapperTablet = styled.div`
 
 const ImageMenuTablet = styled.img`
 	display: none;
-	@media (max-width: 768px) {
+	@media (max-width: 960px) {
 		padding-bottom: .3rem;
-		width: 35%;
+		width: 20%;
 		display: flex;
 	}
 `;
 
+const MenuTabletText = styled.p`
+	margin-left: 0.1rem;
+	font-size: .85rem;
+	color: #115680;
+	text-transform: uppercase;
+`;
+
 const BoxMenu = styled.div`
   width: 100%;
-  height: 40%;
+	// height: 40%;
+	height: 300px;
   display: flex;
 	justify-content: flex-end;
 	
 	@media (max-width: 1024px) {
-		height: 60%;
+		height: 65%;
 	}
 	@media (max-width: 375px) {
 		height: 100%;
@@ -119,13 +144,12 @@ const MenuItem = styled(Link)`
   height: 55px;
   display: flex;
   align-items: center;
-  list-style: none;
+	text-decoration: none;
   font-size: .875rem;
   color: #116EA0;
   font-weight: 900;
   padding-left: 1rem;
   background-color: ${(props) => (props.selected ? '#116EA015' : 'transparent')};
-  color: #116ea0;
   border-radius: 18px 0 0 18px;
   cursor: ${(props) => (props.disable ? 'default' : 'pointer')};
 	opacity: ${(props) => (props.disable ? '0.3' : '1')};
@@ -139,11 +163,11 @@ const MenuItem = styled(Link)`
 
 const WrapperInfo = styled.div`
   width: 80%;
-	height: 12%;
+	height: 18%;
   display: flex;
   align-items: center;
   justify-centent: center;
-  border-top: solid #000 1px;
+  border-top: solid #EBEBEB 1px;
 
 	@media(max-width: 375px) {
 		display: none;
@@ -154,7 +178,7 @@ const Contentinfo = styled.div`
  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 `;
 
 const BoxInfo = styled.div`
@@ -165,26 +189,27 @@ const BoxInfo = styled.div`
 `;
 
 const InfoItem = styled.p`
-	padding: 1rem 0;
+	display: none;
+	${'' /* padding: 1rem 0;
   color: #000;
   font-size: .875rem;
-  font-weight: 900;
+  font-weight: 900; */}
 `;
 
 const Representative = styled.p`
+	font: 500 Eurostile, sans-serif;
   color: #000;
   font-size: .875rem;
   font-weight: 100;
 `;
 
 const Button = styled.button`
-  width: 58px;
-  height: 20px;
+	width: 75px;
+	height: 25px;
   background: #dbe9f1;
   border-radius: 10px;
   border-style: none; 
   cursor: pointer;
-	outline: none;
 `;
 
 class SideBar extends Component {
@@ -197,62 +222,66 @@ class SideBar extends Component {
 					disable: false,
 					iconSelected: RelevanceImg,
 					text: 'Match Relevância',
-					route: '/dashboard',
+					route: '/match-relevancia',
 				},
 				{
 					disable: false,
 					iconSelected: FilterImg,
-					text: 'Filtros e notificações',
-					route: '/filtersandnotifications',
+					text: 'Notificações',
+					route: '/notifications',
 				},
 				{
 					disable: true,
 					iconSelected: PotentialImg,
 					text: 'Análise de Potencial',
-					route: '/potentialanalysis',
+					route: '/potential-analysis',
 				},
 				{
 					disable: true,
 					iconSelected: HistoricImg,
 					text: 'Histórico de oportunidades',
-					route: '/historicalopportunities',
+					route: '/historical-opportunities',
 				},
 				{
 					disable: true,
 					iconSelected: ManagementImg,
 					text: 'Gestão interna',
-					route: '/internalmanagement',
+					route: '/internal-management',
 				},
 				{
 					disable: true,
 					iconSelected: DocumentsImg,
 					text: 'Geração de documentos',
-					route: '/documentgeneration',
+					route: '/document-generation',
 				},
 				{
 					disable: true,
 					iconSelected: TaxImg,
 					text: 'Justificativa de impostos',
-					route: '/taxjustification',
+					route: '/tax-justification',
 				},
 				{
 					disable: true,
 					iconSelected: ClarificationImg,
 					text: 'Histórico de esclarecimentos',
-					route: '/clarificationhistory',
+					route: '/clarification-history',
 				},
 				{
 					disable: true,
 					iconSelected: NotificationImg,
 					text: 'Notificação de resultados',
-					route: '/notificationofresults',
+					route: '/notification-of-results',
 				},
 			],
 		};
 	}
-	// componentDidMount() {}
+
+	handleLogout = () => {
+		this.props.logoutThunk({ history: this.props.history });
+	}
 
 	render() {
+		const { nameUser } = this.props;
 		return (
 			<Container>
 				<NavBar>
@@ -261,6 +290,7 @@ class SideBar extends Component {
 					</BoxLogo>
 					<WrapperTablet>
 						<ImageMenuTablet src={menuHamburger} onClick={this.props.handleMenuOpen} />
+						<MenuTabletText>menu</MenuTabletText>
 					</WrapperTablet>
 					<BoxMenu>
 						<MenuList>
@@ -268,7 +298,7 @@ class SideBar extends Component {
 								<MenuItem
 									key={item.text}
 									disable={item.disable}
-									selected={item.text === this.state.selectedItem}
+									selected={item.route === this.props.currentScreen}
 									to={item.route}
 								>
 									<IconSideBar src={item.iconSelected} />
@@ -282,10 +312,10 @@ class SideBar extends Component {
 					<Contentinfo>
 						<BoxInfo>
 							<InfoItem>Snowball Solutions</InfoItem>
-							<Representative>Pedro Gualandi</Representative>
+							<Representative>{nameUser}</Representative>
 						</BoxInfo>
 						<span>
-							<Button>Sair</Button>
+							<Button onClick={this.handleLogout}>Sair</Button>
 						</span>
 					</Contentinfo>
 				</WrapperInfo>
@@ -294,5 +324,4 @@ class SideBar extends Component {
 	}
 }
 
-
-export default SideBar;
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
+import * as Cookies from 'js-cookie';
+
 
 // Components
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
+import Filters from '../Notifications/Filters';
+
+import {
+	getNameUser,
+} from '../../dataflow/modules/login-module';
+
+const mapDispatchToProps = (dispatch) => ({
+	getNameUser: (info) => {
+		dispatch(getNameUser(info));
+	},
+});
 
 const Container = styled.div`
 	width: 100vw;
@@ -13,22 +28,22 @@ const Container = styled.div`
 	justify-content: center;
 	background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%);
 
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		flex-direction: column;
 		align-items: flex-start;
 		justify-center: center;
 	}
-	@media(max-width: 648px) {
-		background: #fff;
+
+	@media(max-width: 360px) {	
 	}
 `;
 
 const Content = styled.div`
-	width: 92%;
+	width: 95%;
 	height: 95%;
 	display:flex;
 	
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		width: 100%;
  		height: 100%;
 		display: flex;
@@ -39,20 +54,75 @@ const Content = styled.div`
 
 const ContainerSidebar = styled.span`
 	display: flex;
-	@media (max-width: 768px) {
+	// width: 25vw;
+	width: 22vw;
+	@media (max-width: 960px) {
 		display: none;
 	}
 `;
 
-const DashBoard = () => (
-	<Container>
-		<Content>
-			<ContainerSidebar>
-				<SideBar />
-			</ContainerSidebar>
-			<RelevanceMatch />
-		</Content>
-	</Container>
-);
+class DashBoard extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentScreen: 'match-relevancia',
+			redirect: false,
+		};
+	}
 
-export default DashBoard;
+	componentDidMount() {
+		this.setState({
+			currentScreen: this.props.location.pathname,
+		});
+
+		this.handleNameUser();
+	}
+
+	handleNameUser = () => {
+		const { name } = JSON.parse(Cookies.get('petronect_creds'));
+		this.props.getNameUser(name);
+	}
+
+	componentDidUpdate(oldProps) {
+		if (oldProps.location.pathname !== this.props.location.pathname
+			&& this.props.location.pathname !== this.state.currentScreen) {
+			this.setState({
+				currentScreen: this.props.location.pathname,
+			});
+		}
+	}
+
+	renderCurrentScreen = () => {
+		switch (this.state.currentScreen) {
+		case '/notifications':
+			return <Filters history={this.props.history} currentScreen={this.state.currentScreen}/>;
+		case '/match-relevancia':
+		default:
+			return <RelevanceMatch history={this.props.history} currentScreen={this.state.currentScreen}/>;
+		}
+	}
+
+	redirect = () => (
+		<Redirect
+			to={'/'}
+		/>
+	)
+
+	render() {
+		return (
+			<Container>
+				<Content>
+					<ContainerSidebar>
+						<SideBar
+							currentScreen={this.state.currentScreen}
+							history={this.props.history}/>
+					</ContainerSidebar>
+					{this.renderCurrentScreen()}
+				</Content>
+				{this.state.redirect && this.redirect()}
+			</Container>
+		);
+	}
+}
+
+export default connect(null, mapDispatchToProps)(DashBoard);
