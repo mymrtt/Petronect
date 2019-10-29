@@ -23,7 +23,7 @@ const Slider = styled.input`
   width: 100%;
   height: 3px;
   border-radius: 5px;
-  background: #d3d3d3;
+	background: repeating-linear-gradient(90deg, #116EA0, #116EA0 ${(props) => props.value}%, #d3d3d3 ${(props) => props.value + 0.2}%, #d3d3d3 100%);
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
