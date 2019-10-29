@@ -192,13 +192,12 @@ const ContainerFilters = styled.div`
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
-		// min-height: 85%;
 	}
 	@media(max-width: 648px) {
 		margin-left: .5rem;
 		padding-bottom: 1rem;
 		width: 100%;
-		height: 85%;
+		height: 100%;
 		flex-wrap: nowrap;
 	}
 `;
@@ -208,44 +207,6 @@ class Filters extends Component {
 		super(props);
 		this.state = {
 			isModalOpen: false,
-			CardList: {
-				card1: {
-					title: 'Sistema de offshore   aquiiiii',
-					tags: [
-						'instrumental',
-						'montagem',
-						'elétrica',
-						'automoção',
-					],
-				},
-				card2: {
-					title: 'Serviço de montagem',
-					tags: [
-						'montagem',
-						'automoção',
-						'elétrica',
-						'instrumental',
-					],
-				},
-				card3: {
-					title: 'Remoção de material',
-					tags: [
-						'montagem',
-						'instrumental',
-						'automoção',
-						'elétrica',
-					],
-				},
-				card4: {
-					title: 'Manutenção em plataforma',
-					tags: [
-						'cromo-mobilidenio',
-						'corrosão',
-						'jateamento',
-						'rapel',
-					],
-				},
-			},
 			searchText: '',
 			searchCard: false,
 		};
@@ -316,7 +277,7 @@ class Filters extends Component {
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
 							</ContainerSearch>
-							<AddFilterTitle searchTitle smallTitle>Notificações</AddFilterTitle>
+							<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
 							<NotificationsItem>
 								<Label labelNotifications>E-mail</Label>
 								<NotificationsBar min={0} max={100} />

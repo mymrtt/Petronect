@@ -18,7 +18,7 @@ import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
-import DeletTag from '../../assets/icon/delete.svg'  
+import DeletTag from '../../assets/icon/delete.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -62,7 +62,8 @@ const Container = styled.div`
 	@media(max-width: 960px) {
 		border-radius: 4px 4px 0 0;
 		width: 95%;
-		height: auto;
+		// height: auto;
+		height: 90vh;
 		margin-top: 3.5rem;
 	}
 `;
@@ -363,6 +364,7 @@ const TextMessageOpportunity = styled.p`
 `;
 
 const WrapperTable = styled.div`
+	position: relative;
   width: 100%;
 	padding: 0 1rem;
   display: flex;
@@ -423,6 +425,16 @@ const TableRow = styled.tr`
 	}
 `;
 
+const Table = styled.table`
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+
+  >:nth-child(odd) {
+    background: #F7F7F7; 
+  }
+`;
+
 // const BoxTableBody = styled.div`
 // 		display: flex;
 // 		width: auto;
@@ -464,6 +476,14 @@ const TableBody = styled.td`
 	}
 `;
 
+const ResultText = styled.p`
+	padding-left: 1.5rem;
+	margin-bottom: .25rem;
+	align-self: flex-start;
+	font: 300 0.75rem Eurostile;
+`;
+
+
 class RelevanceMatch extends Component {
 	constructor(props) {
 		super(props);
@@ -504,9 +524,6 @@ class RelevanceMatch extends Component {
 	handleClick = (event) => {
 		event.preventDefault();
 		this.props.addList();
-		// this.setState({
-		// 	textNull: false,
-		// });
 	}
 
 	handleOpenModal = () => {
@@ -543,7 +560,7 @@ class RelevanceMatch extends Component {
 				key={keyword}
 			>
 				<KeywordText>{keyword}</KeywordText>
-				<ClosedKeyword onClick={handleClick}><img src={DeletTag}/></ClosedKeyword>
+				<ClosedKeyword onClick={handleClick}><img src={DeletTag} /></ClosedKeyword>
 			</ListKeyword>
 		);
 	});
@@ -555,38 +572,6 @@ class RelevanceMatch extends Component {
 	resetInput = () => {
 		this.setState({ inputSearch: false });
 	}
-
-	renderSearchInput = () => (
-		<>
-			<FormHead onSubmit={this.handleKeyPress}>
-				<LabelBox
-					borderRadius={this.state.inputSearch ? '16px 16px 0 0' : '1rem'}
-				>
-					<InputHead
-						ref={(node) => { this.inputSearch = node; }}
-						onFocus={this.handleInputSearch}
-						placeholder="Digite aqui para pesquisar"
-					/>
-					<AddKeyword
-					>+</AddKeyword>
-				</LabelBox>
-			</FormHead>
-			{this.state.inputSearch && (
-				<WrapperKeyword>
-					<Wraptext>
-						{this.props.keywords.length > 0 && this.renderList()}
-					</Wraptext>
-					<ContainerText>
-						{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave.</TextNull>}
-					</ContainerText>
-					<BtnCreateFilter onClick={this.handleOpenModal}>
-						<ImgFilter src={FilterImg} />
-						Salvar Notificação
-					</BtnCreateFilter>
-				</WrapperKeyword>
-			)}
-		</>
-	)
 
 	handleSearchMobile = () => {
 		this.setState({ inputSearchMobile: true });
@@ -619,18 +604,57 @@ class RelevanceMatch extends Component {
 		}));
 	}
 
-	renderHeader = () => {
-		return (
-			<HeaderRow>
-				<TableHeader boxWidth><img src={start} /></TableHeader>
-				<TableHeader boxWidth>Fit</TableHeader>
-				<TableHeader>Empresa</TableHeader>
-				<TableHeader>Id</TableHeader>
-				<TableHeader>Título e Descrição</TableHeader>
-				<TableHeader>Prazo</TableHeader>
-			</HeaderRow>
-		);
-	}
+	renderSearchInput = () => (
+		<>
+			<FormHead onSubmit={this.handleKeyPress}>
+				<LabelBox
+					borderRadius={this.state.inputSearch ? '16px 16px 0 0' : '1rem'}
+				>
+					<InputHead
+						ref={(node) => { this.inputSearch = node; }}
+						onFocus={this.handleInputSearch}
+						placeholder="Digite aqui para pesquisar"
+					/>
+					<AddKeyword
+					>+</AddKeyword>
+				</LabelBox>
+			</FormHead>
+			{this.state.inputSearch}
+			{this.state.inputSearch && (
+				<WrapperKeyword>
+					<Wraptext>
+						{this.props.keywords.length > 0 && this.renderList()}
+					</Wraptext>
+					<ContainerText>
+						{this.state.textNull && <TextNull> Por favor, insira uma palavra-chave.</TextNull>}
+					</ContainerText>
+					<BtnCreateFilter onClick={this.handleOpenModal}>
+						<ImgFilter src={FilterImg} />
+						Salvar Notificação
+					</BtnCreateFilter>
+				</WrapperKeyword>
+			)}
+		</>
+	)
+
+	renderHeader = (list) => (
+		<Fragment>
+			<ResultText>
+				{list.length} Resultado{list.length > 1 && 's'}
+			</ResultText>
+			<Table>
+				<HeaderRow>
+					<TableHeader boxWidth><img src={start} /></TableHeader>
+					<TableHeader boxWidth>Relevância</TableHeader>
+					<TableHeader>Empresa</TableHeader>
+					<TableHeader>Número</TableHeader>
+					<TableHeader>Título e Descrição</TableHeader>
+					<TableHeader>Data Inicio</TableHeader>
+					<TableHeader>Data Final</TableHeader>
+				</HeaderRow>
+			</Table>
+		</Fragment>
+	);
 
 	renderOpportunityList = () => {
 		let list = [];
@@ -641,44 +665,53 @@ class RelevanceMatch extends Component {
 			list = values(this.props.opportunities);
 		}
 
-		return !(values(this.props.opportunities).length > 0 && this.props.keywords.length > 0) ? <ContainerMessageOpportunity>
-			<TextMessageOpportunity>Pesquise por uma palavra-chave para visualizar oportunidades.</TextMessageOpportunity>
-		</ContainerMessageOpportunity> : (
-			<Fragment>
-				<WrapperTable>
-					{ this.renderHeader() }
-					{ list.map((item) => {
-						const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
+		return !(values(this.props.opportunities).length > 0 && this.props.keywords.length > 0)
+			? (
+				<ContainerMessageOpportunity>
+					<TextMessageOpportunity>
+						Pesquise por uma palavra-chave para visualizar oportunidades.
+					</TextMessageOpportunity>
+				</ContainerMessageOpportunity>
+			)
+			: (
+				<Fragment>
+					<WrapperTable>
+						{this.renderHeader(list)}
+						{list.map((item) => {
+							const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
 
-						const handleFavorite = (event) => {
-							if (isFavorite) {
-								this.handleDesfavor(event, item.opportunityId);
-							} else {
-								this.handleFavorite(event, item.opportunityId);
-							}
-						};
+							const handleFavorite = (event) => {
+								if (isFavorite) {
+									this.handleDesfavor(event, item.opportunityId);
+								} else {
+									this.handleFavorite(event, item.opportunityId);
+								}
+							};
 
-						return (
-							<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
-								<TableBody
-									spanWidth
-									onClick={handleFavorite}
-								>
-									<img src={isFavorite ? start : startHover} />
-								</TableBody>
-								<TableBody spanWidth>{item.fit}%</TableBody>
-								<TableBody>{item.category}</TableBody>
-								<TableBody>{item.opportunityId}</TableBody>
-								<TableBody>{item.titleDescription}</TableBody>
-								<TableBody>
-									{`${item.deadLineInitial}  ${item.deadLineLastOne}`}
-								</TableBody>
-							</TableRow>
-						);
-					})}
-				</WrapperTable>
-			</Fragment>
-		);
+							return (
+								<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
+									<TableBody
+										spanWidth
+										onClick={handleFavorite}
+									>
+										<img src={isFavorite ? start : startHover} />
+									</TableBody>
+									<TableBody spanWidth>{item.fit}%</TableBody>
+									<TableBody>{item.company}</TableBody>
+									<TableBody>{item.opportunityId}</TableBody>
+									<TableBody>{item.titleDescription}</TableBody>
+									<TableBody>
+										{item.deadLineInitial}
+									</TableBody>
+									<TableBody>
+										{item.deadLineLastOne}
+									</TableBody>
+								</TableRow>
+							);
+						})}
+					</WrapperTable>
+				</Fragment>
+			);
 	};
 
 
@@ -762,25 +795,9 @@ class RelevanceMatch extends Component {
 										<img src={this.state.hoverFavorites ? startHover : start} />
 									</Button>
 								</Form>
-								{/* <WrapperKeyword>
-									{this.props.keywords.length > 0 ? this.renderList() : null}
-								</WrapperKeyword> */}
 							</WrapperForm>
 						</WrapperHeadMobile>
 					</Content>
-					{/* <WrapperTable>
-						<Table>
-							<HeaderRow>
-								<TableHeader boxWidth><img src={start} /></TableHeader>
-								<TableHeader boxWidth>Fit</TableHeader>
-								<TableHeader>Categoria</TableHeader>
-								<TableHeader>Id</TableHeader>
-								<TableHeader>Título e descrição</TableHeader>
-								<TableHeader>Prazo</TableHeader>
-							</HeaderRow>
-							</Table>
-						</WrapperTable> */}
-						
 					{this.renderOpportunityList()}
 					<Fragment>
 						{isOportunitesModal && this.renderModalOportunities()}

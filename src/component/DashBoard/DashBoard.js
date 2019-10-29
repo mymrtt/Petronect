@@ -8,7 +8,7 @@ import * as Cookies from 'js-cookie';
 // Components
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
-import Filters from '../Filters/Filters';
+import Filters from '../Notifications/Filters';
 
 import {
 	getNameUser,
@@ -65,7 +65,7 @@ class DashBoard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentScreen: 'match',
+			currentScreen: 'match-relevancia',
 			redirect: false,
 		};
 	}
