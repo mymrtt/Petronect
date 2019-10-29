@@ -40,11 +40,15 @@ const Container = styled.div`
 	}
 	@media (max-width: 648px) {
 		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		width: 100%;
-		height: 41rem;
+		// height: 41rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+		align-items: center;
 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 	}
 `;
@@ -104,11 +108,12 @@ const ContainerNotifications = styled.div`
 		width: 45%;
 	}
 	@media(max-width: 648px) {
-		margin-bottom: 4rem;
-		// padding-top: 6rem;
+		// margin-bottom: 4rem;
+		margin-top: 1rem;
+    margin-bottom: 3rem;
 		padding-left: .5rem;
 		width: 100%;
-		height: 100rem;
+		height: 100%;
 		border-left: 0;
 	}
 `;
@@ -139,6 +144,7 @@ const ContainerSearchMobile = styled.div`
 	display: none;
 	@media(max-width: 648px) {
 		width: 100%;
+		height: 5rem;
 		display: flex;
 		justify-content: center;
 	}
@@ -199,11 +205,28 @@ const Label = styled.label`
 
 const ContainerFilters = styled.div`
 	width: 90%;
+	height: 100%;
 	padding: 0 1rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
+	overflow-y: scroll;
+
+	::-webkit-scrollbar {
+		width: 3px;
+	}
+	::-webkit-scrollbar-track {
+		background: #fff; 
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #000; 
+	}
+
 	@media(max-width: 960px) {
 		padding: 0;
 		align-items: flex-start;
@@ -213,7 +236,7 @@ const ContainerFilters = styled.div`
 		margin-left: .5rem;
 		padding-bottom: 1rem;
 		width: 100%;
-		height: 100%;
+		// min-height: 100%;
 		flex-wrap: nowrap;
 	}
 `;
@@ -303,7 +326,6 @@ class Filters extends Component {
 
 	render() {
 		const { isModalOpen, searchCard } = this.state;
-		console.log(this.props.currentScreen);
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
