@@ -370,8 +370,6 @@ const WrapperTable = styled.div`
   display: flex;
 	flex-direction: column;
 	align-items: center;
-  width: 100%;
-	padding: 0 1rem;
 	background: #fff;
 	overflow: scroll;
 	
@@ -388,16 +386,6 @@ const WrapperTable = styled.div`
 	::-webkit-scrollbar-thumb:hover {
 		background: #000; 
 	}
-`;
-
-const Table = styled.table`
-  width: 100%;
-  background: #fff;
-  border-radius: 5px;
-
-  >:nth-child(odd) {
-    background: #F7F7F7; 
-  }
 `;
 
 const HeaderRow = styled.th`
@@ -435,6 +423,16 @@ const TableRow = styled.tr`
 		align-items: flex-end;
 		padding: .5rem 0;
 	}
+`;
+
+const Table = styled.table`
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+
+  >:nth-child(odd) {
+    background: #F7F7F7; 
+  }
 `;
 
 // const BoxTableBody = styled.div`
@@ -479,7 +477,8 @@ const TableBody = styled.td`
 `;
 
 const ResultText = styled.p`
-
+	padding-left: 1.5rem;
+	margin-bottom: .25rem;
 	align-self: flex-start;
 	font: 300 0.75rem Eurostile;
 `;
@@ -639,7 +638,7 @@ class RelevanceMatch extends Component {
 	)
 
 	renderHeader = (list) => (
-		<WrapperTable>
+		<Fragment>
 			<ResultText>
 				{list.length} Resultado{list.length > 1 && 's'}
 			</ResultText>
@@ -654,7 +653,7 @@ class RelevanceMatch extends Component {
 					<TableHeader>Data Final</TableHeader>
 				</HeaderRow>
 			</Table>
-		</WrapperTable>
+		</Fragment>
 	);
 
 	renderOpportunityList = () => {
