@@ -156,6 +156,7 @@ const ContainerSearchMobile = styled.div`
 		width: 100%;
 		// height: 5rem;
 		display: flex;
+		height: 15vh;
 		// justify-content: center;
 	}
 `;
@@ -172,7 +173,8 @@ const WrapperSearch = styled.div`
 		justify-content: center;
 		flex-direction: column;
     padding-bottom: 1.5rem;
-    width: 100%;
+		width: 100%;
+		height: 100%;
 	}
 `;
 
