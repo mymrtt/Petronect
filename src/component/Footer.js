@@ -28,7 +28,7 @@ const Image = styled.img`
 	}
 `;
 
-const FooterMobileItem = styled.div`
+const FooterMobileItem = styled(Link)`
 	display: none;
 	@media (max-width: 648px) {
 		// margin: 0 .60rem;
@@ -41,10 +41,11 @@ const FooterMobileItem = styled.div`
 		background-color: #116EA015;
 		border-radius: 20px;
 		cursor: pointer;
+		white-space: nowrap;
 	}
 `;
 
-const FooterMobileText = styled(Link)`
+const FooterMobileText = styled.p`
 	@media (max-width: 648px) {
 		margin-left: 0.4rem;
 		font-size: .75rem;
@@ -83,17 +84,21 @@ class Footer extends Component {
 				<FooterMobileItem
 					style={{ backgroundColor: this.state.isBackgroundMath ? '#116EA015' : '#fff' }}
 					onClick={this.handleChangeColorMath}
+					to="/match-relevancia"
 				>
 					<Image src={RelevanceImg} />
-					<FooterMobileText to="/match-relevancia">Match Relevância</FooterMobileText>
+					<FooterMobileText>Match Relevância</FooterMobileText>
 				</FooterMobileItem>
+				{/* <div onClick={this.handleChangeColorNot}> */}
 				<FooterMobileItem
 					style={{ backgroundColor: this.state.isBackgroundNot ? '#116EA015' : '#fff' }}
 					onClick={this.handleChangeColorNot}
+					to="/notifications"
 				>
 					<Image src={FilterImg} />
-					<FooterMobileText to="/notifications">Notificações</FooterMobileText>
+					<FooterMobileText>Notificações</FooterMobileText>
 				</FooterMobileItem>
+				{/* </div> */}
 			</FooterMobile>
 		);
 	}

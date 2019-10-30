@@ -100,6 +100,16 @@ const Title = styled.p`
 	font-weight: 600;
 `;
 
+const HeaderItemsText = styled.p`
+	color: #fff;
+	font-size: .90rem;
+	font-weight: 600;
+	
+	@media(max-width: 648px) {
+		display: none;
+	}
+`;
+
 const Text = styled.p`
 	font-size: .90rem;
 	font-weight: 200;
@@ -302,11 +312,11 @@ class CardFilter extends Component {
 						<ContainerHeaderItems>
 							<WrapperHeaderItems onClick={this.handleSearch}>
 								<Image src={searchIcon} />
-								<Title>Buscar</Title>
+								<HeaderItemsText>Buscar</HeaderItemsText>
 							</WrapperHeaderItems>
 							<WrapperHeaderItems onClick={() => this.handleOpenDeleteModal(card.filterId)}>
 								<Image src={deleteIcon} />
-								<Title>Excluir</Title>
+								<HeaderItemsText>Excluir</HeaderItemsText>
 							</WrapperHeaderItems>
 						</ContainerHeaderItems>
 					</WrapperCard>
