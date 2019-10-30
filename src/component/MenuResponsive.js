@@ -124,7 +124,7 @@ const ContainerDropdown = styled.div`
 	top: 3rem;
 	left: 0;
 	width: 100%;
-	height: 12rem;
+	height: 10rem;
 	background-color: #fff;
 	border-radius: 0px 0px 8px 8px;
 	z-index: 2;

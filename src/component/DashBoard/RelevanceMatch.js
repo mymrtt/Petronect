@@ -319,6 +319,7 @@ const Wraptext = styled.ul`
 	height: auto;
 	display: flex;
 	flex-wrap: wrap;
+	background: #fff;
 `;
 
 const Button = styled.button`
@@ -676,6 +677,7 @@ class RelevanceMatch extends Component {
 							horizontal={false}
 							smoothScrolling
 							stopScrollPropagation
+							style={{width: '100%'}}
 						>
 							{this.renderHeader(list)}
 							{list.map((item) => {
