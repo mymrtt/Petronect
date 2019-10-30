@@ -253,6 +253,7 @@ const ContainerFilters = styled.div`
 		// padding-bottom: 1rem;
 		width: 100%;
 		height: 100%;
+		justify-content: flex-start;
 		align-items: center;
 		// max-height: 100%;
 	}
