@@ -40,10 +40,6 @@ const Container = styled.div`
 	}
 	@media (max-width: 648px) {
 		position: fixed;
-		// top: 0;
-		// left: 0;
-		// right: 0;
-		// bottom: 0;
 		width: 100%;
     display: flex;
     justify-content: center;
@@ -66,11 +62,18 @@ const Content = styled.div`
 		width: 95vw;
 	}
 	@media(max-width: 648px) {
-		// margin-top: 6rem;
-		// padding-top: .60rem;
-		// flex-direction: column;
+		margin-top: 10rem;
+		margin-bottom: 5.5rem;
+		padding-right: 0;
+		padding-top: .5rem;
+    padding-right: .5rem;
+    padding-left: .5rem;
+    padding-bottom: 3rem;
 		border-radius: 4px;
+		display: flex;
+    flex-direction: column;
 		overflow-y: scroll;
+
 		::-webkit-scrollbar {
 		width: 5px;
 		}
@@ -84,15 +87,6 @@ const Content = styled.div`
 		::-webkit-scrollbar-thumb:hover {
 			background: #000; 
 		}
-		display: flex;
-    flex-direction: column;
-		margin-top: 10rem;
-		margin-bottom: 5.5rem;
-		padding-right: 0;
-		padding-top: .5rem;
-    padding-right: .5rem;
-    padding-left: .5rem;
-    padding-bottom: 3rem;
 	}
 `;
 
@@ -120,12 +114,6 @@ const ContainerNotifications = styled.div`
 		width: 100%;
     padding-top: 1rem;
     padding-left: 0;
-		// margin-top: 1rem;
-    // margin-bottom: 3rem;
-		// padding-left: .5rem;
-		// width: 100%;
-		// height: 100%;
-		// border-left: 0;
 	}
 `;
 
@@ -153,9 +141,7 @@ const ContainerSearchInput = styled.div`
 	border: .5px solid #116EA0;
 	border-radius: 16px;
 	@media(max-width: 640px) {
-    // margin-left: .5rem;
 		min-height: 2rem;
-    // width: 100%;
 	}
 `;
 
@@ -169,13 +155,11 @@ const ContainerSearch = styled.div`
 const ContainerSearchMobile = styled.div`
 	display: none;
 	@media(max-width: 648px) {
-		width: 100%;
-		// height: 5rem;
-		display: flex;
-		min-height: 10vh;
-		// justify-content: center;
 		padding-top: 2rem;
 		padding-bottom: 1.9rem;
+		width: 100%;
+		min-height: 10vh;
+		display: flex;
 	}
 `;
 
@@ -184,9 +168,6 @@ const WrapperSearch = styled.div`
 	width: 100%;
 
 	@media(max-width: 648px) {
-		// padding-bottom: .60rem;
-		// width: 100%;
-		// height: 5rem;
 		padding-bottom: 1rem;
 		display: flex;
 		justify-content: center;
@@ -241,11 +222,12 @@ const Label = styled.label`
 
 const ContainerFilters = styled.div`
 	width: 90%;
-	height: 100%;
+	// height: 100%;
 	padding: 0 1rem;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	// align-items: center;
+	align-items: flex-start;
 	flex-wrap: wrap;
 	// overflow-y: scroll;
 
@@ -273,7 +255,18 @@ const ContainerFilters = styled.div`
 		// margin-left: .5rem;
 		// padding-bottom: 1rem;
 		width: 100%;
+		height: 100%;
+		align-items: center;
 		// max-height: 100%;
+	}
+`;
+
+const FrequenciasDesktop = styled.div`
+	padding-top: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	@media(max-width: 648px) {
+		display: none;
 	}
 `;
 
@@ -362,6 +355,20 @@ class Filters extends Component {
 				/>
 				<Image magnifying src={magnifying} onClick={this.handleSearchCard} />
 			</ContainerSearchInput>
+			<FrequenciasDesktop>
+				<NotificationsItem>
+					<Label labelNotifications>E-mail</Label>
+					<NotificationsBar min={0} max={100} />
+				</NotificationsItem>
+				<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+					<Label labelNotifications>Push</Label>
+					<NotificationsBar min={0} max={0} />
+				</NotificationsItem>
+				<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+					<Label labelNotifications>SMS</Label>
+					<NotificationsBar min={0} max={0} />
+				</NotificationsItem>
+			</FrequenciasDesktop>
 		</WrapperSearch>
 	)
 
