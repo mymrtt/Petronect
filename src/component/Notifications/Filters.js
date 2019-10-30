@@ -157,7 +157,7 @@ const ContainerSearchMobile = styled.div`
 		width: 100%;
 		// height: 5rem;
 		display: flex;
-		height: 15vh;
+		min-height: 10vh;
 		// justify-content: center;
 	}
 `;
@@ -170,12 +170,13 @@ const WrapperSearch = styled.div`
 		// padding-bottom: .60rem;
 		// width: 100%;
 		// height: 5rem;
+		padding-bottom: 1rem;
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-    margin-bottom: 1.5rem;
+    // margin-bottom: 1.5rem;
 		width: 100%;
-		height: 6rem;
+		// height: 6rem;
 	}
 `;
 
@@ -255,6 +256,7 @@ const ContainerFilters = styled.div`
 		// margin-left: .5rem;
 		// padding-bottom: 1rem;
 		width: 100%;
+		max-height: 30vh;
 	}
 `;
 
