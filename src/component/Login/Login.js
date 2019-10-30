@@ -67,13 +67,40 @@ const Container = styled.div`
 	}
 `;
 
+const LoginInputBox = styled.form`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 55%;
+height: 90%;
+${'' /* background: #FFF; */}
+background: pink;
+border-radius: 0 0 6px 6px;
+@media (max-width: 960px) {
+	margin: 1rem 0;
+	padding: 2rem;
+	width: 85%;
+	height: min-content;
+	border-radius: 6px;
+}
+@media (max-width: 450px) {
+	margin: 0;
+	width: 100%;
+	height: 80%;
+	display: flex;
+	justify-content: space-evenly;
+	border-radius: 6px;
+}
+`;
+
 const InputContainer = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 55%;
-	height: 90%;
+	width: 100%;
+	${'' /*height: 90%;
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
 	@media (max-width: 960px) {
@@ -84,12 +111,13 @@ const InputContainer = styled.form`
 		border-radius: 6px;
 	}
 	@media (max-width: 450px) {
+		margin: 0;
 		width: 100%;
-		height: 80vh;
+		height: 80%;
 		display: flex;
     justify-content: space-evenly;
 		border-radius: 6px;
-	}
+	} */}
 `;
 
 const Logo = styled.img`
@@ -176,7 +204,7 @@ const Button = styled.button`
 		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
 	}
 	@media (max-width: 450px) {
-		margin-top: .5rem;
+		margin-top: ${(props) => (props.widthLogin ? '1.5rem' : '.5rem')};
 	}
 `;
 
@@ -191,7 +219,6 @@ const AltBox = styled.span`
 		width: 94%;
 	}
 	@media (max-width: 450px) {
-		margin-top: 0;
 		width: 90%;
 	}
 `;
@@ -545,45 +572,47 @@ class Login extends Component {
 	}
 
 	renderLogin = () => <>
-		<InputContainer onSubmit={this.loginSubmit}>
-			<Logo src={logo} />
-			<InputBox width='65%'>
-				<Label>E-mail</Label>
-				<Input
-					ref={(node) => { this.loginEmailRef = node; }}
-					required
-					autoFocus
-					type='email'
-					placeholder={'Digite seu e-mail'}
-					error={this.props.error}
-					onChange={this.handleError}
-				/>
-			</InputBox>
-			<InputBox last lastResponsive width='65%'>
-				<Label>Senha</Label>
-				<Input
-					ref={(node) => { this.loginPasswordRef = node; }}
-					type={this.state.showPassword ? 'password' : 'text'}
-					required
-					placeholder={'Digite sua senha'}
-					error={this.props.error}
-					onChange={this.handleError}
-				/>
-				<IconInputPassword
-					loginScreen
-					src={this.state.showPassword ? showPassword : hidePassword}
-					onClick={this.showPassword}
-				/>
-				{this.renderError()}
-			</InputBox>
-			<Button width='65%' widthLogin>
-				Entrar
-			</Button>
-			<AltBox>
-				<Link onClick={this.handleCreate} >Criar nova conta</Link>
-				<Link onClick={this.handleRecoverPassword}>Recuperar Senha</Link>
-			</AltBox>
-		</InputContainer>
+		<LoginInputBox>
+			<InputContainer onSubmit={this.loginSubmit}>
+				<Logo src={logo} />
+				<InputBox width='65%'>
+					<Label>E-mail</Label>
+					<Input
+						ref={(node) => { this.loginEmailRef = node; }}
+						required
+						autoFocus
+						type='email'
+						placeholder={'Digite seu e-mail'}
+						error={this.props.error}
+						onChange={this.handleError}
+					/>
+				</InputBox>
+				<InputBox last lastResponsive width='65%'>
+					<Label>Senha</Label>
+					<Input
+						ref={(node) => { this.loginPasswordRef = node; }}
+						type={this.state.showPassword ? 'password' : 'text'}
+						required
+						placeholder={'Digite sua senha'}
+						error={this.props.error}
+						onChange={this.handleError}
+					/>
+					<IconInputPassword
+						loginScreen
+						src={this.state.showPassword ? showPassword : hidePassword}
+						onClick={this.showPassword}
+					/>
+					{this.renderError()}
+				</InputBox>
+				<Button width='65%' widthLogin>
+					Entrar
+				</Button>
+				<AltBox>
+					<Link onClick={this.handleCreate} >Criar nova conta</Link>
+					<Link onClick={this.handleRecoverPassword}>Recuperar Senha</Link>
+				</AltBox>
+			</InputContainer>
+		</LoginInputBox>
 		<LoginBox>
 			<Img src={imagemPrincpal} />
 			<TextBox>
