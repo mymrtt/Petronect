@@ -88,7 +88,8 @@ const Content = styled.div`
 		display: flex;
     flex-direction: column;
     margin-top: 5rem;
-    padding-right: 0;
+		padding-right: 0;
+		padding-top: .5rem;
     padding-right: .5rem;
     padding-left: .5rem;
     padding-bottom: 3rem;
@@ -172,7 +173,7 @@ const WrapperSearch = styled.div`
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 		width: 100%;
 		height: 6rem;
 	}
