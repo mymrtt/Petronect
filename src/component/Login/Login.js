@@ -73,7 +73,7 @@ const InputContainer = styled.form`
 	justify-content: center;
 	align-items: center;
 	width: 55%;
-	height: 90vh;
+	height: 90%;
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
 	@media (max-width: 960px) {
