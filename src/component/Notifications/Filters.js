@@ -39,7 +39,7 @@ const Container = styled.div`
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-		// position: fixed;
+		position: fixed;
 		// top: 0;
 		// left: 0;
 		// right: 0;
@@ -125,6 +125,21 @@ const ContainerNotifications = styled.div`
 		// width: 100%;
 		// height: 100%;
 		// border-left: 0;
+	}
+`;
+
+const WrapperNotifications = styled.div`
+	display: none;
+	
+	@media(max-width: 648px) {
+		width: 100%;
+		padding-top: .75rem;
+		position: fixed;
+		bottom: 3rem;
+		left: 0;
+		display: flex;
+		border-top: .2px solid #116696;
+		background-color: #fff;
 	}
 `;
 
@@ -261,32 +276,17 @@ const ContainerFilters = styled.div`
 	}
 `;
 
-const Teste = styled.div`
-	display: none;
-	
-	@media(max-width: 648px) {
-		width: 100%;
-		padding-top: .75rem;
-		position: fixed;
-		bottom: 3rem;
-		left: 0;
-		display: flex;
-		border-top: .2px solid #116696;
-		background-color: #fff;
-	}
-`;
 
-const Testinho = styled.div`
-	z-index: 3;
-	background: #fff;
-	background: #fff;
+const ContainerNotificationsItem = styled.div`
 	position: fixed;
 	bottom: 5rem;
-	left: 0;
 	right: 0;
+	z-index: 3;
+	left: 0;
+	background: #fff;
 `;
 
-const AvisoButton = styled.p`
+const NotificationText = styled.p`
 	margin-left: .5rem;
 	font-size: 1rem;
 	color: #116696;
@@ -300,6 +300,7 @@ class Filters extends Component {
 			searchText: '',
 			searchCard: false,
 			isFrequenciasOpen: false,
+			isFrequenciasClose: false,
 		};
 	}
 
@@ -324,14 +325,12 @@ class Filters extends Component {
 
 		return (
 			<ContainerFilters>
-				{values(allNotification).filter((card) => card.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => {
-					return 	<CardFilter
-						key={card.keywordFilterId}
-						card={card}
-						history={this.props.history}
-						handleOpenModal={this.handleOpenModal}
-					/>;
-				})}
+				{values(allNotification).filter((card) => card.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => <CardFilter
+					key={card.keywordFilterId}
+					card={card}
+					history={this.props.history}
+					handleOpenModal={this.handleOpenModal}
+				/>)}
 			</ContainerFilters>
 		);
 	}
@@ -341,14 +340,12 @@ class Filters extends Component {
 
 		return (
 			<ContainerFilters>
-				{values(allNotification).map((card) => {
-					return 	<CardFilter
-						key={card.keywordFilterId}
-						card={card}
-						history={this.props.history}
-						handleOpenModal={this.handleOpenModal}
-					/>;
-				})}
+				{values(allNotification).map((card) => <CardFilter
+					key={card.keywordFilterId}
+					card={card}
+					history={this.props.history}
+					handleOpenModal={this.handleOpenModal}
+				/>)}
 			</ContainerFilters>
 		);
 	}
@@ -373,36 +370,37 @@ class Filters extends Component {
 	}
 
 	handleOpenFrequencias = () => {
-		const { isFrequenciasOpen } = this.state;
-		this.setState({ isFrequenciasOpen: !isFrequenciasOpen });
-		console.log(this.state.isFrequenciasOpen);
+		const { isFrequenciasOpen, isFrequenciasClose } = this.state;
+
+		this.setState({
+			isFrequenciasOpen: !isFrequenciasOpen,
+			isFrequenciasClose: !isFrequenciasClose,
+		});
 	}
 
 	renderModalFilter = () => (
 		<ModalFilter handleOpenModal={this.handleOpenModal}/>
 	)
 
-	renderFrequencias = () => {
-		return (
-			<Testinho>
-				<NotificationsItem>
-					<Label labelNotifications>E-mail</Label>
-					<NotificationsBar min={0} max={100} />
-				</NotificationsItem>
-				<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-					<Label labelNotifications>Push</Label>
-					<NotificationsBar min={0} max={0} />
-				</NotificationsItem>
-				<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-					<Label labelNotifications>SMS</Label>
-					<NotificationsBar min={0} max={0} />
-				</NotificationsItem>
-			</Testinho>
-		);
-	}
+	renderFrequencias = () => (
+		<ContainerNotificationsItem>
+			<NotificationsItem>
+				<Label labelNotifications>E-mail</Label>
+				<NotificationsBar min={0} max={100} />
+			</NotificationsItem>
+			<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+				<Label labelNotifications>Push</Label>
+				<NotificationsBar min={0} max={0} />
+			</NotificationsItem>
+			<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+				<Label labelNotifications>SMS</Label>
+				<NotificationsBar min={0} max={0} />
+			</NotificationsItem>
+		</ContainerNotificationsItem>
+	)
 
 	render() {
-		const { isModalOpen, searchCard, isFrequenciasOpen } = this.state;
+		const { isModalOpen, searchCard, isFrequenciasOpen, isFrequenciasClose } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
@@ -418,10 +416,16 @@ class Filters extends Component {
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
 							</ContainerSearch>
-							<Teste onClick={this.handleOpenFrequencias}>
-								<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
-								<AvisoButton>+</AvisoButton>
-							</Teste>
+							<WrapperNotifications onClick={this.handleOpenFrequencias}>
+								{ isFrequenciasClose ? <Fragment>
+									<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
+									<NotificationText>-</NotificationText>
+								</Fragment> : <Fragment>
+									<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
+									<NotificationText>+</NotificationText>
+								</Fragment>
+								}
+							</WrapperNotifications>
 							{isFrequenciasOpen && this.renderFrequencias()}
 						</ContainerNotifications>
 						{ isModalOpen && this.renderModalFilter() }
