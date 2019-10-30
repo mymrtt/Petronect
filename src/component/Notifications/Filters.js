@@ -69,7 +69,7 @@ const Content = styled.div`
 		// margin-top: 6rem;
 		// padding-top: .60rem;
 		// flex-direction: column;
-		// border-radius: 4px;
+		border-radius: 4px;
 		overflow-y: scroll;
 		::-webkit-scrollbar {
 		width: 5px;
