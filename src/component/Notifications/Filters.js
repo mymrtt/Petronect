@@ -139,7 +139,7 @@ const ContainerSearchInput = styled.div`
 	border-radius: 16px;
 	@media(max-width: 640px) {
     // margin-left: .5rem;
-		// height: 2.5rem;
+		min-height: 2rem;
     // width: 100%;
 	}
 `;
