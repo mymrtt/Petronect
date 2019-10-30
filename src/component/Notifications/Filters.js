@@ -44,7 +44,6 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
 		align-items: center;
-		overflow-y: hidden;
 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 	}
 `;
