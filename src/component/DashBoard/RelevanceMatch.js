@@ -536,6 +536,7 @@ class RelevanceMatch extends Component {
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
 		});
+		console.log('hover:', this.hoverFavorites)
 	}
 
 	handleKeyPress = (event) => {
@@ -633,7 +634,10 @@ class RelevanceMatch extends Component {
 	handleOpotunity = () => {
 		this.setState((prevState) => ({
 			isShowFavorites: !prevState.isShowFavorites,
-		}));
+		}));	
+		this.setState({
+			hoverFavorites: !this.state.hoverFavorites,
+		});
 	}
 
 	renderSearchInput = () => (
@@ -825,7 +829,8 @@ class RelevanceMatch extends Component {
 									<Button
 										type="button"
 										value="1"
-										onClick={this.renderOpportunity}
+										onClick={this.handleOpotunity}
+										disabled
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',

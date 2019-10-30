@@ -113,7 +113,8 @@ const ContainerUser = styled.div`
 `;
 
 const Text = styled.p`
-	color: #404040;
+	color: #116EA0;
+	font-weight: 800;
 	font-size: .85rem;
 	white-space: nowrap;
 `;
@@ -139,7 +140,7 @@ const DropboxText = styled.p`
 	padding-bottom: 1rem;
 	font: 500 Eurostile, sans-serif;
 	font-size: 1.3rem;
-	font-weight: ${(props) => (props.textOrg ? '600' : '200')};
+	font-weight: ${(props) => (props.textOrg ? '800' : '200')};
 `;
 
 const DropboxButton = styled.button`
@@ -201,7 +202,7 @@ class MenuResponsive extends Component {
 	renderDropdown = () => (
 		<ContainerDropdown>
 			{/* <DropboxText textOrg>Snowball Solutions</DropboxText> */}
-			<DropboxText>{this.props.nameUser}</DropboxText>
+			<DropboxText textOrg>{this.props.nameUser}</DropboxText>
 			<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
 		</ContainerDropdown>
 	)
