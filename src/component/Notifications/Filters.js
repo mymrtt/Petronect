@@ -120,11 +120,15 @@ const WrapperNotifications = styled.div`
 	display: none;
 	
 	@media(max-width: 648px) {
-		width: 100%;
-		padding-top: .75rem;
+		padding-right: 2rem;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 		position: fixed;
 		bottom: 3rem;
 		left: 0;
+		// padding: 1rem;
+		width: 100%;
 		display: flex;
 		border-top: .2px solid #116696;
 		background-color: #fff;
@@ -183,7 +187,7 @@ const NotificationsItem = styled.div`
 	border: .5px solid #E6E6E6;
 	border-radius: 8px;
 	@media(max-width: 648px) {
-		padding: .45rem .80rem 1.3rem;
+		padding: .45rem 2rem 1.3rem;
 	}
 `;
 
@@ -268,20 +272,33 @@ const FrequenciasDesktop = styled.div`
 	}
 `;
 
-
 const ContainerNotificationsItem = styled.div`
-	position: fixed;
-	bottom: 5rem;
-	right: 0;
-	left: 0;
-	z-index: 3;
-	background: #fff;
+	display: none;
+	 
+	@media(max-width: 648px) {
+		position: fixed;
+		display: flex;
+		flex-direction: column;
+		bottom: 5rem;
+		right: 0;
+		left: 0;
+		z-index: 3;
+		background: #fff;
+	}
 `;
 
 const NotificationText = styled.p`
-	margin-left: .5rem;
-	font-size: 1rem;
-	color: #116696;
+	margin: 0 0 0.6rem .90rem;
+	color: #116EA0;
+	font-size: .85rem;
+	font-weight : 600;
+
+	@media(max-width: 648px) {
+		margin: 0;
+		margin-left: ${(props) => props.notificationItem && '.5rem'};
+		display: flex;
+		align-items: center;
+	}
 `;
 
 class Filters extends Component {
@@ -424,11 +441,11 @@ class Filters extends Component {
 							</ContainerSearch>
 							<WrapperNotifications onClick={this.handleOpenFrequencias}>
 								{ isFrequenciasClose ? <Fragment>
-									<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
-									<NotificationText>-</NotificationText>
+									<NotificationText>Frequência de Avisos</NotificationText>
+									<NotificationText notificationItem>-</NotificationText>
 								</Fragment> : <Fragment>
-									<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
-									<NotificationText>+</NotificationText>
+									<NotificationText>Frequência de Avisos</NotificationText>
+									<NotificationText notificationItem>+</NotificationText>
 								</Fragment>
 								}
 							</WrapperNotifications>
