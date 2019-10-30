@@ -41,13 +41,12 @@ const Container = styled.div`
 		overflow-y: scroll;
 	}
 	@media (max-width: 648px) {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
+		// position: fixed;
+		// top: 0;
+		// left: 0;
+		// right: 0;
+		// bottom: 0;
 		width: 100%;
-		// height: 41rem;
     display: flex;
     justify-content: center;
 		align-items: center;
@@ -68,24 +67,31 @@ const Content = styled.div`
 		width: 95vw;
 	}
 	@media(max-width: 648px) {
-		margin-top: 6rem;
-		padding-top: .60rem;
-		flex-direction: column;
-		border-radius: 4px;
-		overflow-y: scroll;
-		::-webkit-scrollbar {
-		width: 5px;
-		}
-		::-webkit-scrollbar-track {
-			background: #fff; 
-		}
-		::-webkit-scrollbar-thumb {
-			border-radius: 4px;
-			background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-		}
-		::-webkit-scrollbar-thumb:hover {
-			background: #000; 
-		}
+		// margin-top: 6rem;
+		// padding-top: .60rem;
+		// flex-direction: column;
+		// border-radius: 4px;
+		// overflow-y: scroll;
+		// ::-webkit-scrollbar {
+		// width: 5px;
+		// }
+		// ::-webkit-scrollbar-track {
+		// 	background: #fff; 
+		// }
+		// ::-webkit-scrollbar-thumb {
+		// 	border-radius: 4px;
+		// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+		// }
+		// ::-webkit-scrollbar-thumb:hover {
+		// 	background: #000; 
+		// }
+		display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    padding-right: 0;
+    padding-right: .5rem;
+    padding-left: .5rem;
+    padding-bottom: 3rem;
 	}
 `;
 
@@ -110,13 +116,15 @@ const ContainerNotifications = styled.div`
 		width: 45%;
 	}
 	@media(max-width: 648px) {
-		// margin-bottom: 4rem;
-		margin-top: 1rem;
-    margin-bottom: 3rem;
-		padding-left: .5rem;
 		width: 100%;
-		height: 100%;
-		border-left: 0;
+    padding-top: 1rem;
+    padding-left: 0;
+		// margin-top: 1rem;
+    // margin-bottom: 3rem;
+		// padding-left: .5rem;
+		// width: 100%;
+		// height: 100%;
+		// border-left: 0;
 	}
 `;
 
@@ -129,9 +137,9 @@ const ContainerSearchInput = styled.div`
 	border: .5px solid #116EA0;
 	border-radius: 16px;
 	@media(max-width: 640px) {
-    margin-left: .5rem;
-		height: 2.5rem;
-    width: 100%;
+    // margin-left: .5rem;
+		// height: 2.5rem;
+    // width: 100%;
 	}
 `;
 
@@ -146,9 +154,9 @@ const ContainerSearchMobile = styled.div`
 	display: none;
 	@media(max-width: 648px) {
 		width: 100%;
-		height: 5rem;
+		// height: 5rem;
 		display: flex;
-		justify-content: center;
+		// justify-content: center;
 	}
 `;
 
@@ -157,9 +165,14 @@ const WrapperSearch = styled.div`
 	width: 100%;
 
 	@media(max-width: 648px) {
-		padding-bottom: .60rem;
-		width: 100%;
-		height: 5rem;
+		// padding-bottom: .60rem;
+		// width: 100%;
+		// height: 5rem;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+    padding-bottom: 1.5rem;
+    width: 100%;
 	}
 `;
 
@@ -235,10 +248,9 @@ const ContainerFilters = styled.div`
 		flex-direction: column;
 	}
 	@media(max-width: 648px) {
-		margin-left: .5rem;
-		padding-bottom: 1rem;
+		// margin-left: .5rem;
+		// padding-bottom: 1rem;
 		width: 100%;
-		// min-height: 100%;
 		flex-wrap: nowrap;
 	}
 `;
@@ -332,12 +344,12 @@ class Filters extends Component {
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
-					<ReactScrollbar
+					{/* <ReactScrollbar
 						speed={0.8}
 						horizontal={false}
 						smoothScrolling
 						stopScrollPropagation
-					>
+					> */}
 						<Content>
 							<ContainerSearchMobile>
 								{this.renderWrapperSearch()}
@@ -365,7 +377,7 @@ class Filters extends Component {
 							</ContainerNotifications>
 							{ isModalOpen && this.renderModalFilter() }
 						</Content>
-					</ReactScrollbar>
+					{/* </ReactScrollbar> */}
 				</Container>
 				<Footer />
 			</Fragment>
