@@ -3,8 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
-import ReactScrollbar from 'react-scrollbar';
-
 
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
@@ -71,23 +69,24 @@ const Content = styled.div`
 		// padding-top: .60rem;
 		// flex-direction: column;
 		// border-radius: 4px;
-		// overflow-y: scroll;
-		// ::-webkit-scrollbar {
-		// width: 5px;
-		// }
-		// ::-webkit-scrollbar-track {
-		// 	background: #fff; 
-		// }
-		// ::-webkit-scrollbar-thumb {
-		// 	border-radius: 4px;
-		// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-		// }
-		// ::-webkit-scrollbar-thumb:hover {
-		// 	background: #000; 
-		// }
+		overflow-y: scroll;
+		::-webkit-scrollbar {
+		width: 5px;
+		}
+		::-webkit-scrollbar-track {
+			background: #fff; 
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: 4px;
+			background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: #000; 
+		}
 		display: flex;
     flex-direction: column;
-    margin-top: 5rem;
+		margin-top: 10rem;
+		margin-bottom: 5.5rem;
 		padding-right: 0;
 		padding-top: .5rem;
     padding-right: .5rem;
@@ -159,6 +158,8 @@ const ContainerSearchMobile = styled.div`
 		display: flex;
 		min-height: 10vh;
 		// justify-content: center;
+		padding-top: 2rem;
+		padding-bottom: 1.9rem;
 	}
 `;
 
@@ -230,21 +231,21 @@ const ContainerFilters = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	overflow-y: scroll;
+	// overflow-y: scroll;
 
-	::-webkit-scrollbar {
-		width: 3px;
-	}
-	::-webkit-scrollbar-track {
-		background: #fff; 
-	}
-	::-webkit-scrollbar-thumb {
-		border-radius: 4px;
-		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #000; 
-	}
+	// ::-webkit-scrollbar {
+	// 	width: 3px;
+	// }
+	// ::-webkit-scrollbar-track {
+	// 	background: #fff; 
+	// }
+	// ::-webkit-scrollbar-thumb {
+	// 	border-radius: 4px;
+	// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+	// }
+	// ::-webkit-scrollbar-thumb:hover {
+	// 	background: #000; 
+	// }
 
 	@media(max-width: 960px) {
 		padding: 0;
@@ -256,8 +257,39 @@ const ContainerFilters = styled.div`
 		// margin-left: .5rem;
 		// padding-bottom: 1rem;
 		width: 100%;
-		max-height: 30vh;
+		// max-height: 100%;
 	}
+`;
+
+const Teste = styled.div`
+	display: none;
+	
+	@media(max-width: 648px) {
+		width: 100%;
+		padding-top: .75rem;
+		position: fixed;
+		bottom: 3rem;
+		left: 0;
+		display: flex;
+		border-top: .2px solid #116696;
+		background-color: #fff;
+	}
+`;
+
+const Testinho = styled.div`
+	z-index: 3;
+	background: #fff;
+	background: #fff;
+	position: fixed;
+	bottom: 5rem;
+	left: 0;
+	right: 0;
+`;
+
+const AvisoButton = styled.p`
+	margin-left: .5rem;
+	font-size: 1rem;
+	color: #116696;
 `;
 
 class Filters extends Component {
@@ -267,6 +299,7 @@ class Filters extends Component {
 			isModalOpen: false,
 			searchText: '',
 			searchCard: false,
+			isFrequenciasOpen: false,
 		};
 	}
 
@@ -339,50 +372,60 @@ class Filters extends Component {
 		this.setState({ isModalOpen: !isModalOpen });
 	}
 
+	handleOpenFrequencias = () => {
+		const { isFrequenciasOpen } = this.state;
+		this.setState({ isFrequenciasOpen: !isFrequenciasOpen });
+		console.log(this.state.isFrequenciasOpen);
+	}
+
 	renderModalFilter = () => (
 		<ModalFilter handleOpenModal={this.handleOpenModal}/>
 	)
 
+	renderFrequencias = () => {
+		return (
+			<Testinho>
+				<NotificationsItem>
+					<Label labelNotifications>E-mail</Label>
+					<NotificationsBar min={0} max={100} />
+				</NotificationsItem>
+				<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+					<Label labelNotifications>Push</Label>
+					<NotificationsBar min={0} max={0} />
+				</NotificationsItem>
+				<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+					<Label labelNotifications>SMS</Label>
+					<NotificationsBar min={0} max={0} />
+				</NotificationsItem>
+			</Testinho>
+		);
+	}
+
 	render() {
-		const { isModalOpen, searchCard } = this.state;
+		const { isModalOpen, searchCard, isFrequenciasOpen } = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
-					{/* <ReactScrollbar
-						speed={0.8}
-						horizontal={false}
-						smoothScrolling
-						stopScrollPropagation
-					> */}
-						<Content>
-							<ContainerSearchMobile>
+					<Content>
+						<ContainerSearchMobile>
+							{this.renderWrapperSearch()}
+						</ContainerSearchMobile>
+						<Fragment>
+							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+						</Fragment>
+						<ContainerNotifications>
+							<ContainerSearch>
 								{this.renderWrapperSearch()}
-							</ContainerSearchMobile>
-							<Fragment>
-								{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
-							</Fragment>
-							<ContainerNotifications>
-								<ContainerSearch>
-									{this.renderWrapperSearch()}
-								</ContainerSearch>
+							</ContainerSearch>
+							<Teste onClick={this.handleOpenFrequencias}>
 								<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
-								<NotificationsItem>
-									<Label labelNotifications>E-mail</Label>
-									<NotificationsBar min={0} max={100} />
-								</NotificationsItem>
-								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-									<Label labelNotifications>Push</Label>
-									<NotificationsBar min={0} max={0} />
-								</NotificationsItem>
-								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-									<Label labelNotifications>SMS</Label>
-									<NotificationsBar min={0} max={0} />
-								</NotificationsItem>
-							</ContainerNotifications>
-							{ isModalOpen && this.renderModalFilter() }
-						</Content>
-					{/* </ReactScrollbar> */}
+								<AvisoButton>+</AvisoButton>
+							</Teste>
+							{isFrequenciasOpen && this.renderFrequencias()}
+						</ContainerNotifications>
+						{ isModalOpen && this.renderModalFilter() }
+					</Content>
 				</Container>
 				<Footer />
 			</Fragment>
