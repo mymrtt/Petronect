@@ -3,6 +3,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
+import ReactScrollbar from 'react-scrollbar';
+
 
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
@@ -330,33 +332,40 @@ class Filters extends Component {
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
-					<Content>
-						<ContainerSearchMobile>
-							{this.renderWrapperSearch()}
-						</ContainerSearchMobile>
-						<Fragment>
-							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
-						</Fragment>
-						<ContainerNotifications>
-							<ContainerSearch>
+					<ReactScrollbar
+						speed={0.8}
+						horizontal={false}
+						smoothScrolling
+						stopScrollPropagation
+					>
+						<Content>
+							<ContainerSearchMobile>
 								{this.renderWrapperSearch()}
-							</ContainerSearch>
-							<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
-							<NotificationsItem>
-								<Label labelNotifications>E-mail</Label>
-								<NotificationsBar min={0} max={100} />
-							</NotificationsItem>
-							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-								<Label labelNotifications>Push</Label>
-								<NotificationsBar min={0} max={0} />
-							</NotificationsItem>
-							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-								<Label labelNotifications>SMS</Label>
-								<NotificationsBar min={0} max={0} />
-							</NotificationsItem>
-						</ContainerNotifications>
-						{ isModalOpen && this.renderModalFilter() }
-					</Content>
+							</ContainerSearchMobile>
+							<Fragment>
+								{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+							</Fragment>
+							<ContainerNotifications>
+								<ContainerSearch>
+									{this.renderWrapperSearch()}
+								</ContainerSearch>
+								<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
+								<NotificationsItem>
+									<Label labelNotifications>E-mail</Label>
+									<NotificationsBar min={0} max={100} />
+								</NotificationsItem>
+								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+									<Label labelNotifications>Push</Label>
+									<NotificationsBar min={0} max={0} />
+								</NotificationsItem>
+								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+									<Label labelNotifications>SMS</Label>
+									<NotificationsBar min={0} max={0} />
+								</NotificationsItem>
+							</ContainerNotifications>
+							{ isModalOpen && this.renderModalFilter() }
+						</Content>
+					</ReactScrollbar>
 				</Container>
 				<Footer />
 			</Fragment>
