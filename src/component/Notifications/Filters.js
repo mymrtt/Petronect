@@ -3,6 +3,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
+import ReactScrollbar from 'react-scrollbar';
+
 
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
@@ -40,11 +42,15 @@ const Container = styled.div`
 	}
 	@media (max-width: 648px) {
 		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		width: 100%;
 		// height: 41rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+		align-items: center;
 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 	}
 `;
@@ -140,6 +146,7 @@ const ContainerSearchMobile = styled.div`
 	display: none;
 	@media(max-width: 648px) {
 		width: 100%;
+		height: 5rem;
 		display: flex;
 		justify-content: center;
 	}
@@ -200,11 +207,28 @@ const Label = styled.label`
 
 const ContainerFilters = styled.div`
 	width: 90%;
+	height: 100%;
 	padding: 0 1rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
+	overflow-y: scroll;
+
+	::-webkit-scrollbar {
+		width: 3px;
+	}
+	::-webkit-scrollbar-track {
+		background: #fff; 
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #000; 
+	}
+
 	@media(max-width: 960px) {
 		padding: 0;
 		align-items: flex-start;
@@ -216,21 +240,6 @@ const ContainerFilters = styled.div`
 		width: 100%;
 		// min-height: 100%;
 		flex-wrap: nowrap;
-		overflow-y: scroll;
-
-		::-webkit-scrollbar {
-			width: 2px;
-			}
-			::-webkit-scrollbar-track {
-				background: #fff; 
-			}
-			::-webkit-scrollbar-thumb {
-				border-radius: 4px;
-				background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-			}
-			::-webkit-scrollbar-thumb:hover {
-				background: #000; 
-			}
 	}
 `;
 
@@ -323,33 +332,40 @@ class Filters extends Component {
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
 				<Container>
-					<Content>
-						<ContainerSearchMobile>
-							{this.renderWrapperSearch()}
-						</ContainerSearchMobile>
-						<Fragment>
-							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
-						</Fragment>
-						<ContainerNotifications>
-							<ContainerSearch>
+					<ReactScrollbar
+						speed={0.8}
+						horizontal={false}
+						smoothScrolling
+						stopScrollPropagation
+					>
+						<Content>
+							<ContainerSearchMobile>
 								{this.renderWrapperSearch()}
-							</ContainerSearch>
-							<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
-							<NotificationsItem>
-								<Label labelNotifications>E-mail</Label>
-								<NotificationsBar min={0} max={100} />
-							</NotificationsItem>
-							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-								<Label labelNotifications>Push</Label>
-								<NotificationsBar min={0} max={0} />
-							</NotificationsItem>
-							<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
-								<Label labelNotifications>SMS</Label>
-								<NotificationsBar min={0} max={0} />
-							</NotificationsItem>
-						</ContainerNotifications>
-						{ isModalOpen && this.renderModalFilter() }
-					</Content>
+							</ContainerSearchMobile>
+							<Fragment>
+								{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+							</Fragment>
+							<ContainerNotifications>
+								<ContainerSearch>
+									{this.renderWrapperSearch()}
+								</ContainerSearch>
+								<AddFilterTitle searchTitle smallTitle>Frequência de Avisos</AddFilterTitle>
+								<NotificationsItem>
+									<Label labelNotifications>E-mail</Label>
+									<NotificationsBar min={0} max={100} />
+								</NotificationsItem>
+								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+									<Label labelNotifications>Push</Label>
+									<NotificationsBar min={0} max={0} />
+								</NotificationsItem>
+								<NotificationsItem style={{ backgroundColor: 'transparent', opacity: 0.3 }}>
+									<Label labelNotifications>SMS</Label>
+									<NotificationsBar min={0} max={0} />
+								</NotificationsItem>
+							</ContainerNotifications>
+							{ isModalOpen && this.renderModalFilter() }
+						</Content>
+					</ReactScrollbar>
 				</Container>
 				<Footer />
 			</Fragment>

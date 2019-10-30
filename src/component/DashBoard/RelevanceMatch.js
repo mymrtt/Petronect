@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
+import ReactScrollbar from 'react-scrollbar';
 
 // Modules
 import {
@@ -378,22 +379,6 @@ const WrapperTable = styled.div`
 	flex-direction: column;
 	align-items: center;
 	background: #fff;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-	
-	::-webkit-scrollbar {
-  width: 5px;
-	}
-	::-webkit-scrollbar-track {
-		background: #fff; 
-	}
-	::-webkit-scrollbar-thumb {
-		border-radius: 4px;
-		background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #000; 
-	}
 `;
 
 const HeaderRow = styled.th`
@@ -686,39 +671,46 @@ class RelevanceMatch extends Component {
 			: (
 				<Fragment>
 					<WrapperTable>
-						{this.renderHeader(list)}
-						{list.map((item) => {
-							const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
+						<ReactScrollbar
+							speed={0.8}
+							horizontal={false}
+							smoothScrolling
+							stopScrollPropagation
+						>
+							{this.renderHeader(list)}
+							{list.map((item) => {
+								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
 
-							const handleFavorite = (event) => {
-								if (isFavorite) {
-									this.handleDesfavor(event, item.opportunityId);
-								} else {
-									this.handleFavorite(event, item.opportunityId);
-								}
-							};
+								const handleFavorite = (event) => {
+									if (isFavorite) {
+										this.handleDesfavor(event, item.opportunityId);
+									} else {
+										this.handleFavorite(event, item.opportunityId);
+									}
+								};
 
-							return (
-								<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
-									<TableBody
-										spanWidth
-										onClick={handleFavorite}
-									>
-										<img src={isFavorite ? start : startHover} />
-									</TableBody>
-									<TableBody spanWidth>{item.fit}%</TableBody>
-									<TableBody >{item.company}</TableBody>
-									<TableBody displayNone>{item.opportunityId}</TableBody>
-									<TableBody >{item.titleDescription}</TableBody>
-									<TableBody>
-										{item.deadLineInitial}
-									</TableBody>
-									<TableBody>
-										{item.deadLineLastOne}
-									</TableBody>
-								</TableRow>
-							);
-						})}
+								return (
+									<TableRow key={item} onClick={() => this.handleModalOportunities(item)}>
+										<TableBody
+											spanWidth
+											onClick={handleFavorite}
+										>
+											<img src={isFavorite ? start : startHover} />
+										</TableBody>
+										<TableBody spanWidth>{item.fit}%</TableBody>
+										<TableBody >{item.company}</TableBody>
+										<TableBody displayNone>{item.opportunityId}</TableBody>
+										<TableBody >{item.titleDescription}</TableBody>
+										<TableBody>
+											{item.deadLineInitial}
+										</TableBody>
+										<TableBody>
+											{item.deadLineLastOne}
+										</TableBody>
+									</TableRow>
+								);
+							})}
+						</ReactScrollbar>
 					</WrapperTable>
 				</Fragment>
 			);
