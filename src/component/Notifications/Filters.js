@@ -48,6 +48,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
 		align-items: center;
+		overflow-y: hidden;
 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 	}
 `;
@@ -68,7 +69,7 @@ const Content = styled.div`
 		// margin-top: 6rem;
 		// padding-top: .60rem;
 		// flex-direction: column;
-		// border-radius: 4px;
+		border-radius: 4px;
 		overflow-y: scroll;
 		::-webkit-scrollbar {
 		width: 5px;
@@ -85,7 +86,7 @@ const Content = styled.div`
 		}
 		display: flex;
     flex-direction: column;
-		margin-top: 10rem;
+		margin-top: 18rem;
 		margin-bottom: 5.5rem;
 		padding-right: 0;
 		padding-top: .5rem;
