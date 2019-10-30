@@ -277,13 +277,13 @@ const ContainerNotificationsItem = styled.div`
 	 
 	@media(max-width: 648px) {
 		position: fixed;
-		display: flex;
-		flex-direction: column;
 		bottom: 5rem;
 		right: 0;
 		left: 0;
+		display: flex;
+		flex-direction: column;
 		z-index: 3;
-		background: #fff;
+		background-color: #fff;
 	}
 `;
 
