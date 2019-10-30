@@ -44,7 +44,6 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
 		align-items: center;
-		overflow-y: hidden;
 		background: transparent linear-gradient(180deg, #115680 0%, #116EA0 100%) 0% 0% no-repeat padding-box;
 	}
 `;
@@ -169,12 +168,10 @@ const WrapperSearch = styled.div`
 
 	@media(max-width: 648px) {
 		padding-bottom: 1rem;
+		width: 100%;
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-    // margin-bottom: 1.5rem;
-		width: 100%;
-		// height: 6rem;
 	}
 `;
 
