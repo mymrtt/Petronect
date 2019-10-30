@@ -426,14 +426,14 @@ class Filters extends Component {
 							<Label labelNotifications>Email</Label>
 							<NotificationsBar />
 						</NotificationsItem>
-						<NotificationsItem>
+						{/* <NotificationsItem>
 							<Label labelNotifications>Push</Label>
-							<NotificationsBar />
+							 <NotificationsBar /> 
 						</NotificationsItem>
 						<NotificationsItem>
 							<Label labelNotifications>SMS</Label>
-							<NotificationsBar />
-						</NotificationsItem>
+							 <NotificationsBar /> 
+						</NotificationsItem> */}
 					</WrapperNotifications>
 				</ContainerNotifications>
 				{ isModalOpen && this.renderFilterModal() }
