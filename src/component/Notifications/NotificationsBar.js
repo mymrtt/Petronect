@@ -48,6 +48,15 @@ const Slider = styled.input`
 		background: #4CAF50;
 		cursor: pointer;
 	}
+
+	@media(max-width: 648px) {
+		height: 5px;
+
+		::-webkit-slider-thumb {
+			width: 18px;
+			height: 18px;
+		}
+	}
 `;
 
 const ContainerValues = styled.div`
