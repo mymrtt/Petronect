@@ -18,6 +18,7 @@ const FooterMobile = styled.div`
 		z-index: 1;
 		background-color: #fff;
 		border: #0000001A solid 1px;
+		z-index: 2;
 	}
 `;
 
