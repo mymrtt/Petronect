@@ -253,6 +253,7 @@ const ContainerFilters = styled.div`
 		// padding-bottom: 1rem;
 		width: 100%;
 		height: 100%;
+		justify-content: flex-start;
 		align-items: center;
 		// max-height: 100%;
 	}
@@ -272,8 +273,8 @@ const ContainerNotificationsItem = styled.div`
 	position: fixed;
 	bottom: 5rem;
 	right: 0;
-	z-index: 3;
 	left: 0;
+	z-index: 3;
 	background: #fff;
 `;
 
