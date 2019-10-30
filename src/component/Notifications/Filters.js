@@ -174,7 +174,7 @@ const WrapperSearch = styled.div`
 		flex-direction: column;
     padding-bottom: 1.5rem;
 		width: 100%;
-		height: 100%;
+		height: 6rem;
 	}
 `;
 
@@ -248,12 +248,12 @@ const ContainerFilters = styled.div`
 		padding: 0;
 		align-items: flex-start;
 		flex-direction: column;
+		flex-wrap: nowrap;
 	}
 	@media(max-width: 648px) {
 		// margin-left: .5rem;
 		// padding-bottom: 1rem;
 		width: 100%;
-		flex-wrap: nowrap;
 	}
 `;
 
