@@ -1,7 +1,7 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { values } from 'lodash';
 import ReactScrollbar from 'react-scrollbar';
 
@@ -380,6 +380,41 @@ const WrapperTable = styled.div`
 	flex-direction: column;
 	align-items: center;
 	background: #fff;
+	@media(max-width: 648px) {
+		padding: 0 1rem 1rem 1rem;
+	}
+
+	.scrollarea {
+    ${({ full }) => full && css`
+      max-height: 100%;
+      width: 100%;
+    `}
+  }
+  .scrollarea .scrollbar-container {
+		opacity: 0.12;
+	}
+	.scrollarea:hover .scrollbar-container {
+		opacity: 0.22;
+	}
+	.scrollarea .scrollbar-container.active, 
+	.scrollarea .scrollbar-container:hover {
+    opacity: .4 !important;
+	}
+  .scrollarea .scrollbar-container.vertical {
+    width: 8px;
+    height: 100%;
+    right: 2px;
+    top: 0;
+    border-radius: 6px;
+    z-index: 2;
+  }
+  .scrollarea .scrollbar-container.vertical .scrollbar {
+    width: 8px;
+    height: 20px;
+    background: #116696;
+    margin-left: 0;
+    border-radius: 6px;
+  }
 `;
 
 const HeaderRow = styled.th`
@@ -677,7 +712,6 @@ class RelevanceMatch extends Component {
 							horizontal={false}
 							smoothScrolling
 							stopScrollPropagation
-							style={{width: '100%'}}
 						>
 							{this.renderHeader(list)}
 							{list.map((item) => {
