@@ -273,8 +273,8 @@ const ContainerNotificationsItem = styled.div`
 	position: fixed;
 	bottom: 5rem;
 	right: 0;
-	z-index: 3;
 	left: 0;
+	z-index: 3;
 	background: #fff;
 `;
 
