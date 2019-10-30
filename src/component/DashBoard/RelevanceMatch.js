@@ -389,6 +389,7 @@ const WrapperTable = styled.div`
       max-height: 100%;
       width: 100%;
     `}
+		width: 100%;
   }
   .scrollarea .scrollbar-container {
 		opacity: 0.12;

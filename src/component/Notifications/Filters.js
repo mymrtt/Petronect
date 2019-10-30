@@ -86,7 +86,7 @@ const Content = styled.div`
 		}
 		display: flex;
     flex-direction: column;
-		margin-top: 18rem;
+		margin-top: 10rem;
 		margin-bottom: 5.5rem;
 		padding-right: 0;
 		padding-top: .5rem;
