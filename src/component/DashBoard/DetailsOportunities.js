@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 // Images
 import start from '../../assets/icon/estrela.svg';
+import startHover from '../../assets/icon/estrela-cinza.svg';
 // import shareIcon from '../../assets/icon/compartilhar.svg';
 import attachIcon from '../../assets/icon/anexar.svg';
 // import doubtIcon from '../../assets/icon/duvida.svg';
@@ -367,7 +368,7 @@ class DetailsOportunies extends Component {
 					<SubContainer>
 						<DatailsHeader>
 							<WrapperRelevance>
-								<Image star src={start} />
+								<Image star src={startHover} />
 								<TextHeader>{selectedOpportunity.fit}% Relevante</TextHeader>
 							</WrapperRelevance>
 						</DatailsHeader>
