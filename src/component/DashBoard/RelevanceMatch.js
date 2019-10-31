@@ -239,7 +239,6 @@ const ListKeyword = styled.div`
 	margin: .35rem
 `;
 
-
 const KeywordText = styled.li`
 	width: auto;
 	margin: 0.5rem 0.35rem 0 0;
