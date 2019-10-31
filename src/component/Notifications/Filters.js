@@ -65,9 +65,10 @@ const Content = styled.div`
 	}
 	@media(max-width: 648px) {
 		padding-top: .2rem;
+		padding-bottom: .8rem;
 		width: 95%;
 		max-height: 82vh;
-		// height: 95vh;
+		height: 82vh;
 		// margin-top: 12rem;
 		// margin-bottom: 6.5rem;
 		// padding-right: .5rem;
@@ -167,7 +168,7 @@ const ContainerSearch = styled.div`
 const ContainerSearchMobile = styled.div`
 	display: none;
 	@media(max-width: 648px) {
-		padding-top: 1rem;
+		padding-top: 1.5rem;
 		padding-bottom: 1rem;
 		width: 100%;
 		min-height: 10vh;
@@ -240,7 +241,7 @@ const ContainerScrollBar = styled.div`
 	@media(max-width: 648px) {
 		padding-bottom: 2rem;
 		width: 100%;
-		max-height: 70vh;
+		max-height: 67vh;
 	}
 
 	.scrollarea {
