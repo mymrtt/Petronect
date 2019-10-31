@@ -46,6 +46,7 @@ export const getAllOpportunitiesThunk = () => (
 					titleDescription: item._source.OPPORT_DESCR,
 					deadLineInitial: item._source.OPEN_DATE,
 					deadLineLastOne: item._source.END_DATE,
+					highlight : item.highlight
 				};
 			});
 
@@ -68,6 +69,7 @@ export const getOpportunityByIdThunk = (info) => (
 				opportunityId: response.data._id,
 				opportunityTitle: response.data._source.OPPORT_DESCR,
 				company: response.data._source.COMPANY_DESC,
+				highlight: info.highlight,
 				items: response.data._source.ITEMS.map((item) => ({
 					id: item.EXLIN,
 					title: item.ITEM_DESC,
