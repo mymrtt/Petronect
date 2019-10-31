@@ -194,7 +194,6 @@ class MenuResponsive extends Component {
 	handleOpenDropdown = () => {
 		const { isOpenDropdown } = this.state;
 		this.setState({ isOpenDropdown: !isOpenDropdown });
-		this.props.closeInput();
 	}
 
 	handleLogout = () => {

@@ -19,7 +19,7 @@ import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
-import DeletTag from '../../assets/icon/delete.svg';
+import DeletTag from '../../assets/icon/delete-icon.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -269,12 +269,12 @@ const TextNull = styled.p`
 `;
 
 const ClosedKeyword = styled.button`
-	position: absolute;
-	top: -.125rem;
+	${'' /* position: absolute; */}
 	right: 0;
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
+	margin-left: .25rem;
 `;
 
 const Overlay = styled.div` 
@@ -608,8 +608,10 @@ class RelevanceMatch extends Component {
 			<ListKeyword
 				key={keyword}
 			>
-				<KeywordText>{keyword}</KeywordText>
-				<ClosedKeyword onClick={handleClick}><img src={DeletTag} /></ClosedKeyword>
+				<KeywordText>
+					{keyword}
+					<ClosedKeyword onClick={handleClick}><img src={DeletTag} /></ClosedKeyword>
+				</KeywordText>
 			</ListKeyword>
 		);
 	});
