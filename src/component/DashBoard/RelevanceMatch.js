@@ -351,7 +351,7 @@ const FavoriteImage = styled.img`
 
 const ContainerMessageOpportunity = styled.div`
 	max-height: 80vh;
-	height: 80vh;
+	height: 60vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -373,7 +373,7 @@ const TextMessageOpportunity = styled.p`
 const WrapperTable = styled.div`
 	position: relative;
   width: 100%;
-	height: 75vh;
+	height: 63vh;
 	max-height: 75vh;
 	padding: 0 1rem;
   display: flex;
