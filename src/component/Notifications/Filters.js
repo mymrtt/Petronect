@@ -516,17 +516,6 @@ class Filters extends Component {
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
 							</ContainerSearch>
-							{/* <WrapperNotifications onClick={this.handleOpenFrequencias}>
-								{ isFrequenciasClose ? <Fragment>
-									<NotificationText>Frequência de Avisos</NotificationText>
-									<NotificationText notificationItem>-</NotificationText>
-								</Fragment> : <Fragment>
-									<NotificationText>Frequência de Avisos</NotificationText>
-									<NotificationText notificationItem>+</NotificationText>
-								</Fragment>
-								}
-							</WrapperNotifications>
-							{isFrequenciasOpen && this.renderFrequencias()} */}
 						</ContainerNotifications>
 						<Fragment>
 							<WrapperNotifications onClick={this.handleOpenFrequencias}>
