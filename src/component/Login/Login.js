@@ -74,8 +74,7 @@ justify-content: center;
 align-items: center;
 width: 55%;
 height: 90%;
-${'' /* background: #FFF; */}
-background: pink;
+background: #FFF;
 border-radius: 0 0 6px 6px;
 @media (max-width: 960px) {
 	margin: 1rem 0;
@@ -215,7 +214,9 @@ const AltBox = styled.span`
 	width: 64%;
 	margin-top: 3rem;
 	@media (max-width: 960px) {
-		margin-top: 1rem;
+		// margin-top: 1rem;
+		margin-top: 0;
+    margin: 1.5rem 0;
 		width: 94%;
 	}
 	@media (max-width: 450px) {

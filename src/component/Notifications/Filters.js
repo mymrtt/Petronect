@@ -1,8 +1,9 @@
 // Libs
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { values } from 'lodash';
+import ReactScrollbar from 'react-scrollbar';
 
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
@@ -58,12 +59,16 @@ const Content = styled.div`
   border-radius: 0 4px 0 0;
 	background-color: #fff;
 	@media(max-width: 960px) {
-		width: 95vw;
+		// width: 95vw;
+		width: auto;
+		height: auto;
 	}
 	@media(max-width: 648px) {
-		margin-top: 10rem;
-		margin-bottom: 5.5rem;
-		padding-right: 0;
+		width: 95%;
+		height: 100vh;
+		margin-top: 14rem;
+		margin-bottom: 6.5rem;
+		padding-right: .5rem;
 		padding-top: .5rem;
     padding-right: .5rem;
     padding-left: .5rem;
@@ -71,21 +76,21 @@ const Content = styled.div`
 		border-radius: 4px;
 		display: flex;
     flex-direction: column;
-		overflow-y: scroll;
+		// overflow-y: scroll;
 
-		::-webkit-scrollbar {
-		width: 5px;
-		}
-		::-webkit-scrollbar-track {
-			background: #fff; 
-		}
-		::-webkit-scrollbar-thumb {
-			border-radius: 4px;
-			background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-		}
-		::-webkit-scrollbar-thumb:hover {
-			background: #000; 
-		}
+		// ::-webkit-scrollbar {
+		// width: 5px;
+		// }
+		// ::-webkit-scrollbar-track {
+		// 	background: #fff; 
+		// }
+		// ::-webkit-scrollbar-thumb {
+		// 	border-radius: 4px;
+		// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
+		// }
+		// ::-webkit-scrollbar-thumb:hover {
+		// 	background: #000; 
+		// }
 	}
 `;
 
@@ -132,6 +137,7 @@ const WrapperNotifications = styled.div`
 		display: flex;
 		border-top: .2px solid #116696;
 		background-color: #fff;
+		z-index: 3;
 	}
 `;
 
@@ -221,15 +227,62 @@ const Label = styled.label`
 	}
 `;
 
+const ContainerScrollBar = styled.div`
+	position: relative;
+	width: 85%;
+	max-height: calc(95vh - 1.3rem);
+	display: flex;
+	flex-direction: column;
+
+	@media(max-width: 648px) {
+		padding-bottom: 2rem;
+		width: 100%;
+	}
+
+	.scrollarea {
+    ${({ full }) => full && css`
+      max-height: 100%;
+      width: 100%;
+    `}
+		width: 100%;
+  }
+  .scrollarea .scrollbar-container {
+		opacity: 0.12;
+	}
+	.scrollarea:hover .scrollbar-container {
+		opacity: 0.22;
+	}
+	.scrollarea .scrollbar-container.active, 
+	.scrollarea .scrollbar-container:hover {
+    opacity: .4 !important;
+	}
+  .scrollarea .scrollbar-container.vertical {
+    width: 8px;
+    height: 100%;
+    right: 2px;
+    top: 0;
+    border-radius: 6px;
+    z-index: 2;
+  }
+  .scrollarea .scrollbar-container.vertical .scrollbar {
+    width: 8px;
+    height: 20px;
+    background: #116696;
+    margin-left: 0;
+    border-radius: 6px;
+  }
+`;
+
 const ContainerFilters = styled.div`
-	width: 90%;
-	// height: 100%;
+	width: 100%;
+	height: 100%;
 	padding: 0 1rem;
 	display: flex;
 	justify-content: space-between;
 	// align-items: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
+	overflow: hidden;
 	// overflow-y: scroll;
 
 	// ::-webkit-scrollbar {
@@ -333,14 +386,23 @@ class Filters extends Component {
 		const { allNotification } = this.props;
 
 		return (
-			<ContainerFilters>
-				{values(allNotification).filter((card) => card.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => <CardFilter
-					key={card.keywordFilterId}
-					card={card}
-					history={this.props.history}
-					handleOpenModal={this.handleOpenModal}
-				/>)}
-			</ContainerFilters>
+			<ContainerScrollBar>
+				<ReactScrollbar
+					speed={0.8}
+					horizontal={false}
+					smoothScrolling
+					stopScrollPropagation
+				>
+					<ContainerFilters>
+						{values(allNotification).filter((card) => card.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) >= 0).map((card) => <CardFilter
+							key={card.keywordFilterId}
+							card={card}
+							history={this.props.history}
+							handleOpenModal={this.handleOpenModal}
+						/>)}
+					</ContainerFilters>
+				</ReactScrollbar>
+			</ContainerScrollBar>
 		);
 	}
 
@@ -348,14 +410,23 @@ class Filters extends Component {
 		const { allNotification } = this.props;
 
 		return (
-			<ContainerFilters>
-				{values(allNotification).map((card) => <CardFilter
-					key={card.keywordFilterId}
-					card={card}
-					history={this.props.history}
-					handleOpenModal={this.handleOpenModal}
-				/>)}
-			</ContainerFilters>
+			<ContainerScrollBar>
+				<ReactScrollbar
+					speed={0.8}
+					horizontal={false}
+					smoothScrolling
+					stopScrollPropagation
+				>
+					<ContainerFilters>
+						{values(allNotification).map((card) => <CardFilter
+							key={card.keywordFilterId}
+							card={card}
+							history={this.props.history}
+							handleOpenModal={this.handleOpenModal}
+						/>)}
+					</ContainerFilters>
+				</ReactScrollbar>
+			</ContainerScrollBar>
 		);
 	}
 
@@ -423,7 +494,9 @@ class Filters extends Component {
 	)
 
 	render() {
-		const { isModalOpen, searchCard, isFrequenciasOpen, isFrequenciasClose } = this.state;
+		const {
+ isModalOpen, searchCard, isFrequenciasOpen, isFrequenciasClose 
+} = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
@@ -460,6 +533,4 @@ class Filters extends Component {
 	}
 }
 
-
-// export default Filters;
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

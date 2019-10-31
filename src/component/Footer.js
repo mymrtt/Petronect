@@ -89,7 +89,6 @@ class Footer extends Component {
 					<Image src={RelevanceImg} />
 					<FooterMobileText>Match Relevância</FooterMobileText>
 				</FooterMobileItem>
-				{/* <div onClick={this.handleChangeColorNot}> */}
 				<FooterMobileItem
 					style={{ backgroundColor: this.state.isBackgroundNot ? '#116EA015' : '#fff' }}
 					onClick={this.handleChangeColorNot}

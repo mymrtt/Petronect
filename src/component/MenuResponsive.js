@@ -140,6 +140,7 @@ const DropboxText = styled.p`
 	padding-bottom: 1rem;
 	font: 500 Eurostile, sans-serif;
 	font-size: 1.3rem;
+	color: #116EA0;
 	font-weight: ${(props) => (props.textOrg ? '800' : '200')};
 `;
 

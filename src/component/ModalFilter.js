@@ -76,7 +76,7 @@ const CloseContainer = styled.div`
 
 	@media(max-width: 960px) {
 		top: -2rem;
-		${'' /* left: 32rem; */}
+		${''}
 	}
 	@media (max-width: 648px) {
 		top: 0;
@@ -131,16 +131,6 @@ const Title = styled.h2`
 	font-size: ${(props) => (props.modalTitle ? '1rem' : '.80rem')};
 `;
 
-// const WrapperTexts = styled.div`
-// 	display: ${(props) => props.suggestions && 'flex'};
-// 	align-items: ${(props) => props.suggestions && 'center'};
-// 	margin: ${(props) => props.suggestions && '.80rem .5rem'};
-// 	@media (max-width: 648px) {
-// 		flex-wrap: wrap;
-// 		margin: ${(props) => props.suggestions && '1rem'};
-// 	}
-// `;
-
 const Input = styled.input`
 	width: 100%;
 	height: 3rem;
@@ -189,23 +179,11 @@ const WrapperTagsColor = styled.div`
 
 `;
 
-// const SuggestionsText = styled.p`
-// 	margin-right: ${(props) => props.suggestionsTitle && '1rem'};
-// 	font-size: ${(props) => (props.suggestionsTitle ? '.75rem' : '.80rem')};
-// 	color: ${(props) => (props.suggestionsTitle ? '#8C8C8C' : '#404040')};
-// `;
-
 const ContainerTagsColor = styled.div`
 	margin: .5rem;
 	height: 4rem;
 	display: flex;
 	justify-content: space-between;
-
-	${'' /* @media(max-width: 768px) {
-		height: auto;
-		flex-wrap: wrap;
-		justify-content: space-evenly;
-	} */}
 
 	@media(max-width: 520px) {
     height: auto
@@ -214,21 +192,13 @@ const ContainerTagsColor = styled.div`
 	}
 `;
 
-// const SuggestionsTags = styled.span`
-// 	margin-right: 1rem;
-// 	margin-bottom: ${(props) => props.Tag && '.3rem'};
-// 	padding: .2rem .4rem;
-// 	border-radius: 10px;
-// 	background-color: #aadf0040;
-// `;
-
 const TagColor = styled.div`
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
 	background-color: ${(props) => props.backgroundColor};
 	cursor: pointer;
-	${props => props.selectedColor && `
+	${(props) => props.selectedColor && `
 		border: solid 4px #116EA0;
 	`}
 
@@ -261,7 +231,7 @@ const KeywordText = styled.li`
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
-	background: ${props => props.color}30;
+	background: ${(props) => props.color}30;
 	border-radius: 10px;
 	list-style:none;
 	font-size: .85rem;
@@ -319,9 +289,7 @@ class ModalFilter extends Component {
 	}
 
 	handleKeywordsObject = () => {
-		let keywordsObject = this.props.keywords.map((item) => {
-			return { name: item };
-		});
+		const keywordsObject = this.props.keywords.map((item) => ({ name: item }));
 
 		return keywordsObject;
 	}
@@ -367,10 +335,6 @@ class ModalFilter extends Component {
 						</TextErrorBox>
 					</InputBox>
 					<InputBox last>
-						{/* <Label>Digite as tags relacionadas</Label>
-						<Input
-							placeholder={'Digite seu texto aqui'}
-						/> */}
 						<Wraptext>
 							<TagText>Tags:</TagText>
 							{this.renderKeywordsList()}
