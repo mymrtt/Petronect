@@ -64,15 +64,17 @@ const Content = styled.div`
 		height: auto;
 	}
 	@media(max-width: 648px) {
+		padding-top: .2rem;
 		width: 95%;
-		height: 100vh;
-		margin-top: 14rem;
-		margin-bottom: 6.5rem;
-		padding-right: .5rem;
-		padding-top: .5rem;
+		max-height: 82vh;
+		// height: 95vh;
+		// margin-top: 12rem;
+		// margin-bottom: 6.5rem;
+		// padding-right: .5rem;
+		// padding-top: .5rem;
     padding-right: .5rem;
     padding-left: .5rem;
-    padding-bottom: 3rem;
+    // padding-bottom: 3rem;
 		border-radius: 4px;
 		display: flex;
     flex-direction: column;
@@ -117,7 +119,8 @@ const ContainerNotifications = styled.div`
 	@media(max-width: 648px) {
 		width: 100%;
     padding-top: 1rem;
-    padding-left: 0;
+		padding-left: 0;
+		display: none;
 	}
 `;
 
@@ -164,8 +167,8 @@ const ContainerSearch = styled.div`
 const ContainerSearchMobile = styled.div`
 	display: none;
 	@media(max-width: 648px) {
-		padding-top: 2rem;
-		padding-bottom: 1.9rem;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
 		width: 100%;
 		min-height: 10vh;
 		display: flex;
@@ -237,6 +240,7 @@ const ContainerScrollBar = styled.div`
 	@media(max-width: 648px) {
 		padding-bottom: 2rem;
 		width: 100%;
+		max-height: 70vh;
 	}
 
 	.scrollarea {
@@ -495,8 +499,8 @@ class Filters extends Component {
 
 	render() {
 		const {
- isModalOpen, searchCard, isFrequenciasOpen, isFrequenciasClose 
-} = this.state;
+			isModalOpen, searchCard, isFrequenciasOpen, isFrequenciasClose,
+		} = this.state;
 		return (
 			<Fragment>
 				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
@@ -512,6 +516,19 @@ class Filters extends Component {
 							<ContainerSearch>
 								{this.renderWrapperSearch()}
 							</ContainerSearch>
+							{/* <WrapperNotifications onClick={this.handleOpenFrequencias}>
+								{ isFrequenciasClose ? <Fragment>
+									<NotificationText>Frequência de Avisos</NotificationText>
+									<NotificationText notificationItem>-</NotificationText>
+								</Fragment> : <Fragment>
+									<NotificationText>Frequência de Avisos</NotificationText>
+									<NotificationText notificationItem>+</NotificationText>
+								</Fragment>
+								}
+							</WrapperNotifications>
+							{isFrequenciasOpen && this.renderFrequencias()} */}
+						</ContainerNotifications>
+						<Fragment>
 							<WrapperNotifications onClick={this.handleOpenFrequencias}>
 								{ isFrequenciasClose ? <Fragment>
 									<NotificationText>Frequência de Avisos</NotificationText>
@@ -523,7 +540,7 @@ class Filters extends Component {
 								}
 							</WrapperNotifications>
 							{isFrequenciasOpen && this.renderFrequencias()}
-						</ContainerNotifications>
+						</Fragment>
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
 				</Container>
