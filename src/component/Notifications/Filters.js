@@ -460,6 +460,4 @@ class Filters extends Component {
 	}
 }
 
-
-// export default Filters;
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
