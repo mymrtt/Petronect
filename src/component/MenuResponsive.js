@@ -82,6 +82,7 @@ const ContainerSidebar = styled.div`
 	top: 0;
 	left: 0;
 	bottom: 0;
+	z-index:3;
 `;
 
 const MenuMobile = styled.div`
@@ -193,7 +194,6 @@ class MenuResponsive extends Component {
 	handleOpenDropdown = () => {
 		const { isOpenDropdown } = this.state;
 		this.setState({ isOpenDropdown: !isOpenDropdown });
-		this.props.closeInput();
 	}
 
 	handleLogout = () => {

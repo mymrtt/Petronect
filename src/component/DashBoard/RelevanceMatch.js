@@ -19,7 +19,7 @@ import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
-import DeletTag from '../../assets/icon/delete.svg';
+import DeletTag from '../../assets/icon/delete-icon.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -65,7 +65,9 @@ const Container = styled.div`
 		width: 95%;
 		max-height: 100vh;
 		height: 100%;
-		margin-top: 3.5rem;
+	}
+	@media(max-width:648px) {
+		margin-top: 5rem;
 	}
 `;
 
@@ -172,6 +174,7 @@ const LabelBox = styled.label`
   height: 2rem;
   width: 225px;
   padding-left: 1rem;
+	position: relative;
 	border-radius: ${(props) => props.borderRadius};
   border: solid #116EA0 .5px;
   display: flex;
@@ -223,10 +226,19 @@ const WrapInput = styled.div`
 	}
 `;
 
+const BoxKeywordText = styled.ul`
+	margin-top: -4px;
+	position: absolute;
+	display: flex;
+	max-width: calc(225px - 3rem);
+	overflow: hidden;
+`;
+
 const ListKeyword = styled.div`
 	position: relative;
 	margin: .35rem
 `;
+
 
 const KeywordText = styled.li`
 	width: auto;
@@ -240,7 +252,7 @@ const KeywordText = styled.li`
 	list-style:none;
 	font-size: .85rem;
 	color: #40404090;
-	word-break: break-all;
+	word-break: ${props => props.dontBreak || 'break-all'};
 `;
 
 const ContainerText = styled.div`
@@ -257,12 +269,12 @@ const TextNull = styled.p`
 `;
 
 const ClosedKeyword = styled.button`
-	position: absolute;
-	top: -.125rem;
+	${'' /* position: absolute; */}
 	right: 0;
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
+	margin-left: .25rem;
 `;
 
 const Overlay = styled.div` 
@@ -351,7 +363,7 @@ const FavoriteImage = styled.img`
 
 const ContainerMessageOpportunity = styled.div`
 	max-height: 80vh;
-	height: 80vh;
+	height: 60vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -373,13 +385,17 @@ const TextMessageOpportunity = styled.p`
 const WrapperTable = styled.div`
 	position: relative;
   width: 100%;
-	height: 75vh;
-	max-height: 75vh;
+	${'' /* height: 63vh; */}
+	max-height: 80vh;
 	padding: 0 1rem;
   display: flex;
 	flex-direction: column;
 	align-items: center;
 	background: #fff;
+	margin-bottom: 1rem;
+	@media(max-width: 768px) {
+		max-height: 65vh;
+	}
 	@media(max-width: 648px) {
 		padding: 0 1rem 1rem 1rem;
 	}
@@ -592,8 +608,10 @@ class RelevanceMatch extends Component {
 			<ListKeyword
 				key={keyword}
 			>
-				<KeywordText>{keyword}</KeywordText>
-				<ClosedKeyword onClick={handleClick}><img src={DeletTag} /></ClosedKeyword>
+				<KeywordText>
+					{keyword}
+					<ClosedKeyword onClick={handleClick}><img src={DeletTag} /></ClosedKeyword>
+				</KeywordText>
 			</ListKeyword>
 		);
 	});
@@ -649,8 +667,15 @@ class RelevanceMatch extends Component {
 					<InputHead
 						ref={(node) => { this.inputSearch = node; }}
 						onFocus={this.handleInputSearch}
-						placeholder="Digite aqui para pesquisar"
+						placeholder={this.props.keywords.length === 0 && 'Digite aqui para pesquisar'}
 					/>
+					<BoxKeywordText>
+						{this.props.keywords.length > 0
+						&& !this.state.inputSearch
+						&& this.props.keywords.map((keyword, index) => (
+							<KeywordText key={index} dontBreak='normal'>{keyword}</KeywordText>
+						))}
+					</BoxKeywordText>
 					<AddKeyword
 					>+</AddKeyword>
 				</LabelBox>
@@ -720,7 +745,10 @@ class RelevanceMatch extends Component {
 						>
 							{this.renderHeader(list)}
 							{list.map((item) => {
-								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0);
+								// eslint-disable-next-line
+								{ /* const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0); */ }
+
+								const isFavorite = false;
 
 								const handleFavorite = (event) => {
 									if (isFavorite) {
@@ -735,8 +763,9 @@ class RelevanceMatch extends Component {
 										<TableBody
 											spanWidth
 											onClick={handleFavorite}
+											disabled
 										>
-											<img src={isFavorite ? start : startHover} />
+											<img src={isFavorite ? start : startHover}/>
 										</TableBody>
 										<TableBody spanWidth>{item.fit}%</TableBody>
 										<TableBody >{item.company}</TableBody>
@@ -796,7 +825,8 @@ class RelevanceMatch extends Component {
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
 										}}
 									>
-										<FavoriteImage src={this.state.hoverFavorites ? startHover : start} />
+										<FavoriteImage
+											src={this.state.hoverFavorites ? startHover : start} />
 										Favoritos
 									</Button>
 								</Form>
