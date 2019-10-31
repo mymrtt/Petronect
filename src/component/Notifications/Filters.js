@@ -284,25 +284,9 @@ const ContainerFilters = styled.div`
 	padding: 0 1rem;
 	display: flex;
 	justify-content: space-between;
-	// align-items: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
 	overflow: hidden;
-	// overflow-y: scroll;
-
-	// ::-webkit-scrollbar {
-	// 	width: 3px;
-	// }
-	// ::-webkit-scrollbar-track {
-	// 	background: #fff; 
-	// }
-	// ::-webkit-scrollbar-thumb {
-	// 	border-radius: 4px;
-	// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-	// }
-	// ::-webkit-scrollbar-thumb:hover {
-	// 	background: #000; 
-	// }
 
 	@media(max-width: 960px) {
 		padding: 0;
