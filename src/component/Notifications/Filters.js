@@ -59,41 +59,20 @@ const Content = styled.div`
   border-radius: 0 4px 0 0;
 	background-color: #fff;
 	@media(max-width: 960px) {
-		// width: 95vw;
 		width: auto;
 		height: auto;
 	}
 	@media(max-width: 648px) {
 		padding-top: .2rem;
+    padding-right: .5rem;
+    padding-left: .5rem;
 		padding-bottom: .8rem;
 		width: 95%;
 		max-height: 82vh;
 		height: 82vh;
-		// margin-top: 12rem;
-		// margin-bottom: 6.5rem;
-		// padding-right: .5rem;
-		// padding-top: .5rem;
-    padding-right: .5rem;
-    padding-left: .5rem;
-    // padding-bottom: 3rem;
 		border-radius: 4px;
 		display: flex;
     flex-direction: column;
-		// overflow-y: scroll;
-
-		// ::-webkit-scrollbar {
-		// width: 5px;
-		// }
-		// ::-webkit-scrollbar-track {
-		// 	background: #fff; 
-		// }
-		// ::-webkit-scrollbar-thumb {
-		// 	border-radius: 4px;
-		// 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%); 
-		// }
-		// ::-webkit-scrollbar-thumb:hover {
-		// 	background: #000; 
-		// }
 	}
 `;
 
@@ -136,7 +115,6 @@ const WrapperNotifications = styled.div`
 		position: fixed;
 		bottom: 3rem;
 		left: 0;
-		// padding: 1rem;
 		width: 100%;
 		display: flex;
 		border-top: .2px solid #116696;
@@ -347,8 +325,8 @@ class Filters extends Component {
 			isModalOpen: false,
 			searchText: '',
 			searchCard: false,
-			isFrequenciasOpen: false,
-			isFrequenciasClose: false,
+			isFrequencyOpen: false,
+			isFrequencyClose: false,
 		};
 	}
 
@@ -449,12 +427,12 @@ class Filters extends Component {
 		this.setState({ isModalOpen: !isModalOpen });
 	}
 
-	handleOpenFrequencias = () => {
-		const { isFrequenciasOpen, isFrequenciasClose } = this.state;
+	handleOpenFrequency = () => {
+		const { isFrequencyOpen, isFrequencyClose } = this.state;
 
 		this.setState({
-			isFrequenciasOpen: !isFrequenciasOpen,
-			isFrequenciasClose: !isFrequenciasClose,
+			isFrequencyOpen: !isFrequencyOpen,
+			isFrequencyClose: !isFrequencyClose,
 		});
 	}
 
@@ -481,7 +459,7 @@ class Filters extends Component {
 
 	render() {
 		const {
-			isModalOpen, searchCard, isFrequenciasOpen, isFrequenciasClose,
+			isModalOpen, searchCard, isFrequencyOpen, isFrequencyClose,
 		} = this.state;
 		return (
 			<Fragment>
@@ -500,17 +478,22 @@ class Filters extends Component {
 							</ContainerSearch>
 						</ContainerNotifications>
 						<Fragment>
-							<WrapperNotifications onClick={this.handleOpenFrequencias}>
-								{ isFrequenciasClose ? <Fragment>
-									<NotificationText>Frequência de Avisos</NotificationText>
-									<NotificationText notificationItem>-</NotificationText>
-								</Fragment> : <Fragment>
-									<NotificationText>Frequência de Avisos</NotificationText>
-									<NotificationText notificationItem>+</NotificationText>
-								</Fragment>
+							<WrapperNotifications onClick={this.handleOpenFrequency}>
+								{
+									isFrequencyClose ? (
+										<Fragment>
+											<NotificationText>Frequência de Avisos</NotificationText>
+											<NotificationText notificationItem>-</NotificationText>
+										</Fragment>
+									) : (
+										<Fragment>
+											<NotificationText>Frequência de Avisos</NotificationText>
+											<NotificationText notificationItem>+</NotificationText>
+										</Fragment>
+									)
 								}
 							</WrapperNotifications>
-							{isFrequenciasOpen && this.renderFrequencias()}
+							{isFrequencyOpen && this.renderFrequencias()}
 						</Fragment>
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
