@@ -19,7 +19,7 @@ import searchIcon from '../../assets/icon/lupa.svg';
 import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 import FilterImg from '../../assets/icon/icon_menu_input.svg';
-import DeletTag from '../../assets/icon/delete-icon.svg';
+import DeletTag from '../../assets/icon/close-blue.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
@@ -239,11 +239,10 @@ const ListKeyword = styled.div`
 	margin: .35rem
 `;
 
-
 const KeywordText = styled.li`
 	width: auto;
 	margin: 0.5rem 0.35rem 0 0;
-	padding: .25rem .25rem;
+	padding: .15rem 0 .15rem .5rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -268,13 +267,31 @@ const TextNull = styled.p`
 	color: #115680;
 `;
 
-const ClosedKeyword = styled.button`
-	${'' /* position: absolute; */}
-	right: 0;
-	border: none;
+const ClosedKeyword = styled.div`
+	width: 1.25rem;
+	height: 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border-radius: 50%;
+	&:hover {
+    background: #fff;
+		margin-right: .15rem;
+  }
+`;
+
+const ImgClosedTag = styled.img`
+	margin: 0 .25rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: .65rem;
 	cursor: pointer;
-	margin-left: .25rem;
+	border-radius: 50%;
+
+	${'' /* &:hover {
+    background: #fff;
+  } */}
 `;
 
 const Overlay = styled.div` 
@@ -610,7 +627,7 @@ class RelevanceMatch extends Component {
 			>
 				<KeywordText>
 					{keyword}
-					<ClosedKeyword onClick={handleClick}><img src={DeletTag} /></ClosedKeyword>
+					<ClosedKeyword onClick={handleClick}><ImgClosedTag src={DeletTag} /></ClosedKeyword>
 				</KeywordText>
 			</ListKeyword>
 		);

@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import { values } from 'lodash';
 import ReactScrollbar from 'react-scrollbar';
 
+
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
 
