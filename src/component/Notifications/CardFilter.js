@@ -122,7 +122,7 @@ const Image = styled.img`
 `;
 
 const Overlay = styled.div`
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
@@ -131,6 +131,7 @@ const Overlay = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: #40404040;
+	z-index: 4;
 `;
 
 const ContainerDeleteModal = styled.div`
@@ -145,7 +146,6 @@ const ContainerDeleteModal = styled.div`
 		z-index: 1;
 	}
 	@media(max-width: 648px) {
-		z-index: 3;
 		padding: 0 2rem;
 		// width: 22rem;
 		width: 95%;
