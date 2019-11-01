@@ -27,7 +27,7 @@ const Slider = styled.input`
   width: 100%;
   height: 3px;
   border-radius: 5px;
-	background: repeating-linear-gradient(90deg, #116EA0, #116EA0 ${(props) => props.value}%, #d3d3d3 ${(props) => props.value + 0.2}%, #d3d3d3 100%);
+	background: repeating-linear-gradient(90deg, #116EA0, #E6E6E6 ${(props) => props.value}%, #d3d3d3 ${(props) => props.value + 0.2}%, #d3d3d3 100%);
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
@@ -51,15 +51,6 @@ const Slider = styled.input`
 		border-radius: 50%;
 		background: #4CAF50;
 		cursor: pointer;
-	}
-
-	@media(max-width: 648px) {
-		height: 5px;
-
-		::-webkit-slider-thumb {
-			width: 18px;
-			height: 18px;
-		}
 	}
 `;
 
@@ -133,38 +124,38 @@ class NotificationsBar extends Component {
 		}
 	}
 
+	notificationSend = (value) => {
+		const info = {
+			email: '',
+			sms: 'NEVER',
+			push: 'NEVER',
+		};
 
- notificationSend = (value) => {
- 	const info = {
- 		email: '',
- 		sms: 'NEVER',
- 		push: 'NEVER',
- 	};
+		if (value == 0) {
+			info.email = 'NEVER';
+			console.log(info);
+			this.props.postNotificationUserThunk(info);
+		}
 
- 	if (value == 0) {
- 		info.email = 'NEVER';
- 		console.log(info);
- 		this.props.postNotificationUserThunk(info);
- 	}
+		if (value == 100) {
+			info.email = 'DAILY';
+			console.log(info);
+			this.props.postNotificationUserThunk(info);
+		}
 
- 	if (value == 100) {
- 		info.email = 'DAILY';
- 		console.log(info);
- 		this.props.postNotificationUserThunk(info);
- 	}
+		if (value == 200) {
+			info.email = 'WEEKLY';
+			console.log(info);
+			this.props.postNotificationUserThunk(info);
+		}
 
- 	if (value == 200) {
- 		info.email = 'WEEKLY';
- 		console.log(info);
- 		this.props.postNotificationUserThunk(info);
- 	}
-
- 	if (value == 300) {
- 		info.email = 'MONTHLY';
- 		console.log(info);
- 		this.props.postNotificationUserThunk(info);
- 	}
- }
+		if (value == 300) {
+				info.email = 'MONTHLY';
+				console.log(info);
+				this.props.postNotificationUserThunk(info);
+			}
+		}
+	}
 
 	renderValues = () => {
 		console.log('estado', this.state);

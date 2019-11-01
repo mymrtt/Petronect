@@ -41,6 +41,7 @@ const FooterMobileItem = styled(Link)`
 		border-radius: 20px;
 		cursor: pointer;
 		white-space: nowrap;
+		text-decoration: none;
 	}
 `;
 

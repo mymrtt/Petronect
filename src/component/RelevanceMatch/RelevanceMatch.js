@@ -227,7 +227,7 @@ const WrapInput = styled.div`
 `;
 
 const BoxKeywordText = styled.ul`
-	margin-top: -4px;
+	margin-top: -1px;
 	position: absolute;
 	display: flex;
 	max-width: calc(225px - 3rem);
@@ -241,8 +241,8 @@ const ListKeyword = styled.div`
 
 const KeywordText = styled.li`
 	width: auto;
-	margin: 0.5rem 0.35rem 0 0;
-	padding: .15rem 0 .15rem .5rem;
+	margin: .25rem .15rem 0 0;
+	padding: .25rem .25rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -270,6 +270,7 @@ const TextNull = styled.p`
 const ClosedKeyword = styled.div`
 	width: 1.25rem;
 	height: 1.25rem;
+	margin: 0 .15rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;

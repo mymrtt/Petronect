@@ -8,7 +8,7 @@ import PrivateRoute from './PrivateRoute';
 
 // Components
 import Login from './component/Login/Login';
-import Dashboard from './component/DashBoard/DashBoard';
+import Dashboard from './component/RelevanceMatch/Index';
 
 const RoutesConfig = () => (
 	<BrowserRouter>
