@@ -31,7 +31,6 @@ const Image = styled.img`
 const FooterMobileItem = styled(Link)`
 	display: none;
 	@media (max-width: 648px) {
-		// margin: 0 .60rem;
 		display: flex;
 		width: 50%;
 		height: 2.2rem;

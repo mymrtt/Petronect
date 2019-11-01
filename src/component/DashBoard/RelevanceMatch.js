@@ -410,7 +410,7 @@ const WrapperTable = styled.div`
 	align-items: center;
 	background: #fff;
 	margin-bottom: 1rem;
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		max-height: 65vh;
 	}
 	@media(max-width: 648px) {
@@ -669,7 +669,7 @@ class RelevanceMatch extends Component {
 	handleOpotunity = () => {
 		this.setState((prevState) => ({
 			isShowFavorites: !prevState.isShowFavorites,
-		}));	
+		}));
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
 		});

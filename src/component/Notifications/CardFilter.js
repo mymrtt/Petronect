@@ -49,7 +49,6 @@ const Card = styled.div`
 	border: .5px solid;
 	border-color: ${(props) => props.border};
 	border-radius: 4px;
-	// background-color: #fff;
 	cursor: pointer;
 	@media (max-width: 960px) {
 		margin-bottom: 1rem;
@@ -122,7 +121,7 @@ const Image = styled.img`
 `;
 
 const Overlay = styled.div`
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
@@ -131,6 +130,7 @@ const Overlay = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: #40404040;
+	z-index: 4;
 `;
 
 const ContainerDeleteModal = styled.div`
@@ -146,7 +146,6 @@ const ContainerDeleteModal = styled.div`
 	}
 	@media(max-width: 648px) {
 		padding: 0 2rem;
-		// width: 22rem;
 		width: 95%;
 	}
 `;
@@ -226,12 +225,8 @@ const DeleteButton = styled.button`
 `;
 
 const ContainerHeaderItems = styled.div`
-	// width: 50%;
 	display: flex;
 	align-items: center;
-	// @media(max-width: 1024px) {
-		// width: 75%;
-	// }
 `;
 
 const WrapperHeaderItems = styled.div`
@@ -271,29 +266,27 @@ class CardFilter extends Component {
 		this.props.getAllOpportunitiesThunk();
 	}
 
-	renderDeleteModal = () => {
-		return (
-			<Overlay>
-				<ContainerDeleteModal>
-					<DeleteModalHeader>
-						<Title deleteTitle>Deseja excluir a notificação {this.props.card.name}?</Title>
-						<CloseContainer onClick={this.handleCloseDeleteModal}>
-							<CloseButton>
-								<CloseImage src={closeIcon} />
-							</CloseButton>
-						</CloseContainer>
-					</DeleteModalHeader>
-					<ContentDeleteModal>
-						<Text deleteText>Ao confirmar esta ação a notificação "{this.props.card.name}" será excluído permanentemente do sistema.</Text>
-						<ContainerDeleteButtons>
-							<DeleteButton onClick={this.handleCloseDeleteModal}>Cancelar</DeleteButton>
-							<DeleteButton deleteConfirmation onClick={this.removeNotification}>Confirmar</DeleteButton>
-						</ContainerDeleteButtons>
-					</ContentDeleteModal>
-				</ContainerDeleteModal>
-			</Overlay>
-		);
-	}
+	renderDeleteModal = () => (
+		<Overlay>
+			<ContainerDeleteModal>
+				<DeleteModalHeader>
+					<Title deleteTitle>Deseja excluir a notificação {this.props.card.name}?</Title>
+					<CloseContainer onClick={this.handleCloseDeleteModal}>
+						<CloseButton>
+							<CloseImage src={closeIcon} />
+						</CloseButton>
+					</CloseContainer>
+				</DeleteModalHeader>
+				<ContentDeleteModal>
+					<Text deleteText>Ao confirmar esta ação a notificação "{this.props.card.name}" será excluído permanentemente do sistema.</Text>
+					<ContainerDeleteButtons>
+						<DeleteButton onClick={this.handleCloseDeleteModal}>Cancelar</DeleteButton>
+						<DeleteButton deleteConfirmation onClick={this.removeNotification}>Confirmar</DeleteButton>
+					</ContainerDeleteButtons>
+				</ContentDeleteModal>
+			</ContainerDeleteModal>
+		</Overlay>
+	)
 
 	render() {
 		const { card } = this.props;

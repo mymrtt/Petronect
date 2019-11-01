@@ -41,7 +41,7 @@ const Container = styled.div`
   background: #FFF;
   border-right: rgba(0, 0, 0, 0.1) solid 1px; 
   border-radius: 4px 0 0 0;
-	@media(max-width: 768px) {
+	@media(max-width: 960px) {
 		border-radius: 0;
 	}
 `;
