@@ -1,7 +1,7 @@
 // Libs
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 // Redux
 import { getNotificationUserThunk, postNotificationUserThunk } from '../../dataflow/thunks/notification-thunk';
@@ -78,30 +78,26 @@ const Text = styled.p`
 `;
 
 const mapStateToProps = (state) => ({
-	//allNotification: state.opportunities.allNotification,
+	// allNotification: state.opportunities.allNotification,
 });
 
-const mapDispatchToProps = (dispatch) => ({	
+const mapDispatchToProps = (dispatch) => ({
 	getNotificationUserThunk: () => {
 		dispatch(getNotificationUserThunk())
-					.then(result => {
-						if(result && result.status === 200 && result.data.email ) {  
-								window.helloComponent.notificationResponse(result.data.email);         
-						} else {
-							window.helloComponent.notificationResponse("NEVER");
-						}   
-
-			    }    
-			    ).catch(error => {
-						console.log("error", error);
-			      
-			    }    
-			    );
+			.then((result) => {
+				if (result && result.status === 200 && result.data.email) {
+					window.helloComponent.notificationResponse(result.data.email);
+				} else {
+					window.helloComponent.notificationResponse('NEVER');
+				}
+			}).catch((error) => {
+				console.log('error', error);
+			});
 	},
 
 	postNotificationUserThunk: (info) => {
-			dispatch(postNotificationUserThunk(info));
-		},
+		dispatch(postNotificationUserThunk(info));
+	},
 
 });
 
@@ -109,97 +105,94 @@ class NotificationsBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			value: 0
+			value: 0,
 		};
 
 		window.helloComponent = this;
 		this.getNotificationsData();
 	}
 
-	getNotificationsData()  {
-    this.props.getNotificationUserThunk();
-	};
-	
+	getNotificationsData() {
+		this.props.getNotificationUserThunk();
+	}
+
 
 	notificationResponse = (value) => {
 		console.log(value);
 		switch (value) {
-			case 'NEVER':
-					return this.setState({ value: 0 });
-			case 'DAILY':
-					return this.setState({ value: 100});
-			case 'WEEKLY':
-					return this.setState({ value: 200 });
-			case 'MONTHLY':
-					return this.setState({ value: 300 });
-			default:
-					return this.setState({ value: 0 });
-			}
-			
- }
+		case 'NEVER':
+			return this.setState({ value: 0 });
+		case 'DAILY':
+			return this.setState({ value: 100 });
+		case 'WEEKLY':
+			return this.setState({ value: 200 });
+		case 'MONTHLY':
+			return this.setState({ value: 300 });
+		default:
+			return this.setState({ value: 0 });
+		}
+	}
 
 
  notificationSend = (value) => {
-	var info = {
-		"email": "",
-		"sms": "NEVER",
-		"push": "NEVER"
-		};
-		
-		if(value==0){
-			info.email = "NEVER";
-			console.log(info);
-			this.props.postNotificationUserThunk(info);
-		}
+ 	const info = {
+ 		email: '',
+ 		sms: 'NEVER',
+ 		push: 'NEVER',
+ 	};
 
-		if(value==100){
-			info.email = "DAILY";
-			console.log(info);
-			this.props.postNotificationUserThunk(info);
-		}
+ 	if (value == 0) {
+ 		info.email = 'NEVER';
+ 		console.log(info);
+ 		this.props.postNotificationUserThunk(info);
+ 	}
 
-		if(value==200){
-			info.email = "WEEKLY";
-			console.log(info);
-			this.props.postNotificationUserThunk(info);
-		}
+ 	if (value == 100) {
+ 		info.email = 'DAILY';
+ 		console.log(info);
+ 		this.props.postNotificationUserThunk(info);
+ 	}
 
-		if(value==300){
-			info.email = "MONTHLY";
-			console.log(info);
-			this.props.postNotificationUserThunk(info);
-		}
+ 	if (value == 200) {
+ 		info.email = 'WEEKLY';
+ 		console.log(info);
+ 		this.props.postNotificationUserThunk(info);
+ 	}
 
-}
+ 	if (value == 300) {
+ 		info.email = 'MONTHLY';
+ 		console.log(info);
+ 		this.props.postNotificationUserThunk(info);
+ 	}
+ }
 
 	renderValues = () => {
-		console.log("estado", this.state);
+		console.log('estado', this.state);
 		const { value } = this.state;
 
 		switch (value) {
-			case 0:
-				return <Text>Nunca</Text>;
-			case 100:
-				return <Text>Diária</Text>;
-			case 200:
-				return <Text>Semanal</Text>;
-			case 300:
-				return <Text>Mensal</Text>;
-			default:
-				return <Text>Nunca</Text>;
-			}
-
+		case 0:
+			return <Text>Nunca</Text>;
+		case 100:
+			return <Text>Diária</Text>;
+		case 200:
+			return <Text>Semanal</Text>;
+		case 300:
+			return <Text>Mensal</Text>;
+		default:
+			return <Text>Nunca</Text>;
+		}
 	}
 
 	handleChangeValue = (event) => {
-		console.log("teste")
+		console.log('teste');
 		const { value } = event.target;
 		console.log(value);
 		if (value == 0) {
 			this.setState({ value: 0 });
 			this.notificationSend(value);
 		} else if (value == 100) {
-			this.setState({ value: 100});
+			this.setState({ value: 100 });
 			this.notificationSend(value);
 		} else if (value == 200) {
 			this.setState({ value: 200 });
@@ -214,7 +207,7 @@ class NotificationsBar extends Component {
 		return (
 			<Container>
 				<ContainerValues>
-					{this.renderValues()} 
+					{this.renderValues()}
 				</ContainerValues>
 				<Proceed>
 					<Slider
