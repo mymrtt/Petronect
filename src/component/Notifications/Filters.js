@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components';
 import { values } from 'lodash';
 import ReactScrollbar from 'react-scrollbar';
 
-
 // Images
 import magnifying from '../../assets/icon/lupa.svg';
 
@@ -73,6 +72,7 @@ const Content = styled.div`
 		height: 82vh;
 		border-radius: 4px;
 		display: flex;
+		justify-content: end;
     flex-direction: column;
 	}
 `;
@@ -438,7 +438,7 @@ class Filters extends Component {
 	}
 
 	renderModalFilter = () => (
-		<ModalFilter handleOpenModal={this.handleOpenModal}/>
+		<ModalFilter handleOpenModal={this.handleOpenModal} />
 	)
 
 	renderFrequencias = () => (

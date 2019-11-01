@@ -81,9 +81,9 @@ const mapDispatchToProps = (dispatch) => ({
 				} else {
 					window.helloComponent.notificationResponse('NEVER');
 				}
-			},).catch((error) => {
+			}).catch((error) => {
 				console.log('error', error);
-			},);
+			});
 	},
 
 	postNotificationUserThunk: (info) => {
@@ -124,7 +124,6 @@ class NotificationsBar extends Component {
 		}
 	}
 
-
 	notificationSend = (value) => {
 		const info = {
 			email: '',
@@ -151,9 +150,10 @@ class NotificationsBar extends Component {
 		}
 
 		if (value == 300) {
-			info.email = 'MONTHLY';
-			console.log(info);
-			this.props.postNotificationUserThunk(info);
+				info.email = 'MONTHLY';
+				console.log(info);
+				this.props.postNotificationUserThunk(info);
+			}
 		}
 	}
 
