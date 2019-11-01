@@ -145,6 +145,7 @@ const ContainerDeleteModal = styled.div`
 		z-index: 1;
 	}
 	@media(max-width: 648px) {
+		z-index: 3;
 		padding: 0 2rem;
 		// width: 22rem;
 		width: 95%;
