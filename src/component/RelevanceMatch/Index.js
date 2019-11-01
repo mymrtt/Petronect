@@ -61,7 +61,7 @@ const ContainerSidebar = styled.span`
 	}
 `;
 
-class DashBoard extends Component {
+class Index extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -125,4 +125,4 @@ class DashBoard extends Component {
 	}
 }
 
-export default connect(null, mapDispatchToProps)(DashBoard);
+export default connect(null, mapDispatchToProps)(Index);

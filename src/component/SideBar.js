@@ -198,9 +198,9 @@ const InfoItem = styled.p`
 
 const Representative = styled.p`
 	font: 500 Eurostile, sans-serif;
-  color: #000;
+  color: #116EA0;
   font-size: .875rem;
-  font-weight: 100;
+  font-weight: 800;
 `;
 
 const Button = styled.button`
@@ -209,7 +209,9 @@ const Button = styled.button`
   background: #dbe9f1;
   border-radius: 10px;
   border-style: none; 
+	color: #116EA0;
   cursor: pointer;
+	font-weight: 600;
 `;
 
 class SideBar extends Component {

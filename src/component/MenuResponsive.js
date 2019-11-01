@@ -136,6 +136,14 @@ const ContainerDropdown = styled.div`
 	}
 `;
 
+const OverlayDropdown = styled.div`
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+`;
+
 const DropboxText = styled.p`
 	display: ${(props) => (props.displayNone ? 'none' : 'block')};
 	padding-bottom: 1rem;
@@ -151,7 +159,7 @@ const DropboxButton = styled.button`
 	height: 2.5rem;
 	color: #116EA0;
 	font-size: 1.2rem;
-	font-weight: 400;
+	font-weight: 600;
 	border-radius: 21px;
 	border: transparent;
 	background-color: #DBE9F1;
@@ -201,11 +209,13 @@ class MenuResponsive extends Component {
 	}
 
 	renderDropdown = () => (
-		<ContainerDropdown>
-			{/* <DropboxText textOrg>Snowball Solutions</DropboxText> */}
-			<DropboxText textOrg>{this.props.nameUser}</DropboxText>
-			<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
-		</ContainerDropdown>
+		<OverlayDropdown onClick={this.handleOpenDropdown}>
+			<ContainerDropdown>
+				{/* <DropboxText textOrg>Snowball Solutions</DropboxText> */}
+				<DropboxText textOrg>{this.props.nameUser}</DropboxText>
+				<DropboxButton onClick={this.handleLogout}>Sair</DropboxButton>
+			</ContainerDropdown>
+		</OverlayDropdown>
 	)
 
 	render() {

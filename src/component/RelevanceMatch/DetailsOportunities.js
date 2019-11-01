@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { values } from 'lodash';
 
 // Images
 import start from '../../assets/icon/estrela.svg';
@@ -178,8 +179,16 @@ const Text = styled.p`
 	color: ${(props) => (props.title ? '#8C8C8C' : '#404040')};
 	font-weight: ${(props) => (props.bold ? 500 : 400)};
 	font-size: ${(props) => (props.fontSize ? '1rem' : '0.90rem')};
+	margin-top: ${(props) => props.marginTop && '1rem'};
 	@media	(max-width: 648px) {
 		padding: ${(props) => (props.padding ? props.padding : '0 0 0 0')};
+	}
+
+	em {
+		font-weight: 700;
+		background-color: yellow;
+		font-style: normal;
+	}
 	}
 `;
 
@@ -416,6 +425,14 @@ class DetailsOportunies extends Component {
 											<Text>Unidade de Fornecimento: {item.unit}</Text>
 										</InfoWrap>
 									</>
+								))}
+								<Text title fontSize marginTop>Termos encontrados</Text>
+								{selectedOpportunity.highlight && values(selectedOpportunity.highlight).map((item) => (
+									item.map((highlight, index) => (
+										<InfoWrap key={index}>
+											<Text dangerouslySetInnerHTML={{ __html: highlight }} />
+										</InfoWrap>
+									))
 								))}
 							</InfoContainer>
 							<InfoContent>
