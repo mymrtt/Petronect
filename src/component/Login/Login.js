@@ -12,7 +12,9 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Redux
 import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
-import { updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting } from '../../dataflow/modules/login-module';
+import {
+ updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting 
+} from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
 	error: state.login.error,
@@ -99,7 +101,7 @@ const InputContainer = styled.form`
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	${'' /*height: 90%;
+	${'' /* height: 90%;
 	background: #FFF;
 	border-radius: 0 0 6px 6px;
 	@media (max-width: 960px) {
@@ -228,7 +230,7 @@ const Link = styled.p`
 	font: 400 1rem Eurostile, sans serif;
 	letter-spacing: 0;
 	color: ${(props) => props.color || '#505050'} ;
-	text-decoration: ${(props) => (props.color ? 'underline' : 'none')} ;
+	text-decoration: ${(props) => (props.color ? 'underline' : 'none')};
 	cursor: pointer;
 	:last lastResponsive-child {
 		text-align: right;
@@ -285,10 +287,10 @@ const LoginMessageError = styled.span`
 	bottom: -1.5rem;
 
 	@media	(max-width: 960px) {
-		${'' /* width: 55%; */}
+		${''}
 	}
 	@media (max-width: 450px) {
-		${'' /* width: 85%; */}
+		${''}
 	}
 `;
 
@@ -336,7 +338,7 @@ const CreateBox = styled.div`
 `;
 
 const TermsText = styled.p`
-	${'' /* width: 90%; */}
+	${''}
 	margin: 1.5rem 0 -1rem;
 	font: 400 0.875rem Eurostile;
 	letter-spacing: 0;
@@ -350,6 +352,74 @@ const TermsText = styled.p`
 	@media(max-width: 450px) {
 		margin-bottom: 1rem;
 	}
+`;
+
+const ButtonTerms = styled.span`
+	margin: .2rem;
+	cursor: pointer;
+`;
+
+const OverlayTerms = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #40404040;
+`;
+
+const ContainerTerms = styled.div`
+	position: relative;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 1rem;
+	width: 440px;
+	border-radius: 4px;
+	background-color: #fff;
+`;
+
+const TitleTerms = styled.h2`
+	margin-left: 1rem;
+	padding: .5rem 0 1rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #116EA0;
+`;
+
+const WrapperTerms = styled.div`
+	margin-bottom: 1rem;
+	padding: 1rem;
+	background-color: #F7F7F7;
+`;
+
+const TextTerms = styled.p`
+	margin-bottom: 1rem;
+	color: ${(props) => (props.lastAtt ? '#4152C0' : '#505050')};
+	font-size: .95rem;
+	font-weight: ${(props) => (props.bold ? '600' : '100')};
+`;
+
+const ContainerButtonClose = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+`;
+
+const ButtonCloseTerms = styled.button`
+	width: 7.5rem;
+	height: 2.3rem;
+	color: #fff;
+	font-size: .95rem;
+	font-weight: 600;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
+	text-transform: uppercase;
+	background-color: #116EA0;
 `;
 
 const CreateTitle = styled.h1`
@@ -422,6 +492,7 @@ class Login extends Component {
 			isCreated: false,
 			showPassword: true,
 			error: undefined,
+			isTermsOpen: false,
 		};
 	}
 
@@ -458,7 +529,7 @@ class Login extends Component {
 				error: undefined,
 			});
 		}
-		
+
 		return null;
 	}
 
@@ -527,6 +598,32 @@ class Login extends Component {
 
 		// this.props.verifyEmailExistingThunk(this.inputRecover.value);
 	}
+
+	handleOpenTerms = () => {
+		this.setState({ isTermsOpen: true });
+	}
+
+	handleCloseTerms = () => {
+		this.setState({ isTermsOpen: false });
+	}
+
+	renderOpenTerms = () => (
+		<OverlayTerms>
+			<ContainerTerms>
+				<TitleTerms>Termos de serviço</TitleTerms>
+				<WrapperTerms>
+					<TextTerms bold>Petronect</TextTerms>
+					<TextTerms lastAtt>Ultima atualização: 13 de outubro de 2019</TextTerms>
+					<TextTerms bold>1. Aceitação dos termos de serviço Petronect.</TextTerms>
+					<TextTerms>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac consectetur massa. Pellentesque at vestibulum justo. Donec sed nibh dignissim, vestibulum neque sed, ornare ex. In purus odio, sodales non nibh quis, interdum maximus neque. Proin et imperdiet elit. Aliquam erat volutpat. Etiam luctus libero id neque commodo placerat. Etiam vitae molestie eros. Etiam dui urna, pulvinar eget neque in, pharetra bibendum diam. Donec sit amet sem eu enim sollicitudin consectetur tristique ac nunc. </TextTerms>
+					<TextTerms>Quisque nec risus id nisi viverra gravida. Fusce sed lacus lorem. Ut sit amet luctus est. Donec facilisis justo mi, ut consequat urna blandit at. Quisque eleifend rutrum felis.</TextTerms>
+				</WrapperTerms>
+				<ContainerButtonClose onClick={this.handleCloseTerms}>
+					<ButtonCloseTerms>ok</ButtonCloseTerms>
+				</ContainerButtonClose>
+			</ContainerTerms>
+		</OverlayTerms>
+	)
 
 	renderError = () => {
 		if (this.props.error) {
@@ -684,10 +781,14 @@ class Login extends Component {
 								src={this.state.showPassword ? showPassword : hidePassword}
 								onClick={this.showPassword}
 							/>
-						{this.renderError()}
+							{this.renderError()}
 						</InputBox>
 						<TermsText>
-							Clique abaixo para concordar com nossos <strong>Termos de Serviço</strong> e se inscrever.
+							Clique abaixo para concordar com nossos
+							<ButtonTerms onClick={this.handleOpenTerms}>
+								<strong>Termos de Serviço</strong>
+							</ButtonTerms>
+							e se inscrever.
 						</TermsText>
 						<Button width='100%'>
 							Concordar e criar conta
@@ -698,6 +799,7 @@ class Login extends Component {
 					</form>)
 				}
 			</CreateBox>
+			{ this.state.isTermsOpen && this.renderOpenTerms() }
 		</CreateContainer>
 	)
 
@@ -707,7 +809,7 @@ class Login extends Component {
 			<LogoCreate src={logoW} />
 			<CreateBox>
 				{this.props.recoverSuccess
-				? (<>
+					? (<>
 						<CreateTitle>
 							Sucesso! Verifique seu caixa de email.
 						</CreateTitle>
@@ -718,7 +820,7 @@ class Login extends Component {
 							Voltar para o Login
 						</BackText>
 					</>)
-				: (<Form onSubmit={this.handleSubmitRecover}>
+					: (<Form onSubmit={this.handleSubmitRecover}>
 						<CreateTitle>
 							Recuperar Senha
 						</CreateTitle>
@@ -732,7 +834,7 @@ class Login extends Component {
 								placeholder={'nome@email.com'}
 								onChange={this.handleError}
 							/>
-						{this.renderError()}
+							{this.renderError()}
 						</InputBox>
 						{/* <InputBox last width='100%'>
 							<Label>Confirmar email</Label>
