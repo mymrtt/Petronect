@@ -155,7 +155,7 @@ class NotificationsBar extends Component {
 				this.props.postNotificationUserThunk(info);
 			}
 		}
-	}
+	
 
 	renderValues = () => {
 		console.log('estado', this.state);
