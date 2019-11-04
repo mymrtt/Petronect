@@ -109,7 +109,6 @@ class NotificationsBar extends Component {
 
 
 	notificationResponse = (value) => {
-		console.log(value);
 		switch (value) {
 		case 'NEVER':
 			return this.setState({ value: 0 });
@@ -133,32 +132,26 @@ class NotificationsBar extends Component {
 
 		if (value == 0) {
 			info.email = 'NEVER';
-			console.log(info);
 			this.props.postNotificationUserThunk(info);
 		}
 
 		if (value == 100) {
 			info.email = 'DAILY';
-			console.log(info);
 			this.props.postNotificationUserThunk(info);
 		}
 
 		if (value == 200) {
 			info.email = 'WEEKLY';
-			console.log(info);
 			this.props.postNotificationUserThunk(info);
 		}
 
 		if (value == 300) {
-				info.email = 'MONTHLY';
-				console.log(info);
-				this.props.postNotificationUserThunk(info);
-			}
+			info.email = 'MONTHLY';
+			this.props.postNotificationUserThunk(info);
 		}
 	}
 
 	renderValues = () => {
-		console.log('estado', this.state);
 		const { value } = this.state;
 
 		switch (value) {
@@ -176,9 +169,7 @@ class NotificationsBar extends Component {
 	}
 
 	handleChangeValue = (event) => {
-		console.log('teste');
 		const { value } = event.target;
-		console.log(value);
 		if (value == 0) {
 			this.setState({ value: 0 });
 			this.notificationSend(value);
