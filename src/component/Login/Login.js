@@ -390,37 +390,37 @@ const TitleTerms = styled.h2`
 	color: #116EA0;
 `;
 
-const WrapperTerms = styled.div`
-	margin-bottom: 1rem;
-	padding: 1rem;
-	background-color: #F7F7F7;
-`;
+// const WrapperTerms = styled.div`
+// 	margin-bottom: 1rem;
+// 	padding: 1rem;
+// 	background-color: #F7F7F7;
+// `;
 
-const TextTerms = styled.p`
-	margin-bottom: 1rem;
-	color: ${(props) => (props.lastAtt ? '#4152C0' : '#505050')};
-	font-size: .95rem;
-	font-weight: ${(props) => (props.bold ? '600' : '100')};
-`;
+// const TextTerms = styled.p`
+// 	margin-bottom: 1rem;
+// 	color: ${(props) => (props.lastAtt ? '#4152C0' : '#505050')};
+// 	font-size: .95rem;
+// 	font-weight: ${(props) => (props.bold ? '600' : '100')};
+// `;
 
-const ContainerButtonClose = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-`;
+// const ContainerButtonClose = styled.div`
+// 	width: 100%;
+// 	display: flex;
+// 	justify-content: flex-end;
+// `;
 
-const ButtonCloseTerms = styled.button`
-	width: 7.5rem;
-	height: 2.3rem;
-	color: #fff;
-	font-size: .95rem;
-	font-weight: 600;
-	cursor: pointer;
-	border: none;
-	border-radius: 4px;
-	text-transform: uppercase;
-	background-color: #116EA0;
-`;
+// const ButtonCloseTerms = styled.button`
+// 	width: 7.5rem;
+// 	height: 2.3rem;
+// 	color: #fff;
+// 	font-size: .95rem;
+// 	font-weight: 600;
+// 	cursor: pointer;
+// 	border: none;
+// 	border-radius: 4px;
+// 	text-transform: uppercase;
+// 	background-color: #116EA0;
+// `;
 
 const CreateTitle = styled.h1`
 	align-self: flex-start;
@@ -599,31 +599,31 @@ class Login extends Component {
 		// this.props.verifyEmailExistingThunk(this.inputRecover.value);
 	}
 
-	handleOpenTerms = () => {
-		this.setState({ isTermsOpen: true });
-	}
+	// handleOpenTerms = () => {
+	// 	this.setState({ isTermsOpen: true });
+	// }
 
-	handleCloseTerms = () => {
-		this.setState({ isTermsOpen: false });
-	}
+	// handleCloseTerms = () => {
+	// 	this.setState({ isTermsOpen: false });
+	// }
 
-	renderOpenTerms = () => (
-		<OverlayTerms>
-			<ContainerTerms>
-				<TitleTerms>Termos de serviço</TitleTerms>
-				<WrapperTerms>
-					<TextTerms bold>Petronect</TextTerms>
-					<TextTerms lastAtt>Ultima atualização: 13 de outubro de 2019</TextTerms>
-					<TextTerms bold>1. Aceitação dos termos de serviço Petronect.</TextTerms>
-					<TextTerms>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac consectetur massa. Pellentesque at vestibulum justo. Donec sed nibh dignissim, vestibulum neque sed, ornare ex. In purus odio, sodales non nibh quis, interdum maximus neque. Proin et imperdiet elit. Aliquam erat volutpat. Etiam luctus libero id neque commodo placerat. Etiam vitae molestie eros. Etiam dui urna, pulvinar eget neque in, pharetra bibendum diam. Donec sit amet sem eu enim sollicitudin consectetur tristique ac nunc. </TextTerms>
-					<TextTerms>Quisque nec risus id nisi viverra gravida. Fusce sed lacus lorem. Ut sit amet luctus est. Donec facilisis justo mi, ut consequat urna blandit at. Quisque eleifend rutrum felis.</TextTerms>
-				</WrapperTerms>
-				<ContainerButtonClose onClick={this.handleCloseTerms}>
-					<ButtonCloseTerms>ok</ButtonCloseTerms>
-				</ContainerButtonClose>
-			</ContainerTerms>
-		</OverlayTerms>
-	)
+	// renderOpenTerms = () => (
+	// 	<OverlayTerms>
+	// 		<ContainerTerms>
+	// 			<TitleTerms>Termos de serviço</TitleTerms>
+	// 			<WrapperTerms>
+	// 				<TextTerms bold>Petronect</TextTerms>
+	// 				<TextTerms lastAtt>Ultima atualização: 13 de outubro de 2019</TextTerms>
+	// 				<TextTerms bold>1. Aceitação dos termos de serviço Petronect.</TextTerms>
+	// 				<TextTerms>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ac consectetur massa. Pellentesque at vestibulum justo. Donec sed nibh dignissim, vestibulum neque sed, ornare ex. In purus odio, sodales non nibh quis, interdum maximus neque. Proin et imperdiet elit. Aliquam erat volutpat. Etiam luctus libero id neque commodo placerat. Etiam vitae molestie eros. Etiam dui urna, pulvinar eget neque in, pharetra bibendum diam. Donec sit amet sem eu enim sollicitudin consectetur tristique ac nunc. </TextTerms>
+	// 				<TextTerms>Quisque nec risus id nisi viverra gravida. Fusce sed lacus lorem. Ut sit amet luctus est. Donec facilisis justo mi, ut consequat urna blandit at. Quisque eleifend rutrum felis.</TextTerms>
+	// 			</WrapperTerms>
+	// 			<ContainerButtonClose onClick={this.handleCloseTerms}>
+	// 				<ButtonCloseTerms>ok</ButtonCloseTerms>
+	// 			</ContainerButtonClose>
+	// 		</ContainerTerms>
+	// 	</OverlayTerms>
+	// )
 
 	renderError = () => {
 		if (this.props.error) {
