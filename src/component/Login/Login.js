@@ -360,36 +360,36 @@ const ButtonTerms = styled.span`
 	cursor: pointer;
 `;
 
-const OverlayTerms = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: #40404040;
-`;
+// const OverlayTerms = styled.div`
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100vw;
+// 	height: 100vh;
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	background: #40404040;
+// `;
 
-const ContainerTerms = styled.div`
-	position: relative;
-	top: 0;
-	left: 0;
-	right: 0;
-	padding: 1rem;
-	width: 440px;
-	border-radius: 4px;
-	background-color: #fff;
-`;
+// const ContainerTerms = styled.div`
+// 	position: relative;
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
+// 	padding: 1rem;
+// 	width: 440px;
+// 	border-radius: 4px;
+// 	background-color: #fff;
+// `;
 
-const TitleTerms = styled.h2`
-	margin-left: 1rem;
-	padding: .5rem 0 1rem;
-	font-size: 1.5rem;
-	font-weight: 600;
-	color: #116EA0;
-`;
+// const TitleTerms = styled.h2`
+// 	margin-left: 1rem;
+// 	padding: .5rem 0 1rem;
+// 	font-size: 1.5rem;
+// 	font-weight: 600;
+// 	color: #116EA0;
+// `;
 
 // const WrapperTerms = styled.div`
 // 	margin-bottom: 1rem;
@@ -651,7 +651,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-					 	A senha deve conter no minimo 6 caracteres
+					 	A senha deve conter no mínimo 6 caracteres
 					</TextError>
 				</LoginMessageError>
 			);
