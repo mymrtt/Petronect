@@ -149,7 +149,7 @@ class NotificationsBar extends Component {
 			info.email = 'MONTHLY';
 			this.props.postNotificationUserThunk(info);
 		}
-	}
+	
 
 	renderValues = () => {
 		const { value } = this.state;
