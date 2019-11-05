@@ -64,7 +64,7 @@ const Container = styled.div`
 	}
 
 
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		padding: 1rem;
 	}
 `;
@@ -85,7 +85,7 @@ border-radius: 0 0 6px 6px;
 	height: min-content;
 	border-radius: 6px;
 }
-@media (max-width: 450px) {
+@media (max-width: 648px) {
 	margin: 0;
 	width: 100%;
 	height: 80%;
@@ -111,7 +111,7 @@ const InputContainer = styled.form`
 		height: min-content;
 		border-radius: 6px;
 	}
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		margin: 0;
 		width: 100%;
 		height: 80%;
@@ -124,7 +124,7 @@ const InputContainer = styled.form`
 const Logo = styled.img`
 	width: 35%;
 	margin: 1rem 0;
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		width: 55%;
 		min-width: 180px;
 	}
@@ -134,10 +134,10 @@ const LogoCreate = styled.img`
 	${'' /* position: absolute;
 	top: 10%; */}
 	width: 20%;
-	min-width: 275px;
+	min-width: 220px;
 	@media(max-width: 960px) {
 		padding: 2rem;
-    width: 30%;
+    width: 45%;
 	}
 `;
 
@@ -204,7 +204,7 @@ const Button = styled.button`
 	@media (max-width: 960px) {
 		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
 	}
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		margin-top: ${(props) => (props.widthLogin ? '1.5rem' : '.5rem')};
 	}
 `;
@@ -221,7 +221,7 @@ const AltBox = styled.span`
     margin: 1.5rem 0;
 		width: 94%;
 	}
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		width: 90%;
 	}
 `;
@@ -251,7 +251,7 @@ const LoginBox = styled.div`
 		justify-content: space-evenly;
 		flex-direction: row-reverse;
 	}
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		display: none;
 	}
 `;
@@ -286,12 +286,12 @@ const LoginMessageError = styled.span`
 	right: 0;
 	bottom: -1.5rem;
 
-	@media	(max-width: 960px) {
-		${''}
-	}
-	@media (max-width: 450px) {
-		${''}
-	}
+	// @media	(max-width: 960px) {
+	// 	${''}
+	// }
+	// @media (max-width: 648px) {
+	// 	${''}
+	// }
 `;
 
 const TextError = styled.p`
@@ -316,7 +316,8 @@ const CreateBox = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 30%;
-	padding: 3rem 4rem;
+	// padding: 3rem 4rem;
+	padding: 2.5rem 3rem;
 	background: #FFF;
 	box-shadow: 0px 1px 2px #0000001A;
 	border-radius: 4px;
@@ -332,7 +333,7 @@ const CreateBox = styled.div`
 
 		padding: 2rem;
 	}
-	@media(max-width: 450px) {
+	@media(max-width: 648px) {
 		width: 100%;
 	}
 `;
@@ -349,7 +350,7 @@ const TermsText = styled.p`
 	@media(max-width: 960px) {
 		width: 100%;
 	}
-	@media(max-width: 450px) {
+	@media(max-width: 648px) {
 		margin-bottom: 1rem;
 	}
 `;
@@ -452,7 +453,7 @@ const BackText = styled.div`
 const ButtonsBox = styled.div`
 	display: flex;
 	justify-content: space-between;
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		flex-wrap: column;
 		margin-top: 2.5rem;
 	}
@@ -460,7 +461,7 @@ const ButtonsBox = styled.div`
 
 const Form = styled.form`
 	width: 95%;
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		width: 100%;
 		flex-wrap: column;
 		margin-top: 2.5rem;
@@ -479,7 +480,7 @@ const ButtonBack = styled.span`
 	text-align: left;
 	color: #115680;
 	cursor: pointer;
-	@media (max-width: 450px) {
+	@media (max-width: 648px) {
 		margin-top: .5rem;
 	}
 `;
@@ -492,7 +493,7 @@ class Login extends Component {
 			isCreated: false,
 			showPassword: true,
 			error: undefined,
-			isTermsOpen: false,
+			// isTermsOpen: false,
 		};
 	}
 
