@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d3b151c63a9c0c530a07c8a536001a24",
+    "revision": "a2d1201079e7dd085a0b35135bc13331",
     "url": "/Petronect/index.html"
   },
   {
-    "revision": "75764ff16c335efea40d",
+    "revision": "aefb22c86ba3f2e4bb85",
     "url": "/Petronect/static/css/main.87ffdde6.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Petronect/static/js/2.9ea03965.chunk.js"
   },
   {
-    "revision": "75764ff16c335efea40d",
-    "url": "/Petronect/static/js/main.725bf0d5.chunk.js"
+    "revision": "aefb22c86ba3f2e4bb85",
+    "url": "/Petronect/static/js/main.ec72ad53.chunk.js"
   },
   {
     "revision": "86a61e37a012c9dd63b4",
