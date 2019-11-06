@@ -764,9 +764,9 @@ class RelevanceMatch extends Component {
 							{this.renderHeader(list)}
 							{list.map((item) => {
 								// eslint-disable-next-line
-								{ /* const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0); */ }
+								const isFavorite = !(this.props.favoriteList.filter((i) => i === item.opportunityId).length === 0); 
 
-								const isFavorite = false;
+								{/* const isFavorite = false; */}
 
 								const handleFavorite = (event) => {
 									if (isFavorite) {
@@ -781,7 +781,7 @@ class RelevanceMatch extends Component {
 										<TableBody
 											spanWidth
 											onClick={handleFavorite}
-											disabled
+											// disabled
 										>
 											<img src={isFavorite ? start : startHover}/>
 										</TableBody>
@@ -837,14 +837,16 @@ class RelevanceMatch extends Component {
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
-										disabled
+										// disabled
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
 										}}
 									>
 										<FavoriteImage
-											src={this.state.hoverFavorites ? startHover : start} />
+											src={
+												this.state.hoverFavorites ? startHover : start
+											} />
 										Favoritos
 									</Button>
 								</Form>
@@ -878,7 +880,7 @@ class RelevanceMatch extends Component {
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
-										disabled
+										// disabled
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
