@@ -641,7 +641,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-					 	Usuário já cadastrado
+						Usuário já cadastrado
 					</TextError>
 				</LoginMessageError>
 			);
@@ -651,7 +651,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-					 	A senha deve conter no mínimo 6 caracteres
+						A senha deve conter no mínimo 6 caracteres
 					</TextError>
 				</LoginMessageError>
 			);
