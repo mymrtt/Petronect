@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Petronect/precache-manifest.80d6e22177f49a9c2d0b0268de901d16.js"
+  "/Petronect/precache-manifest.0062c846fa4c09545d4a71acfd1ae142.js"
 );
 
 self.addEventListener('message', (event) => {
