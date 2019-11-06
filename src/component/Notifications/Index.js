@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Components
-import SideBar from '../SideBar';
+// import SideBar from '../SideBar';
 import Filters from './Filters';
 
 const Container = styled.div`
@@ -42,6 +42,13 @@ const ContainerSidebar = styled.span`
 	width: 20%;
 	@media (max-width: 960px) {
 		display: none;
+	}
+	@media (max-width: 648px) {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		display: flex;
+		z-index: 1;
 	}
 `;
 

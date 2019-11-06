@@ -24,7 +24,7 @@ import DeletTag from '../../assets/icon/close-blue.svg';
 // Components
 import DetailsOportunities from './DetailsOportunities';
 import MenuResponsive from '../MenuResponsive';
-import Footer from '../Footer';
+// import Footer from '../Footer';
 import ModalFilter from '../ModalFilter';
 
 const mapStateToProps = (state) => ({
@@ -897,7 +897,7 @@ class RelevanceMatch extends Component {
 						{isModalOpen && this.renderModalFilter()}
 					</Fragment>
 				</Container>
-				<Footer />
+				{/* <Footer /> */}
 			</Fragment>
 		);
 	}

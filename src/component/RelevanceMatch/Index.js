@@ -59,6 +59,13 @@ const ContainerSidebar = styled.span`
 	@media (max-width: 960px) {
 		display: none;
 	}
+	@media (max-width: 648px) {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		display: flex;
+		z-index: 3;
+	}
 `;
 
 class Index extends Component {

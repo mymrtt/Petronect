@@ -11,7 +11,7 @@ import magnifying from '../../assets/icon/lupa.svg';
 // Components
 import NotificationsBar from './NotificationsBar';
 import MenuResponsive from '../MenuResponsive';
-import Footer from '../Footer';
+// import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
@@ -499,7 +499,7 @@ class Filters extends Component {
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
 				</Container>
-				<Footer />
+				{/* <Footer /> */}
 			</Fragment>
 		);
 	}
