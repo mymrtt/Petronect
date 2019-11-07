@@ -82,6 +82,9 @@ const WrapperTablet = styled.div`
     align-items: flex-start;
 		flex-direction: column;
 	}
+	@media (max-width: 648px) {
+		display: none;
+	}
 `;
 
 const ImageMenuTablet = styled.img`
@@ -110,9 +113,11 @@ const BoxMenu = styled.div`
 	@media (max-width: 1024px) {
 		height: 65%;
 	}
-	@media (max-width: 375px) {
-		height: 100%;
-		background: #fff;
+	@media (max-width: 648px) {
+		position: fixed;
+    bottom: 0;
+    height: 3rem;
+		background-color: #fff;
 		box-shadow: 0px -1px 2px #0000001A;
 	}
 `;
@@ -127,11 +132,10 @@ const MenuList = styled.ul`
 	@media (max-width: 1024px) {
 		width: 95%;
 	}
-	@media(max-width: 375px) {
+	@media(max-width: 648px) {
 		width: 100%;
-		height: 100%;
 		flex-direction: row;
-		display: none;
+		align-items: center;
 	}
 `;
 
@@ -155,8 +159,14 @@ const MenuItem = styled(Link)`
 	@media (max-width: 1024px) {
 		height: 40px;
 	}
-	@media (max-width: 375px) {
-		background: black;
+	@media (max-width: 648px) {
+		width: 45%;
+		height: 2.2rem;
+		padding: .5rem 0;
+		display: ${(props) => (props.disable ? 'none' : 'flex')};
+		Justify-content: center;
+		border-radius: 18px;
+		
 	}
 `;
 
@@ -168,7 +178,7 @@ const WrapperInfo = styled.div`
   justify-centent: center;
   border-top: solid #EBEBEB 1px;
 
-	@media(max-width: 375px) {
+	@media(max-width: 648px) {
 		display: none;
   }
 `;

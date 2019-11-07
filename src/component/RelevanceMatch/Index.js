@@ -8,7 +8,7 @@ import * as Cookies from 'js-cookie';
 // Components
 import SideBar from '../SideBar';
 import RelevanceMatch from './RelevanceMatch';
-import Filters from '../Notifications/Filters';
+import Notifications from '../Notifications/Notifications';
 
 import {
 	getNameUser,
@@ -59,6 +59,13 @@ const ContainerSidebar = styled.span`
 	@media (max-width: 960px) {
 		display: none;
 	}
+	@media (max-width: 648px) {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		display: flex;
+		z-index: 3;
+	}
 `;
 
 class Index extends Component {
@@ -95,7 +102,7 @@ class Index extends Component {
 	renderCurrentScreen = () => {
 		switch (this.state.currentScreen) {
 		case '/notifications':
-			return <Filters history={this.props.history} currentScreen={this.state.currentScreen}/>;
+			return <Notifications history={this.props.history} currentScreen={this.state.currentScreen}/>;
 		case '/match-relevancia':
 		default:
 			return <RelevanceMatch history={this.props.history} currentScreen={this.state.currentScreen}/>;

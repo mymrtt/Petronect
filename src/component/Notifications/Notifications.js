@@ -11,7 +11,7 @@ import magnifying from '../../assets/icon/lupa.svg';
 // Components
 import NotificationsBar from './NotificationsBar';
 import MenuResponsive from '../MenuResponsive';
-import Footer from '../Footer';
+// import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
@@ -319,7 +319,7 @@ const NotificationText = styled.p`
 	}
 `;
 
-class Filters extends Component {
+class Notifications extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -499,10 +499,10 @@ class Filters extends Component {
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
 				</Container>
-				<Footer />
+				{/* <Footer /> */}
 			</Fragment>
 		);
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
