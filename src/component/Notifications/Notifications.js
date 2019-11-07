@@ -319,7 +319,7 @@ const NotificationText = styled.p`
 	}
 `;
 
-class Filters extends Component {
+class Notifications extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -505,4 +505,4 @@ class Filters extends Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

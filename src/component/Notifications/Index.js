@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 // Components
 // import SideBar from '../SideBar';
-import Filters from './Filters';
+import Notifications from './Notifications';
 
 const Container = styled.div`
 	width: 100vw;
@@ -58,7 +58,7 @@ const Index = () => (
 			<ContainerSidebar>
 				<SideBar />
 			</ContainerSidebar>
-			<Filters />
+			<Notifications />
 		</Content>
 	</Container>
 );
