@@ -117,7 +117,7 @@ const BoxMenu = styled.div`
 		position: fixed;
     bottom: 0;
     height: 3rem;
-		background: #fff;
+		background-color: #fff;
 		box-shadow: 0px -1px 2px #0000001A;
 	}
 `;
