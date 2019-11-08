@@ -340,11 +340,7 @@ class Notifications extends Component {
 	}
 
 	handleSearchInput = (event) => {
-		this.setState({ searchText: event.target.value });
-	}
-
-	handleSearchCard = () => {
-		this.setState({ searchCard: true });
+		this.setState({ searchText: event.target.value, searchCard: true });
 	}
 
 	renderNewCardsFilter = () => {
@@ -404,7 +400,7 @@ class Notifications extends Component {
 					value={this.state.searchText}
 					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} onClick={this.handleSearchCard} />
+				<Image magnifying src={magnifying} />
 			</ContainerSearchInput>
 			<FrequenciasDesktop>
 				<NotificationsItem>
