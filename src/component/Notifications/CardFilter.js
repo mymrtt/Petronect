@@ -319,7 +319,8 @@ class CardFilter extends Component {
 								<SuggestionsTags
 									tag
 									background={card.color ? `${card.color}30` : '#11568030'}
-									key={tag.name}>
+									key={tag.name}
+								>
 									<SuggestionsText suggestionsTags>{tag}</SuggestionsText>
 								</SuggestionsTags>
 							))

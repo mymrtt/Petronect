@@ -13,7 +13,7 @@ import Dashboard from './component/RelevanceMatch/Index';
 const RoutesConfig = () => (
 	<BrowserRouter>
 		<Switch>
-			<Route exact path='/' component={Login} />
+			<Route exact path='/login' component={Login} />
 			<PrivateRoute component={Dashboard} />
 		</Switch>
 	</BrowserRouter>

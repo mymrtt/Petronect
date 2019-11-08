@@ -24,7 +24,6 @@ import DeletTag from '../../assets/icon/close-blue.svg';
 // Components
 import DetailsOportunities from './DetailsOportunities';
 import MenuResponsive from '../MenuResponsive';
-// import Footer from '../Footer';
 import ModalFilter from '../ModalFilter';
 
 const mapStateToProps = (state) => ({
@@ -570,7 +569,6 @@ class RelevanceMatch extends Component {
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
 		});
-		console.log('hover:', this.hoverFavorites)
 	}
 
 	handleKeyPress = (event) => {
@@ -882,8 +880,7 @@ class RelevanceMatch extends Component {
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
-										}
-										}
+										}}
 									>
 										<img src={this.state.hoverFavorites ? startHover : start} />
 									</Button>
@@ -897,7 +894,6 @@ class RelevanceMatch extends Component {
 						{isModalOpen && this.renderModalFilter()}
 					</Fragment>
 				</Container>
-				{/* <Footer /> */}
 			</Fragment>
 		);
 	}

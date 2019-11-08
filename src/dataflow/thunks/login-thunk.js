@@ -56,7 +56,7 @@ export const logoutThunk = (info) => (
 	async () => {
 		try {
 			Cookies.remove('petronect_creds');
-			info.history.replace('/');
+			info.history.replace('/login');
 		} catch (err) {}
 	}
 );

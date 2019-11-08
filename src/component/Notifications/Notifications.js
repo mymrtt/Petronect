@@ -11,7 +11,6 @@ import magnifying from '../../assets/icon/lupa.svg';
 // Components
 import NotificationsBar from './NotificationsBar';
 import MenuResponsive from '../MenuResponsive';
-// import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
@@ -319,7 +318,7 @@ const NotificationText = styled.p`
 	}
 `;
 
-class Filters extends Component {
+class Notifications extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -340,11 +339,10 @@ class Filters extends Component {
 	}
 
 	handleSearchInput = (event) => {
-		this.setState({ searchText: event.target.value });
-	}
-
-	handleSearchCard = () => {
-		this.setState({ searchCard: true });
+		this.setState({
+			searchText: event.target.value,
+			searchCard: true,
+		});
 	}
 
 	renderNewCardsFilter = () => {
@@ -404,7 +402,7 @@ class Filters extends Component {
 					value={this.state.searchText}
 					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} onClick={this.handleSearchCard} />
+				<Image magnifying src={magnifying} />
 			</ContainerSearchInput>
 			<FrequenciasDesktop>
 				<NotificationsItem>
@@ -441,7 +439,7 @@ class Filters extends Component {
 		<ModalFilter handleOpenModal={this.handleOpenModal} />
 	)
 
-	renderFrequencias = () => (
+	renderFrequencies = () => (
 		<ContainerNotificationsItem>
 			<NotificationsItem>
 				<Label labelNotifications>E-mail</Label>
@@ -494,15 +492,14 @@ class Filters extends Component {
 									)
 								}
 							</WrapperNotifications>
-							{isFrequencyOpen && this.renderFrequencias()}
+							{isFrequencyOpen && this.renderFrequencies()}
 						</Fragment>
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
 				</Container>
-				{/* <Footer /> */}
 			</Fragment>
 		);
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

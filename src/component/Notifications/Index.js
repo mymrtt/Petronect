@@ -3,8 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Components
-// import SideBar from '../SideBar';
-import Filters from './Filters';
+import Notifications from './Notifications';
 
 const Container = styled.div`
 	width: 100vw;
@@ -55,10 +54,8 @@ const ContainerSidebar = styled.span`
 const Index = () => (
 	<Container>
 		<Content>
-			<ContainerSidebar>
-				<SideBar />
-			</ContainerSidebar>
-			<Filters />
+			<ContainerSidebar />
+			<Notifications />
 		</Content>
 	</Container>
 );

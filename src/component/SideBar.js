@@ -113,9 +113,11 @@ const BoxMenu = styled.div`
 	@media (max-width: 1024px) {
 		height: 65%;
 	}
-	@media (max-width: 375px) {
-		height: 100%;
-		background: #fff;
+	@media (max-width: 648px) {
+		position: fixed;
+    bottom: 0;
+    height: 3rem;
+		background-color: #fff;
 		box-shadow: 0px -1px 2px #0000001A;
 	}
 `;
@@ -132,7 +134,6 @@ const MenuList = styled.ul`
 	}
 	@media(max-width: 648px) {
 		width: 100%;
-		height: 3rem;
 		flex-direction: row;
 		align-items: center;
 	}
