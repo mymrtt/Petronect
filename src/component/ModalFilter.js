@@ -307,8 +307,13 @@ class ModalFilter extends Component {
 		));
 	}
 
-	renderKeywordsList = () => this.props.keywords.map((keyword) => (
-		<KeywordText color={this.state.selectedColor}>{keyword}</KeywordText>
+	renderKeywordsList = () => this.props.keywords.map((keyword, index) => (
+		<KeywordText
+			color={this.state.selectedColor}
+			key={index}
+		>
+			{keyword}
+		</KeywordText>
 	))
 
 	render() {

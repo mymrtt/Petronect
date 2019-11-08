@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import * as Cookies from 'js-cookie';
 
 // Images
 import logo from '../../assets/img/LogoPNE.png';
@@ -13,7 +14,7 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
 import {
- updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting 
+	updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting,
 } from '../../dataflow/modules/login-module';
 
 const mapStateToProps = (state) => ({
@@ -495,6 +496,15 @@ class Login extends Component {
 			error: undefined,
 			// isTermsOpen: false,
 		};
+	}
+
+	componentDidMount() {
+		this.handleGetUserData();
+
+	}
+
+	handleGetUserData = () => {
+	/* 		const { data } = JSON.parse(Cookies.get('petronect_creds')); */
 	}
 
 	showPassword = () => {

@@ -11,7 +11,6 @@ import magnifying from '../../assets/icon/lupa.svg';
 // Components
 import NotificationsBar from './NotificationsBar';
 import MenuResponsive from '../MenuResponsive';
-// import Footer from '../Footer';
 import CardFilter from './CardFilter';
 import ModalFilter from '../ModalFilter';
 
@@ -340,7 +339,10 @@ class Notifications extends Component {
 	}
 
 	handleSearchInput = (event) => {
-		this.setState({ searchText: event.target.value, searchCard: true });
+		this.setState({
+			searchText: event.target.value,
+			searchCard: true,
+		});
 	}
 
 	renderNewCardsFilter = () => {
@@ -437,7 +439,7 @@ class Notifications extends Component {
 		<ModalFilter handleOpenModal={this.handleOpenModal} />
 	)
 
-	renderFrequencias = () => (
+	renderFrequencies = () => (
 		<ContainerNotificationsItem>
 			<NotificationsItem>
 				<Label labelNotifications>E-mail</Label>
@@ -490,12 +492,11 @@ class Notifications extends Component {
 									)
 								}
 							</WrapperNotifications>
-							{isFrequencyOpen && this.renderFrequencias()}
+							{isFrequencyOpen && this.renderFrequencies()}
 						</Fragment>
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
 				</Container>
-				{/* <Footer /> */}
 			</Fragment>
 		);
 	}

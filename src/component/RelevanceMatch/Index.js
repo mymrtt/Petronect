@@ -111,7 +111,7 @@ class Index extends Component {
 
 	redirect = () => (
 		<Redirect
-			to={'/'}
+			to={'/login'}
 		/>
 	)
 
