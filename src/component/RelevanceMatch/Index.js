@@ -72,17 +72,35 @@ class Index extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentScreen: 'match-relevancia',
+			currentScreen: '/match-relevancia',
 			redirect: false,
 		};
 	}
 
 	componentDidMount() {
-		this.setState({
-			currentScreen: this.props.location.pathname,
-		});
+		this.handleCurrentScreen();
 
 		this.handleNameUser();
+	}
+
+	handleCurrentScreen = () => {
+		let currentScreen = '';
+
+		switch (this.props.location.pathname) {
+		case '/notifications':
+			currentScreen = '/notifications';
+			this.props.history.replace('/notifications')
+			break
+		case '/match-relevancia':
+		default:
+			currentScreen = '/match-relevancia';
+			this.props.history.replace('/match-relevancia')
+			break
+		}
+
+		this.setState({
+			currentScreen,
+		});
 	}
 
 	handleNameUser = () => {
@@ -93,9 +111,7 @@ class Index extends Component {
 	componentDidUpdate(oldProps) {
 		if (oldProps.location.pathname !== this.props.location.pathname
 			&& this.props.location.pathname !== this.state.currentScreen) {
-			this.setState({
-				currentScreen: this.props.location.pathname,
-			});
+			this.handleCurrentScreen();
 		}
 	}
 

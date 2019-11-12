@@ -475,6 +475,10 @@ class Login extends Component {
 	}
 
 	componentDidMount() {
+		this.getToken();
+	}
+
+	getToken = () => {
 		try {
 			const response = Cookies.get('petronect_creds');
 	
