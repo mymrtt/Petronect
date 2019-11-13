@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { values } from 'lodash';
 
 // Images
-/* import start from '../../assets/icon/estrela.svg'; */
+// import start from '../../assets/icon/estrela.svg';
 import startHover from '../../assets/icon/estrela-cinza.svg';
 // import shareIcon from '../../assets/icon/compartilhar.svg';
 import attachIcon from '../../assets/icon/anexar.svg';
@@ -350,7 +350,7 @@ class DetailsOportunies extends Component {
 				.join('/');
 		} return null;
 	}
-	
+
 	showFiles = () => {
 		const { selectedOpportunity } = this.props;
 		if (selectedOpportunity.files) {

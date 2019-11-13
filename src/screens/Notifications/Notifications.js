@@ -10,9 +10,9 @@ import magnifying from '../../assets/icon/lupa.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
-import MenuResponsive from '../MenuResponsive';
+import MenuResponsive from '../../component/MenuResponsive';
 import CardFilter from './CardFilter';
-import ModalFilter from '../ModalFilter';
+import ModalFilter from '../../component/ModalFilter';
 
 // Redux
 import { getAllKeywordThunk } from '../../dataflow/thunks/opportunities-thunk';
@@ -462,18 +462,18 @@ class Notifications extends Component {
 		} = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
+				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen} />
 				<Container>
 					<Content>
 						<ContainerSearchMobile>
-							{this.renderWrapperSearch()}
+							{ this.renderWrapperSearch() }
 						</ContainerSearchMobile>
 						<Fragment>
-							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+							{ searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter() }
 						</Fragment>
 						<ContainerNotifications>
 							<ContainerSearch>
-								{this.renderWrapperSearch()}
+								{ this.renderWrapperSearch() }
 							</ContainerSearch>
 						</ContainerNotifications>
 						<Fragment>
@@ -492,7 +492,7 @@ class Notifications extends Component {
 									)
 								}
 							</WrapperNotifications>
-							{isFrequencyOpen && this.renderFrequencies()}
+							{ isFrequencyOpen && this.renderFrequencies() }
 						</Fragment>
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
