@@ -176,7 +176,7 @@ class NotificationsBar extends Component {
 		} else if (value === 100) {
 			this.setState({ value: 100 });
 			this.notificationSend(value);
-		} else if (value ===200) {
+		} else if (value === 200) {
 			this.setState({ value: 200 });
 			this.notificationSend(value);
 		} else if (value === 300) {

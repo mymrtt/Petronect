@@ -13,6 +13,8 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 // Redux
 import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
+import ButtoN from '../../component/Button';
+
 import {
 	updateError,
 	updateCreateSuccess,
@@ -698,11 +700,19 @@ class Login extends Component {
 					/>
 					{this.renderError()}
 				</InputBox>
-				<Button width='65%' widthLogin>
+				{/* <Button width='65%' widthLogin>
 					Entrar
-				</Button>
+				</Button> */}
+				<ButtoN
+					marginTop='1.5rem'
+					width='65%'
+					widthMobile='100%'
+					height='4rem'
+					backgroundColor='#115680'
+					text='Entrar'
+				/>
 				<AltBox>
-					<Link onClick={this.handleCreate} >Criar nova conta</Link>
+					<Link onClick={this.handleCreate}>Criar nova conta</Link>
 					<Link onClick={this.handleRecoverPassword}>Recuperar Senha</Link>
 				</AltBox>
 			</InputContainer>
@@ -787,9 +797,16 @@ class Login extends Component {
 							</ButtonTerms>
 							e se inscrever.
 						</TermsText>
-						<Button width='100%'>
+						{/* <Button width='100%'>
 							Concordar e criar conta
-						</Button>
+						</Button> */}
+						<ButtoN
+							marginTop='2.5rem'
+							width='100%'
+							height='4rem'
+							backgroundColor='#115680'
+							text='Concordar e criar conta'
+						/>
 						<ButtonBack createAccount onClick={this.handleBackLogin}>
 							Voltar para o login
 						</ButtonBack>
@@ -845,9 +862,17 @@ class Login extends Component {
 							<ButtonBack onClick={this.handleBackLoginRecover}>
 								Voltar
 							</ButtonBack>
-							<Button width='45%' widthResponsive>
+							{/* <Button width='45%' widthResponsive>
 								Enviar
-							</Button>
+							</Button> */}
+							<ButtoN
+								marginTop='2.5rem'
+								marginTopMobile='.5rem'
+								width='45%'
+								height='3rem'
+								backgroundColor='#115680'
+								text='Enviar'
+							/>
 						</ButtonsBox>
 					</Form>)
 				}
