@@ -708,6 +708,7 @@ class Login extends Component {
 					width='65%'
 					widthMobile='100%'
 					height='4rem'
+					color='#fff'
 					backgroundColor='#115680'
 					text='Entrar'
 				/>
@@ -804,6 +805,7 @@ class Login extends Component {
 							marginTop='2.5rem'
 							width='100%'
 							height='4rem'
+							color='#fff'
 							backgroundColor='#115680'
 							text='Concordar e criar conta'
 						/>
@@ -870,6 +872,7 @@ class Login extends Component {
 								marginTopMobile='.5rem'
 								width='45%'
 								height='3rem'
+								color='#fff'
 								backgroundColor='#115680'
 								text='Enviar'
 							/>

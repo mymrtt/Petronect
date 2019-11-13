@@ -1,5 +1,5 @@
 // Libs
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import deleteIcon from '../../assets/icon/delete.svg';
 import searchIcon from '../../assets/icon/search.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
+
+// Components
+import ButtoN from '../../component/Button';
 
 // Redux
 import { deleteKeywordThunk, getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunities-thunk';
@@ -212,7 +215,10 @@ const ContainerDeleteButtons = styled.div`
 	justify-content: flex-end;
 `;
 
-const DeleteButton = styled.button`
+const WrapperDeleteButtons = styled.span`
+`;
+
+/* const DeleteButton = styled.button`
 	width: 10rem;
 	height: 3rem;
 	color: ${(props) => (props.deleteConfirmation ? '#fff' : '#116EA0')};
@@ -222,7 +228,7 @@ const DeleteButton = styled.button`
 	border-radius: 4px;
 	cursor: pointer;
 	background-color: ${(props) => (props.deleteConfirmation ? '#116EA0' : '#fff')};
-`;
+`; */
 
 const ContainerHeaderItems = styled.div`
 	display: flex;
@@ -253,7 +259,7 @@ class CardFilter extends Component {
 		this.setState({ isOpenDelete: false });
 	}
 
-	removeNotification = () => {
+	handleRemoveNotification = () => {
 		this.props.deleteKeywordThunk(this.state.selectedCard);
 		this.handleCloseDeleteModal();
 	};
@@ -280,8 +286,24 @@ class CardFilter extends Component {
 				<ContentDeleteModal>
 					<Text deleteText>Ao confirmar esta ação a notificação "{this.props.card.name}" será excluído permanentemente do sistema.</Text>
 					<ContainerDeleteButtons>
-						<DeleteButton onClick={this.handleCloseDeleteModal}>Cancelar</DeleteButton>
-						<DeleteButton deleteConfirmation onClick={this.removeNotification}>Confirmar</DeleteButton>
+						<WrapperDeleteButtons onClick={this.handleCloseDeleteModal}>
+							<ButtoN
+								width='10rem'
+								height='3rem'
+								color='#116EA0'
+								backgroundColor='#fff'
+								text='Cancelar'
+							/>
+						</WrapperDeleteButtons>
+						<WrapperDeleteButtons onClick={this.handleRemoveNotification}>
+							<ButtoN
+								width='10rem'
+								height='3rem'
+								color='#fff'
+								backgroundColor='#116EA0'
+								text='Confirmar'
+							/>
+						</WrapperDeleteButtons>
 					</ContainerDeleteButtons>
 				</ContentDeleteModal>
 			</ContainerDeleteModal>
