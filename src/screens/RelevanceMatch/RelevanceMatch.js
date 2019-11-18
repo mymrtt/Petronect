@@ -23,9 +23,8 @@ import DeletTag from '../../assets/icon/close-blue.svg';
 
 // Components
 import DetailsOportunities from './DetailsOportunities';
-import MenuResponsive from '../MenuResponsive';
-// import Footer from '../Footer';
-import ModalFilter from '../ModalFilter';
+import MenuResponsive from '../../component/MenuResponsive';
+import ModalFilter from '../../component/ModalFilter';
 
 const mapStateToProps = (state) => ({
 	keywords: state.opportunities.cardFilter.keywords,
@@ -221,8 +220,6 @@ const WrapInput = styled.div`
 
 	@media(max-width: 648px) {
 		width: 100%;
-		${'' /* display: flex;
-		justify-content: flex-end; */}
 	}
 `;
 
@@ -251,7 +248,7 @@ const KeywordText = styled.li`
 	list-style:none;
 	font-size: .85rem;
 	color: #40404090;
-	word-break: ${props => props.dontBreak || 'break-all'};
+	word-break: ${(props) => props.dontBreak || 'break-all'};
 `;
 
 const ContainerText = styled.div`
@@ -403,7 +400,6 @@ const TextMessageOpportunity = styled.p`
 const WrapperTable = styled.div`
 	position: relative;
   width: 100%;
-	${'' /* height: 63vh; */}
 	max-height: 80vh;
 	padding: 0 1rem;
   display: flex;
@@ -570,7 +566,6 @@ class RelevanceMatch extends Component {
 		this.setState({
 			hoverFavorites: !this.state.hoverFavorites,
 		});
-		console.log('hover:', this.hoverFavorites)
 	}
 
 	handleKeyPress = (event) => {
@@ -884,8 +879,7 @@ class RelevanceMatch extends Component {
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
-										}
-										}
+										}}
 									>
 										<img src={this.state.hoverFavorites ? startHover : start} />
 									</Button>
@@ -895,11 +889,10 @@ class RelevanceMatch extends Component {
 					</Content>
 					{this.renderOpportunityList()}
 					<Fragment>
-						{isOportunitesModal && this.renderModalOportunities()}
-						{isModalOpen && this.renderModalFilter()}
+						{ isOportunitesModal && this.renderModalOportunities() }
+						{ isModalOpen && this.renderModalFilter() }
 					</Fragment>
 				</Container>
-				{/* <Footer /> */}
 			</Fragment>
 		);
 	}

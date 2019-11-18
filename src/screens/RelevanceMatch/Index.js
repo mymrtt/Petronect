@@ -6,7 +6,7 @@ import * as Cookies from 'js-cookie';
 
 
 // Components
-import SideBar from '../SideBar';
+import SideBar from '../../component/SideBar';
 import RelevanceMatch from './RelevanceMatch';
 import Notifications from '../Notifications/Notifications';
 
@@ -32,9 +32,6 @@ const Container = styled.div`
 		flex-direction: column;
 		align-items: flex-start;
 		justify-center: center;
-	}
-
-	@media(max-width: 360px) {	
 	}
 `;
 
@@ -89,13 +86,13 @@ class Index extends Component {
 		switch (this.props.location.pathname) {
 		case '/notifications':
 			currentScreen = '/notifications';
-			this.props.history.replace('/notifications')
-			break
+			this.props.history.replace('/notifications');
+			break;
 		case '/match-relevancia':
 		default:
 			currentScreen = '/match-relevancia';
-			this.props.history.replace('/match-relevancia')
-			break
+			this.props.history.replace('/match-relevancia');
+			break;
 		}
 
 		this.setState({
@@ -127,7 +124,7 @@ class Index extends Component {
 
 	redirect = () => (
 		<Redirect
-			to={'/'}
+			to={'/login'}
 		/>
 	)
 

@@ -1,12 +1,15 @@
 // Libs
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+
+// Components
+import ButtoN from './Button';
 
 // Images
 import closeIcon from '../assets/icon/close-blue.svg';
 
-// Modules
+// Redux
 import { postKeywordThunk } from '../dataflow/thunks/opportunities-thunk';
 
 const mapStateToProps = (state) => ({
@@ -41,9 +44,6 @@ const FilterModal = styled.div`
 	background: #fff;
 	@media (max-width: 960px) {
 		z-index: 2;
-	}
-
-	@media (max-width: 960px) {
 		padding: 1rem;
 	}
 
@@ -76,7 +76,6 @@ const CloseContainer = styled.div`
 
 	@media(max-width: 960px) {
 		top: -2rem;
-		${''}
 	}
 	@media (max-width: 648px) {
 		top: 0;
@@ -162,21 +161,6 @@ const TextError = styled.p`
 	@media (max-width: 960px) {
 		margin: .1rem 0;
 	}
-`;
-
-const Button = styled.button`
-	padding: 1rem;
-	width: 100%;
-	height: 3rem;
-	color: #fff;
-	border: none;
-	border-radius: 4px;
-	background-color: #116EA0;
-	cursor: pointer;
-`;
-
-const WrapperTagsColor = styled.div`
-
 `;
 
 const ContainerTagsColor = styled.div`
@@ -307,8 +291,13 @@ class ModalFilter extends Component {
 		));
 	}
 
-	renderKeywordsList = () => this.props.keywords.map((keyword) => (
-		<KeywordText color={this.state.selectedColor}>{keyword}</KeywordText>
+	renderKeywordsList = () => this.props.keywords.map((keyword, index) => (
+		<KeywordText
+			color={this.state.selectedColor}
+			key={index}
+		>
+			{keyword}
+		</KeywordText>
 	))
 
 	render() {
@@ -331,7 +320,7 @@ class ModalFilter extends Component {
 							value={this.state.nameValue}
 						/>
 						<TextErrorBox>
-							{this.state.emptyName && <TextError>Por favor digite um nome</TextError>}
+							{ this.state.emptyName && <TextError>Por favor, digite um nome</TextError> }
 						</TextErrorBox>
 					</InputBox>
 					<InputBox last>
@@ -340,17 +329,21 @@ class ModalFilter extends Component {
 							{this.renderKeywordsList()}
 						</Wraptext>
 					</InputBox>
-					<WrapperTagsColor>
+					<Fragment>
 						<Label>Escolha uma cor</Label>
 						<ContainerTagsColor>
 							{ this.renderColorOption() }
 						</ContainerTagsColor>
-						<Button
-							onClick={this.handleCard}
-						>
-							<Title>Adicionar Notificação</Title>
-						</Button>
-					</WrapperTagsColor>
+						<ButtoN
+							padding='1rem'
+							width='100%'
+							height='4rem'
+							color='#fff'
+							backgroundColor='#115680'
+							text='Adicionar Notificação'
+							handleClick={this.handleCard}
+						/>
+					</Fragment>
 				</FilterModal>
 			</Overlay>
 		);

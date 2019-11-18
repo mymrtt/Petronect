@@ -8,6 +8,9 @@ import deleteIcon from '../../assets/icon/delete.svg';
 import searchIcon from '../../assets/icon/search.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
 
+// Components
+import ButtoN from '../../component/Button';
+
 // Redux
 import { deleteKeywordThunk, getAllOpportunitiesThunk } from '../../dataflow/thunks/opportunities-thunk';
 import { updateCard } from '../../dataflow/modules/opportunities-modules';
@@ -212,18 +215,6 @@ const ContainerDeleteButtons = styled.div`
 	justify-content: flex-end;
 `;
 
-const DeleteButton = styled.button`
-	width: 10rem;
-	height: 3rem;
-	color: ${(props) => (props.deleteConfirmation ? '#fff' : '#116EA0')};
-	font-size: .95rem;
-	font-weight: 600;
-	border: transparent;
-	border-radius: 4px;
-	cursor: pointer;
-	background-color: ${(props) => (props.deleteConfirmation ? '#116EA0' : '#fff')};
-`;
-
 const ContainerHeaderItems = styled.div`
 	display: flex;
 	align-items: center;
@@ -253,7 +244,7 @@ class CardFilter extends Component {
 		this.setState({ isOpenDelete: false });
 	}
 
-	removeNotification = () => {
+	handleRemoveNotification = () => {
 		this.props.deleteKeywordThunk(this.state.selectedCard);
 		this.handleCloseDeleteModal();
 	};
@@ -280,8 +271,22 @@ class CardFilter extends Component {
 				<ContentDeleteModal>
 					<Text deleteText>Ao confirmar esta ação a notificação "{this.props.card.name}" será excluído permanentemente do sistema.</Text>
 					<ContainerDeleteButtons>
-						<DeleteButton onClick={this.handleCloseDeleteModal}>Cancelar</DeleteButton>
-						<DeleteButton deleteConfirmation onClick={this.removeNotification}>Confirmar</DeleteButton>
+						<ButtoN
+							width='10rem'
+							height='3rem'
+							color='#116EA0'
+							backgroundColor='#fff'
+							text='Cancelar'
+							handleClick={this.handleCloseDeleteModal}
+						/>
+						<ButtoN
+							width='10rem'
+							height='3rem'
+							color='#fff'
+							backgroundColor='#116EA0'
+							text='Confirmar'
+							handleClick={this.handleRemoveNotification}
+						/>
 					</ContainerDeleteButtons>
 				</ContentDeleteModal>
 			</ContainerDeleteModal>
@@ -319,7 +324,8 @@ class CardFilter extends Component {
 								<SuggestionsTags
 									tag
 									background={card.color ? `${card.color}30` : '#11568030'}
-									key={tag.name}>
+									key={tag.name}
+								>
 									<SuggestionsText suggestionsTags>{tag}</SuggestionsText>
 								</SuggestionsTags>
 							))

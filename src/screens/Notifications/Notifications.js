@@ -10,10 +10,9 @@ import magnifying from '../../assets/icon/lupa.svg';
 
 // Components
 import NotificationsBar from './NotificationsBar';
-import MenuResponsive from '../MenuResponsive';
-// import Footer from '../Footer';
+import MenuResponsive from '../../component/MenuResponsive';
 import CardFilter from './CardFilter';
-import ModalFilter from '../ModalFilter';
+import ModalFilter from '../../component/ModalFilter';
 
 // Redux
 import { getAllKeywordThunk } from '../../dataflow/thunks/opportunities-thunk';
@@ -340,11 +339,10 @@ class Notifications extends Component {
 	}
 
 	handleSearchInput = (event) => {
-		this.setState({ searchText: event.target.value });
-	}
-
-	handleSearchCard = () => {
-		this.setState({ searchCard: true });
+		this.setState({
+			searchText: event.target.value,
+			searchCard: true,
+		});
 	}
 
 	renderNewCardsFilter = () => {
@@ -404,7 +402,7 @@ class Notifications extends Component {
 					value={this.state.searchText}
 					onChange={this.handleSearchInput}
 				/>
-				<Image magnifying src={magnifying} onClick={this.handleSearchCard} />
+				<Image magnifying src={magnifying} />
 			</ContainerSearchInput>
 			<FrequenciasDesktop>
 				<NotificationsItem>
@@ -441,7 +439,7 @@ class Notifications extends Component {
 		<ModalFilter handleOpenModal={this.handleOpenModal} />
 	)
 
-	renderFrequencias = () => (
+	renderFrequencies = () => (
 		<ContainerNotificationsItem>
 			<NotificationsItem>
 				<Label labelNotifications>E-mail</Label>
@@ -464,18 +462,18 @@ class Notifications extends Component {
 		} = this.state;
 		return (
 			<Fragment>
-				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen}/>
+				<MenuResponsive history={this.props.history} currentScreen={this.props.currentScreen} />
 				<Container>
 					<Content>
 						<ContainerSearchMobile>
-							{this.renderWrapperSearch()}
+							{ this.renderWrapperSearch() }
 						</ContainerSearchMobile>
 						<Fragment>
-							{searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter()}
+							{ searchCard ? this.renderNewCardsFilter() : this.renderCardsFilter() }
 						</Fragment>
 						<ContainerNotifications>
 							<ContainerSearch>
-								{this.renderWrapperSearch()}
+								{ this.renderWrapperSearch() }
 							</ContainerSearch>
 						</ContainerNotifications>
 						<Fragment>
@@ -494,12 +492,11 @@ class Notifications extends Component {
 									)
 								}
 							</WrapperNotifications>
-							{isFrequencyOpen && this.renderFrequencias()}
+							{ isFrequencyOpen && this.renderFrequencies() }
 						</Fragment>
 						{ isModalOpen && this.renderModalFilter() }
 					</Content>
 				</Container>
-				{/* <Footer /> */}
 			</Fragment>
 		);
 	}

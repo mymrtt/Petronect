@@ -1,5 +1,5 @@
 // Libs
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { values } from 'lodash';
@@ -12,6 +12,9 @@ import attachIcon from '../../assets/icon/anexar.svg';
 // import doubtIcon from '../../assets/icon/duvida.svg';
 // import loadingIcon from '../../assets/icon/loading.svg';
 import closeIcon from '../../assets/icon/close-blue.svg';
+
+// Components
+import ButtoN from '../../component/Button';
 
 // Redux
 const mapStateToProps = (state) => ({
@@ -254,7 +257,7 @@ const BoxButton = styled.div`
 	}
 `;
 
-const ButtonDetails = styled.button`
+/* const ButtonDetails = styled.button`
 	width: 90%;
 	height: 56px;
 	display: flex;
@@ -266,7 +269,7 @@ const ButtonDetails = styled.button`
 	box-shadow: 0px 3px 6px #00000029;
 	border-radius: 4px;
 	cursor: pointer;
-`;
+`; */
 
 const TextButton = styled.p`
 	text-align: center;
@@ -275,7 +278,7 @@ const TextButton = styled.p`
 	color: #FAFAFA;
 `;
 
-// const ImageLoading = styled.img` 
+// const ImageLoading = styled.img`
 // 	margin-right: 1rem;
 // 	animation-name: spin;
 // 	animation-duration: 4000ms;
@@ -329,19 +332,6 @@ class DetailsOportunies extends Component {
 		event.stopPropagation();
 	}
 
-	loadingItemModal = () => (
-		<>
-			{/* <ImageLoading icono src={loadingIcon}/> */}
-			<TextButton>Fechar</TextButton>
-		</>
-	)
-
-	itemModal = () => (
-		<>
-			<TextButton>Enviar uma oferta</TextButton>
-		</>
-	)
-
 	formatDate = (date) => {
 		if (date) {
 			return date
@@ -350,7 +340,7 @@ class DetailsOportunies extends Component {
 				.join('/');
 		} return null;
 	}
-	
+
 	showFiles = () => {
 		const { selectedOpportunity } = this.props;
 		if (selectedOpportunity.files) {
@@ -455,13 +445,29 @@ class DetailsOportunies extends Component {
 								</IconWrap>
 							</InfoContent>
 						</DetailsOportuny>
-						<BoxButton>
-							<ButtonDetails onClick={this.props.handleModalOportunities}>
-								{ isDatailsOpen
-									? this.loadingItemModal()
-									: this.itemModal()
+						<BoxButton onClick={this.props.handleModalOportunities}>
+							<ButtoN
+								marginTop='1.5rem'
+								width='90%'
+								widthMobile='95%'
+								height='4rem'
+								boxShadow='0px 3px 6px #00000029'
+								color='#fff'
+								backgroundColor='#116EA0'
+								text={ isDatailsOpen
+									? (
+										<Fragment>
+											{/* <ImageLoading icono src={loadingIcon}/> */}
+											<TextButton>Fechar</TextButton>
+										</Fragment>
+									)
+									: (
+										<Fragment>
+											<TextButton>Enviar uma oferta</TextButton>
+										</Fragment>
+									)
 								}
-							</ButtonDetails>
+							/>
 						</BoxButton>
 					</SubContainer>
 				</Container>

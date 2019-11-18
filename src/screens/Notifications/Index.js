@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Components
-// import SideBar from '../SideBar';
 import Notifications from './Notifications';
 
 const Container = styled.div`
@@ -55,9 +54,7 @@ const ContainerSidebar = styled.span`
 const Index = () => (
 	<Container>
 		<Content>
-			<ContainerSidebar>
-				<SideBar />
-			</ContainerSidebar>
+			<ContainerSidebar />
 			<Notifications />
 		</Content>
 	</Container>
