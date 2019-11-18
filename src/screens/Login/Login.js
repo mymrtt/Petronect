@@ -69,7 +69,6 @@ const Container = styled.div`
 		padding: 0 2rem;
 	}
 
-
 	@media (max-width: 648px) {
 		padding: 1rem;
 	}
@@ -175,26 +174,6 @@ const IconInputPassword = styled.img`
 	cursor: pointer;
 `;
 
-const Button = styled.button`
-	width: ${(props) => props.width};
-	height: 3rem;
-	margin-top: ${(props) => (props.backMargin ? '1.5rem' : '2.5rem')};
-	background: ${(props) => (props.back ? '#FFF' : '#115680')};
-	border: none;
-	border-radius: 4px;
-	font: 600 1rem eurostile, sans serif;
-	text-align: center;
-	letter-spacing: 0;
-	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
-	cursor: pointer;
-	@media (max-width: 960px) {
-		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
-	}
-	@media (max-width: 648px) {
-		margin-top: ${(props) => (props.widthLogin ? '1.5rem' : '.5rem')};
-	}
-`;
-
 const AltBox = styled.span`
 	display: flex;
 	flex-direction: row;
@@ -295,7 +274,6 @@ const CreateBox = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 30%;
-	${'' /* // padding: 3rem 4rem; */}
 	padding: 2.5rem 3rem;
 	background: #FFF;
 	box-shadow: 0px 1px 2px #0000001A;
@@ -309,10 +287,7 @@ const CreateBox = styled.div`
 		width: 90%;
 	}
 	@media(max-width: 648px) {
-
 		padding: 2rem;
-	}
-	@media(max-width: 648px) {
 		width: 100%;
 	}
 `;
@@ -444,23 +419,6 @@ const Form = styled.form`
 		width: 100%;
 		flex-wrap: column;
 		margin-top: 2.5rem;
-	}
-`;
-
-const ButtonBack = styled.span`
-	display: flex;
-	align-items: center;
-	justify-content: ${(props) => (props.createAccount ? 'center' : 'start')};
-	width: ${(props) => (props.createAccount ? '100%' : '45%')};
-	height: 3rem;
-	margin-top: ${(props) => (props.createAccount ? '1rem' : '2.5rem')};
-	background: #FFF;
-	font: 600 1rem eurostile, sans serif;
-	text-align: left;
-	color: #115680;
-	cursor: pointer;
-	@media (max-width: 648px) {
-		margin-top: .5rem;
 	}
 `;
 
@@ -700,9 +658,6 @@ class Login extends Component {
 					/>
 					{this.renderError()}
 				</InputBox>
-				{/* <Button width='65%' widthLogin>
-					Entrar
-				</Button> */}
 				<ButtoN
 					marginTop='1.5rem'
 					width='65%'
@@ -722,7 +677,7 @@ class Login extends Component {
 			<Img src={imagemPrincpal} />
 			<TextBox>
 				<Text>
-					Defina suas notificações, receba contratos selecionados e esqueça como listas de mil itens.
+					Defina suas notificações, receba contratos selecionados e esqueça as listas de mil itens.
 				</Text>
 				<Link onClick={this.handleCreate} color={'#AADF00'}>Criar nova conta</Link>
 			</TextBox>
@@ -741,7 +696,7 @@ class Login extends Component {
 						</CreateTitle>
 						<CreatedText>
 							{/* eslint-disable-next-line max-len */}
-							Sua conta foi criado com secesso. Por favor, verifique sua caixa de e-mail, para efetuar confirmar a criação da conta!
+							Sua conta foi criada com secesso! Por favor, verifique sua caixa de e-mail, para confirmar a criação da conta.
 						</CreatedText>
 						<BackText onClick={this.handleBackLogin}>
 							Voltar para o Login
@@ -764,7 +719,7 @@ class Login extends Component {
 							/>
 						</InputBox>
 						<InputBox last width='100%'>
-							<Label>Email</Label>
+							<Label>E-mail</Label>
 							<Input
 								ref={(node) => { this.createEmailRef = node; }}
 								type={'email'}
@@ -798,9 +753,6 @@ class Login extends Component {
 							</ButtonTerms>
 							e se inscrever.
 						</TermsText>
-						{/* <Button width='100%'>
-							Concordar e criar conta
-						</Button> */}
 						<ButtoN
 							marginTop='2.5rem'
 							width='100%'
@@ -809,9 +761,16 @@ class Login extends Component {
 							backgroundColor='#115680'
 							text='Concordar e criar conta'
 						/>
-						<ButtonBack createAccount onClick={this.handleBackLogin}>
-							Voltar para o login
-						</ButtonBack>
+						<ButtoN
+							marginTop='1rem'
+							marginTopMobile='.5rem'
+							width='100%'
+							height='3rem'
+							color='#115680'
+							backgroundColor='#fff'
+							text='Voltar para o login'
+							handleClick={this.handleBackLogin}
+						/>
 					</form>)
 				}
 			</CreateBox>
@@ -831,7 +790,7 @@ class Login extends Component {
 						</CreateTitle>
 						<CreatedText>
 							{/* eslint-disable-next-line max-len */}
-							Foi enviado para seu email o link para a troca de senha. Por favor, verifique sua caixa de email, para efetuar a troca de senha!
+							Foi enviado para seu e-mail o link para a troca de senha. Por favor, verifique sua caixa de e-mail, para efetuar a troca de senha!
 						</CreatedText>
 						<BackText onClick={this.handleBackLoginRecover}>
 							Voltar para o Login
@@ -861,12 +820,16 @@ class Login extends Component {
 							/>
 						</InputBox> */}
 						<ButtonsBox>
-							<ButtonBack onClick={this.handleBackLoginRecover}>
-								Voltar
-							</ButtonBack>
-							{/* <Button width='45%' widthResponsive>
-								Enviar
-							</Button> */}
+							<ButtoN
+								marginTop='2.5rem'
+								marginTopMobile='.5rem'
+								width='45%'
+								height='3rem'
+								color='#115680'
+								backgroundColor='#fff'
+								text='Voltar'
+								handleClick={this.handleBackLoginRecover}
+							/>
 							<ButtoN
 								marginTop='2.5rem'
 								marginTopMobile='.5rem'

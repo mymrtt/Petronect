@@ -1,9 +1,10 @@
+// Libs
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-
 const Container = styled.button`
 	margin-top: ${(props) => props.marginTop};
+	padding: ${(props) => props.padding};
 	width: ${(props) => props.width};
   height: ${(props) => props.height};
 	border-radius: 4px;
@@ -34,12 +35,14 @@ class Button extends Component {
 		return (
 			<Container
 				marginTop={this.props.marginTop}
+				padding={this.props.padding}
 				marginTopMobile={this.props.marginTopMobile}
 				width={this.props.width}
 				widthMobile={this.props.widthMobile}
 				height={this.props.height}
 				backgroundColor={this.props.backgroundColor}
 				boxShadow={this.props.boxShadow}
+				onClick={this.props.handleClick}
 			>
 				<Text color={this.props.color}>{this.props.text}</Text>
 			</Container>

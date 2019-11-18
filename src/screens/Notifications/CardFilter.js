@@ -1,5 +1,5 @@
 // Libs
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
@@ -215,21 +215,6 @@ const ContainerDeleteButtons = styled.div`
 	justify-content: flex-end;
 `;
 
-const WrapperDeleteButtons = styled.span`
-`;
-
-/* const DeleteButton = styled.button`
-	width: 10rem;
-	height: 3rem;
-	color: ${(props) => (props.deleteConfirmation ? '#fff' : '#116EA0')};
-	font-size: .95rem;
-	font-weight: 600;
-	border: transparent;
-	border-radius: 4px;
-	cursor: pointer;
-	background-color: ${(props) => (props.deleteConfirmation ? '#116EA0' : '#fff')};
-`; */
-
 const ContainerHeaderItems = styled.div`
 	display: flex;
 	align-items: center;
@@ -286,24 +271,22 @@ class CardFilter extends Component {
 				<ContentDeleteModal>
 					<Text deleteText>Ao confirmar esta ação a notificação "{this.props.card.name}" será excluído permanentemente do sistema.</Text>
 					<ContainerDeleteButtons>
-						<WrapperDeleteButtons onClick={this.handleCloseDeleteModal}>
-							<ButtoN
-								width='10rem'
-								height='3rem'
-								color='#116EA0'
-								backgroundColor='#fff'
-								text='Cancelar'
-							/>
-						</WrapperDeleteButtons>
-						<WrapperDeleteButtons onClick={this.handleRemoveNotification}>
-							<ButtoN
-								width='10rem'
-								height='3rem'
-								color='#fff'
-								backgroundColor='#116EA0'
-								text='Confirmar'
-							/>
-						</WrapperDeleteButtons>
+						<ButtoN
+							width='10rem'
+							height='3rem'
+							color='#116EA0'
+							backgroundColor='#fff'
+							text='Cancelar'
+							handleClick={this.handleCloseDeleteModal}
+						/>
+						<ButtoN
+							width='10rem'
+							height='3rem'
+							color='#fff'
+							backgroundColor='#116EA0'
+							text='Confirmar'
+							handleClick={this.handleRemoveNotification}
+						/>
 					</ContainerDeleteButtons>
 				</ContentDeleteModal>
 			</ContainerDeleteModal>
