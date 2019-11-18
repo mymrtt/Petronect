@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Components
-import SideBar from '../SideBar';
-import Filters from './Filters';
+// import SideBar from '../SideBar';
+import Notifications from './Notifications';
 
 const Container = styled.div`
 	width: 100vw;
@@ -43,6 +43,13 @@ const ContainerSidebar = styled.span`
 	@media (max-width: 960px) {
 		display: none;
 	}
+	@media (max-width: 648px) {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		display: flex;
+		z-index: 1;
+	}
 `;
 
 const Index = () => (
@@ -51,7 +58,7 @@ const Index = () => (
 			<ContainerSidebar>
 				<SideBar />
 			</ContainerSidebar>
-			<Filters />
+			<Notifications />
 		</Content>
 	</Container>
 );

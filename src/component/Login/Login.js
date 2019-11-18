@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import * as Cookies from 'js-cookie';
 
 // Images
 import logo from '../../assets/img/LogoPNE.png';
@@ -13,17 +14,20 @@ import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
 
 import {
- updateError, updateCreateSuccess, updateRecoverSuccess, verifyEmailExisting 
+	updateError,
+	updateCreateSuccess,
+	updateRecoverSuccess,
+	verifyEmailExisting,
 } from '../../dataflow/modules/login-module';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	error: state.login.error,
 	createSuccess: state.login.createSuccess,
 	recoverSuccess: state.login.recoverSuccess,
 	isEmailExisting: state.login.verifyEmailExisting,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
 	loginUserThunk: (info) => {
 		dispatch(loginUserThunk(info));
 	},
@@ -55,7 +59,7 @@ const Container = styled.div`
 	background: transparent linear-gradient(180deg,#115680 0%,#116EA0 100%) 0% 0% no-repeat padding-box;
 	padding: 0 4rem;
 	@media (max-width: 960px) {
-		flex-direction: ${(props) => !(props.screen === 'create') && 'column-reverse'};
+		flex-direction: ${props => !(props.screen === 'create') && 'column-reverse'};
 		justify-content: center;
 		align-items: center;
 	}
@@ -101,24 +105,6 @@ const InputContainer = styled.form`
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	${'' /* height: 90%;
-	background: #FFF;
-	border-radius: 0 0 6px 6px;
-	@media (max-width: 960px) {
-		margin: 1rem 0;
-		padding: 2rem;
-		width: 85%;
-		height: min-content;
-		border-radius: 6px;
-	}
-	@media (max-width: 648px) {
-		margin: 0;
-		width: 100%;
-		height: 80%;
-		display: flex;
-    justify-content: space-evenly;
-		border-radius: 6px;
-	} */}
 `;
 
 const Logo = styled.img`
@@ -131,29 +117,27 @@ const Logo = styled.img`
 `;
 
 const LogoCreate = styled.img`
-	${'' /* position: absolute;
-	top: 10%; */}
 	width: 20%;
 	min-width: 220px;
 	@media(max-width: 960px) {
 		padding: 2rem;
-    width: 45%;
+		width: 45%;
 	}
 `;
 
 const InputBox = styled.span`
 	position: relative;
 	display: flex;
-	flex-direction: ${(props) => (props.alt ? 'row' : 'column')};
-	justify-content: ${(props) => props.alt && 'space-between'};
-	width: ${(props) => props.width};
-	margin-top: ${(props) => props.last && '.5rem'};
+	flex-direction: ${props => (props.alt ? 'row' : 'column')};
+	justify-content: ${props => props.alt && 'space-between'};
+	width: ${props => props.width};
+	margin-top: ${props => props.last && '.5rem'};
 	
 	@media (max-width: 960px) {
 		width: 100%;
 	}
 	@media (max-width: 478px) {
-		flex-direction: ${(props) => (props.lastResponsiveResponsive ? '0rem' : '.5rem')};
+		flex-direction: ${props => (props.lastResponsiveResponsive ? '0rem' : '.5rem')};
 	}
 `;
 
@@ -171,10 +155,10 @@ const Input = styled.input`
 	padding-left: calc(1rem - 2px);
 	font-size: 1rem;
 	background: #FAFAFA 0% 0% no-repeat padding-box;
-	border: 1px solid ${(props) => (props.error ? '#D53B40' : '#7FBA4C')};
+	border: 1px solid ${props => (props.error ? '#D53B40' : '#7FBA4C')};
 	border-radius: 4px;
 	::placeholder {
-		font: 300 1rem Open Sans, sans serif;
+		font: 300 1rem Eurostile;
 		letter-spacing: 0;
 		color: #959595;
 	}
@@ -190,22 +174,22 @@ const IconInputPassword = styled.img`
 `;
 
 const Button = styled.button`
-	width: ${(props) => props.width};
+	width: ${props => props.width};
 	height: 3rem;
-	margin-top: ${(props) => (props.backMargin ? '1.5rem' : '2.5rem')};
-	background: ${(props) => (props.back ? '#FFF' : '#115680')};
+	margin-top: ${props => (props.backMargin ? '1.5rem' : '2.5rem')};
+	background: ${props => (props.back ? '#FFF' : '#115680')};
 	border: none;
 	border-radius: 4px;
 	font: 600 1rem eurostile, sans serif;
 	text-align: center;
 	letter-spacing: 0;
-	color: ${(props) => (props.back ? '#115680' : '#FAFAFA')};
+	color: ${props => (props.back ? '#115680' : '#FAFAFA')};
 	cursor: pointer;
 	@media (max-width: 960px) {
-		width: ${(props) => (props.widthResponsive ? '45%' : '100%')};
+		width: ${props => (props.widthResponsive ? '45%' : '100%')};
 	}
 	@media (max-width: 648px) {
-		margin-top: ${(props) => (props.widthLogin ? '1.5rem' : '.5rem')};
+		margin-top: ${props => (props.widthLogin ? '1.5rem' : '.5rem')};
 	}
 `;
 
@@ -218,7 +202,7 @@ const AltBox = styled.span`
 	@media (max-width: 960px) {
 		// margin-top: 1rem;
 		margin-top: 0;
-    margin: 1.5rem 0;
+		margin: 1.5rem 0;
 		width: 94%;
 	}
 	@media (max-width: 648px) {
@@ -229,8 +213,8 @@ const AltBox = styled.span`
 const Link = styled.p`
 	font: 400 1rem Eurostile, sans serif;
 	letter-spacing: 0;
-	color: ${(props) => props.color || '#505050'} ;
-	text-decoration: ${(props) => (props.color ? 'underline' : 'none')};
+	color: ${props => props.color || '#505050'} ;
+	text-decoration: ${props => (props.color ? 'underline' : 'none')};
 	cursor: pointer;
 	:last lastResponsive-child {
 		text-align: right;
@@ -247,7 +231,7 @@ const LoginBox = styled.div`
 	border-radius: 0 0 6px 6px;
 	@media (max-width: 960px) {
 		width: 95%;
-    height: 40vh;
+		height: 40vh;
 		justify-content: space-evenly;
 		flex-direction: row-reverse;
 	}
@@ -259,14 +243,14 @@ const LoginBox = styled.div`
 const Img = styled.img`
 	width: 60%;
 	@media (max-width: 960px) {
-    width: 50%;
+		width: 50%;
 	}
 `;
 
 const TextBox = styled.span`
 	width: 60%;
 	@media (max-width: 960px) {
-    width: 35%;
+		width: 35%;
 	}
 `;
 
@@ -285,13 +269,6 @@ const LoginMessageError = styled.span`
 	position: absolute;
 	right: 0;
 	bottom: -1.5rem;
-
-	// @media	(max-width: 960px) {
-	// 	${''}
-	// }
-	// @media (max-width: 648px) {
-	// 	${''}
-	// }
 `;
 
 const TextError = styled.p`
@@ -471,10 +448,10 @@ const Form = styled.form`
 const ButtonBack = styled.span`
 	display: flex;
 	align-items: center;
-	justify-content: ${(props) => (props.createAccount ? 'center' : 'start')};
-	width: ${(props) => (props.createAccount ? '100%' : '45%')};
+	justify-content: ${props => (props.createAccount ? 'center' : 'start')};
+	width: ${props => (props.createAccount ? '100%' : '45%')};
 	height: 3rem;
-	margin-top: ${(props) => (props.createAccount ? '1rem' : '2.5rem')};
+	margin-top: ${props => (props.createAccount ? '1rem' : '2.5rem')};
 	background: #FFF;
 	font: 600 1rem eurostile, sans serif;
 	text-align: left;
@@ -497,8 +474,26 @@ class Login extends Component {
 		};
 	}
 
+	componentDidMount() {
+		this.getToken();
+	}
+
+	getToken = () => {
+		try {
+			const response = Cookies.get('petronect_creds');
+	
+			if (!(JSON.parse(response))) {
+				return null;
+			}
+			this.props.history.replace('/match-relevancia');
+		} catch (err) {
+			return null;
+		}
+	}
+
+
 	showPassword = () => {
-		this.setState((prevState) => ({
+		this.setState(prevState => ({
 			showPassword: !prevState.showPassword,
 		}));
 	}
@@ -641,7 +636,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-					 	Usuário já cadastrado
+						Usuário já cadastrado
 					</TextError>
 				</LoginMessageError>
 			);
@@ -651,7 +646,7 @@ class Login extends Component {
 			return (
 				<LoginMessageError>
 					<TextError>
-					 	A senha deve conter no mínimo 6 caracteres
+						A senha deve conter no mínimo 6 caracteres
 					</TextError>
 				</LoginMessageError>
 			);
@@ -675,7 +670,7 @@ class Login extends Component {
 			<InputContainer onSubmit={this.loginSubmit}>
 				<Logo src={logo} />
 				<InputBox width='65%'>
-					<Label>E-mail</Label>
+					<Label >E-mail</Label>
 					<Input
 						ref={(node) => { this.loginEmailRef = node; }}
 						required
@@ -732,8 +727,9 @@ class Login extends Component {
 					? (<>
 						<CreateTitle>
 							Sucesso! Verifique seu caixa de e-mail.
-						</CreateTitle>
+						</CreateTitle> 
 						<CreatedText>
+							{/* eslint-disable-next-line max-len */}
 							Sua conta foi criado com secesso. Por favor, verifique sua caixa de e-mail, para efetuar confirmar a criação da conta!
 						</CreatedText>
 						<BackText onClick={this.handleBackLogin}>
@@ -815,6 +811,7 @@ class Login extends Component {
 							Sucesso! Verifique seu caixa de email.
 						</CreateTitle>
 						<CreatedText>
+							{/* eslint-disable-next-line max-len */}
 							Foi enviado para seu email o link para a troca de senha. Por favor, verifique sua caixa de email, para efetuar a troca de senha!
 						</CreatedText>
 						<BackText onClick={this.handleBackLoginRecover}>
@@ -831,7 +828,7 @@ class Login extends Component {
 								type='email'
 								required
 								error={!this.props.isEmailExisting}
-								ref={(node) => this.inputRecover = node}
+								ref={(node) => { this.inputRecover = node; }}
 								placeholder={'nome@email.com'}
 								onChange={this.handleError}
 							/>
