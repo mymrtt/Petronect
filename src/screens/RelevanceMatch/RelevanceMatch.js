@@ -776,7 +776,7 @@ class RelevanceMatch extends Component {
 										<TableBody
 											spanWidth
 											onClick={handleFavorite}
-											// disabled
+											disabled
 										>
 											<img src={isFavorite ? start : startHover}/>
 										</TableBody>
@@ -832,7 +832,7 @@ class RelevanceMatch extends Component {
 										type="button"
 										value="1"
 										onClick={this.handleOpotunity}
-										// disabled
+										disabled
 										style={{
 											backgroundColor: this.state.hoverFavorites ? '#F9BE38' : '#F7F7F7',
 											color: this.state.hoverFavorites ? '#fff' : '#404040',
