@@ -130,22 +130,22 @@ class NotificationsBar extends Component {
 			push: 'NEVER',
 		};
 
-		if (value === 0) {
+		if (value == 0) {
 			info.email = 'NEVER';
 			this.props.postNotificationUserThunk(info);
 		}
 
-		if (value === 100) {
+		if (value == 100) {
 			info.email = 'DAILY';
 			this.props.postNotificationUserThunk(info);
 		}
 
-		if (value === 200) {
+		if (value == 200) {
 			info.email = 'WEEKLY';
 			this.props.postNotificationUserThunk(info);
 		}
 
-		if (value === 300) {
+		if (value == 300) {
 			info.email = 'MONTHLY';
 			this.props.postNotificationUserThunk(info);
 		}
@@ -170,16 +170,16 @@ class NotificationsBar extends Component {
 
 	handleChangeValue = (event) => {
 		const { value } = event.target;
-		if (value === 0) {
+		if (value == 0) {
 			this.setState({ value: 0 });
 			this.notificationSend(value);
-		} else if (value === 100) {
+		} else if (value == 100) {
 			this.setState({ value: 100 });
 			this.notificationSend(value);
-		} else if (value === 200) {
+		} else if (value == 200) {
 			this.setState({ value: 200 });
 			this.notificationSend(value);
-		} else if (value === 300) {
+		} else if (value == 300) {
 			this.setState({ value: 300 });
 			this.notificationSend(value);
 		} return null;
