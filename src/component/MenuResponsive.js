@@ -12,6 +12,7 @@ import dropdown from '../assets/icon/dropdown.svg';
 // Components
 import SideBar from './SideBar';
 
+// Redux
 import { logoutThunk } from '../dataflow/thunks/login-thunk';
 
 const mapStateToProps = (state) => ({

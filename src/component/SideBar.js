@@ -105,7 +105,6 @@ const MenuTabletText = styled.p`
 
 const BoxMenu = styled.div`
   width: 100%;
-	// height: 40%;
 	height: 300px;
   display: flex;
 	justify-content: flex-end;
@@ -199,10 +198,6 @@ const BoxInfo = styled.div`
 
 const InfoItem = styled.p`
 	display: none;
-	${'' /* padding: 1rem 0;
-  color: #000;
-  font-size: .875rem;
-  font-weight: 900; */}
 `;
 
 const Representative = styled.p`

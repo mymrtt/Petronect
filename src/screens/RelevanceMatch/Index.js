@@ -1,15 +1,16 @@
+// Libs
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import * as Cookies from 'js-cookie';
 
-
 // Components
 import SideBar from '../../component/SideBar';
 import RelevanceMatch from './RelevanceMatch';
 import Notifications from '../Notifications/Notifications';
 
+// Redux
 import {
 	getNameUser,
 } from '../../dataflow/modules/login-module';

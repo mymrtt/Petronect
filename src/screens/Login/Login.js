@@ -1,3 +1,4 @@
+// Libs
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -10,10 +11,11 @@ import showPassword from '../../assets/icon/login-show-password.svg';
 import hidePassword from '../../assets/icon/login-hide-password.svg';
 import imagemPrincpal from '../../assets/img/Grupo-8105.svg';
 
+// Components
+import ButtoN from '../../component/Button';
+
 // Redux
 import { loginUserThunk, createAccountThunk, sendRecoverPassword } from '../../dataflow/thunks/login-thunk';
-
-import ButtoN from '../../component/Button';
 
 import {
 	updateError,
@@ -181,7 +183,6 @@ const AltBox = styled.span`
 	width: 64%;
 	margin-top: 3rem;
 	@media (max-width: 960px) {
-		${'' /* // margin-top: 1rem; */}
 		margin-top: 0;
 		margin: 1.5rem 0;
 		width: 94%;
@@ -801,7 +802,7 @@ class Login extends Component {
 							Recuperar Senha
 						</CreateTitle>
 						<InputBox last width='100%'>
-							<Label>Email</Label>
+							<Label>E-mail</Label>
 							<Input
 								type='email'
 								required

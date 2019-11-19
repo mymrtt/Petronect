@@ -1,5 +1,5 @@
 // Libs
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.button`
@@ -29,25 +29,21 @@ const Text = styled.p`
 	color: ${(props) => props.color};
 `;
 
+const Button = (props) => (
+	<Container
+		marginTop={props.marginTop}
+		marginTopMobile={props.marginTopMobile}
+		padding={props.padding}
+		width={props.width}
+		widthMobile={props.widthMobile}
+		height={props.height}
+		backgroundColor={props.backgroundColor}
+		boxShadow={props.boxShadow}
+		onClick={props.handleClick}
+	>
+		<Text color={props.color}>{props.text}</Text>
+	</Container>
+);
 
-class Button extends Component {
-	render() {
-		return (
-			<Container
-				marginTop={this.props.marginTop}
-				padding={this.props.padding}
-				marginTopMobile={this.props.marginTopMobile}
-				width={this.props.width}
-				widthMobile={this.props.widthMobile}
-				height={this.props.height}
-				backgroundColor={this.props.backgroundColor}
-				boxShadow={this.props.boxShadow}
-				onClick={this.props.handleClick}
-			>
-				<Text color={this.props.color}>{this.props.text}</Text>
-			</Container>
-		);
-	}
-}
 
 export default Button;

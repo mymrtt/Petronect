@@ -1,7 +1,7 @@
 // Libs
 import React from 'react';
 
-// Components
+// Routes
 import Routes from './routes';
 
 const App = () => <Routes />;
